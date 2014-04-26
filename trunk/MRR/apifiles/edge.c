@@ -3,21 +3,24 @@
 
 /* Estructura de un nodo por forward*/
 typedef struct FNodeSt{
-    u32 y;      /* El nodo forward de 'x'*/
-    u32 cap;    /* La capacidad restante de envio de flujo*/
-    u32 flow;   /* El flujo por forward que se esta enviando*/
-}FNode;
+    u64 y;          /* El nodo forward de 'x', se usa como key en la hash*/
+    u64 cap;        /* La capacidad restante de envio de flujo*/
+    u64 flow;       /* El flujo por forward que se esta enviando*/
+    UT_hash_handler hh;
+} FNode;
 
 /* Estructura de un nodo por backward*/
 typedef struct BNodeSt{
-    FNode * y;    /* Puntero a la direccion de memoria del nodo 'y' en el arbol*/
-}BNode;
+    u64 y;          /* key */
+    FNode * y;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
+    UT_hash_handler hh;
+} BNode;
 
 /* Estructura de un nodo*/
 struct edgeSt{
-    u32 x;      /* El nodo en cuestion*/
-    Abb *fAbb;  /* Los nodos vecinos por forward*/
-    Abb *bAbb;  /* Los nodos vecinos por backward*/
+    u64 x;          /* El nodo en cuestion */
+    FNode *fhash;   /* Los nodos vecinos por forward*/
+    BNode *bhash;   /* Los nodos vecinos por backward*/
 };
 
 
