@@ -2,18 +2,20 @@
 #define _API_H
 /*
 *   Integrantes:
-*       Moine Joaquin
+*       Joaquin Moine
 *       Rossi Nahuel
-*       Ruiz Ezequiel Pablo
+*       Pablo Ezequiel Ruiz
 */
 
 /*      
 *               TADs
-*/
-typedef DovahkiinSt * DovahkiinP;
-typedef struct ladoSt * Lado;  
+ */
+typedef DovahkiinSt Dovahkiin;
+typedef DovahkiinSt *DovahkiinP;
+/*typedef ladoSt lado; */ /*Definida como Edge? hacer un include?*/
+/*typedef ladoNuloSt ladoNulo;*/ /*Idem ladoSt*/
 
-#define LadoNulo NULL;
+
 
 /*
 *             Funciones

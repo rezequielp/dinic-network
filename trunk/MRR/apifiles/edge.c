@@ -12,13 +12,12 @@ typedef struct FNodeSt{
 /* Estructura de un nodo por backward*/
 typedef struct BNodeSt{
     u64 y;          /* key */
-    FNode * y;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
+    FNode * x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
     UT_hash_handler hh;
 } BNode;
 
 /* Estructura de un nodo*/
 struct edgeSt{
-    u64 x;          /* El nodo en cuestion */
     FNode *fhash;   /* Los nodos vecinos por forward*/
     BNode *bhash;   /* Los nodos vecinos por backward*/
 };
