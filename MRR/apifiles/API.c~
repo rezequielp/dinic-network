@@ -1,7 +1,0 @@
-#include "API.h"
-
-typedef struct ladoSt {
-    u64 x;
-    u64 y;
-    u64 cap;
-}
