@@ -13,7 +13,7 @@ int stack_destroy(Stack S, void *garbage)
 int stack_push(Stack S, void *elem);
 /*Agrega un elemento*/
 
-int stack_bpush (Stack s, void *elem);
+int stack_bpush (Stack s, void *elem);/*TODO*/
 /*Agrega un elemento al inicio de la pila
  * La mete por atras, viola a la pila
  */
