@@ -6,14 +6,14 @@ typedef struct FedgeSt{
     u64 y;          /* El nodo forward de 'x', se usa como key en la hash*/
     u64 cap;        /* La capacidad restante de envio de flujo*/
     u64 flow;       /* El flujo por forward que se esta enviando*/
-    UT_hash_handler hh;
+    UT_hash_handler hhfNbrs;
 } Fedge;
 
 /* Estructura de un nodo por backward*/
 typedef struct BedgeSt{
     u64 y;          /* key */
     Fedge * x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
-    UT_hash_handler hh;
+    UT_hash_handler hhbNbrs;
 } Bedge;
 
 /* Estructura de la vecindad de un nodo*/
@@ -23,204 +23,219 @@ struct NeighbourhoodSt{
 };
 
 
-/* Funciones del modulo*/
+/* 
+ *                      Funciones del modulo
+ */
 
-static Fedge fedge_create(u32 y, u32 cap);
-static void fedge_destroy(Fedge fedge);
-static u32 fedge_getFlow(Fedge fedge);
-static void fedge_addFlow(Fedge fedge, u32 flow);
-static u32 fedge_getCap(Fedge fedge);
-static u32 fedge_getY(Fedge fedge); 
-
-static Bedge bedge_create(u32 y, Edge * neighbor);
-static void bedge_destroy(Bedge bedge);
-static u32 bedge_getFlow(Bedge bedge);
-static void bedge_addFlow(Bedge bedge, u32 flow);
-static u32 bedge_getCap(Bedge bedge);
-static u32 bedge_getY(Bedge bedge); 
+static void * nbrhd_findNbr(Nbrhd nbrs, u64 y, int dir);
 
 
-Bedge bedge_create(u32 y, Edge * neighbor){
-	Bedge bedge;
-	
-	bedge = (Bedge) malloc(sizeof(BedgeSt))
-	if(bedge != NULL){
-		bedge->y = neighbor;
-	}
-}
-
-void bedge_create(Bedge bedge){
-	free(bedge);
-}
-
-
-
-
-/* funciones sobre Edges*/
-Edge neighbor_create(u32 x){
-    Edge neighbor;
+/*Constructor de un nuevo Nbrhd*/
+Nbrhd nbrhd_create(){
+    Nbrhd nbrs;
     
-    neighbor = (Edge)malloc(sizeof(struct EdgeSt));
-    if(neighbor != NULL){
-        neighbor->x = x;
-        neighbor->fAbb = abb_create();
-        neighbor->bAbb = abb_create();
+    nbrs = (Nbrhd) malloc(sizeof (struct NeighbourhoodSt));
+    assert(nbrs != NULL);
+    
+    nbrs->fNbrs = NULL;
+    nbrs->bNbrs = NULL;
+    
+    return nbrs;
+}
+
+
+/*Destructor de un Nbrhd*/
+void nbrhd_destroy(Nbrhd nbrs){
+    Fedge fht = NULL;      /*hash table que contiene todo los vecinos forward*/
+    Fedge felem = NULL;    /*el i-esimo elemento de la fht*/
+    Fedge feTmp = NULL;    /*el i-esimo+1 elemento de la fht*/
+    Bedge bht = NULL;      /*hash table que contiene todo los vecinos backward*/
+    Bedge belem = NULL;    /*el i-esimo elemento de la bht*/
+    Bedge beTmp = NULL;    /*el i-esimo+1 elemento de la bht*/
+    
+    assert(nbrs != NULL);
+    
+    /*destruyo todos los vecinos forward*/
+    fht = nbrs->fNbrs;
+    HASH_ITER(fht->hhfNbrs, fht, felem, feTmp){
+        HASH_DEL(fht, felem);
+        free(felem);
     }
-    return neighbor;
-}
-
-void neighbor_destroy(Edge neighbor){
-    Fedge * fedges;
     
-    assert(neighbor != NULL);
-    
-    fSize = abb_size(neighbor->fAbb);
-    fedges = (Fedge) malloc(fSize * sizeof(struct FedgeSt));
-    if(fedges != NULL){
-        fSize = abb_destroy(fAbb, fedges);
+    /*destruyo todos los vecinos backward*/
+    bht = nbrs->fNbrs;
+    HASH_ITER(bht->hhbNbrs, bht, belem, beTmp){
+        HASH_DEL(bht, belem);
+        free(belem);
     }
-    while (fSize > 0){
-        free(fedges[fSize - 1]);
-        fSize --;
+    
+    free(nbrs);
+}
+
+
+/* Busca el vecino que sigue despues de 'y' en la direccion 'dir' (FWD o BWD)
+ * Retorno: y = NULL, u64 nombre del primer vecino en esa direccion
+ *          y != NULL, u64 nombre del sig vecino desp de 'y' en esa direccion
+ *          NULL, si no existen mas vecinos en esa direccion */
+u64 nbrhd_getNext(Nbrhd nbrs, u64 y, int dir){
+    void *nbrY = NULL;
+    u64 nxtNbr = NULL;
+    
+    assert(nbrs != NULL);
+    assert(dir == FWD || dir == BWD);
+    
+    if (dir == FWD)
+        if (y != NULL){                     /*el sig vecino despues de y*/
+            nbrY = nbrhd_findNbr(nbrs, y, dir);
+            assert(nbrY!=NULL);
+            nxtNbr = nbrY->hhfNbrs.next->y;
+        }else                               /*primer vecino forward*/
+            if (nbrs->fNbrs != NULL)
+                nxtNbr = nbrs->fNbrs->y;
+    else
+        if (y != NULL){                     /*el sig vecino despues de y*/
+            nbrY = nbrhd_findNbr(nbrs, y, dir);
+            assert(nbrY!=NULL);
+            nxtNbr = nbrY->hhbNbrs.next->y;
+        }else                               /*primer vecino backward*/
+            if (nbrs->bNbrs != NULL)
+                nxtNbr = nbrs->bNbrs->y;
+
+    return nxtNbr;
+}
+
+
+/* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
+ * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad
+ * Precondicion: y != NULL y es vecino del nodo padre. vf > 0
+ * Retorno: valor del nuevo flujo que se esta enviando */
+u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
+    void *nbr = NULL;   /*el vecino*/
+    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    u64 gf = 0;         /*flujo actual enviandose. Retorno*/
+    
+    assert(nbrs != NULL && y != NULL && vf > 0);
+    
+    nbr = nbrhd_findNbr(nbrs, y, dir);
+    assert(nbr != NULL);
+    
+    if (dir == FWD){        /* es FWD, aumento el flujo*/
+        nbr->flow += vf;
+        assert(nbr->flow <= nbr->cap);
+    }else{                  /* es BWD, disminuyo el flujo*/
+        nbr = nbr->x;
+        nbr->flow -= vf;
+        assert(nbr->flow >= 0);
     }
-    abb_destroy(neighbor->bAbb, NULL);
-    free(neighbor->bAbb);
-    if (fSize == 0){
-        free(neighbor->fAbb);
-        free(neighbor);
-        neighbor = NULL;
+
+    return nbr->flow;
+}
+
+
+/*devuelve la capacidad con el vecino y
+ Precondicion: y != NULL y es vecino del nodo padre */
+u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
+    void *nbr = NULL;   /*el vecino*/
+    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    
+    assert(nbrs != NULL && y != NULL);
+
+    nbr = nbrhd_findNbr(nbrs, y, dir);
+    assert(nbr != NULL);
+    
+    if (dir == BWD)
+        nbr = nbr->x;
+    
+    return nbr->cap;
+}
+
+
+/*devuelve el valor del flujo con el vecino 'y'
+ Precondicion: y != NULL y es vecino del nodo padre */
+u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
+    void *nbr = NULL;   /*el vecino*/
+    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    
+    assert(nbrs != NULL && y != NULL);
+
+    nbr = nbrhd_findNbr(nbrs, y, dir);
+    assert(nbr != NULL);
+    
+    if (dir == BWD)
+        nbr = nbr->x;
+    
+    return nbr->flow;
+}
+
+/*devuelve la direccion (FWD o BWD) en la que se encuentra el vecino 'y'
+ Precondicion: y != NULL y es vecino del nodo padre */
+int nbrhd_getDir(Nbrhd nbrs, u64 y); 
+    void *nbr = NULL;   /*el vecino*/
+    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    
+    assert(nbrs != NULL && y != NULL);
+
+    nbr = nbrhd_findNbr(nbrs, y, dir);
+    assert(nbr != NULL);
+    
+    return dir;
+}
+
+
+
+
+
+
+
+/* BUSQUEDA INDIVUDAL, por si no funciona la general
+Fedge nbrhd_findFnbr(Fedge fNbrs, u64 y){
+    Fedge fnbr = NULL;
+    
+    assert(fNbrs != NULL && y != NULL);
+    
+    HASH_FIND(fNbrs->hhfNbrs, fNbrs, &(y), sizeof(y), fnbr);
+    
+    return fnbr;
+}
+
+Bedge nbrhd_findBnbr(Bedge bNbrs, u64 y){
+    Bedge bnbr = NULL;
+    
+    assert(bNbrs != NULL && y != NULL);
+    
+    HASH_FIND(bNbrs->hhbNbrs, bNbrs, &(y), sizeof(y), bnbr);
+    
+    return bnbr;
+}
+*/
+/* ATTENTION Arriba esta hecho separadamente, por si esto no funciona
+ * 
+ * Devuelve el vecino 'y' con la direccion en la que se encontro en 'dir'. 
+ * Si 'dir' != 0, busca unicamente en esa direccion; 
+ * caso contrario, busca primero por forward y luego por backward.
+ * Precondicion: y != NULL y es vecino del nodo padre */
+void * nbrhd_findNbr(Nbrhd nbrs, u64 y, int dir){
+    Fedge fnbr = NULL;
+    Bedge bnbr = NULL;
+    void *result = NULL;
+    
+    assert(Nbrs != NULL && y != NULL);
+    
+    if (dir != BWD)         /*busqueda por vecinos forward*/
+        HASH_FIND(nbrs->fNbrs->hhfNbrs, nbrs->fNbrs, &(y), sizeof(y), fnbr);
+        /* caso dir == FWD, no puede ser fnbr == NULL */
+        assert(dir != FWD || fnbr != NULL);
+    
+    if (fnbr != NULL){      /* se encontro en forward*/
+        result = fnbr;
+        dir = FWD;
+    }else{                  /*busqueda por vecinos backward*/
+        HASH_FIND(nbrs->bNbrs->hhfNbrs, nbrs->bNbrs, &(y), sizeof(y), bnbr);
+        assert(bnbr != NULL);   /* 'y' no es vecino, error */
+        result = bnbr;
+        dir = BWD;
     }
-    free(fedges);
+        
+    return result;
 }
-
-void neighbor_set(Edge xEdge, Edge yEdge, u32 cap){
-    Fedge yFedge; /*nodo 'y' como forward node de 'x' */
-    Bedge xBedge; /*nodo 'x' como backward node de 'y' */
-    u32 x;
-    u32 y;
-    
-    assert(xEdge != NULL);
-    assert(yEdge != NULL);
-    
-    /*Agregado de forward en xEdge*/
-    y = neighbor_getX(yEdge);
-    yFedge = fedge_create(y, cap, 0);
-    abb_add(xEdge->fAbb, y, yFedge);
-    
-    /*Agregado de backward en xEdge*/
-    x = neighbor_getX(xEdge);
-    xBedge = bedge_create(yEdge);
-    abb_add(neighbor->bAbb, x, bedge);
-}
-
- /*GETS/SETS*/
-u32 neighbor_getX(Edge neighbor){
-    assert(neighbor != NULL);
-    return (neighbor->x);
-}
-
-void neighbor_setFlow(Edge neighbor, u32 y, u32 flow, int direction){
-    Abb tree;
-    Fedge yedge;
-    
-    assert(neighbor != NULL);
-    
-    if(direction == FORWARD){
-        fedge_setFlow(abb_search(neighbor->fAbb, y), flow);
-    }else{
-        bedge_setFlow(abb_search(neighbor->bAbb, y), flow);
-    }
-}
-
-/*La capacidad solo se pide de lados forwards*/
-u32 neighbor_getCap(Edge neighbor, u32 y){
-    
-    assert(neighbor != NULL)
-
-    yedge = abb_search(neighbor->fAbb, y);
-    return fedge_getCap(yedge);
-}
-
-u32 neighbor_getFlow(Edge neighbor , u32 y, int direction){
-    Fedge yedge;
-    
-    assert(neighbor != NULL);
-    
-    if(direction == FORWARD){
-        yedge = abb_search(neighbor->fAbb, y);
-    }else{
-        yedge = *(abb_search(neighbor->bAbb, y));/*lo apuntado por*/
-    }
-    return yedge->flow;
-}
-
-
-/*funciones sobre edges*/
-
-Fedge fedge_create(u32 y, u32 cap){
-	Fedge fedge;
-	
-	fedge = (Fedge) malloc(sizeof(FedgeSt));
-	if(fedge != NULL){
-		fedge->y = y;
-		fedge->cap = cap;
-		fedge->flow = 0;
-	}
-	return fedge;
-}
-void fedge_create(Fedge fedge){
-	free(fedge);
-}
-u64 fedge_getFlow(Fedge fedge){
-	return(fedge->flow);
-}
-void fedge_addFlow(Fedge fedge, u32 flow){
-	assert(fedge != NULL);
-	
-	fedge->flow += flow;
-	
-	assert(fedge->flow <= fedge_getCap(fedge));
-}
-u32 fedge_getCap(Fedge fedge){
-	return (fedge->cap);
-}
-u32 fedge_getY(Fedge fedge){
-	return(fedge->y);
-}
-
-Bedge bedge_create(u32 y, Edge * neighbor){
-	Bedge bedge;
-	
-	bedge = (Bedge) malloc(sizeof(BedgeSt))
-	if(bedge != NULL){
-		bedge->y = neighbor;
-	}
-}
-void bedge_create(Bedge bedge){
-	free(bedge);
-}
-u32 bedge_getFlow(Bedge bedge){
-	return(*(fedge)->flow);
-}
-void bedge_addFlow(Bedge bedge, u32 flow){
-	assert(fedge != NULL && *(bedge) != NULL);
-	
-	*(fedge)->flow += flow;
-	
-	assert(*(fedge)->flow <= bedge_getCap(bedge));
-}
-u32 bedge_getCap(Bedge bedge){
-	return (*(bedge)->cap);
-}
-u32 bedge_getY(Bedge bedge){
-	return(*(bedge)->y);
-}
-
-
-
-
-
-
-
-
 
