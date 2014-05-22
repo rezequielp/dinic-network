@@ -1,9 +1,10 @@
 
-/* dir: es la direccion de la arista, opcional para acelerar busquedas si 
- * que queremos hacer en un sentido en particular. 
- * Sino se espicifica, las busquedas son primero por FWD y luego por BWD*/
-#define FWD 1
-#define BWD -1
+/* 'dir':
+ * Es la direccion en la que se encuentra un vecino, respecto al nodo padre.
+ * Una vecindad (Nbrhd) se divide en 2 zonas: FWD y BWD.
+ * Un mismo vecino no puede estar en ambas zonas (loops)*/
+#define FWD 1   /*Forward*/
+#define BWD -1  /*Backward*/
 
 /* Estructura de la vecindad de un nodo*/
 typedef struct NeigbourhoodSt * Nbrhd;
@@ -16,10 +17,22 @@ void nbrhd_set(Nbrhd xNeig, Nbrhd yNeig, u32 cap);/*WARNING obsoleta, no les dim
 u64 nbrhd_getX(Nbrhd nbr);/*WARNING obsoleta, no les dimos uso todavia*/
 
 
-u64 nbrhd_getNext(Nbrhd nbr, u64 y, int dir); /*busca entre los vecinos a y*/
+/* Busca el vecino que sigue despues de 'y' en la direccion 'dir' (FWD o BWD)
+ * Retorno: y = NULL, u64 con el primer vecino en esa direccion
+ *          y != NULL, u64 con el nombre del siguente vecino en esa direccion
+ *          NULL, si no existen mas vecinos en esa direccion; o bien
+ *                'y' no se encuentra en esa direccion, o no es vecino del nodo padre*/
+u64 nbrhd_getNext(Nbrhd nbrs, u64 y, int dir);
 
-void nbrhd_increaseFlow(Nbrhd nbr, u32 y, u32 flow, int dir); /*aumento el flujo para con el vecino y*/
+/* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
+ * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad
+ * Retorno: valor del nuevo flujo, NULL si ocurrio algun error o 'y' no se encontro*/
+u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf); 
 
-u64 nbrhd_getCap(Nbrhd nbr, u64 y);  /*devuelve la capacidad con el vecino y*/
+/*devuelve la capacidad con el vecino y
+ NULL, si 'y' no se encuentra entre los vecinos*/
+u64 nbrhd_getCap(Nbrhd nbrs, u64 y);  
 
-u64 nbrhd_getFlow(Nbrhd nbr, u64 y); /*devuelve el valor del flujo con el vecino y*/
+/*devuelve el valor del flujo con el vecino y
+ NULL, si 'y' no se encuentra entre los vecinos*/
+u64 nbrhd_getFlow(Nbrhd nbrs, u64 y); 

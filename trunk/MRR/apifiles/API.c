@@ -194,7 +194,7 @@ int ActualizarDistancias(Dovahkiin network){
         /*Busqueda Forward*/
         i = nbrhd_getNext(elem->nbrs, i, FWD);
         while(IS_SET_FLAG(SINK_REACHED) && i != NULL){
-            if(nbrhd_getCap(elem->nbrs, i, FWD) > nbrhd_getFlow(elem->nbrs, i, FWD)){  /*se puede mandar flujo*/
+            if(nbrhd_getCap(elem->nbrs, i) > nbrhd_getFlow(elem->nbrs, i)){  /*se puede mandar flujo*/
                 HASH_FIND(hNet->hhNet, hNet, &i, sizeof(i), nbr);
                 assert(nbr != NULL);
                 if(nbr->level == NOT_USED){
@@ -211,7 +211,7 @@ int ActualizarDistancias(Dovahkiin network){
         /*Busqueda backward*/
         j = nbrhd_getNext(elem->nbrs, j, BWD);
         while(IS_SET_FLAG(SINK_REACHED) && j != NULL){
-            if(0 < nbrhd_getFlow(elem->nbrs, j, BWD)){  /*se puede mandar flujo*/
+            if(0 < nbrhd_getFlow(elem->nbrs, j)){  /*se puede mandar flujo*/
                 HASH_FIND(hNet->hhNet, hNet, &j, sizeof(j), nbr);
                 assert(nbr != NULL);
                 if(nbr->level == NOT_USED){
@@ -289,7 +289,7 @@ u64 AumentarFlujo(Dovahkiin network){
             stack_push(pathAux, x);
             if (x->x != network->sink){  /*si llego a t, ya no hay mas flujos que comparar*/
                 y = stack_top(network->path);
-                pflow = min(pflow, nbrhd_getFlow(x->nbrs, y->x, NULL));    /*TODO hacer min de u64*/
+                pflow = min(pflow, nbrhd_getFlow(x->nbrs, y->x));    /*TODO hacer min de u64*/
             }
         }
         
