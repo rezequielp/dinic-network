@@ -23,7 +23,7 @@ typedef struct ladoSt * Lado;
 DovahkiinP NuevoDovahkiin();
 
 /*Destruye D, devuelve 1 si no hubo errores, 0 en caso contrario*/
-int DestruirDovahkiin(Dovahkiin D);
+int DestruirDovahkiin(DovahkiinP D);
 
 /*Setea al vertice x como fuente*/
 void FijarFuente(DovahkiinP D u64 x);
@@ -54,43 +54,43 @@ int CargarUnLado(DovahkiinP D, Lado L);
 
 /*Preprosesa el Dovahkiin para empezar a buscar caminos aumentantes. Debe chequear que esten
 seteados s y t. Devuelve 1 si puede preparar y 0 caso contrario*/
-int Prepararse(Dovahkiin D);
+int Prepararse(DovahkiinP D);
 
 /*Actualiza haciendo una busqueda BFS FF. Devuelve 1 si existe un camino aumentante entre s y t,
 0 caso contrario*/
-int ActualizarDistancias(Dovahkiin D);
+int ActualizarDistancias(DovahkiinP D);
 
 /*Hace una busqueda FF DFS usando las etiquetas de ActualizarDistancia(). Devuelve 1 si llega a t,
 0 caso contrario.*/
-int BusquedaCaminoAumentante(Dovahkiin D);
+int BusquedaCaminoAumentante(DovahkiinP D);
 
 /*Precondicion: (BusquedaCaminoAumentante()==1) que todavia no haya aumentado el flujo.
 (Igual se tiene que checkear). 
 Aumenta el flujo.
 Debe devolver el valor del flujo aumentado si no hubo promblemas, 0 caso contrario(inclusive !precondicion).*/
-u64 AumentarFlujo(Dovahkiin D);
+u64 AumentarFlujo(DovahkiinP D);
 
 /*Idem AumentarFlujo() pero tambien imprime el camino con el formato:
 camino aumentante #:
 t;x_r;...;x_1;s: <cantDelIncremento>
 Donde # es el numero del camino aumentante, ";" se usa en caminos forward y ">" en backward.*/
-AumentarFlujoYTambienImprimirCamino(Dovahkiin D);
+AumentarFlujoYTambienImprimirCamino(DovahkiinP D);
 
 /*Imprime el Flujo hasta el momento con el formato:
 Flujo ¢:
 Lado x_1,y_2: <FlujoDelLado>
 Donde ¢ es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
-void ImprimirFlujo(Dovahkiin D);
+void ImprimirFlujo(DovahkiinP D);
 
 /*Debe imprimir el valor del flujo con el formato
 Valor del flujo ¢: <ValorDelFlujo> 
 Donde ¢ es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
-void ImprimirValorFlujo(Dovahkiin D);
+void ImprimirValorFlujo(DovahkiinP D);
 
 /*Imprime un corte minimal y su capacidad con el formato:
 Corte minimial: S = {s,x_1,...}
 Capacidad: <Capacidad>*/
-void ImprimirCorte(Dovahkiin D);
+void ImprimirCorte(DovahkiinP D);
 
 
 /*

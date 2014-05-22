@@ -3,24 +3,30 @@
 #include <stdlib.h>
 #include "auxlib/uthash/uthash.h"
 #include "auxlib/queue&stack/queue.h"
+#include "auxlib/bstring/bstrlib.h"
 #include "API.h"
 
 
 #define NOT_USED  -1    /* Constante para verificar si se actualizo la distancia de un elem*/
 
-/*Flags*/
+#ifndef MACRO_TOOLS
+/*
+ *                            Flags
+ */
 #define SINK_REACHED    0b00010000      /* Tambien implica si hay corte*/
 #define MAXFLOW         0b00001000
 #define SOURCE          0b00000100
 #define SINK            0b00000010
 #define PATHUSED        0b00000001
-/*Macros para manejo de flags*/
-#ifndef MACRO_FLAG
+/*
+ *          Macros para manejo de flags
+ */
 #define SET_FLAG(f) network->flags |= f
 #define UNSET_FLAG(f) network->flags &= ~f
 #define CLEAR_FLAG() 0b00000000
 #define IS_SET_FLAG(f) (network->flags & f) > 0
 #endif
+
 
 /* Estructura pedida en la API, la usamos solo para leer y cargar los lados*/
 typedef struct LadoSt{
@@ -43,14 +49,18 @@ typedef struct NetworkYFlujo{
     u64 sink;           /* Vertice fijado como resumidero (t) */
     Network *cut;      /* Corte (nos aprovechamos para operar como network auxiliar)*/
     Stack path;         /* Camino de vertices, de s a t */
+    u64 pCounter;   /*contador para la cantidad de caminos*/
     int flags;          /* Flags de estado, explicados en la seccion de #define */
 } DovahkiinSt;
 
 
+static u64 ultimateOverpoweredGetpathFlowAndPrintpath(Dovahkiin network, bool print);
+static void incrementAndPrint_flow(Dovahkiin network, u64 pflow);
 static void network_elem_destroy(Network elem);
 
 
-/*Devuelve un puntero a la St o Null en caso de error*/
+/*Devuelve un puntero a la St o Null en caso de error
+*/
 DovahkiinP NuevoDovahkiin(){
     DovahkiinP network;
     
@@ -66,8 +76,9 @@ DovahkiinP NuevoDovahkiin(){
     return network;
 }
 
-/*Destruye D, devuelve 1 si no hubo errores, 0 en caso contrario*/
-int DestruirDovahkiin(Dovahkiin network){
+/*Destruye D, devuelve 1 si no hubo errores, 0 en caso contrario
+*/
+int DestruirDovahkiin(DovahkiinP network){
     Network hTable = NULL;  /*hash table que contiene todo el network*/
     Network elem = NULL;    /*el i-esimo elemento de la hash table*/
     Network eTmp = NULL;    /*el i-esimo + 1 elemento de la hash table*/
@@ -84,21 +95,23 @@ int DestruirDovahkiin(Dovahkiin network){
     free(network);
 }
 
+/*Destruye un elemento del network
+*/
 void network_elem_destroy(Network elem){
     assert(elem != NULL);
     nbrhd_destroy(elem->nbrs);
     free(elem);
 }
 
-
-
-/*Setea al vertice s como fuente*/
+/*Setea al vertice s como fuente
+*/
 void FijarFuente(DovahkiinP network, u64 s){
     assert(network != NULL);
     network->source = s;
 }
 
-/*Setea al vertice t como resumidero*/
+/*Setea al vertice t como resumidero
+*/
 void FijarResumidero(DovahkiinP network, u64 t){
     assert(network != NULL);
     network->sink = t;
@@ -140,7 +153,8 @@ Lado LeerUnLado(){
  /*TODO PARSER*/   
 }
 
-/*Carga un lado L en D. Retorna 1 si no hubo problemas y 0 caso contrario.*/
+/*Carga un lado L en D. Retorna 1 si no hubo problemas y
+ 0 caso contrario.*/
 int CargarUnLado(DovahkiinP D, Lado L){
  /*TODO PARSER*/   
 }
@@ -153,9 +167,8 @@ int Prepararse(Dovahkiin network){
 }
     
 /*Actualiza haciendo una busqueda BFS FF. Devuelve 1 si existe un camino aumentante entre s y t,
-0 caso contrario*/
-/* TODO modularizar los whiles*/
-int ActualizarDistancias(Dovahkiin network){
+0 caso contrario*//* TODO modularizar los whiles*/
+int ActualizarDistancias(DovahkiinP network){
     
     Queue q, qNext, qAux;       /*Colas para el manejo de los niveles. 
                                  *q = actual, qNext = siguiente, qAux = auxiliar para swap*/
@@ -241,7 +254,7 @@ int ActualizarDistancias(Dovahkiin network){
 
 /*Hace una busqueda FF DFS usando las etiquetas de ActualizarDistancia(). Devuelve 1 si llega a t,
 0 caso contrario.*/
-int BusquedaCaminoAumentante(Dovahkiin network){
+int BusquedaCaminoAumentante(DovahkiinP network){
     
     Network elem = NULL;
     
@@ -272,35 +285,17 @@ int BusquedaCaminoAumentante(Dovahkiin network){
 (Igual se tiene que checkear). 
 Aumenta el flujo.
 Debe devolver el valor del flujo aumentado si no hubo promblemas, 0 caso contrario(inclusive !precondicion).*/
-u64 AumentarFlujo(Dovahkiin network){
+u64 AumentarFlujo(DovahkiinP network){
     
     u64 pflow = 0;  /*flujo a enviar por el camino aumentante*/ 
-    Network x, y = NULL;
-    Stack pathAux;
     
     assert(network != NULL);
     
-    /*ATTENTION ambos while son identicos! salvo por la ultima linea. modularizar!
-     *  (hacer algo como next_nbrhd_xy(path, pathAux, x, y)*/
-    if (!IS_SET_FLAG(PATHUSED)){
-        pflow = INFINITE;   /*TODO declarar INFINITE (se puede hacer chanchadas como inf = 1/0) */
-        while (!stack_isEmpty(network->path){
-            x = stack_pop(network->path);
-            stack_push(pathAux, x);
-            if (x->x != network->sink){  /*si llego a t, ya no hay mas flujos que comparar*/
-                y = stack_top(network->path);
-                pflow = min(pflow, nbrhd_getFlow(x->nbrs, y->x));    /*TODO hacer min de u64*/
-            }
-        }
-        
-        while (!stack_isEmpty(pathAux){
-            x = stack_pop(pathAux);
-            stack_push(network->path, x);
-            if (x->x != network->sink){  /*si llego a t, ya no hay mas flujos que aumentar*/
-                y = stack_top(pathAux);
-                nbrhd_increaseFlow(x->nbrhd, y->x, pflow);/*WARNING si es BWD, se disminuiye!*/
-        }
+    if  (!IS_SET_FLAG(PATHUSED)){
+        pflow = get_pathFlow(network, false);
+        incrementAndPrint_flow(network, pflow);
     }
+    SET_FLAG(PATHUSED)
     return pflow;
 }
 
@@ -308,20 +303,151 @@ u64 AumentarFlujo(Dovahkiin network){
 camino aumentante #:
 t;x_r;...;x_1;s: <cantDelIncremento>
 Donde # es el numero del camino aumentante, ";" se usa en caminos forward y ">" en backward.*/
-AumentarFlujoYTambienImprimirCamino(Dovahkiin network);
+AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
+    u64 pflow=0;
+    Network x,y;
+    
+    assert(network != NULL);
+    
+    if  (!IS_SET_FLAG(PATHUSED)){
+        pflow = get_pathFlow(network, false);
+        incrementAndPrint_flow(network, pflow);
+        
+        /*printer*/ 
+        printf("camino aumentante %i:\n", network->pCounter );
+        stack_resetViewer=(network->path);
+        x = stack_nextItem(network->path);
+        while(x != NULL){
+            y = x;
+            x = stack_nextItem(network->path);
+            dir = nbrhd_getDir(x->nbrs, y->x); /*me fijo si son BWD/FWD*/
+            assert(dir!=0)
+            if(dir = FWD){
+                if(x->x != network->source){
+                    printf(";%u64", );
+                }else{
+                    printf(";s");
+                }
+            }else{
+                printf(">%u64", );
+            }
+        }
+        printf(": <%i>",  pflow);
+        network->pCounter++;
+    }
+    SET_FLAG(PATHUSED)
+    return pflow;
+}
 
 /*Imprime el Flujo hasta el momento con el formato:
 Flujo ¢:
 Lado x_1,y_2: <FlujoDelLado>
 Donde ¢ es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
-void ImprimirFlujo(Dovahkiin network);
+void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? de que????? TODO*/
+    Network x, y = NULL;
+    assert(network != NULL);
+    
+    if(IS_SET_FLAG(MAXFLOW))
+        printf("Flujo maximal:\n");
+    else
+        printf("Flujo no maximal:\n");
+
+    stack_resetViewer=(network->path);
+    x = stack_nextItem(network->path);
+
+    while (x != NULL){
+        y = x;
+        x = stack_nextItem(network->path);
+        printf("Lado %s,%s: %u64\n",x->x, y->x );
+    }
+}
 
 /*Debe imprimir el valor del flujo con el formato
 Valor del flujo ¢: <ValorDelFlujo> 
 Donde ¢ es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
-void ImprimirValorFlujo(Dovahkiin network);
+void ImprimirValorFlujo(DovahkiinP network){
+    if(IS_SET_FLAG(MAXFLOW))
+        printf("Valor del flujo maximal: %u64\n", network->flow);
+    else
+        printf("Valor del flujo no maximal: %u64\n", network->flow);
+}
 
 /*Imprime un corte minimal y su capacidad con el formato:
 Corte minimial: S = {s,x_1,...}
 Capacidad: <Capacidad>*/
-void ImprimirCorte(Dovahkiin network);
+void ImprimirCorte(Dovahkiin network){
+/*Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
+de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging.
+igual quedan programadas las dos formas y comentada una de ellas.*/
+    Network x = NULL;
+    
+    printf("Corte Minimal: S ={");
+    stack_resetViewer=(network->path);
+    x = stack_nextItem(network->path);
+    
+    while (x != NULL){
+        x = stack_nextItem(network->path);
+        if (x->x != network->source)
+            printf("%u64,",x->x);
+    }
+    printf("t}\n'");
+    printf("Capacidad: %u64", network->flow)
+    /*TODO calcular la capacidad del  flujo maximal*/
+}
+
+
+
+/*
+ * FUNCIONES ESTATICAS
+ */
+
+u64 getpathFlow(DovahkiinP network, bool print){
+    /* TODO (hacer algo como next_nbrhd_xy(path, pathAux, x, y)*/
+    u64 pflow;
+    Network x, y = NULL;
+    Stack pathAux;
+
+    
+    assert(network != NULL);
+    
+    /*prepara la consola para imprimir el path si es necesario*/
+    
+    if (!IS_SET_FLAG(PATHUSED)){
+        pflow = INFINITE;   /*TODO declarar INFINITE (se puede hacer chanchadas como inf = 1/0) */
+        
+        stack_resetViewer=(network->path);
+        x = stack_nextItem(network->path);
+
+        while (x != NULL){
+            y = x;
+            x = stack_nextItem(network->path);
+            if (y->x != network->sink){  /*si llego a t, ya no hay mas flujos que comparar*/
+                pflow = u64_min(pflow, nbrhd_getFlow(x->nbrs, y->x));    /*TODO hacer u64_min*/
+            }
+        }
+    }
+}
+
+void increment_flow(DovahkiinP network, u64 pflow){
+    Network x, y = NULL;
+    Stack pathAux;
+    
+    assert(network != NULL);
+    
+    if (!IS_SET_FLAG(PATHUSED)){ 
+    
+        stack_resetViewer=(network->path);
+        x = stack_nextItem(network->path);
+
+        while (x =! NULL){
+            /*Aumenta el flujo*/
+            y = x;
+            x = stack_nextItem(network->path);
+            
+            if (y->x != network->sink){  /*si llego a t, ya no hay mas flujos que aumentar*/
+                y = stack_top(pathAux);
+                nbrhd_increaseFlow(x->nbrhd, y->x, pflow);/*WARNING si es BWD, se disminuiye!*/
+            }
+        }
+    }
+}

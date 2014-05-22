@@ -13,7 +13,16 @@ int stack_destroy(Stack S, void *garbage)
 int stack_push(Stack S, void *elem);
 /*Agrega un elemento*/
 
-int stack_bpush (Stack s, void *elem);/*TODO*/
+void* stack_nextItem(Stack S);
+/* Muestra el elemento del visor y lo corre al siguiente , NULL si no existe*/
+/* Esto se usa SOLAMENTE para iterar en el stack, si se elimina el elemento devuelto 
+ * queda un stack inconsistente.
+*/
+
+void stack_resetViewer(Stack S);
+/*resetea el visor al inicio*/
+
+//int stack_bpush (Stack s, void *elem);/*deprecated*/
 /*Agrega un elemento al inicio de la pila
  * La mete por atras, viola a la pila
  */
@@ -32,3 +41,5 @@ int stack_size(Stack S);
 
 int stack_revert (Stack S1, Stack S2 );
 /*Devuelve en S2 la pila S1 revertida*/
+
+#endif
