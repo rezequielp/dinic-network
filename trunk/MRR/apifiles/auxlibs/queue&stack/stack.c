@@ -4,7 +4,7 @@
 
 struct StackSt{
 	Element *top;
-    Element *bottom;
+    Element *iter;
 	int size;
 };
 
@@ -20,7 +20,7 @@ Stack stack_create (void){
     S = (Stack) malloc(sizeof(struct StackSt));
     if (S != NULL){
         S->top = NULL;
-        S->bottom = NULL;
+        s->iter = NULL;
         S->size = 0;
     }
 	return S;
@@ -60,34 +60,31 @@ int stack_push(Stack S, void *elem){
         new->next = S->top;
         S->top = new;
         S->size += 1;
-        if (S->bottom == NULL){
-            S->bottom = new;
-        }
         result = 0;
     }
 	return result;
 }
-
-int stack_bpush (Stack S, void *elem){
-    Element *new = NULL;
-    result = 1;
+/*deprecated*/
+// int stack_bpush (Stack S, void *elem){
+    // Element *new = NULL;
+    // result = 1;
     
-    assert(S != NULL);
-    if (S->bottom == NULL){
-        result = stack_push(S, elem);
-    }else{
-        new = (Element *) malloc(sizeof(struct ElementSt));
-        if (new != NULL){
-            new->elem = elem;
-            new->next = NULL;
-            S->bottom->next = new;
-            S->bottom = new;
-            S->size += 1;
-            result = 0;
-        }
-    }
-    return result;
-}
+    // assert(S != NULL);
+    // if (s->iter == NULL){
+        // result = stack_push(S, elem);
+    // }else{
+        // new = (Element *) malloc(sizeof(struct ElementSt));
+        // if (new != NULL){
+            // new->elem = elem;
+            // new->next = NULL;
+            // s->iter->next = new;
+            // s->iter = new;
+            // S->size += 1;
+            // result = 0;
+        // }
+    // }
+    // return result;
+// }
 
 void * stack_pop(Stack S){
 	Element *aux = NULL;
@@ -99,7 +96,6 @@ void * stack_pop(Stack S){
         S->top = S->top->next;
     }else{ /*caso ultimo elemento*/
         S->top = NULL;
-        S->bottom = NULL;
     }
     elem = aux->elem;
     free(aux);
@@ -137,3 +133,31 @@ int stack_revert(Stack S1, Stack S2 ){
     }
     return result;
 }
+
+
+/*corre el visor al siguiente elemnto y lo muestra, NULL si no existe*/
+void* stack_nextItem(Stack S){
+    void * elem;
+    elem = S->iter;
+    S->iter = S->iter->iter;
+    return elem;
+}
+
+/*resetea el visor*/
+void stack_resetViewer(Stack S){
+    S->iter = S->top;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
