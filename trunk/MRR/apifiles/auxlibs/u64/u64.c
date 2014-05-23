@@ -136,23 +136,31 @@ u64 u64_abs(u64 a){}
 */
 
 
-char u64_toString(n, * cStr){
+void u64_toBstr(u64 n, bstring bstr){
     char * lowAux[4];
     char * highAux[4];
-    bstring bstr;
     
     snprintf(lowAux, 4, "%d", n->low);
     snprintf(highAux, 4, "%d", n->high);
     
     bcatcstr(bstr, highAux);
-    bcatcstr(bstr, lowAux);
-    cStr = bstr2cstr(bstr, NULL);
-    bdestroy(bstr);
-    return cStr;
+    bcatcstr(bstr, lowAux)
 }
 
-u64 u64_fromBstr(char *bstr){
+void u64_fromBstr(bstring bstr, u64 n){
+    int  len;
+    bstring bAuxL, bAuxH;
     
+    len = blenth(bstr);
+    assert(len<8 && len>0);
+    bAuxL = bmidstr(bstr, 0, 3); /*checkear el 0 y el 3*/
+    n->low = atoi(bstr2cstr(bAuxL, NULL));
+    if(len>sizeof(int){
+        bAuxH = bmidstr(bstr, 4, 7);
+        n->high = atoi(bstr2cstr(bAuxH, NULL));
+    }else{
+        n->high = 0;
+    }
 }
 
 

@@ -9,10 +9,10 @@ typedef struct u64St *u64;
  * Macros para facilitar la escitura de las funciones de u64
  */
  #define U64_a+b    u64_add(a, b)
- #define U64_a-b     u64_substract(u64_a, u64_b)
+ #define U64_a-b    u64_substract(u64_a, u64_b)
  #define U64_a*b    u64_multiply(u64_a, u64_b)
- #define U64_a/b     u64_divide(u64_a, u64_b)
- #define U64_a?b     u64_cmp(u64 a, u64 b)
+ #define U64_a/b    u64_divide(u64_a, u64_b)
+ #define U64_a?b    u64_cmp(u64 a, u64 b)
  #define U64_amb    u64_min(u64 a, u64 b)
  #define U64_aMb    u64_max(u64 a, u64 b)
  #define U64_a<b    u64_isMin(u64 a, u64 b)
@@ -34,7 +34,7 @@ void u64_setHigh(u64 k,int n);
 int u64_getLow(u64 k);
 int u64_getHigh(u64 k);
 void u64_setHL(u64 k, int low, int high);
-void u64_destroy(u64 n);}
+void u64_destroy(u64 n);
 
 /*
  *   Operaciones matematicas
@@ -54,8 +54,8 @@ bool u64_isEqual(u64 a, u64 b);
 /*
  *    Miscellaneous functions 
  */
-void u64_toBstring(u64 n, bstring);
-u64 u64_fromStr(bstring str); /*TODO*/
+void u64_toBstr(u64 n, bstring bstr);
+u64 u64_fromStr(bstring bstr, u64 n);
 
 
 #endif

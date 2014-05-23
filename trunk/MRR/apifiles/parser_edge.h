@@ -36,7 +36,7 @@ Lado *parse_lado(Lexer *input);
  *     input != NULL
  * Ret:
  *   true en caso de éxito (se consumió hasta el fin de línea o archivo
- * 		sin encontrar nada)
+ *         sin encontrar nada)
  *   false si encuentra algo, pero igual los consume.
  * ENSURES:
  *     no se consumió más entrada de la necesaria
