@@ -1,18 +1,35 @@
+#include "lado.h"
+#include "auxlibs\u64"
 
-/* Estructura de un nodo por forward*/
-typedef struct FNodeSt{
-    u32 y;      /* El nodo forward de 'x'*/
-    u32 cap;    /* La capacidad restante de envio de flujo*/
-    u32 flow;   /* El flujo por forward que se esta enviando*/
-}FNode;
+typedef struct Lado{
+    u64 x;
+    u64 y;
+    u64 c;
+};
 
-/* Estructura de un nodo por backward*/
-typedef struct BNodeSt{
-    FNode * y;    /* Puntero a la direccion de memoria del nodo 'y' en el arbol*/
-}BNode;
+/* Constructores
+*/
 
+Lado lado_new(u64 x, u64 y, u64 c){
+	Lado edge;
+    edge = (Lado)malloc(sizeof(struct LadoSt)))
+    edge->x = x;
+    edge->y = y;
+    edge->c = c;
+    return edge;
+}
+void lado_destroy(Lado edge){
+	free(edge);
+}
 
-typedef LadoSt {
-       *hashtable forward 
-       *hashtable backward 
-}lado
+/*  Operaciones
+*/
+u64 lado_getY(Lado edge){
+	return edge->y;
+}
+u64 lado_getX(Lado edge){
+	return edge->x;
+}
+u64 lado_getCap(Lado edge){
+	return edge->c;
+}

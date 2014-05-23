@@ -38,6 +38,14 @@ void u64_setHL(u64 k, int low, int high){
 
 }
 
+int u64_getLow(u64 k){
+    return k->low;
+}
+int u64_getHigh(u64 k){
+    return k->high;
+}
+
+
 void u64_destroy(u64 n){
     free (n);
 }
@@ -126,3 +134,27 @@ bool u64_isEqual(u64 a, u64 b){
 /* TODO
 u64 u64_abs(u64 a){}
 */
+
+
+char u64_toString(n, * cStr){
+    char * lowAux[4];
+    char * highAux[4];
+    bstring bstr;
+    
+    snprintf(lowAux, 4, "%d", n->low);
+    snprintf(highAux, 4, "%d", n->high);
+    
+    bcatcstr(bstr, highAux);
+    bcatcstr(bstr, lowAux);
+    cStr = bstr2cstr(bstr, NULL);
+    bdestroy(bstr);
+    return cStr;
+}
+
+u64 u64_fromBstr(char *bstr){
+    
+}
+
+
+
+

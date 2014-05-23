@@ -1,39 +1,39 @@
-#include "parser_edge.h"
+#include "parser_Lado.h"
 
-#define END_LINE "\n" /*para indicador de final de linea*/
-#define WHITE_SPACE " " /*para indicador de espacio en blanco*/
+#define END_LINE "\n"       /*para indicador de final de linea*/
+#define WHITE_SPACE " "     /*para indicador de espacio en blanco*/
 
-static int parse_argument (Lexer *input, u32 arg);
-static bstring next_bstring (Lexer *input, const char *str);
-static bool is_the_next_char (Lexer *input, const char *ch)
+static int parse_argument(Lexer *input, u64 arg);
+static bstring next_bstring(Lexer *input, const char *str);
+static bool is_theNextChar(Lexer *input, const char *ch)
 
 
-/* Lee todo un edge de `input' hasta llegar a un fin de línea o de archivo*/
-edge *parse_edge(Lexer *input){
-	edge *result = NULL;
-	u32 x = 0; /*nodo x*/
-	u32 y = 0; /*nodo y*/
-	u32 cap = 0; /*capacidad de xy*/
+/* Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo*/
+Lado *parse_lado(Lexer *input){
+	Lado *result = NULL;
+	u64 x = NULL;       /*nodo x*/
+	u64 y = NULL;       /*nodo y*/
+	u64 cap = NULL;     /*capacidad de xy*/
 	
 	/*Pre:*/
 	assert(input != NULL);
 	assert(!lexer_is_off(input));
-
+    
 	/*No se debe encontrar al comienzo ningun caracter distinto a 'DIGIT'*/
-	if (!is_the_next_char(input, ALPHA BLANK)){
+	if (!is_theNextChar(input, ALPHA BLANK)){
 		/*asigno el 1er argumento parseado a 'x'*/
 		its_ok = parse_argument(input, x);
-		if (its_ok && is_the_next_char(input, WHITE_SPACE)){
+		if (its_ok && is_theNextChar(input, WHITE_SPACE)){
 			/*asigno el 2do argumento parseado a 'y'*/
 			its_ok = parse_argument(input, y);
-			if (its_ok && is_the_next_char(input, WHITE_SPACE)){
+			if (its_ok && is_theNextChar(input, WHITE_SPACE)){
 				/*asigno el 3er argumento parseado a 'cap'*/
 				its_ok = parse_argument(input, cap);
 			}
 		}
-		/* Si se parseo todo bien, creo el nuevo edge con los valores*/
+		/* Si se parseo todo bien, creo el nuevo Lado con los valores*/
 		if (it_ok){
-			result = edge_new(x, y, cap);
+			result = lado_new(x, y, cap);
 		}
 	}
 	
@@ -43,7 +43,7 @@ edge *parse_edge(Lexer *input){
 
 /* Consume el fin de línea.
  * Indica si encontro basura antes del fin de línea*/
-int parse_next_line (Lexer *input){
+int parse_nextLine(Lexer *input){
 	int result = PARSER_OK; /*si es EOF (o el sig char es '\n'), sera true*/
 	bstring taken = NULL; /*caracteres leidos*/
 	
@@ -51,12 +51,12 @@ int parse_next_line (Lexer *input){
 	assert(input != NULL);
 
 	/*consumo toda la basura anterior al primer '\n' (o EOF)*/
-	taken = next_bstring (input, END_LINE);
+	taken = next_bstring(input, END_LINE);
 	/*si leyo algo, entonces taken no es nulo*/
 	if (taken != NULL){
 		result = PARSER_ERR;
-		bdestroy (taken);
-
+		bdestroy(taken);
+    }
 	return result;
 }
 
@@ -70,67 +70,56 @@ int parse_next_line (Lexer *input){
  * Si hubo error, no asigna nada a 'arg' y retorna PARSER_ERR
  * El llamador se encarga de liberarlo.
 */
-static int parse_argument (Lexer *input, u32 arg){
-	int result = PARSER_ERR; /*retorno (error al menos que todo salga bien)*/
-	bstring barg = NULL; /*argumento leido en tipo bstring*/
-	char * sarg = NULL; /*argumento leido convertido a string*/
+static int parse_argument(Lexer *input, u64 arg){
+	int result = PARSER_ERR;    /*retorno (error al menos que todo salga bien)*/
+	bstring barg = NULL;        /*argumento leido en tipo bstring*/
 	
 	assert(input != NULL);
 	
-	if (!lexer_is_off (input)){
+	if (!lexer_isOff(input)){
 		/*leo hasta el siguiente caracter distinto de 'DIGIT'*/
-		barg = next_bstring (input, ALPHA BLANK);
+		barg = next_bstring(input, ALPHA BLANK);
 		if (barg != NULL){
-			/* lo convierto a string*/
-			sarg = bstr2cstr (barg, '\0');
-			if (sarg != NULL){
-				/* lo convierto a u32*/
-				arg = (u32) atoi(sarg);
-				result = PARSER_OK;
-				/*destruyo sarg*/
-				bcstrfree (sarg);
-			}
+            /* lo convierto a u64*/
+            arg = u64_fromBstr(barg);
+            result = PARSER_OK;
 			/*destruyo barg*/
-			bdestroy (barg);
+			bdestroy(barg);
 		}
-		
 	}
-	
 	return result,
 }
 
 /*lee el siguiente item.
  * Consume todo caracter hasta encontrar alguno perteneciente a 'str'.
- *Deja el resultado accesible en 'result'. El llamador se encarga de liberarlo*/
-static bstring next_bstring (Lexer *input, const char *str){
+ * El llamador se encarga de liberarlo*/
+static bstring next_bstring(Lexer *input, const char *str){
 
 	bstring result=NULL;
-	/*Pre:*/
 	assert (input != NULL);
+    
 	/*Leo todos los caracteres anteriores y no pertenecientes a 'str'*/
-	if (!lexer_is_off (input)){
-		lexer_next_to (input, str);
+	if (!lexer_isOff(input)){
+		lexer_nextTo(input, str);
 		/*si (leyo algo) ´o´ (no EOF y no leyo nada)*/
-		if (!lexer_is_off (input)){
+		if (!lexer_isOff(input)){
 			result = lexer_item(input);
 			/*Si no leyo ningun caracter, destruyo el puntero.
 			 * Esto pasa cuando el caracter inmediato a leer pertenece a str
 			 * y el item es vacio*/
-			if (blength (result) == 0){
-				bdestroy (result);
-				result=NULL;
+			if (blength(result) == 0){
+				bdestroy(result);
+				result = NULL;
 			}
 		}
 	}
-
 	return result;
 }
 
 
-/*Decide si el siguiente caracter leido pertenece a 'Ch'.
- * consume el caracter leido
- *Deja el resultado accesible en 'result'*/
-static bool is_the_next_char (Lexer *input, const char *ch){
+/*Decide si el siguiente caracter leido pertenece a 'ch'.
+ * Consume el caracter leido*/
+static bool is_theNextChar(Lexer *input, const char *ch){
 
 	bool result = false;
 	bstring taken = NULL;
@@ -139,19 +128,18 @@ static bool is_the_next_char (Lexer *input, const char *ch){
 	assert (input != NULL);
 
 	/*Leo el siguiente caracter para ver si pertenece a 'ch'*/
-	if (!lexer_is_off (input)){
-		lexer_next_char (input, ch);
+	if (!lexer_is_off(input)){
+		lexer_nextChar(input, ch);
 		/*si (leyo algo) ´o´ (no EOF y no leyo nada)*/
-		if (!lexer_is_off (input)){
-			taken = lexer_item (input);
+		if (!lexer_is_off(input)){
+			taken = lexer_item(input);
 			/*Decide si leyo el caracter perteneciente a 'ch'*/
-			if ((blength (taken) > 0)){
+			if ((blength(taken) > 0)){
 				result = true;
 			}
 			/*libero el puntero despues de usarlo*/
-			bdestroy (taken);
+			bdestroy(taken);
 		}
 	}
-
 	return result;
 }
