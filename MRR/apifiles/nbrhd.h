@@ -15,9 +15,11 @@ Nbrhd nbrhd_create();
 /*Destructor de un Nbrhd*/
 void nbrhd_destroy(Nbrhd nbrhd);
 
-/**/
-void nbrhd_addNbr(Nbrhd nbrs,  cap);/*ATTENTION ver como debe ser cuando carguemos los lados*/
-
+/* Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos,
+ * la relacion es xy: 'y' vecino forward de 'x', 'x' vecino backward de 'y'
+ * Precondicion: x, y, edge != NULL
+ */
+void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
 
 /* Busca el vecino que sigue despues de 'y' en la direccion 'dir' (FWD o BWD)
  * Retorno: y = NULL, u64 nombre del primer vecino en esa direccion

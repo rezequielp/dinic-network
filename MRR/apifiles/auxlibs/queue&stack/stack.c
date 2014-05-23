@@ -33,6 +33,7 @@ int stack_destroy(Stack S, void *garbage){
     void * elem;
     
     assert(S != NULL);
+    assert(garbage != s->top)
     
     sSize = stack_size(Q);
     while(!stack_isEmpty(S)){

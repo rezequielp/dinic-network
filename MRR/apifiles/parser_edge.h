@@ -1,5 +1,5 @@
 /*
- * PARSER DE ARISTAS (LADOS)
+ * PARSER DE LADOS (EDGES)
  * El path es un archivo con 3 int separados por un espacio entre ellos
  * y luego un '\n', esta estructura puede estar repetida
  * varias veces. al final hay un EOF.
@@ -9,29 +9,26 @@
  * Ej: 2 4 6\n2 4 54\n321321 321321 4888\nEOF
 */
 
-#ifndef _PARSER_EDGE_H
-#define _PARSER_EDGE_H
+#ifndef _PARSER_LADO_H
+#define _PARSER_LADO_H
 
 #include "auxlibs/lexer.h"
-#include "edge.h"
+#include "Lado.h"
 
 #define PARSER_OK 0
 #define PARSER_ERR 1
 
-/* Lee todo un edge de `input' hasta llegar a un fin de línea o de archivo
+/* Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo
  * Pre:
  *  input != NULL
  *  ! lexer_is_off (input)
  * Ret:
- *  un puntero a un nuevo edge (a liberar por el llamador),
- *  o NULL en caso de error.
+ *  puntero a un nuevo Lado (a liberar por el llamador), NULL en caso de error.
  * ENSURES:
- *  Se consumió input hasta el primer error o hasta completar el edge.
+ *  Se consumió input hasta el primer error o hasta completar el Lado.
  *  No se consumió ningun \n.
- *  Si lo que se consumió es un edge valido, `result' contiene la
- *  estructura correspondiente.
  */
-edge *parse_edge(Lexer *input);
+Lado *parse_lado(Lexer *input);
 
 
 /* Consume el fin de línea. Indica si encontro basura antes del fin de línea.
@@ -45,6 +42,6 @@ edge *parse_edge(Lexer *input);
  *     no se consumió más entrada de la necesaria
  *     el lexer esta detenido justo luego de un \n o en el fin de archivo.
  */
-int parse_next_line (Lexer *input);
+int parse_nextLine (Lexer *input);
 
 #endif
