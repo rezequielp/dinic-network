@@ -51,8 +51,8 @@ typedef struct NetworkYFlujo{
 } DovahkiinSt;
 
 
-static u64 getpathFlow(DovahkiinP network, bool print);
-static void incrementAndPrint_flow(Dovahkiin network, u64 pflow);
+static u64 get_pathFlow(DovahkiinP network, bool print);
+static void increment_flow(Dovahkiin network, u64 pflow);
 static void network_destroy(Network net);
 
 
@@ -144,13 +144,16 @@ no con la letra s*/
 int ImprimirFuente(DovahkiinP network){
     int result = -1;
     char * cStr;
+    bstring bStr;
     
     assert(network != NULL);
     
-    u64_toString(network->source, * cStr);
-    
     if(IS_SET_FLAG(SOURCE)){
+        u64_toString(network->sink, bStr):
+        cStr = bstr2cstr(bStr)
         printf("Fuente: %s\n", cStr);
+        bcstrfree(cStr);
+        bdestroy(bStr);
         result=0;
     }
     free(cStr);
@@ -164,17 +167,18 @@ Este es el unico caso donde el resumidero se imprimira con su nombre real y
 no con la letra t*/
 int ImprimirResumidero(DovahkiinP D){
     int result = -1;
-    char * cStr;
+    bstring bStr;
     
     assert(network != NULL);
     
-    u64_toString(network->sink, * cStr):
-    
     if(IS_SET_FLAG(SINK)){
+        u64_toString(network->sink, bStr):
+        cStr = bstr2cstr(bStr)
         printf("Resumidero: %s\n", cStr);
+        bcstrfree(cStr);
+        bdestroy(bStr);
         result=0;
     }
-    free(sCst);
     return result;
 }
 
@@ -222,8 +226,8 @@ int CargarUnLado(DovahkiinP network, Lado edge){
     
     if (edge != NULL){
     
-        u64 x = lado_getX(Lado edge);
-        u64 y = lado_getY(Lado edge);
+        x = lado_getX(Lado edge);
+        y = lado_getY(Lado edge);
         
         /* cargo el nodo 'x'*/
         HASH_FIND(hNet->hhNet, hNet, &(x), sizeof(x), nodeX);
@@ -312,7 +316,7 @@ int ActualizarDistancias(DovahkiinP network){
                     Queue_enqueue(qNext, nbr);
                 }
             }
-            if(i == network->sink)  /*llego a t*/
+            if(U64_i==network->sink)  /*llego a t*/
                 SET_FLAG(SINK_REACHED);
             else
                 i = nbrhd_getNext(elem->nbrs, i, FWD);
@@ -383,8 +387,8 @@ int BusquedaCaminoAumentante(DovahkiinP network){
 Aumenta el flujo.
 Debe devolver el valor del flujo aumentado si no hubo promblemas, 0 caso contrario(inclusive !precondicion).*/
 u64 AumentarFlujo(DovahkiinP network){
-    
-    u64 pflow = 0;  /*flujo a enviar por el camino aumentante*/ 
+    /*pflow debe ser liberado por el llamador con u64_destroy()*/
+    u64 pflow;  /*flujo a enviar por el camino aumentante*/ 
     
     assert(network != NULL);
     
@@ -401,14 +405,14 @@ camino aumentante #:
 t;x_r;...;x_1;s: <cantDelIncremento>
 Donde # es el numero del camino aumentante, ";" se usa en caminos forward y ">" en backward.*/
 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
-    u64 pflow=0;
+    u64 pflow;
     Network x,y;
     
     assert(network != NULL);
     
     if  (!IS_SET_FLAG(PATHUSED)){
-        pflow = get_pathFlow(network, false);
-        incrementAndPrint_flow(network, pflow);
+        pflow = get_pathFlow(network);
+        increment_flow(network, pflow);
         
         /*printer*/ 
         printf("camino aumentante %i:\n", network->pCounter );
@@ -421,12 +425,12 @@ AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
             assert(dir!=0);
             if(dir = FWD){
                 if(x->x != network->source){
-                    printf(";%u64", );
+                    printf(";%u64", );      /*TODO*/
                 }else{
                     printf(";s");
                 }
             }else{
-                printf(">%u64", );
+                printf(">%u64", );      /*TODO*/
             }
         }
         printf(": <%i>",  pflow);
@@ -455,7 +459,7 @@ void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? 
     while (x != NULL){
         y = x;
         x = stack_nextItem(network->path);
-        printf("Lado %s,%s: %u64\n",x->x, y->x );
+        printf("Lado %s,%s: %u64\n",x->x, y->x );      /*TODO*/
     }
 }
 
@@ -464,9 +468,9 @@ Valor del flujo �: <ValorDelFlujo>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
 void ImprimirValorFlujo(DovahkiinP network){
     if(IS_SET_FLAG(MAXFLOW))
-        printf("Valor del flujo maximal: %u64\n", network->flow);
+        printf("Valor del flujo maximal: %u64\n", network->flow);      /*TODO*/
     else
-        printf("Valor del flujo no maximal: %u64\n", network->flow);
+        printf("Valor del flujo no maximal: %u64\n", network->flow);      /*TODO*/
 }
 
 /*Imprime un corte minimal y su capacidad con el formato:
@@ -485,10 +489,10 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
     while (x != NULL){
         x = stack_nextItem(network->path);
         if (x->x != network->source)
-            printf("%u64,",x->x);
+            printf("%u64,",x->x);      /*TODO*/
     }
     printf("t}\n'");
-    printf("Capacidad: %u64", network->flow)
+    printf("Capacidad: %u64", network->flow)      /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
 }
 
@@ -497,7 +501,7 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
 /*FUNCIONES ESTATICAS
  */
 
-u64 getpathFlow(DovahkiinP network, bool print){
+u64 get_pathFlow(DovahkiinP network, bool print){
     /* TODO (hacer algo como next_nbrhd_xy(path, pathAux, x, y)*/
     u64 pflow;
     Network x, y = NULL;
