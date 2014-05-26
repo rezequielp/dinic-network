@@ -1,8 +1,8 @@
 #ifndef _API_H
 #define _API_H
+
 /*
 *   Integrantes:
-*       Moine Joaquin
 *       Rossi Nahuel
 *       Ruiz Ezequiel Pablo
 */
@@ -10,10 +10,12 @@
 /*      
 *               TADs
 */
-typedef DovahkiinSt * DovahkiinP;
-typedef struct ladoSt * Lado;  
 
-#define LadoNulo NULL;
+#include "auxlibs/u64/u64.h"
+#include "lado.h"
+
+typedef DovahkiinSt * DovahkiinP;
+
 
 /*
 *             Funciones
@@ -92,8 +94,4 @@ Corte minimial: S = {s,x_1,...}
 Capacidad: <Capacidad>*/
 void ImprimirCorte(DovahkiinP D);
 
-
-/*
-Definir u64
-*/
 #endif

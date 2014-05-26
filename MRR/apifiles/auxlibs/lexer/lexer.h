@@ -4,7 +4,7 @@
 #include <stdio.h>   /* Para tener FILE */
 #include <stdbool.h> /* Para tener bool */
 
-#include "bstring/bstrlib.h"
+#include "../bstring/bstrlib.h"
 
 /*** Constantes ***/
 #define UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

@@ -1,5 +1,5 @@
 #include "lado.h"
-#include "auxlibs\u64"
+#include <assert.h>
 
 typedef struct Lado{
     u64 x;
@@ -18,18 +18,25 @@ Lado lado_new(u64 x, u64 y, u64 c){
     edge->c = c;
     return edge;
 }
+
 void lado_destroy(Lado edge){
+    assert(edge!=NULL);
 	free(edge);
 }
 
 /*  Operaciones
 */
 u64 lado_getY(Lado edge){
+    assert(edge!=NULL);
 	return edge->y;
 }
+
 u64 lado_getX(Lado edge){
+    assert(edge!=NULL);
 	return edge->x;
 }
+
 u64 lado_getCap(Lado edge){
+    assert(edge!=NULL);
 	return edge->c;
 }

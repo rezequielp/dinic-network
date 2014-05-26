@@ -12,8 +12,8 @@
 #ifndef _PARSER_LADO_H
 #define _PARSER_LADO_H
 
-#include "auxlibs/lexer.h"
-#include "Lado.h"
+#include "auxlibs/lexer/lexer.h"
+#include "lado.h"
 
 #define PARSER_OK 0
 #define PARSER_ERR 1

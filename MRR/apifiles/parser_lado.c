@@ -1,6 +1,7 @@
-#include "parser_Lado.h"
+#include "parser_lado.h"
+#include "auxlibs/u64/u64.h"
 
-#define END_LINE "\n"       /*para indicador de final de linea*/
+#define EOL "\n"       /*para indicador de final de linea*/
 #define WHITE_SPACE " "     /*para indicador de espacio en blanco*/
 
 static int parse_argument(Lexer *input, u64 arg);
@@ -51,7 +52,7 @@ int parse_nextLine(Lexer *input){
     assert(input != NULL);
 
     /*consumo toda la basura anterior al primer '\n' (o EOF)*/
-    taken = next_bstring(input, END_LINE);
+    taken = next_bstring(input, EOL);
     /*si leyo algo, entonces taken no es nulo*/
     if (taken != NULL){
         result = PARSER_ERR;
@@ -73,7 +74,6 @@ int parse_nextLine(Lexer *input){
 static int parse_argument(Lexer *input, u64 arg){
     int result = PARSER_ERR;    /*retorno (error al menos que todo salga bien)*/
     bstring barg = NULL;        /*argumento leido en tipo bstring*/
-    u64 n;
     
     assert(input != NULL);
     
@@ -82,7 +82,7 @@ static int parse_argument(Lexer *input, u64 arg){
         barg = next_bstring(input, ALPHA BLANK);
         if (barg != NULL){
             /* lo convierto a u64*/
-            arg = u64_fromBstr(barg, n);
+            u64_fromBstr(barg, arg);
             result = PARSER_OK;
             /*destruyo barg*/
             bdestroy(barg);

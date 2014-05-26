@@ -1,19 +1,20 @@
 #include <stdio.h>
+#include "../MRR/apifiles/auxlibs/u64/u64.h"
 
 static void load_from_stdin(DovahkiinP net);
 
 int main(){
     DovahkiinP network = NULL;  /*network principal*/
     int parameters = 0;
-    u64 s;
-    u64 t;
+    u64 s = NULLL;
+    u64 t = NULL;
     
     /*Se controlan los parametros de ingreso*/
     if (ctrl_parameters(argc, argv)){
         /* Se crea un nuevo network con la verbosidad*/
         /* TODO cambiar esto segun los argumentos que pasemos*/
         network = NuevoDovahkiin();
-        parameters = aoti(argv[PARAMETERS])
+        parameters = atoi(argv[PARAMETERS])
     }
     
     assert(network != NULL)
@@ -55,7 +56,7 @@ int main(){
  * Pre: network != NULL
  */
 void load_from_stdin(DovahkiinP network){
-    Lado lado;          /*un lado leido*/
+    Lado lado = NULL;          /*un lado leido*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
     
     assert(network != NULL);
