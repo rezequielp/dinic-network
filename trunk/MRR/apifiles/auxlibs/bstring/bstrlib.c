@@ -1,8 +1,8 @@
 /*
  * This source file is part of the bstring string library.  This code was
- * written by Paul Hsieh in 2002-2008, and is covered by the BSD open source 
- * license and the GPL. Refer to the accompanying documentation for details 
- * on usage and license.
+ * written by Paul Hsieh in 2002-2010, and is covered by either the 3-clause 
+ * BSD open source license or GPL v2.0. Refer to the accompanying documentation 
+ * for details on usage and license.
  */
 
 /*
@@ -10,6 +10,11 @@
  *
  * This file is the core module for implementing the bstring functions.
  */
+
+#if defined (_MSC_VER)
+/* These warnings from MSVC++ are totally pointless. */
+# define _CRT_SECURE_NO_WARNINGS
+#endif
 
 #include <stdio.h>
 #include <stddef.h>
@@ -1535,19 +1540,21 @@ bstring aux = (bstring) b2;
 	return BSTR_OK;
 }
 
-/*  int bfindreplace (bstring b, const_bstring find, const_bstring repl, 
- *                    int pos)
- *
- *  Replace all occurrences of a find string with a replace string after a
- *  given point in a bstring.
+/*  
+ *  findreplaceengine is used to implement bfindreplace and 
+ *  bfindreplacecaseless. It works by breaking the three cases of
+ *  expansion, reduction and replacement, and solving each of these
+ *  in the most efficient way possible.
  */
 
 typedef int (*instr_fnptr) (const_bstring s1, int pos, const_bstring s2);
 
+#define INITIAL_STATIC_FIND_INDEX_COUNT 32
+
 static int findreplaceengine (bstring b, const_bstring find, const_bstring repl, int pos, instr_fnptr instr) {
 int i, ret, slen, mlen, delta, acc;
 int * d;
-int static_d[32];
+int static_d[INITIAL_STATIC_FIND_INDEX_COUNT+1]; /* This +1 is unnecessary, but it shuts up LINT. */
 ptrdiff_t pd;
 bstring auxf = (bstring) find;
 bstring auxr = (bstring) repl;
@@ -1614,20 +1621,31 @@ bstring auxr = (bstring) repl;
 	}
 
 	/* expanding replacement since find->slen < repl->slen.  Its a lot 
-	   more complicated. */
+	   more complicated.  This works by first finding all the matches and 
+	   storing them to a growable array, then doing at most one resize of
+	   the destination bstring and then performing the direct memory transfers
+	   of the string segment pieces to form the final result. The growable 
+	   array of matches uses a deferred doubling reallocing strategy.  What 
+	   this means is that it starts as a reasonably fixed sized auto array in 
+	   the hopes that many if not most cases will never need to grow this 
+	   array.  But it switches as soon as the bounds of the array will be 
+	   exceeded.  An extra find result is always appended to this array that
+	   corresponds to the end of the destination string, so slen is checked
+	   against mlen - 1 rather than mlen before resizing.
+	*/
 
-	mlen = 32;
-	d = (int *) static_d; /* Avoid malloc for trivial cases */
+	mlen = INITIAL_STATIC_FIND_INDEX_COUNT;
+	d = (int *) static_d; /* Avoid malloc for trivial/initial cases */
 	acc = slen = 0;
 
 	while ((pos = instr (b, pos, auxf)) >= 0) {
-		if (slen + 1 >= mlen) {
-			int sl;
-			int * t;
+		if (slen >= mlen - 1) {
+			int sl, *t;
+
 			mlen += mlen;
 			sl = sizeof (int *) * mlen;
-			if (static_d == d) d = NULL;
-			if (sl < mlen || NULL == (t = (int *) bstr__realloc (d, sl))) {
+			if (static_d == d) d = NULL; /* static_d cannot be realloced */
+			if (mlen <= 0 || sl < mlen || NULL == (t = (int *) bstr__realloc (d, sl))) {
 				ret = BSTR_ERR;
 				goto done;
 			}
@@ -1643,6 +1661,8 @@ bstring auxr = (bstring) repl;
 			goto done;
 		}
 	}
+	
+	/* slen <= INITIAL_STATIC_INDEX_COUNT-1 or mlen-1 here. */
 	d[slen] = b->slen;
 
 	if (BSTR_OK == (ret = balloc (b, b->slen + acc + 1))) {
@@ -1650,13 +1670,13 @@ bstring auxr = (bstring) repl;
 		for (i = slen-1; i >= 0; i--) {
 			int s, l;
 			s = d[i] + auxf->slen;
-			l = d[i+1] - s;
+			l = d[i+1] - s; /* d[slen] may be accessed here. */
 			if (l) {
 				bstr__memmove (b->data + s + acc, b->data + s, l);
 			}
 			if (auxr->slen) {
 				bstr__memmove (b->data + s + acc - auxr->slen, 
-				         auxr->data, auxr->slen);
+				               auxr->data, auxr->slen);
 			}
 			acc += delta;		
 		}
@@ -2907,14 +2927,14 @@ int n, r;
  *  string fmt and attempts to append the result to b.  The fmt parameter is 
  *  the same as that of the printf function.  The variable argument list is 
  *  replaced with arglist, which has been initialized by the va_start macro.
- *  The size of the output is upper bounded by count.  If the required output
- *  exceeds count, the string b is not augmented with any contents and a value
- *  below BSTR_ERR is returned.  If a value below -count is returned then it
- *  is recommended that the negative of this value be used as an update to the
- *  count in a subsequent pass.  On other errors, such as running out of 
- *  memory, parameter errors or numeric wrap around BSTR_ERR is returned.  
- *  BSTR_OK is returned when the output is successfully generated and 
- *  appended to b.
+ *  The size of the appended output is upper bounded by count.  If the 
+ *  required output exceeds count, the string b is not augmented with any 
+ *  contents and a value below BSTR_ERR is returned.  If a value below -count 
+ *  is returned then it is recommended that the negative of this value be 
+ *  used as an update to the count in a subsequent pass.  On other errors, 
+ *  such as running out of memory, parameter errors or numeric wrap around 
+ *  BSTR_ERR is returned.  BSTR_OK is returned when the output is successfully 
+ *  generated and appended to b.
  *
  *  Note: There is no sanity checking of arglist, and this function is
  *  destructive of the contents of b from the b->slen point onward.  If there 
@@ -2933,21 +2953,25 @@ int n, r, l;
 	exvsnprintf (r, (char *) b->data + b->slen, count + 2, fmt, arg);
 
 	/* Did the operation complete successfully within bounds? */
-
-	if (n >= (l = b->slen + (int) (strlen) ((const char *) b->data + b->slen))) {
-		b->slen = l;
-		return BSTR_OK;
+	for (l = b->slen; l <= n; l++) {
+		if ('\0' == b->data[l]) {
+			b->slen = l;
+			return BSTR_OK;
+		}
 	}
 
 	/* Abort, since the buffer was not large enough.  The return value 
 	   tries to help set what the retry length should be. */
 
 	b->data[b->slen] = '\0';
-	if (r > count+1) l = r; else {
-		l = count+count;
-		if (count > l) l = INT_MAX;
+	if (r > count + 1) {	/* Does r specify a particular target length? */
+		n = r;
+	} else {
+		n = count + count;	/* If not, just double the size of count */
+		if (count > n) n = INT_MAX;
 	}
-	n = -l;
+	n = -n;
+
 	if (n > BSTR_ERR-1) n = BSTR_ERR-1;
 	return n;
 }

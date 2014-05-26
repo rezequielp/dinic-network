@@ -1,14 +1,15 @@
 /*
  * This source file is part of the bstring string library.  This code was
- * written by Paul Hsieh in 2002-2008, and is covered by the BSD open source 
- * license and the GPL. Refer to the accompanying documentation for details 
- * on usage and license.
+ * written by Paul Hsieh in 2002-2010, and is covered by either the 3-clause 
+ * BSD open source license or GPL v2.0. Refer to the accompanying documentation 
+ * for details on usage and license.
  */
 
 /*
- * bstrlib.c
+ * bstrlib.h
  *
- * This file is the core module for implementing the bstring functions.
+ * This file is the header file for the core module for implementing the 
+ * bstring functions.
  */
 
 #ifndef BSTRLIB_INCLUDE
@@ -127,6 +128,7 @@ extern int bltrimws (bstring b);
 extern int brtrimws (bstring b);
 extern int btrimws (bstring b);
 
+/* <*>printf format functions */
 #if !defined (BSTRLIB_NOVSNP)
 extern bstring bformat (const char * fmt, ...);
 extern int bformata (bstring b, const char * fmt, ...);
@@ -203,6 +205,7 @@ struct tagbstring {
 /* Static constant string initialization macro */
 #define bsStaticMlen(q,m)   {(m), (int) sizeof(q)-1, (unsigned char *) ("" q "")}
 #if defined(_MSC_VER)
+/* There are many versions of MSVC which emit __LINE__ as a non-constant. */
 # define bsStatic(q)        bsStaticMlen(q,-32)
 #endif
 #ifndef bsStatic

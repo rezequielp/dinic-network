@@ -1,5 +1,8 @@
-#include "network_node.h"
-#include "../auxlibs/bstring/bstrlib.h"
+#include "auxlibs/bstring/bstrlib.h"
+#include "nbrhd.h"
+#include "auxlibs/bstring/uthash.h"
+#include <stdlib.h>
+#include <assert.h>
 
 /* Estructura de un nodo por forward*/
 typedef struct FedgeSt{
@@ -33,6 +36,7 @@ static void bedge_destroy(Bedge bNbrs);
 static Fedge fedge_create(u64 y, u64 c);
 static Bedge bedge_create(u64 y, Fedge fNbr);
 
+
 /*Constructor de un nuevo Nbrhd*/
 Nbrhd nbrhd_create(){
     Nbrhd nbrs;
@@ -49,7 +53,6 @@ Nbrhd nbrhd_create(){
 
 /*Destructor de un Nbrhd*/
 void nbrhd_destroy(Nbrhd nbrs){
-    
     assert(nbrs != NULL);
     
     /*destruyo todos los vecinos forward*/

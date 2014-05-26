@@ -1,3 +1,5 @@
+#include "auxlibs/u64/u64.h"
+#include "lado.h"
 
 /* 'dir' options:
  * Es la direccion en la que se encuentra un vecino, respecto al nodo padre.
