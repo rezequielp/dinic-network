@@ -6,6 +6,12 @@
 #include "auxlibs/bstring/bstrlib.h"
 #include "API.h"
 
+/*
+Descomentar uno u el otro dependiendo el tipo de int a usar.
+*/
+typedef uint64_t u64;
+/*typedef uint_fast64_t u64;*/
+
 
 #define NOT_USED -1    /* Valor nulo de distancia si el elem no se uso*/
 
@@ -67,7 +73,7 @@ DovahkiinP NuevoDovahkiin(){
     assert(network!=NULL);
     
     network->net = NULL;
-    network->flow = u64_new();
+    network->flow = u64_new(); /*TODO*/
     network->source = u64_new();
     network->sink = u64_new();
     network->cut = NULL;
