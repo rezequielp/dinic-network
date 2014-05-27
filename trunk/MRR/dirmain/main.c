@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include "../MRR/apifiles/auxlibs/u64/u64.h"
 
 
 
