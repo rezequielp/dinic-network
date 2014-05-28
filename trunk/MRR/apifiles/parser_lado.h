@@ -15,8 +15,8 @@
 #include "auxlibs/lexer/lexer.h"
 #include "lado.h"
 
-#define PARSER_OK 0
-#define PARSER_ERR 1
+#define PARSER_OK 1
+#define PARSER_ERR 0
 
 /* Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo
  * Pre:

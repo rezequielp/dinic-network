@@ -16,13 +16,6 @@
 #define CLEAR_IMPST() 0b00000000
 #define IS_SET_IMPST(f) (network->flags & f) > 0
 
-/*
-Descomentar uno u el otro dependiendo el tipo de int a usar.
-*/
-typedef uint64_t u64;
-/*typedef uint_fast64_t u64;*/
-
-
 static void load_from_stdin(DovahkiinP net);
 
 int main(int argc, char *argv[]){
