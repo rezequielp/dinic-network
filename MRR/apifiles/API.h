@@ -11,8 +11,10 @@
 *               TADs
 */
 
-#include "auxlibs/u64/u64.h" /*TODO sacar*/ 
+/*#include "auxlibs/u64/u64.h"*/
+#include "u64.h"
 #include "lado.h"
+
 
 typedef DovahkiinSt * DovahkiinP;
 
@@ -28,10 +30,10 @@ DovahkiinP NuevoDovahkiin();
 int DestruirDovahkiin(DovahkiinP D);
 
 /*Setea al vertice x como fuente*/
-void FijarFuente(DovahkiinP D u64 x);
+void FijarFuente(DovahkiinP D, u64 x);
 
 /*Setea al vertice x como resumidero*/
-void FijarResumidero(DovahkiinP D u64 x);
+void FijarResumidero(DovahkiinP D, u64 x);
 
 /*Si la fuente NO esta fijada devuelve -1, sino 0 e imprime por pantalla:
 Fuente: x
