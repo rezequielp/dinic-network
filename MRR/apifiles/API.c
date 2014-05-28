@@ -34,7 +34,7 @@
  *          Estructuras
  */
 typedef struct NetworkSt{
-    u64 x;                      /* hash key - vertice x*/
+    u64 node;                   /* hash key - nombre del vertice*/
     Nbrhd nbrs;                 /* hash value - vecinos del vertice x*/
     int level;                  /* nivel de distancia del vertice x*/
     UT_hash_handle hhNet,hhCut; /* makes this structure hashable */
@@ -68,25 +68,25 @@ DovahkiinP NuevoDovahkiin(){
     assert(network!=NULL);
     
     network->net = NULL;
-    network->flow = u64_new(); /*TODO*/
-    network->source = u64_new();
-    network->sink = u64_new();
+    network->flow = 0;
+    network->source = 0;
+    network->sink = 0;
     network->cut = NULL;
     network->path = NULL;
     network->flags = CLEAR_FLAG();
-    network->pCounter = u64_new(); 
+    network->pCounter = 0; 
     return network;
 }
 
 
 /*Constructor de Network */
-Network *network_create(u64 x){
+Network *network_create(u64 n){
     Network *node;
     
     node = (Network*) malloc(sizeof(Network));
     assert(node!=NULL);
     
-    u64 x = x;
+    node->node = n;
     node->nbrs = NULL;
     int level = NOT_USED; 
     
@@ -99,13 +99,8 @@ int DestruirDovahkiin(DovahkiinP network){
     assert(network!=NULL);
     
     network_destroy(network->net);  /*esto tambien libera el corte*/
-    u64_destroy(network->flow);
-    u64_destroy(network->source);
-    u64_destroy(network->sink);
     if (network->path != NULL)
         stack_destroy(network->path);
-    
-    u64_destroy(network->pCounter);
     
     free(network);
 }
@@ -118,9 +113,7 @@ void network_destroy(Network net){
     
     HASH_ITER(net->hhNet, net, elem, eTmp){
         HASH_DEL(net, elem); /*elimina la referencia sobre la hash table*/
-        u64_destroy(elem->x);
         nbrhd_destroy(elem->nbrs);
-        u64_destroy(elem->level);
         free(elem);
     }
 }
@@ -129,14 +122,14 @@ void network_destroy(Network net){
 /*Setea al vertice s como fuente */
 void FijarFuente(DovahkiinP network, u64 s){
     assert(network != NULL);
-    network->source = u64_copy(s);
+    network->source = s;
 }
 
 
 /*Setea al vertice t como resumidero */
 void FijarResumidero(DovahkiinP network, u64 t){
     assert(network != NULL);
-    network->sink = u64_copy(t);
+    network->sink = t;
 }
 
 
@@ -147,20 +140,13 @@ Este es el unico caso donde la fuente se imprimira con su nombre real y
 no con la letra s */
 int ImprimirFuente(DovahkiinP network){
     int result = -1;
-    char * cStr;
-    bstring bStr;
     
     assert(network != NULL);
     
     if(IS_SET_FLAG(SOURCE)){
-        u64_toString(network->sink, bStr):
-        cStr = bstr2cstr(bStr)
-        printf("Fuente: %s\n", cStr);
-        bcstrfree(cStr);
-        bdestroy(bStr);
+        printf("Fuente: %" PRIx64 "\n", network->source);
         result=0;
     }
-    free(cStr);
     return result;
 }
 
@@ -172,16 +158,11 @@ Este es el unico caso donde el resumidero se imprimira con su nombre real y
 no con la letra t */
 int ImprimirResumidero(DovahkiinP D){
     int result = -1;
-    bstring bStr;
     
     assert(network != NULL);
-    
-    if(IS_SET_FLAG(SINK)){
-        u64_toString(network->sink, bStr):
-        cStr = bstr2cstr(bStr)
-        printf("Resumidero: %s\n", cStr);
-        bcstrfree(cStr);
-        bdestroy(bStr);
+  
+    if(IS_SET_FLAG(SOURCE)){
+        printf("Resumidero: %" PRIx64 "\n", network->sink);
         result=0;
     }
     return result;
@@ -194,27 +175,29 @@ sino devuelve el elemento LadoNulo.
 Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
 de capacidad c. */
 Lado LeerUnLado(){
-    Lado lado = NULL;
-    u64 x, y, c = NULL;
+    Lado edge = NULL;
+    u64 x, y, c;
     lexer *input;   /*analizador lexico por lineas de un archivo*/
-    int clean;      /*Indica si no se encontro basura al parsear*/
+    int garbage = PARSE_OK;      /*Indica si no se encontro basura al parsear*/
    
     /*construyo el lexer sobre la entrada estandar*/
     input = lexer_new(stdin);
 
     if (input! = NULL){
-        /*Leo los lados mientras no llegue a un fin de archivo o haya ocurrido
+        /*Leo un lado mientras no llegue a un fin de archivo o haya ocurrido
           algun error*/
         if (!lexer_is_off(input)){
             /*se parsea un lado*/
-            lado = parse_edge(input, x, y, c);
+            edge = parse_edge(input, x, y, c);
             /*se corre el parseo hasta la siguiente linea (o fin de archivo)*/
-            clean = parse_nextLine(input);
+            garbage = parse_nextLine(input);
+            if (edge != LadoNulo && garbage) /*habia basura, error*/
+                lado_destroy(edge);
         }
         lexer_destroy(input);
     }
     
-    return result;
+    return edge;
 }
 
 
@@ -223,30 +206,30 @@ int CargarUnLado(DovahkiinP network, Lado edge){
     Network nodeX = NULL;
     Network nodeY = NULL;
     Network hNet = NULL
-    u64 x, y = NULL;
+    u64 x, y;
     int result = 0;
     
     assert(network != NULL);
     
     hNet = network->net;
     
-    if (edge != NULL){
+    if (edge != LadoNulo){
     
         x = lado_getX(Lado edge);
         y = lado_getY(Lado edge);
         
-        /* cargo el nodo 'x'*/
+        /* cargo el nodo 'x', si todavia no existe*/
         HASH_FIND(hNet->hhNet, hNet, &(x), sizeof(x), nodeX);
         if (nodeX == NULL){
             nodeX = network_create(x);
-            HASH_ADD(hNet->hhNet, hNet, hNet->x, sizeof(hNet->x), nodeX);
+            HASH_ADD(hNet->hhNet, hNet, hNet->node, sizeof(hNet->node), nodeX);
         }
         
-        /*cargo el nodo 'y'*/
+        /*cargo el nodo 'y', si todavia no existe*/
         HASH_FIND(hNet->hhNet, hNet, &(y), sizeof(y), nodeY);
         if (nodeY == NULL){
             nodeY = network_create(y);
-            HASH_ADD(hNet->hhNet, hNet, hNet->x, sizeof(hNet->x), nodeY);
+            HASH_ADD(hNet->hhNet, hNet, hNet->node, sizeof(hNet->node), nodeY);
         }
         
         /*se establecen como vecinos*/
@@ -263,29 +246,40 @@ Debe chequear que esten seteados s y t.
 Devuelve 1 si puede preparar y 0 caso contrario*/
 int Prepararse(Dovahkiin network){
     int status=0;
+    Network *src = NULL;
+    Network *snk = NULL;
+    u64 s, t;
+    
     assert(network != NULL);
+    
+    network->net = hNet;
+    netwrok->source = s;
+    netwrok->sink = t;
+    
     if(IS_SET_FLAG(SINK) && IS_SET_FLAG(SOURCE)){
-        HASH_FIND(network->net->hhNet, network->net, &(network->source), sizeof(network->source), src);
-        HASH_FIND(network->net->hhNet, network->net, &(network->sink), sizeof(network->sink), snk);
-        if(src != NULL && snk != NULL)
+        HASH_FIND(hNet->hhNet, hNet, &(s), sizeof(s), src);
+        HASH_FIND(hNet->hhNet, hNet, &(t), sizeof(s), snk);
+        if (src != NULL && snk != NULL)
             status = 1;
     }
     return 
 }
 
 
-/*Actualiza haciendo una busqueda BFS FF. Devuelve 1 si existe un camino aumentante entre s y t,
-0 caso contrario*//* TODO modularizar los whiles*/
+/*Actualiza haciendo una busqueda BFS-FF. 
+ * Devuelve 1 si existe un camino aumentante entre s y t, 0 caso contrario*/
+/* TODO modularizar los whiles*/
+/*TODO corregir lo de los u64*/
 int ActualizarDistancias(DovahkiinP network){
     
     Queue q, qNext, qAux;       /*Colas para el manejo de los niveles. 
-                                 *q = actual, qNext = siguiente, qAux = auxiliar para swap*/
+                                 *q = actual, qNext = siguiente, qAux = swap*/
     Network elem = NULL;        /* Elementos de la cola q en la cual se itera.*/
     Network nbr = NULL;         /* Vecinos de elem*/
-    Network hNet, hCut = NULL;  /* Punteros directos a las tablas hash, para codigo mas legible*/
-    Network k = NULL;           /* usado para iterar en el reseteo de las distancias*/
-    u64 i, j = NULL;            /* usados para iterar en la actualizacion de las distancias*/
-    int lvl = 0;                /* Valor de distancia para los siguientes elementos (qNext)*/
+    Network hNet, hCut = NULL;  /* Punteros a las hashs, para codigo legible*/
+    Network k = NULL;           /* iterador en el reseteo de las distancias*/
+    u64 i, j;                   /* iteradores para actualizar distancias*/
+    int lvl = 0;                /* Distancia para elementos de qNext*/
 
     assert(network != NULL);
     
@@ -344,7 +338,7 @@ int ActualizarDistancias(DovahkiinP network){
         };
 
         /* Agregamos el elemento al posible corte*/
-        HASH_ADD(hCut->hhCut, hCut, hCut->x, sizeof(hCut->x), queue_head(q));
+        HASH_ADD(hCut->hhCut, hCut, hCut->node, sizeof(hCut->node), queue_head(q));
         queue_dequeue(q);
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
         if(queue_isEmpty(q)){
@@ -361,8 +355,8 @@ int ActualizarDistancias(DovahkiinP network){
 }
 
 
-/*Hace una busqueda FF DFS usando las etiquetas de ActualizarDistancia(). Devuelve 1 si llega a t,
-0 caso contrario.*/
+/*Hace una busqueda FF DFS usando las etiquetas de ActualizarDistancia(). 
+ * Devuelve 1 si llega a t, 0 caso contrario.*/
 int BusquedaCaminoAumentante(DovahkiinP network){
     
     Network elem = NULL;
@@ -375,13 +369,13 @@ int BusquedaCaminoAumentante(DovahkiinP network){
     stack_push(network->path, elem);
     
     if (IS_SET_FLAG(SINK_REACHED) && !IS_SET_FLAG(PATHUSED)){
-        while(elem->x != network->sink && !stack_isEmpty(network->path)){
+        while(elem->node != network->sink && !stack_isEmpty(network->path)){
             elem = network_nextItem(elem); /*TODO debe cumplir condicion de distancia*/
             if (elem != NULL){
                 stack_push(network->path, elem);
             }else{
                 stack_pop(network->path);
-                elem = stack_top(network->path); /*va a ser NULL si la pila esta vacia*/
+                elem = stack_top(network->path); /* NULL si la pila esta vacia*/
             }
         }
         SET_FLAG(PATHUSED);
@@ -391,17 +385,17 @@ int BusquedaCaminoAumentante(DovahkiinP network){
 }
 
 
-/*Precondicion: (BusquedaCaminoAumentante()==1) que todavia no haya aumentado el flujo.
-(Igual se tiene que checkear). 
-Aumenta el flujo.
-Debe devolver el valor del flujo aumentado si no hubo promblemas, 0 caso contrario(inclusive !precondicion).*/
+/*Precondicion: (BusquedaCaminoAumentante()==1) 
+ * que todavia no haya aumentado el flujo. (Igual se tiene que checkear). 
+ * Aumenta el flujo. 
+ * Debe devolver el valor del flujo aumentado si no hubo promblemas, 
+ * 0 caso contrario (inclusive !precondicion).*/
 u64 AumentarFlujo(DovahkiinP network){
-    /*pflow debe ser liberado por el llamador con u64_destroy()*/
     u64 pflow;  /*flujo a enviar por el camino aumentante*/ 
     
     assert(network != NULL);
     
-    if  (!IS_SET_FLAG(PATHUSED)){
+    if (!IS_SET_FLAG(PATHUSED)){
         pflow = get_pathFlow(network);
         increment_flow(network, pflow);
     }
@@ -411,16 +405,17 @@ u64 AumentarFlujo(DovahkiinP network){
 
 
 /*Idem AumentarFlujo() pero tambien imprime el camino con el formato:
-camino aumentante #:
-t;x_r;...;x_1;s: <cantDelIncremento>
-Donde # es el numero del camino aumentante, ";" se usa en caminos forward y ">" en backward.*/
+ * camino aumentante #:
+ * t;x_r;...;x_1;s: <cantDelIncremento>
+ * Donde # es el numero del camino aumentante, 
+ * ";" se usa en caminos forward y ">" en backward.*/
 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
     u64 pflow;
     Network x,y;
     
     assert(network != NULL);
     
-    if  (!IS_SET_FLAG(PATHUSED)){
+    if (!IS_SET_FLAG(PATHUSED)){
         pflow = get_pathFlow(network);
         increment_flow(network, pflow);
         
@@ -431,19 +426,19 @@ AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
         while(x != NULL){
             y = x;
             x = stack_nextItem(network->path);
-            dir = nbrhd_getDir(x->nbrs, y->x); /*me fijo si son BWD/FWD*/
+            dir = nbrhd_getDir(x->nbrs, y->node); /*me fijo si son BWD/FWD*/
             assert(dir!=0);
             if(dir = FWD){
-                if(x->x != network->source){
-                    printf(";%u64", );      /*TODO*/
+                if(x->node != network->source){
+                    printf(";%"PRIu64, x->node);
                 }else{
                     printf(";s");
                 }
             }else{
-                printf(">%u64", );      /*TODO*/
+                printf(">%"PRIu64, x->node);
             }
         }
-        printf(": <%i>",  pflow);
+        printf(": <%"PRIu64">\n",  pflow);
         network->pCounter++;
     }
     SET_FLAG(PATHUSED)
@@ -457,6 +452,7 @@ Lado x_1,y_2: <FlujoDelLado>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
 void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? de que????? TODO*/
     Network x, y = NULL;
+    u64 vflow;
     assert(network != NULL);
     
     if(IS_SET_FLAG(MAXFLOW))
@@ -464,13 +460,14 @@ void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? 
     else
         printf("Flujo no maximal:\n");
 
-    stack_resetViewer=(network->path);
+    stack_resetViewer(network->path);
     x = stack_nextItem(network->path);
 
     while (x != NULL){
         y = x;
         x = stack_nextItem(network->path);
-        printf("Lado %s,%s: %u64\n",x->x, y->x );      /*TODO*/
+        vflow = nbrhd_getFlow(x->nbrs, y->node);
+        printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->node, y->node, vflow);
     }
 }
 
@@ -480,9 +477,9 @@ Valor del flujo �: <ValorDelFlujo>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
 void ImprimirValorFlujo(DovahkiinP network){
     if(IS_SET_FLAG(MAXFLOW))
-        printf("Valor del flujo maximal: %u64\n", network->flow);      /*TODO*/
+        printf("Valor del flujo maximal: %"PRIu64"\n", network->flow);
     else
-        printf("Valor del flujo no maximal: %u64\n", network->flow);      /*TODO*/
+        printf("Valor del flujo no maximal: %"PRIu64"\n", network->flow);
 }
 
 
@@ -501,11 +498,11 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
     
     while (x != NULL){
         x = stack_nextItem(network->path);
-        if (x->x != network->source)
-            printf("%u64,",x->x);      /*TODO*/
+        if (x->node != network->source)
+            printf("%"PRIu64",", x->node);
     }
     printf("t}\n'");
-    printf("Capacidad: %u64", network->flow)      /*TODO*/
+    printf("Capacidad: %"PRIu64, network->flow)      /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
 }
 
@@ -525,13 +522,13 @@ u64 get_pathFlow(DovahkiinP network, bool print){
     assert(network != NULL);
     assert(!IS_SET_FLAG(PATHUSED));
     
-    pflow = INFINITE;   /*TODO declarar INFINITE (se puede hacer chanchadas como inf = 1/0) */    
+    pflow = u64_MAX;    
     stack_resetViewer=(network->path);
     y = stack_nextItem(network->path);
     x = stack_nextItem(network->path);
     /*busqueda del flujo maximal sobre el camino aumentante*/
     while (x != NULL){ 
-        pflow = u64_min(pflow, nbrhd_getFlow(x->nbrs, y->x));
+        pflow = u64_min(pflow, nbrhd_getFlow(x->nbrs, y->node));
         y = x;
         x = stack_nextItem(network->path);
     }
@@ -553,7 +550,7 @@ void increment_flow(DovahkiinP network, u64 pflow){
     
     while (x != NULL){
         /*WARNING si es BWD, disminuye!*/
-        nbrhd_increaseFlow(x->nbrhd, y->x, pflow);
+        nbrhd_increaseFlow(x->nbrhd, y->node, pflow);
         y = x;
         x = stack_nextItem(network->path);
     }
