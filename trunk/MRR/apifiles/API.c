@@ -26,7 +26,7 @@
  */
 #define SET_FLAG(f) network->flags |= f
 #define UNSET_FLAG(f) network->flags &= ~f
-#define CLEAR_FLAG() 0b00000000
+#define CLEAR_FLAG() 0b00000001
 #define IS_SET_FLAG(f) (network->flags & f) > 0
 #endif
 
@@ -67,7 +67,8 @@ typedef struct NetworkYFlujo{
 static u64 get_pathFlow(DovahkiinP network, bool print);
 static Network *network_create(u64 n);
 static void network_destroy(Network net);
-
+static void set_lvlNbrs(Network net, Queue q, Network node, int dir, int lvl);
+static Network set_lvl(Network net, u64 name, int lvl);
 
 /*Devuelve un puntero a la St o Null en caso de error */
 DovahkiinP NuevoDovahkiin(){
@@ -372,30 +373,30 @@ static Network set_lvl(Network net, u64 name, int lvl){
  * Devuelve 1 si llega a t, 0 caso contrario.*/
 int BusquedaCaminoAumentante(DovahkiinP network){
     U64 s, t;
-    Network elem = NULL;
+    Network node = NULL;
     
     assert(network != NULL);
     s = network->source;
     t = network->sink;
     /*preparacion de todas las cosas que uso para buscar un camino aumentante*/
     stack_destroy(network->path);
-    HASH_FIND(hhNet, network->net, &(s), sizeof(s), elem);
-    stack_push(network->path, elem);
+    HASH_FIND(hhNet, network->net, &(s), sizeof(s), node);
+    stack_push(network->path, node);
     
-    if (IS_SET_FLAG(SINK_REACHED) && !IS_SET_FLAG(PATHUSED)){
-        while(elem->name != t && !stack_isEmpty(network->path)){
-            elem = network_nextItem(elem); /*TODO debe cumplir condicion de distancia*/
-            if (elem != NULL){
-                stack_push(network->path, elem);
+    if (IS_SET_FLAG(SINK_REACHED) && IS_SET_FLAG(PATHUSED)){
+        while(node->name != t && !stack_isEmpty(network->path)){
+            node = network_nextItem(node); /*TODO debe cumplir condicion de distancia*/
+            if (node != NULL){
+                stack_push(network->path, node);
             }else{
                 stack_pop(network->path);
-                elem = stack_top(network->path); /* NULL si la pila esta vacia*/
+                node = stack_top(network->path); /* NULL si la pila esta vacia*/
             }
         }
-        SET_FLAG(PATHUSED);
+        UNSET_FLAG(PATHUSED);
     }
     
-    return (elem == t);
+    return (node == t);
 }
 
 
@@ -501,7 +502,7 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
     Network x = NULL;
     
     
-    /*TODO ESTA MAL! el corte no queda en el path, sin en cut, rehacer TODO*/
+    /*TODO ESTA MAL! el corte no queda en el path, sino en cut, rehacer TODO*/
     printf("Corte Minimal: S ={");
     stack_resetViewer=(network->path);
     x = stack_nextItem(network->path);
