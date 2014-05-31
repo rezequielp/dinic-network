@@ -26,6 +26,8 @@ struct NeighbourhoodSt{
 };
 
 
+#define UNK 0    /*direccion desconocida*/
+
 /* 
  *                      Funciones del modulo
  */
@@ -118,7 +120,7 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
 
 
 /* Construye un Fedge a partir del nombre del vecino (y) y la capacidad
-que se tiene con el (c)*/
+que se tiene con el (c). El valor del flujo se inicia en 0.*/
 Fedge fedge_create(u64 y, u64 c){
     Fedge *fNbr = NULL;     /* vecino forward*/
     
@@ -126,8 +128,8 @@ Fedge fedge_create(u64 y, u64 c){
 
     fNbr = (Fedge*) malloc(sizeof(Fedge));
     assert(fNbr != NULL);
-    fNbr->y = y;          
-    fNbr->cap = c;        
+    fNbr->y = y;        
+    fNbr->cap = c;
     fNbr->flow = 0;
     
     return fNbr;
@@ -150,51 +152,69 @@ Bedge bedge_create(u64 y, Fedge fNbr){
 }    
     
 
-/* Busca el vecino que sigue despues de 'y' en la direccion 'dir' (FWD o BWD)
- * Retorno: y = NULL, u64 nombre del primer vecino en esa direccion
- *          y != NULL, u64 nombre del sig vecino desp de 'y' en esa direccion
- *          NULL, si no existen mas vecinos en esa direccion */
-u64 nbrhd_getNext(Nbrhd nbrs, u64 y, int dir){
+/* NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
+ * y retorno. Verlo como una iteracion sobre una lista en la que empiezo por 
+ * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT)
+ * 
+ * Busca el vecino siguiente en la direccion 'dir' (FWD o BWD) y si existe 
+ * almacena el nombre en 'y'
+ * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD, y!=NULL
+ * Retorno(r):  r = 'flag', si se encontro un vecino
+ *              r = NONE, ya no hay mas vecinos en esa direccion
+ */
+int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
     void *nbrY = NULL;
-    u64 nxtNbr = NULL;
-    
-    assert(nbrs != NULL);
-    assert(dir == FWD || dir == BWD);
-    
-    if (dir == FWD)
-        if (y != NULL){                     /*el sig vecino despues de y*/
-            nbrY = findNbr(nbrs, y, dir);
-            assert(nbrY!=NULL);
-            nxtNbr = nbrY->hhfNbrs.next->y;
-        }else                               /*primer vecino forward*/
-            if (nbrs->fNbrs != NULL)
-                nxtNbr = nbrs->fNbrs->y;
-    else
-        if (y != NULL){                     /*el sig vecino despues de y*/
-            nbrY = findNbr(nbrs, y, dir);
-            assert(nbrY!=NULL);
-            nxtNbr = nbrY->hhbNbrs.next->y;
-        }else                               /*primer vecino backward*/
-            if (nbrs->bNbrs != NULL)
-                nxtNbr = nbrs->bNbrs->y;
+    static u64 nxtNbr;
+    int result = NONE;
 
-    return nxtNbr;
+    assert(nbrs != NULL && y!=NULL);
+    assert(flag == FST || flag == NXT);
+    assert(dir == FWD || dir == BWD);
+            
+    if (dir == FWD)
+        if (flag == NXT){   /*el siguiente vecino forward*/
+            nbrY = findNbr(nbrs, nxtNbr, dir);
+            if (nbrY->hhfNbrs.next != NULL){    /*existe un siguiente*/
+                nxtNbr = nbrY->hhfNbrs.next->y;
+                *y = nxtNbr;
+                result = flag;
+            }
+        }else   /*primer vecino forward*/
+            if (nbrs->fNbrs != NULL){
+                nxtNbr = nbrs->fNbrs->y;
+                *y = nxtNbr;
+                result = flag;
+            }
+    else
+        if (flag == NXT){   /*el sig vecino vecino backward*/
+            nbrY = findNbr(nbrs, nxtNbr, dir);
+            if (nbrY->hhbNbrs.next != NULL){    /*existe un siguiente*/
+                nxtNbr = nbrY->hhbNbrs.next->y;
+                *y = nxtNbr;
+                result = flag;
+            }
+        }else   /*primer vecino backward*/
+            if (nbrs->bNbrs != NULL){
+                nxtNbr = nbrs->bNbrs->y;
+                *y = nxtNbr;
+                result = flag
+            }
+
+    return result;
 }
 
 
 /* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad
- * Precondicion: y != NULL y es vecino del nodo padre. vf > 0
+ * Precondicion: 'y' es vecino. vf > 0
  * Retorno: valor del nuevo flujo que se esta enviando */
 u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
     void *nbr = NULL;   /*el vecino*/
-    int dir = 0;        /*direccion en la que se encuentra el vecino*/
-    u64 gf = 0;         /*flujo actual enviandose. Retorno*/
+    int dir = UNK;      /*direccion en la que se encuentra el vecino*/
     
-    assert(nbrs != NULL && y != NULL && vf > 0);
+    assert(nbrs != NULL && vf > 0);
     
     nbr = findNbr(nbrs, y, dir);
-    assert(nbr != NULL);
     
     if (dir == FWD){        /* es FWD, aumento el flujo*/
         nbr->flow += vf;
@@ -210,15 +230,14 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
 
 
 /*devuelve la capacidad con el vecino y
- Precondicion: y != NULL y es vecino del nodo padre */
+ Precondicion: 'y' es vecino */
 u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
     void *nbr = NULL;   /*el vecino*/
-    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    int dir = UNK;        /*direccion en la que se encuentra el vecino*/
     
-    assert(nbrs != NULL && y != NULL);
+    assert(nbrs != NULL);
 
     nbr = findNbr(nbrs, y, dir);
-    assert(nbr != NULL);
     
     if (dir == BWD)
         nbr = nbr->x;
@@ -228,32 +247,33 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
 
 
 /*devuelve el valor del flujo con el vecino 'y'
- Precondicion: y != NULL y es vecino del nodo padre */
+ Precondicion: 'y' es vecino */
 u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
     void *nbr = NULL;   /*el vecino*/
-    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    u64 result;
+    int dir = UNK;        /*direccion en la que se encuentra el vecino*/
     
-    assert(nbrs != NULL && y != NULL);
+    assert(nbrs != NULL);
 
     nbr = findNbr(nbrs, y, dir);
-    assert(nbr != NULL);
     
     if (dir == BWD)
-        nbr = nbr->x;
+        result = nbr->x->flow;
+    else
+        result = nbr->flow;
     
-    return nbr->flow;
+    return result;
 }
 
 /*devuelve la direccion (FWD o BWD) en la que se encuentra el vecino 'y'
- Precondicion: y != NULL y es vecino del nodo padre */
+ Precondicion: 'y' es vecino */
 int nbrhd_getDir(Nbrhd nbrs, u64 y); 
     void *nbr = NULL;   /*el vecino*/
-    int dir = 0;        /*direccion en la que se encuentra el vecino*/
+    int dir = UNK;        /*direccion en la que se encuentra el vecino*/
     
-    assert(nbrs != NULL && y != NULL);
+    assert(nbrs != NULL);
 
-    nbr = findNbr(nbrs, y, dir);
-    assert(nbr != NULL);
+    findNbr(nbrs, y, dir);
     
     return dir;
 }
@@ -288,17 +308,17 @@ Bedge nbrhd_findBnbr(Bedge bNbrs, u64 y){
 /* ATTENTION Arriba esta hecho separadamente, por si esto no funciona
  * 
  * Devuelve el vecino 'y' con la direccion en la que se encontro en 'dir'. 
- * Si 'dir' != 0, busca unicamente en esa direccion; 
+ * Si 'dir' != UNK, busca unicamente en esa direccion; 
  * caso contrario, busca primero por forward y luego por backward.
- * Precondicion: y != NULL y es vecino del nodo padre */
+ * Precondicion: 'y' es vecino */
 void *findNbr(Nbrhd nbrs, u64 y, int dir){
     Fedge fnbr = NULL;
     Bedge bnbr = NULL;
     void *result = NULL;
     
-    assert(Nbrs != NULL && y != NULL);
+    assert(Nbrs != NULL);
     
-    if (dir != BWD)         /*busqueda por vecinos forward*/
+    if (dir != BWD)         /*busqueda por vecinos forward (dir == UNK|FWD)*/
         HASH_FIND(nbrs->fNbrs->hhfNbrs, nbrs->fNbrs, &(y), sizeof(y), fnbr);
         /* caso dir == FWD, no puede ser fnbr == NULL */
         assert(dir != FWD || fnbr != NULL);
