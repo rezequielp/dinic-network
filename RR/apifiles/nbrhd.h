@@ -59,8 +59,11 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
  * almacena el nombre en 'y'
  * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD, y!=NULL
  * Retorno(r):  r = 'flag', si se encontro un vecino
- *              r = NO_NXT, ya no hay mas vecinos en esa direccion
+ *              r = NONE, ya no hay mas vecinos en esa direccion
  */
+ /*TODO: NO_NXT o NONE como return??????????????????*/
+ /*TODO: sugerencia: estaria bueno que flags sea no excluyente.
+ osea que se pueda pedir FWR|BWD (usado asi en API.c)*/
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y);
 
 
