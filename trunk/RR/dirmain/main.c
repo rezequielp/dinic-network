@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
-
+#include <time.h>
 
 
 /*MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA
 */
+#define IMP_TIEMPODINIC             0b00010000
 #define IMP_CAMINO_AUMENTANE        0b00001000
 #define IMP_FLUJO                   0b00000100
 #define IMP_CORTE                   0b00000010
-#define IMPR_VALOR_FLUJO            0b00000001
+#define IMP_VALOR_FLUJO            0b00000001
 
 #define SET_IMPST(f) STATUS |= f
 #define UNSET_IMPST(f) network->flags &= ~f
@@ -27,59 +28,12 @@ int main(int argc, char *argv[]){
     int counter = 0;
     u64 source, sink;
     int break_w=0;
-    
-    source = u64_new();
-    sink = u64_new();
+    clock_t clock_startTime, clock_finishTime;
+    double dinicTime;
     
     /*Se controlan los parametros de ingreso*/
-    while (counter < argc && !break_w){
-        switch(argv[i]){
-            case('-f'):
-            case('--flujo'):
-                SET_IMPST(IMP_CAMINO_AUMENTANE);
-                break;
-            case('-vf'):
-            case('--valorflujo'):
-                SET_IMPST(IMP_FLUJO);
-                break
-            case('-c'):
-            case('--corte'):
-                SET_IMPST(IMP_CORTE );
-                break;
-            case('-p'):
-            case('--path'):
-                SET_IMPST(IMPR_VALOR_FLUJO);
-                break;
-            case('-s'):
-                /*if(isu64(argv[i+1])){*/
-                    source = argv[i+1];
-                    i++;
-                /*}else{
-                    printf("%s: s%: is not unsigned 64 bits");
-                    break_w = true;
-                }*/
-                break;
-            case('-t'):
-                sink = argv[i+1];
-                i++;
-                break;
-            case('-a'):
-            case('-all'):
-                SET_IMPST(IMP_CAMINO_AUMENTANE);
-                SET_IMPST(IMP_FLUJO);
-                SET_IMPST(IMP_CORTE);
-                SET_IMPST(IMPR_VALOR_FLUJO);
-                break;
-            case ('-h'):
-            case ('-help'):
-                print_help():
-                break;
-            default:
-                printf("%s: %s: Invalid option.\n", argv[0], argv[i]);
-                print_help(argv[0]);
-                break;
-        }
-    }
+    parametersChecker(argc, argv);
+
     /* Se crea un nuevo network*/
     /* TODO cambiar esto segun los argumentos que pasemos*/
     network = NuevoDovahkiin();
@@ -94,7 +48,10 @@ int main(int argc, char *argv[]){
     
     Prepararse(network);
     ActualizarDistancias(network);
-
+    
+    if (IS_SET_IMPST(IMP_TIEMPODINIC))
+        clock_startTime = clock(); 
+    
     while BusquedaCaminoAumentante(network){
         if (IS_SET_IMPST(IMP_CAMINO_AUMENTANE))
             AumentarFlujoYtambienImprimirCamino(network);
@@ -105,6 +62,12 @@ int main(int argc, char *argv[]){
             ImprimirFlujo(netwrok);
     }
     
+    if (IS_SET_IMPST(IMP_TIEMPODINIC)){
+        clock_finishTime = clock();
+        dinicTime = (clock_finishTime-clock_startTime) / CLK_PER_SEC; /*WARNING tipo de dato devuelto por clock(), generalmente un long int*/
+        
+        print_dinicTime(dinicTime);
+    }
     if (IS_SET_IMPST(IMPR_VALOR_FLUJO))
         ImprimirValorFlujo(netwrok);
     
@@ -137,6 +100,66 @@ void load_from_stdin(DovahkiinP network){
     }while(lado!=LadoNulo && load_ok)
 }
 
+bool parametersChecker(argc, argv){
+    int counter;
+    bool parameter_statusOk = true;
+    
+    while (counter < argc && parameter_statusOk){
+        switch(argv[i]){
+            case('-f'):
+            case('--flujo'):
+                SET_IMPST(IMP_CAMINO_AUMENTANE);
+                break;
+            case('-vf'):
+            case('--valorflujo'):
+                SET_IMPST(IMP_FLUJO);
+                break
+            case('-c'):
+            case('--corte'):
+                SET_IMPST(IMP_CORTE );
+                break;
+            case('-p'):
+            case('--path'):
+                SET_IMPST(IMPR_VALOR_FLUJO);
+                break;
+            case('-s'):
+                /*if(isu64(argv[i+1])){*/
+                    source = argv[i+1];
+                    i++;
+                /*}else{
+                    printf("%s: s%: is not unsigned 64 bits");
+                    break_w = true;
+                }*/
+                break;
+            case('-t'):
+                sink = argv[i+1];
+                i++;
+                break;
+            case('-a'):
+            case('--all'):
+                SET_IMPST(IMP_CAMINO_AUMENTANE);
+                SET_IMPST(IMP_FLUJO);
+                SET_IMPST(IMP_CORTE);
+                SET_IMPST(IMPR_VALOR_FLUJO);
+                break;
+            case ('-h'):
+            case ('--help'):
+                print_help():
+                break;
+            case ('-r'):
+            case ('--reloj'):
+                SET_IMPST(IMP_CLOCKDINIC);
+                break;
+            default:
+                printf("%s: %s: Invalid option.\n", argv[0], argv[i]);
+                print_help(argv[0]);
+                parameter_statusOk = false;
+                break;
+        }
+    }
+    return parameter_statusOk;
+}
+
 void print_help(char * programName){
     printf("USO: %s -s source -t sink [OPCIONES] NETWORK\n\n", programName);
     printf("OPCIONES:\n");
@@ -146,6 +169,7 @@ void print_help(char * programName){
     printf("\t-f --flujo: Imprime el flujo.\n");
     printf("\t-c --corte: Imprime el corte.\n");
     printf("\t-p --path: Imprime los caminos aumentantes.\n");
+    printf("\t-r --reloj: Imprime el tiempo en hh:mm:ss del algoritmo Dinic sin tener en cuenta el cargado de datos.\n");
     printf("\t-all: Equivalente a -vf -f -p y -c.\n\n");
     printf("\tNETWORK: Una serie de elementos de la forma x y z\\n que representan el nodo x->y de capacidad z terminada con un ENF.\n");
     printf("Ejemplo: $%s -f -vf -s 1 -t 0 <network.txt\n\n", programName);
@@ -159,3 +183,14 @@ void print_help(char * programName){
     
     
 }*/
+
+void print_dinicTime(int time){
+    int hs,min,sec;
+    sec = time % 60;
+    min = time/60 % 60;
+    hs = time/3600;
+    printf("\nDinic demoró(hh:mm:ss): %2i:%2i:%2i\n\n", hs, min, sec);
+}
+
+
+
