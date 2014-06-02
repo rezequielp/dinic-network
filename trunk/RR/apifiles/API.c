@@ -68,7 +68,7 @@ typedef struct NetworkYFlujo{
 static u64 get_pathFlow(DovahkiinP network, bool print);
 static Network *network_create(u64 n);
 static void network_destroy(Network net);
-static Network network_nextItem(Network node);
+static Network network_nextElement(Network node);
 static void set_lvlNbrs(Network net, Queue q, Network node, int dir, int lvl);
 static Network set_lvl(Network net, u64 name, int lvl);
 static u64 get_lvl(u64 name);
@@ -300,7 +300,7 @@ int BusquedaCaminoAumentante(DovahkiinP network){
     
     if (IS_SET_FLAG(SINK_REACHED) && IS_SET_FLAG(PATHUSED)){
         while(node->name != t && !stack_isEmpty(network->path)){
-            node = network_nextItem(node); /*TODO debe cumplir condicion de distancia*/
+            node = network_nextElement(node); /*TODO debe cumplir condicion de distancia*/
             if (node != NULL){
                 stack_push(network->path, node);
             }else{
@@ -478,24 +478,27 @@ static void network_destroy(Network net){
 
 /*Busca el siguente elemento que cumple las condiciones de poder mandar flujo 
 forward o backwar del nodo "node" y devuelve un puntero hacia ese elemento*/
-static Network network_nextItem(Network node){
+static Network network_nextElement(Network node){
     Network next = NULL;
     Network nNode;
+    bool break_w:
     u64 uNode;
     int dir;
 
     nNode = node;
     dir = nbrhd_getNext(nNode->nbrs, FST, FWD|BWD, uNode);
-    while(next != NULL){
+    nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
+    /*WARNING: Si se hace con un DO-WHILE se van a hacer busqueda de mas.*/
+    while(next == NULL && !break_w){
         if(dir != NONE){
-            if(dir = FWD && nbrhd_getCap(nbrs, y)>nbrhd_getFlow(nbrs, y) || \
-              (dir = BWD && nbrhd_getFlow(nbrs, y) > 0)){
+            nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
+            if(get_lvl(nNode) == get_lvl(node)+1)
                 next =; /*TODO: apuntar el nodo "uNode" por next*/
-            }else{
-                nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
+            else
                 dir = nbrhd_getNext(nNode->nbrs, NXT, FWD|BWD, uNode);
-            }
-            
+        }else{
+            /*No existe un siguiente.*/
+            break_w = true;
         }
     }
     return next;
