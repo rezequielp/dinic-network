@@ -159,7 +159,7 @@ Bedge bedge_create(u64 y, Fedge fNbr){
  * Busca el vecino siguiente en la direccion 'dir' (FWD o BWD) y si existe 
  * almacena el nombre en 'y'
  * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD, y!=NULL
- * Retorno(r):  r = 'flag', si se encontro un vecino
+ * Retorno(r):  r = 'dir', si se encontro un vecino
  *              r = NONE, ya no hay mas vecinos en esa direccion
  */
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
@@ -169,37 +169,40 @@ int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
 
     assert(nbrs != NULL && y!=NULL);
     assert(flag == FST || flag == NXT);
-    assert(dir == FWD || dir == BWD);
-            
-    if (dir == FWD)
+    assert(dir == FWD || dir == BWD || flag == FWD||BWD);
+
+    if (dir & FWD > 0){
         if (flag == NXT){   /*el siguiente vecino forward*/
             nbrY = findNbr(nbrs, nxtNbr, dir);
             if (nbrY->hhfNbrs.next != NULL){    /*existe un siguiente*/
                 nxtNbr = nbrY->hhfNbrs.next->y;
                 *y = nxtNbr;
-                result = flag;
+                result = FWD;
             }
-        }else   /*primer vecino forward*/
+        }else{   /*primer vecino forward*/
             if (nbrs->fNbrs != NULL){
                 nxtNbr = nbrs->fNbrs->y;
                 *y = nxtNbr;
-                result = flag;
+                result = FWD;
             }
-    else
+        }
+    }
+    if(dir & BWD > 0 && result == NONE){
         if (flag == NXT){   /*el sig vecino vecino backward*/
             nbrY = findNbr(nbrs, nxtNbr, dir);
             if (nbrY->hhbNbrs.next != NULL){    /*existe un siguiente*/
                 nxtNbr = nbrY->hhbNbrs.next->y;
                 *y = nxtNbr;
-                result = flag;
+                result = BWD;
             }
-        }else   /*primer vecino backward*/
+        }else{   /*primer vecino backward*/
             if (nbrs->bNbrs != NULL){
                 nxtNbr = nbrs->bNbrs->y;
                 *y = nxtNbr;
-                result = flag
+                result = BWD;
             }
-
+        }
+    }
     return result;
 }
 

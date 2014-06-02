@@ -13,8 +13,8 @@
  * Es la direccion en la que se encuentra un vecino.
  * Una vecindad (Nbrhd) se divide en 2 zonas: FWD y BWD.
  * Un mismo vecino no puede estar en ambas zonas (loops)*/
-#define FWD 1   /*Forward*/
-#define BWD -1  /*Backward*/
+#define FWD 0b01   /*Forward*/
+#define BWD 0b10  /*Backward*/
 
 /* 'flag' options:
  * Indica cual es el siguiente vecino que se quiere obtener.*/
@@ -58,12 +58,10 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
  * Busca el vecino siguiente en la direccion 'dir' (FWD o BWD) y si existe 
  * almacena el nombre en 'y'
  * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD, y!=NULL
- * Retorno(r):  r = 'flag', si se encontro un vecino
+ * Retorno(r):  r = 'dir', si se encontro un vecino
  *              r = NONE, ya no hay mas vecinos en esa direccion
  */
- /*TODO: NO_NXT o NONE como return??????????????????*/
- /*TODO: sugerencia: estaria bueno que flags sea no excluyente.
- osea que se pueda pedir FWR|BWD (usado asi en API.c)*/
+
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y);
 
 
