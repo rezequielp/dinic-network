@@ -28,18 +28,13 @@
 #define IS_SET_FLAG(f) (network->flags & f) > 0
 #endif
 
-/*       Macro: Direccion Forward o Backward    */
-#ifndef MACRO_DIR 
-#define FWR 1
-#define BWD -1
-#endif
 
 /*      Macro: Iterador sobre un path.          */
 #define PATH_ITER(path, x, y)                                               \
     stack_resetViewer=(path);                                               \
     y = stack_nextItem(path);                                               \
     x = stack_nextItem(path);                                               \
-    for(; (x)!=NULL; (y)=(x); (x)=stack_nextItem(path))
+    for(; (x)!=NULL; (y)=(x), (x)=stack_nextItem(path))
 
 
 /*
@@ -481,12 +476,21 @@ forward o backwar del nodo "node" y devuelve un puntero hacia ese elemento*/
 static Network network_nextElement(Network node){
     Network next = NULL;
     Network nNode;
-    bool break_w:
+    bool break_w;
     u64 uNode;
     int dir;
-
+    static int flag = NXT;
+    static u64 previousNode=node;
+    
+    if(previousNode != node){
+        previousNode = node;
+        flag = FST;
+    }else{
+        flag = NXT;
+    }
+    
     nNode = node;
-    dir = nbrhd_getNext(nNode->nbrs, FST, FWD|BWD, uNode);
+    dir = nbrhd_getNext(nNode->nbrs, flag, FWD|BWD, uNode);
     nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
     /*WARNING: Si se hace con un DO-WHILE se van a hacer busqueda de mas.*/
     while(next == NULL && !break_w){
