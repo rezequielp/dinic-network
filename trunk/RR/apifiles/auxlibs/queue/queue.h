@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 typedef struct queueSt *Queue;
-
+typedef struct ElementSt Element;
 
 Queue queue_create (void);
 /* 
@@ -15,7 +15,7 @@ int queue_enqueue(Queue Q, void *elem);
  * Devuelve la misma cola con el elemento nuevo agregado
 */
 
-void queue_dequeue (Queue Q);
+void * queue_dequeue (Queue Q);
 /*
  * Elimina el primer elemento que entro a la cola
  * PRE: Q != vacio
@@ -31,7 +31,7 @@ int queue_isEmpty (Queue Q);
  *Funcion que devuelve true o false si la cola es vacia o no respectivamente
 */
 
-void queue_destroy (Queue Q);
+int queue_destroy (Queue Q);
 /* 
  * Libera toda la memoria asignada a Q
 */
