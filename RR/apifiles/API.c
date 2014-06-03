@@ -1,9 +1,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "auxlibs/uthash/uthash.h"
 #include "auxlibs/stack/stack.h"
+#include "auxlibs/queue/queue.h"
 #include "auxlibs/bstring/bstrlib.h"
+#include "nbrhd.h"
 #include "API.h"
 
 
@@ -242,7 +245,7 @@ int ActualizarDistancias(DovahkiinP network){
     
     /* preparacion de las cosas que voy a usar*/
     UNSET_FLAG(SINK_REACHED);
-    cut = network->cut;
+    cut = network.cut;
     HASH_CLEAR(hhCut, cut);    /*antes de empezar se limpia el corte*/
     q = queue_create();
     qNext = queue_create();
@@ -282,14 +285,14 @@ int ActualizarDistancias(DovahkiinP network){
 /*Hace una busqueda FF DFS usando las etiquetas de ActualizarDistancia(). 
  * Devuelve 1 si llega a t, 0 caso contrario.*/
 int BusquedaCaminoAumentante(DovahkiinP network){
-    U64 s, t;
-    Network node = NULL;
+    u64 s, t;
+    Network node;
     
     assert(network != NULL);
     s = network->source;
     t = network->sink;
     /*preparacion de todas las cosas que uso para buscar un camino aumentante*/
-    stack_destroy(network->path);
+    stack_destroy(network->path, NULL);
     HASH_FIND(hhNet, network->net, &(s), sizeof(s), node);
     stack_push(network->path, node);
     
@@ -337,7 +340,7 @@ u64 AumentarFlujo(DovahkiinP network){
  * t;x_r;...;x_1;s: <cantDelIncremento>
  * Donde # es el numero del camino aumentante, 
  * ";" se usa en caminos forward y ">" en backward.*/
-AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
+u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
     u64 pflow = 0;
     Network x = NULL;
     Network y = NULL;
@@ -400,7 +403,7 @@ void ImprimirValorFlujo(DovahkiinP network){
 /*Imprime un corte minimal y su capacidad con el formato:
 Corte minimial: S = {s,x_1,...}
 Capacidad: <Capacidad>*/
-void ImprimirCorte(Dovahkiin network){
+void ImprimirCorte(DovahkiinP network){
 /*Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
 de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging.
 igual quedan programadas las dos formas y comentada una de ellas.*/
@@ -438,7 +441,7 @@ u64 get_pathFlow(DovahkiinP network, bool print){
     
     pflow = u64_MAX;
     /*busqueda del flujo maximal sobre el camino aumentante*/
-    PATH_ITER(network->path, x, y){
+    PATH_ITER(network.path, x, y){
         pflow = u64_min(pflow, nbrhd_getFlow(x->nbrs, y->name));
     }
 
@@ -466,7 +469,7 @@ static void network_destroy(Network net){
     
     HASH_ITER(hhNet, net, elem, eTmp){
         HASH_DEL(net, elem); /*elimina la referencia sobre la hash table*/
-        nbrhd_destroy(elem->nbrs);
+        nbrhd_destroy(elem.nbrs);
         free(elem);
     }
 }
@@ -482,24 +485,24 @@ static Network network_nextElement(Network node){
     static int flag = NXT;
     static u64 previousNode=node;
     
-    if(previousNode != node){
-        previousNode = node;
+    if(previousNode != node.name){
+        previousNode = node.name;
         flag = FST;
     }else{
         flag = NXT;
     }
     
     nNode = node;
-    dir = nbrhd_getNext(nNode->nbrs, flag, FWD|BWD, uNode);
+    dir = nbrhd_getNext(nNode.nbrs, flag, FWD|BWD, uNode);
     nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
     /*WARNING: Si se hace con un DO-WHILE se van a hacer busqueda de mas.*/
     while(next == NULL && !break_w){
         if(dir != NONE){
-            nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
-            if(get_lvl(nNode) == get_lvl(node)+1)
-                next =; /*TODO: apuntar el nodo "uNode" por next*/
+            nNode =NULL;/*TODO: apuntar el nodo "uNode" por nNode*/
+            if(get_lvl(nNode.name) == get_lvl(node.name)+1);
+                next =NULL; /*TODO: apuntar el nodo "uNode" por next*/
             else
-                dir = nbrhd_getNext(nNode->nbrs, NXT, FWD|BWD, uNode);
+                dir = nbrhd_getNext(nNode.nbrs, NXT, FWD|BWD, uNode);
         }else{
             /*No existe un siguiente.*/
             break_w = true;
@@ -548,19 +551,19 @@ static void set_lvlNbrs(Network net, Queue q, Network node, int dir, int lvl){
  * Precondicion: 'name' debe ser un nombre de nodo existente
  */
 static Network set_lvl(Network net, u64 name, int lvl){
-    Network node = NULL;
+    Network node;
     
     assert(net != NULL);
     
     HASH_FIND(hhNet, net, &name, sizeof(name), node);
-    assert(node != NULL);
-    if(node->level == NOT_USED)
-        node->level = lvl;
+    //assert(node != NULL);
+    if(node.level == NOT_USED)
+        node.level = lvl;
     
     return node;
 }
 
-/*devuelve el valor de distancia del nodo y*/
+/*TODO devuelve el valor de distancia del nodo y*/
 static u64 get_lvl(u64 name){
 
 }

@@ -1,90 +1,27 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
+#include <assert.h>
 
+#include "../apifiles/API.h"
 
 /*MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA
 */
+#define IMP_ERROR                   0b10000000
 #define IMP_TIEMPODINIC             0b00010000
-#define IMP_CAMINO_AUMENTANE        0b00001000
+#define IMP_CAMINO_AUMENTANTE       0b00001000
 #define IMP_FLUJO                   0b00000100
 #define IMP_CORTE                   0b00000010
-#define IMP_VALOR_FLUJO            0b00000001
+#define IMP_VALOR_FLUJO             0b00000001
 
 #define SET_IMPST(f) STATUS |= f
-#define UNSET_IMPST(f) network->flags &= ~f
+#define UNSET_IMPST(f) STATUS &= ~f
 #define CLEAR_IMPST() 0b00000000
-#define IS_SET_IMPST(f) (network->flags & f) > 0
-
-static void load_from_stdin(DovahkiinP net);
-
-int main(int argc, char *argv[]){
-    DovahkiinP network = NULL;  /*network principal*/
-    int parameters = 0;
-    u64 s = NULLL;
-    u64 t = NULL;
-    short int status = CLEAR_IMPRST();
-    int counter = 0;
-    u64 source, sink;
-    int break_w=0;
-    clock_t clock_startTime, clock_finishTime;
-    double dinicTime;
-    
-    /*Se controlan los parametros de ingreso*/
-    parametersChecker(argc, argv);
-
-    /* Se crea un nuevo network*/
-    /* TODO cambiar esto segun los argumentos que pasemos*/
-    network = NuevoDovahkiin();
-
-    assert(network != NULL)
-    /* Se carga los valores del network*/
-    load_from_stdin(network);
-    
-    /*se calcula e imprime lo requerido*/
-    FijarFuente(network, s);
-    FijarResumidero(network, t);
-    
-    Prepararse(network);
-    ActualizarDistancias(network);
-    
-    if (IS_SET_IMPST(IMP_TIEMPODINIC))
-        clock_startTime = clock(); 
-    
-    while BusquedaCaminoAumentante(network){
-        if (IS_SET_IMPST(IMP_CAMINO_AUMENTANE))
-            AumentarFlujoYtambienImprimirCamino(network);
-        else
-            AumentarFlujo(network);
-        
-        if (IS_SET_IMPST(IMP_FLUJO))
-            ImprimirFlujo(netwrok);
-    }
-    
-    if (IS_SET_IMPST(IMP_TIEMPODINIC)){
-        clock_finishTime = clock();
-        dinicTime = (clock_finishTime-clock_startTime) / CLK_PER_SEC; /*WARNING tipo de dato devuelto por clock(), generalmente un long int*/
-        
-        print_dinicTime(dinicTime);
-    }
-    if (IS_SET_IMPST(IMPR_VALOR_FLUJO))
-        ImprimirValorFlujo(netwrok);
-    
-    if (IS_SET_IMPST(IMP_CORTE))
-        ImprimirCorte(network);
-    
-    /* destruyo el network*/
-    if (!DestruirDovahkiin(network))
-        printf("Error al intentar liberar el network\n");
-
-    return 0;
-}
+#define IS_SET_IMPST(f) (STATUS & f) > 0
 
 
-/*Carga los lados del network desde el stdin
- * Pre: network != NULL
- */
 void load_from_stdin(DovahkiinP network){
     Lado lado = NULL;          /*un lado leido*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
@@ -92,72 +29,13 @@ void load_from_stdin(DovahkiinP network){
     assert(network != NULL);
     
     /* no hace falta limpiar el input porque lexer se come todo lo leido
+
      * caso vacio -> leerUnLado retorna LadoNulo*/
     
     do{
-        lado = LeerUnLado(network);
-        load_ok = CargarUnLado(network, lado)
-    }while(lado!=LadoNulo && load_ok)
-}
-
-bool parametersChecker(argc, argv){
-    int counter;
-    bool parameter_statusOk = true;
-    
-    while (counter < argc && parameter_statusOk){
-        switch(argv[i]){
-            case('-f'):
-            case('--flujo'):
-                SET_IMPST(IMP_CAMINO_AUMENTANE);
-                break;
-            case('-vf'):
-            case('--valorflujo'):
-                SET_IMPST(IMP_FLUJO);
-                break
-            case('-c'):
-            case('--corte'):
-                SET_IMPST(IMP_CORTE );
-                break;
-            case('-p'):
-            case('--path'):
-                SET_IMPST(IMPR_VALOR_FLUJO);
-                break;
-            case('-s'):
-                /*if(isu64(argv[i+1])){*/
-                    source = argv[i+1];
-                    i++;
-                /*}else{
-                    printf("%s: s%: is not unsigned 64 bits");
-                    break_w = true;
-                }*/
-                break;
-            case('-t'):
-                sink = argv[i+1];
-                i++;
-                break;
-            case('-a'):
-            case('--all'):
-                SET_IMPST(IMP_CAMINO_AUMENTANE);
-                SET_IMPST(IMP_FLUJO);
-                SET_IMPST(IMP_CORTE);
-                SET_IMPST(IMPR_VALOR_FLUJO);
-                break;
-            case ('-h'):
-            case ('--help'):
-                print_help():
-                break;
-            case ('-r'):
-            case ('--reloj'):
-                SET_IMPST(IMP_CLOCKDINIC);
-                break;
-            default:
-                printf("%s: %s: Invalid option.\n", argv[0], argv[i]);
-                print_help(argv[0]);
-                parameter_statusOk = false;
-                break;
-        }
-    }
-    return parameter_statusOk;
+        lado = LeerUnLado();
+        load_ok = CargarUnLado(network, lado);
+    }while(lado != LadoNulo && load_ok);
 }
 
 void print_help(char * programName){
@@ -175,12 +53,64 @@ void print_help(char * programName){
     printf("Ejemplo: $%s -f -vf -s 1 -t 0 <network.txt\n\n", programName);
 }
 
+short int parametersChecker(int argc, char *argv[]){
+    int counter;
+    int i = 1;
+    short int STATUS = CLEAR_IMPST();
+    char * source, * sink;
+    
+    while (counter < argc && !IS_SET_IMPST(IMP_ERROR)){
+        if(strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--flujo")== 0 )
+            SET_IMPST(IMP_CAMINO_AUMENTANTE);
+            
+        else if(strcmp(argv[i], "-vf") == 0 || strcmp(argv[i], "--valorflujo")== 0 )
+            SET_IMPST(IMP_FLUJO);
+            
+        else if(strcmp(argv[i], "-c") == 0 || strcmp(argv[i],"--corte" )== 0 )
+            SET_IMPST(IMP_CORTE );
+            
+        else if(strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--path")== 0 )
+            SET_IMPST(IMP_VALOR_FLUJO);
+            
+        else if(strcmp(argv[i], "-s") == 0 ){
+            source = argv[i+1];
+            i++;
+    
+        }else if(strcmp(argv[i], "-t") == 0 ){
+            sink = argv[i+1];
+            i++;
+            
+        }else if(strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--all")== 0 ){
+            SET_IMPST(IMP_CAMINO_AUMENTANTE);
+            SET_IMPST(IMP_FLUJO);
+            SET_IMPST(IMP_CORTE);
+            SET_IMPST(IMP_VALOR_FLUJO);
+            SET_IMPST(IMP_TIEMPODINIC);
+            
+        }else if(strcmp(argv[i], "-r") == 0 || strcmp(argv[i],"--reloj" )== 0 )
+            SET_IMPST(IMP_TIEMPODINIC);
+
+        else if(strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")== 0 )
+            print_help(argv[0]);
+
+        else{/*default case*/
+            printf("%s: %s: Invalid option.\n", argv[0], argv[i]);
+            print_help(argv[0]);
+            SET_IMPST(IMP_ERROR);
+        }
+    }
+    return STATUS;
+}
+
 /*TODO?*/
 /*bool isu64(char * sU64){
+
     bstring bU64;
     
+
     bU64 bfromcstr(sU64);
     
+
     
 }*/
 
@@ -191,6 +121,73 @@ void print_dinicTime(int time){
     hs = time/3600;
     printf("\nDinic demoró(hh:mm:ss): %2i:%2i:%2i\n\n", hs, min, sec);
 }
+
+int main(int argc, char *argv[]){
+    DovahkiinP network = NULL;  /*network principal*/
+    int parameters = 0;
+    u64 s = NULL;
+    u64 t = NULL;
+    short int STATUS;
+    int counter = 0;
+    u64 source, sink;
+    int break_w=0;
+    clock_t clock_startTime, clock_finishTime;
+    double dinicTime;
+    
+    /*Se controlan los parametros de ingreso*/
+    STATUS = parametersChecker(argc, argv);
+
+    /* Se crea un nuevo network*/
+    /* TODO cambiar esto segun los argumentos que pasemos*/
+    network = NuevoDovahkiin();
+
+    assert(network != NULL);
+    /* Se carga los valores del network*/
+    load_from_stdin(network);
+    
+    /*se calcula e imprime lo requerido*/
+    FijarFuente(network, s);
+    FijarResumidero(network, t);
+    
+    Prepararse(network);
+    ActualizarDistancias(network);
+    
+    if (IS_SET_IMPST(IMP_TIEMPODINIC))
+        clock_startTime = clock(); 
+    
+    while (BusquedaCaminoAumentante(network)){
+        if (IS_SET_IMPST(IMP_CAMINO_AUMENTANTE))
+            AumentarFlujoYtambienImprimirCamino(network);
+        else
+            AumentarFlujo(network);
+        
+        if (IS_SET_IMPST(IMP_FLUJO))
+            ImprimirFlujo(network);
+    }
+    
+    if (IS_SET_IMPST(IMP_TIEMPODINIC)){
+        clock_finishTime = clock();
+        dinicTime = (clock_finishTime-clock_startTime) / CLOCKS_PER_SEC; /*WARNING tipo de dato devuelto por clock(), generalmente un long int*/
+        
+        print_dinicTime(dinicTime);
+    }
+    if (IS_SET_IMPST(IMP_VALOR_FLUJO))
+        ImprimirValorFlujo(network);
+    
+    if (IS_SET_IMPST(IMP_CORTE))
+        ImprimirCorte(network);
+    
+    /* destruyo el network*/
+    if (!DestruirDovahkiin(network))
+        printf("Error al intentar liberar el network\n");
+
+    return 0;
+}
+
+
+/*Carga los lados del network desde el stdin
+ * Pre: network != NULL
+ */
 
 
 

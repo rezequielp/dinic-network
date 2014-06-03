@@ -1,5 +1,5 @@
-#ifndef _API_H
-#define _API_H
+#ifndef API_H
+#define API_H
 
 /*
 *   Integrantes:
@@ -16,7 +16,7 @@
 #include "lado.h"
 
 
-typedef DovahkiinSt * DovahkiinP;
+typedef struct DovahkiinSt  DovahkiinP;
 
 
 /*
@@ -78,7 +78,7 @@ u64 AumentarFlujo(DovahkiinP D);
 camino aumentante #:
 t;x_r;...;x_1;s: <cantDelIncremento>
 Donde # es el numero del camino aumentante, ";" se usa en caminos forward y ">" en backward.*/
-AumentarFlujoYTambienImprimirCamino(DovahkiinP D);
+u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP D);
 
 /*Imprime el Flujo hasta el momento con el formato:
 Flujo ¢:
@@ -97,3 +97,4 @@ Capacidad: <Capacidad>*/
 void ImprimirCorte(DovahkiinP D);
 
 #endif
+
