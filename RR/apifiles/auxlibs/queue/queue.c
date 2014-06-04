@@ -1,27 +1,29 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "queue.h"
+#include <stdio.h>
 
 /* Estructura doblemente enlazada, tiene una referencia al primer elemento 
  * y otra al ultimo */
 
-
+typedef struct ElementSt Element;
 /* Estructura que contiene un elemento y un puntero a la siguiente estructura */
-typedef struct ElementSt{
+struct ElementSt{
 	void *elem;
 	Element *next;
-}Element;
+};
 
 struct queueSt{
 	Element *head;
     Element *tail;
 	int size;
 };
+
 Queue queue_create(void){
 	
 	Queue Q = NULL;
 	
-	Q = (Queue *) malloc (sizeof(queueSt));
+	Q = (Queue) malloc (sizeof(struct queueSt));
 	if (Q != NULL){
         Q->head = NULL;
         Q->tail = NULL;
@@ -39,7 +41,7 @@ int queue_enqueue(Queue Q, void * q){
 	if (new != NULL){
         new->elem = q;
         new->next = NULL;
-        if(queue_is_empty(Q)){
+        if(queue_isEmpty(Q)){
             Q->head = new;
             Q->tail = Q->head;
         }else{
@@ -53,13 +55,13 @@ int queue_enqueue(Queue Q, void * q){
 }
 
 void * queue_dequeue(Queue Q){
-	Element *aux = NULL;
+	Element * aux = NULL;
 	void * elem = NULL;
-    assert(Q != NULL && queue_isEmpty(Q));
+    assert(Q != NULL && !queue_isEmpty(Q));
     
-	aux = queue_head(Q);
+	aux = Q->head;
 	if(aux->next != NULL){
-		Q->head = Q.head->next;
+		Q->head = Q->head->next;
 	}else{
         Q->head = NULL;
         Q->tail = NULL;
@@ -78,7 +80,7 @@ int queue_isEmpty(Queue Q){
 	return (Q->tail == NULL);
 }
 
-int queue_destroy (Queue Q, void *garbage){
+int queue_destroy (Queue Q, void ** garbage){
     int result = -1;
     int i = 0;
     int qSize;
@@ -105,3 +107,31 @@ int queue_destroy (Queue Q, void *garbage){
 int queue_size (Queue Q){
 	return (Q->size);
 }
+
+void main(){
+    Queue q;
+    q=queue_create();
+    int  a=1;
+    int  b=2;
+    int  c=3;
+    int  d=4;
+    int  e=4;
+    int aux, *aux2;
+    
+    queue_enqueue(q,&a);
+    queue_enqueue(q,&b);
+    queue_enqueue(q,&c);
+    queue_enqueue(q,&d);
+    queue_enqueue(q,&e);
+    printf("tamaño: %i\n", queue_size(q));
+    while(!queue_isEmpty(q)){
+        
+        aux2 =  queue_head(q);
+        aux = * aux2;
+        printf("el num es %i\n", aux);
+        queue_dequeue(q);
+    }
+    queue_destroy(q,NULL);
+}
+
+
