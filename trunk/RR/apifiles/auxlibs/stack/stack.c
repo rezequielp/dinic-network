@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdlib.h> 
 #include "stack.h"
+#include <stdio.h>
 
 /* Estructura que contiene un elemento y un puntero a la siguiente estructura */
 typedef struct ElementSt{
@@ -126,4 +127,31 @@ void* stack_nextItem(Stack S){
 /*resetea el visor*/
 void stack_resetViewer(Stack S){
     S->iter = S->top;
+}
+
+void main(){
+    Stack q;
+    q=stack_create();
+    int  a=1;
+    int  b=2;
+    int  c=3;
+    int  d=4;
+    int  e=4;
+    int aux, *aux2;
+    
+    stack_push(q,&a);
+    stack_push(q,&b);
+    stack_push(q,&c);
+    stack_push(q,&d);
+    stack_push(q,&e);
+    printf("tamaño: %i\n", stack_size(q));
+    while(!stack_isEmpty(q)){
+        
+        aux2 =  stack_top(q);
+        aux = * aux2;
+        printf("el num es %i\n", aux);
+        stack_pop(q);
+    }
+    stack_destroy(q,NULL);
+
 }

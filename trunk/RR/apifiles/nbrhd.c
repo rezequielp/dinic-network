@@ -1,6 +1,6 @@
 #include "auxlibs/bstring/bstrlib.h"
 #include "nbrhd.h"
-#include "auxlibs/bstring/uthash.h"
+#include "auxlibs/uthash//uthash.h"
 #include <stdlib.h>
 #include <assert.h>
 
@@ -10,14 +10,14 @@ typedef struct FedgeSt{
     u64 cap;        /* La capacidad restante de envio de flujo*/
     u64 flow;       /* El flujo por forward que se esta enviando*/
     UT_hash_handler hhfNbrs;
-} Fedge;
+} *Fedge;
 
 /* Estructura de un nodo por backward*/
 typedef struct BedgeSt{
     u64 y;          /* key */
     Fedge * x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
     UT_hash_handler hhbNbrs;
-} Bedge;
+} *Bedge;
 
 /* Estructura de la vecindad de un nodo*/
 struct NeighbourhoodSt{
@@ -32,7 +32,7 @@ struct NeighbourhoodSt{
  *                      Funciones del modulo
  */
 
-static void *findNbr(Nbrhd nbrs, u64 y, int dir);
+static (void *) findNbr(Nbrhd nbrs, u64 y, int dir);
 static void fedge_destroy(Fedge fNbrs);
 static void bedge_destroy(Bedge bNbrs);
 static Fedge fedge_create(u64 y, u64 c);
@@ -272,7 +272,7 @@ u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
  Precondicion: 'y' es vecino */
 int nbrhd_getDir(Nbrhd nbrs, u64 y); 
     void *nbr = NULL;   /*el vecino*/
-    int dir = UNK;        /*direccion en la que se encuentra el vecino*/
+    int *dir = &UNK;        /*direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
 
@@ -314,12 +314,12 @@ Bedge nbrhd_findBnbr(Bedge bNbrs, u64 y){
  * Si 'dir' != UNK, busca unicamente en esa direccion; 
  * caso contrario, busca primero por forward y luego por backward.
  * Precondicion: 'y' es vecino */
-void *findNbr(Nbrhd nbrs, u64 y, int dir){
+void *findNbr(Nbrhd nbrs, u64 y, int* dir){
     Fedge fnbr = NULL;
     Bedge bnbr = NULL;
     void *result = NULL;
     
-    assert(Nbrs != NULL);
+    assert(nbrs != NULL);
     
     if (dir != BWD)         /*busqueda por vecinos forward (dir == UNK|FWD)*/
         HASH_FIND(nbrs->fNbrs->hhfNbrs, nbrs->fNbrs, &(y), sizeof(y), fnbr);
@@ -332,7 +332,7 @@ void *findNbr(Nbrhd nbrs, u64 y, int dir){
     }else{                  /*busqueda por vecinos backward*/
         HASH_FIND(nbrs->bNbrs->hhfNbrs, nbrs->bNbrs, &(y), sizeof(y), bnbr);
         assert(bnbr != NULL);   /* 'y' no es vecino, error */
-        result = bnbr;
+        result = &bnbr;
         dir = BWD;
     }
         

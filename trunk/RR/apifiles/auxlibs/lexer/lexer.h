@@ -1,10 +1,10 @@
-#ifndef _LEXER_H
-#define _LEXER_H
-
+#ifndef LEXER_H
+#define LEXER_H
+#include "../bstring/bstrlib.c"
 #include <stdio.h>   /* Para tener FILE */
 #include <stdbool.h> /* Para tener bool */
 
-#include "../bstring/bstrlib.h"
+
 
 /*** Constantes ***/
 #define UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

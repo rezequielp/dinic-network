@@ -31,7 +31,7 @@ int queue_isEmpty (Queue Q);
  *Funcion que devuelve true o false si la cola es vacia o no respectivamente
 */
 
-int queue_destroy (Queue Q);
+int queue_destroy (Queue Q, void ** garbage);
 /* 
  * Libera toda la memoria asignada a Q
 */

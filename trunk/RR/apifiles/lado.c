@@ -1,7 +1,8 @@
 #include "lado.h"
 #include <assert.h>
+#include <stdlib.h>
 
-typedef struct Lado{
+struct LadoSt{
     u64 x;
     u64 y;
     u64 c;
@@ -12,7 +13,7 @@ typedef struct Lado{
 
 Lado lado_new(u64 x, u64 y, u64 c){
 	Lado edge;
-    edge = (Lado)malloc(sizeof(struct LadoSt)))
+    edge = (Lado)malloc(sizeof(struct LadoSt));
     edge->x = x;
     edge->y = y;
     edge->c = c;
@@ -40,3 +41,4 @@ u64 lado_getCap(Lado edge){
     assert(edge!=NULL);
 	return edge->c;
 }
+
