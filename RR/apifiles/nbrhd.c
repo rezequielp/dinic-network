@@ -1,6 +1,6 @@
 #include "auxlibs/bstring/bstrlib.h"
 #include "nbrhd.h"
-#include "auxlibs/uthash//uthash.h"
+/*#include "auxlibs/uthash//uthash.h"*/
 #include <stdlib.h>
 #include <assert.h>
 
@@ -32,7 +32,7 @@ struct NeighbourhoodSt{
  *                      Funciones del modulo
  */
 
-static (void *) findNbr(Nbrhd nbrs, u64 y, int dir);
+static void * findNbr(Nbrhd nbrs, u64 y, int dir);
 static void fedge_destroy(Fedge fNbrs);
 static void bedge_destroy(Bedge bNbrs);
 static Fedge fedge_create(u64 y, u64 c);
@@ -41,9 +41,9 @@ static Bedge bedge_create(u64 y, Fedge fNbr);
 
 /*Constructor de un nuevo Nbrhd*/
 Nbrhd nbrhd_create(){
-    Nbrhd nbrs;
+    Nbrhd nbrs=NULL;
     
-    nbrs = (Nbrhd) malloc(sizeof (struct NeighbourhoodSt));
+    nbrs = (Nbrhd) malloc(sizeof(struct NeighbourhoodSt));
     assert(nbrs != NULL);
     
     nbrs->fNbrs = NULL;
@@ -101,21 +101,24 @@ void bedge_destroy(Bedge bNbrs){
  * Precondicion: x, y, edge != NULL
  */
 void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
+    Fedge *fNbr=NULL;
+    Fedge fhTable=NULL;
+
 
     Bedge *bNbr = NULL;     /* vecino backward*/
-    void *hTable = NULL;    /* la tabla hash en la que agrego el vecino*/
+    Bedge bhTable = NULL;    /* la tabla hash en la que agrego el vecino*/
     
     /*Creo un vecino forward*/
     fedge_create(lado_getY(edge), lado_getCap(edge));
     /*lo agrego en la tabla de vecinos forward de 'x'*/ 
-    hTable = x->fNbrs;
-    HASH_ADD(hTable->hhfNbrs, hTable, hTable->y, sizeof(hTable->y), fNbr);
+    fhTable = *(x->fNbrs);
+    HASH_ADD(fhTable->hhfNbrs, fhTable, fhTable->y, sizeof(fhTable->y), fNbr);
     
     /*Creo un vecino backward*/
-    bedge_create(lado_getX(edge), fNbr);
+    bedge_create(lado_getX(edge), *fNbr);
     /*lo agrego en la tabla de vecinos backward de 'y'*/
-    hTable = y->bNbrs;
-    HASH_ADD(hTable->hhbNbrs, hTable, hTable->y, sizeof(hTable->y), bNbr);    
+    bhTable = *(y->bNbrs);
+    HASH_ADD(bhTable->hhbNbrs, bhTable, bhTable->y, sizeof(bhTable->y), bNbr);    
 }
 
 
@@ -124,15 +127,13 @@ que se tiene con el (c). El valor del flujo se inicia en 0.*/
 Fedge fedge_create(u64 y, u64 c){
     Fedge *fNbr = NULL;     /* vecino forward*/
     
-    assert(y!=NULL && c!=NULL);
-
-    fNbr = (Fedge*) malloc(sizeof(Fedge));
+    fNbr = (Fedge *) malloc(sizeof(Fedge));
     assert(fNbr != NULL);
-    fNbr->y = y;        
-    fNbr->cap = c;
-    fNbr->flow = 0;
+    (*fNbr)->y = y;        
+    (*fNbr)->cap = c;
+    (*fNbr)->flow = 0;
     
-    return fNbr;
+    return (*fNbr);
 }
 
 
@@ -141,14 +142,12 @@ a los datos por forward respecto a el*/
 Bedge bedge_create(u64 y, Fedge fNbr){
     Bedge *bNbr = NULL;     /* vecino backward*/
     
-    assert(y!=NULL && fNbr!=NULL);
-    
-    bNbr = (Bedge*) malloc(sizeof(Bedge))
+    bNbr = (Bedge*) malloc(sizeof(Bedge));
     assert(bNbr != NULL);
-    bNbr->y = y;          
-    bNbr->x = fNbr;
+    (*bNbr)->y = y;          
+    *((*bNbr)->x) = fNbr;
     
-    return bNbr;
+    return (*bNbr);
 }    
     
 
@@ -173,8 +172,8 @@ int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
 
     if (dir & FWD > 0){
         if (flag == NXT){   /*el siguiente vecino forward*/
-            nbrY = findNbr(nbrs, nxtNbr, dir);
-            if (nbrY->hhfNbrs.next != NULL){    /*existe un siguiente*/
+            nbrY = findNbr(nbrs, nxtNbr, dir);/*TODO hay qye castearke tipo sino no sabe como acceder a los campos de un puntero void*/
+            if ((*nbrY)->hhfNbrs.next != NULL){    /*existe un siguiente*/
                 nxtNbr = nbrY->hhfNbrs.next->y;
                 *y = nxtNbr;
                 result = FWD;
@@ -189,7 +188,7 @@ int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
     }
     if(dir & BWD > 0 && result == NONE){
         if (flag == NXT){   /*el sig vecino vecino backward*/
-            nbrY = findNbr(nbrs, nxtNbr, dir);
+            nbrY = findNbr(nbrs, nxtNbr, dir); /*TODO hay qye castearke tipo sino no sabe como acceder a los campos de un puntero void*/
             if (nbrY->hhbNbrs.next != NULL){    /*existe un siguiente*/
                 nxtNbr = nbrY->hhbNbrs.next->y;
                 *y = nxtNbr;
@@ -308,7 +307,7 @@ Bedge nbrhd_findBnbr(Bedge bNbrs, u64 y){
     return bnbr;
 }
 */
-/* ATTENTION Arriba esta hecho separadamente, por si esto no funciona
+/* ATTENTION Arriba esta hecho por separado, por si esto no funciona
  * 
  * Devuelve el vecino 'y' con la direccion en la que se encontro en 'dir'. 
  * Si 'dir' != UNK, busca unicamente en esa direccion; 
@@ -339,3 +338,4 @@ void *findNbr(Nbrhd nbrs, u64 y, int* dir){
     return result;
 }
 
+void main(){}
