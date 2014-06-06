@@ -7,11 +7,11 @@
 
 static int parse_argument(Lexer *input, u64 arg);
 static bstring next_bstring(Lexer *input, const char *str);
-static bool is_theNextChar(Lexer *input, const char *ch)
+static bool is_theNextChar(Lexer *input, const char *ch);
 
 
 /* Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo*/
-Lado *parse_lado(Lexer *input){
+Lado parse_lado(Lexer *input){
     u64 x;                      /*nodo x*/
     u64 y;                      /*nodo y*/
     u64 cap;                    /*capacidad de xy*/
@@ -23,13 +23,13 @@ Lado *parse_lado(Lexer *input){
     
     /*asigno el 1er argumento parseado a 'x'*/
     its_ok = parse_argument(input, x);
-    if (its_ok && is_theNextChar(input, WHITE_SPACE))
+    if (its_ok && is_theNextChar(input, WHITE_SPACE)){
         /*asigno el 2do argumento parseado a 'y'*/
         its_ok = parse_argument(input, y);
-        if (its_ok && is_theNextChar(input, WHITE_SPACE)
+        if (its_ok && is_theNextChar(input, WHITE_SPACE))
             /*asigno el 3er argumento parseado a 'cap'*/
             its_ok = parse_argument(input, cap);   
-    
+    }
     /* Si se parseo todo bien, creo el nuevo Lado con los valores*/
     if (its_ok){
         result = lado_new(x, y, cap);
@@ -70,7 +70,7 @@ int parse_nextLine(Lexer *input){
 static int parse_argument(Lexer *input, u64 n){
     int result = PARSER_ERR;    /*retorno (error al menos que todo salga bien)*/
     bstring barg = NULL;        /*argumento leido en tipo bstring*/
-    
+    char * carg;
     assert(input != NULL);
     
     /*quito los espacio en blanco que pueden haber al comienzo*/
@@ -81,13 +81,13 @@ static int parse_argument(Lexer *input, u64 n){
     barg = next_bstring(input, DIGIT);
     if (barg != NULL){
         /*lo convierto a u64*/
-        sarg = bstr2cstr(barg, '\0');
-        result = sscanf(sarg, "%" SCNu64 "\n", &n);
+        carg = bstr2cstr(barg, '\0');
+        result = sscanf(carg, "%" SCNu64 "\n", &n);
         assert(result == PARSER_OK);
         bdestroy(barg);
     }
     
-    return result,
+    return result;
 }
 
 /*lee el siguiente item.

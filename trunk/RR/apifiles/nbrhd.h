@@ -30,8 +30,7 @@
 
 /*          Estructura de la vecindad de un nodo
  */
-typedef struct NeigbourhoodSt * Nbrhd;
-
+typedef struct NeighbourhoodSt *Nbrhd;
 
 /*          Funciones
  */

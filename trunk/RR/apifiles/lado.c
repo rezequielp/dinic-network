@@ -42,3 +42,4 @@ u64 lado_getCap(Lado edge){
 	return edge->c;
 }
 
+void main(){}
