@@ -84,6 +84,7 @@ static int parse_argument(Lexer *input, u64 *n){
         carg = bstr2cstr(barg, '\0');
         result = sscanf(carg, "%" SCNu64 "\n", n);
         assert(result == PARSER_OK);
+        bcstrfree(carg);
         bdestroy(barg);
     }
     

@@ -151,7 +151,7 @@ sino devuelve el elemento LadoNulo.
 Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
 de capacidad c. */
 Lado LeerUnLado(void){
-    Lado edge = NULL;
+    Lado edge = LadoNulo;
     Lexer *input;   /*analizador lexico por lineas de un archivo*/
     int garbage = PARSER_OK;      /*Indica si no se encontro basura al parsear*/
    
@@ -457,7 +457,7 @@ static Network *network_create(u64 n){
     assert(node != NULL);
     
     node->name = n;
-    node->nbrs = NULL;
+    node->nbrs = nbrhd_create();
     node->level = NOT_USED; 
     
     return node;
