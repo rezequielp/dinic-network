@@ -178,9 +178,9 @@ Lado LeerUnLado(){
 
 /*Carga un edge al network. Retorna 1 si no hubo problemas y 0 caso contrario.*/
 int CargarUnLado(DovahkiinP network, Lado edge){
-    Network nodeX = NULL;
-    Network nodeY = NULL;
-    Network net = NULL;
+    Network *nodeX = NULL;
+    Network *nodeY = NULL;
+    Network *net = NULL;    /*alias de network->net*/
     u64 x, y;
     int result = 0;
     
@@ -190,17 +190,17 @@ int CargarUnLado(DovahkiinP network, Lado edge){
     if (edge != LadoNulo){
         x = lado_getX(edge);
         /* cargo el nodo 'x', si todavia no existe*/
-        HASH_FIND(hnet, net, &(x), sizeof(x), nodeX);/*TODO: que es hnet?*/
+        HASH_FIND(hhNet, net, &(x), sizeof(x), nodeX);
         if (nodeX == NULL){
             nodeX = network_create(x);
-            HASH_ADD(hnet, net, net->name, sizeof(net->name), nodeX);
+            HASH_ADD(hhNet, net, name, sizeof(net->name), nodeX);
         }
         y = lado_getY(edge);
         /*cargo el nodo 'y', si todavia no existe*/
-        HASH_FIND(hnet, net, &(y), sizeof(y), nodeY);/*TODO: que es hnet?*/
+        HASH_FIND(hhNet, net, &(y), sizeof(y), nodeY);
         if (nodeY == NULL){
             nodeY = network_create(y);
-            HASH_ADD(hnet, net, net->name, sizeof(net->name), nodeY);
+            HASH_ADD(hhNet, net, name, sizeof(net->name), nodeY);
         }
         /*se establecen como vecinos*/
         nbrhd_addEdge(nodeX->nbrs, nodeY->nbrs, edge);
@@ -214,19 +214,21 @@ int CargarUnLado(DovahkiinP network, Lado edge){
 Debe chequear que esten seteados s y t. 
 Devuelve 1 si puede preparar y 0 caso contrario*/
 int Prepararse(DovahkiinP network){
-    int status=0;
+    int status = 0;
+    u64 s, t;
     Network *src = NULL;
     Network *snk = NULL;
     
     assert(network != NULL);
-    network->net = net;
     if(IS_SET_FLAG(SINK) && IS_SET_FLAG(SOURCE)){
-        HASH_FIND(hhNet, net, &(netwrok->source), sizeof(netwrok->source), src);
-        HASH_FIND(hhNet, net, &(netwrok->sink), sizeof(netwrok->sink), snk);
+        s = network->source;
+        t = network->sink;
+        HASH_FIND(hhNet, network->net, &(s), sizeof(s), src);
+        HASH_FIND(hhNet, network->net, &(t), sizeof(t), snk);
         if (src != NULL && snk != NULL)
             status = 1;
     }
-    return 
+    return status;
 }
 
 /*Actualiza haciendo una busqueda BFS-FF. 
@@ -235,17 +237,15 @@ int ActualizarDistancias(DovahkiinP network){
     
     Queue q, qNext, qAux;       /*Colas para el manejo de los niveles. 
                                  *q = actual, qNext = siguiente, qAux = swap*/
-    Network node = NULL;        /* nodo actual de 'q' en el cual se itera*/
-    Network cut = NULL;        /* Puntero al corte, para codigo legible*/
-    Network k = NULL;           /* iterador en el reseteo de las distancias*/
+    Network *node = NULL;        /* nodo actual de 'q' en el cual se itera*/
+    Network *k = NULL;           /* iterador en el reseteo de las distancias*/
     int lvl = 0;                /* Distancia para elementos de qNext*/
 
     assert(network != NULL);
     
     /* preparacion de las cosas que voy a usar*/
     UNSET_FLAG(SINK_REACHED);
-    cut = network.cut;
-    HASH_CLEAR(network->hhCut, cut);    /*antes de empezar se limpia el corte*/
+    HASH_CLEAR(hhCut, network->cut);    /*antes de empezar se limpia el corte*/
     q = queue_create();
     qNext = queue_create();
     
@@ -263,7 +263,7 @@ int ActualizarDistancias(DovahkiinP network){
         node = queue_head(q);
         /*Busqueda y actualizacion de niveles de nodos*/
         set_lvlNbrs(network->net, qNext, node, lvl);
-        HASH_ADD(hhCut, cut, cut->name, sizeof(cut->name), queue_head(q));
+        HASH_ADD(hhCut, network->cut, name, sizeof(cut->name), queue_head(q));
         queue_dequeue(q);
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
         if(queue_isEmpty(q)){
@@ -510,8 +510,8 @@ static Network network_nextElement(Network node){
  * Los vecinos que se actualizaron se agregan a la cola 'q'.
  * Precondicion: 
  */
-static void set_lvlNbrs(Network net, Queue q, Network node, int lvl){
-    Network yNode = NULL;
+static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl){
+    Network *yNode = NULL;
     bool canBeUsed = false;
     Nbrhd nbrs = NULL;
     u64 y;
@@ -541,8 +541,8 @@ static void set_lvlNbrs(Network net, Queue q, Network node, int lvl){
  * Retorna un puntero al nodo modificado.
  * Precondicion: 'name' debe ser un nombre de nodo existente
  */
-static Network set_lvl(Network net, u64 name, int lvl){
-    Network node;
+static Network *set_lvl(Network *net, u64 name, int lvl){
+    Network *node;
     
     assert(net != NULL);
     
