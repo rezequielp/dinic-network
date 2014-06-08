@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "auxlibs/uthash/uthash.h"
+/*#include "auxlibs/uthash/uthash.h"*/
 #include "auxlibs/stack/stack.h"
 #include "auxlibs/queue/queue.h"
 #include "auxlibs/bstring/bstrlib.h"
-#include "nbrhd.h"
+#include "auxlibs/lexer/lexer.h"
+/*#include "nbrhd.h"*/
 #include "API.h"
 
 
@@ -48,7 +49,7 @@ typedef struct NetworkSt{
     Nbrhd nbrs;                 /* hash value - vecinos del vertice*/
     int level;                  /* nivel de distancia del vertice*/
     UT_hash_handle hhNet,hhCut; /* makes this structure hashable */
-} Network;
+}*Network;
 
 typedef struct NetworkYFlujo{
     Network *net;       /* Network de los vertices para acceder a las aristas */
@@ -67,7 +68,7 @@ static u64 get_pathFlow(DovahkiinP network, bool print);
 static Network *network_create(u64 n);
 static void network_destroy(Network net);
 static Network network_nextElement(Network node);
-static void set_lvlNbrs(Network net, Queue q, Network node, int dir, int lvl);
+static void set_lvlNbrs(Network net, Queue q, Network node, int lvl);
 static Network set_lvl(Network net, u64 name, int lvl);
 static u64 get_lvl(u64 name);
 
@@ -95,8 +96,7 @@ int DestruirDovahkiin(DovahkiinP network){
     
     network_destroy(network->net);  /*esto tambien libera el corte*/
     if (network->path != NULL)
-        stack_destroy(network->path);
-    
+        stack_destroy(network->path, NULL);
     free(network);
 }
 
@@ -160,7 +160,7 @@ Lado LeerUnLado(){
     /*construyo el lexer sobre la entrada estandar*/
     input = lexer_new(stdin);
 
-    if (input! = NULL){
+    if (input != NULL){
         /*Leo un lado mientras no llegue a un fin de archivo o haya ocurrido
           algun error*/
         if (!lexer_is_off(input)){
@@ -181,7 +181,7 @@ Lado LeerUnLado(){
 int CargarUnLado(DovahkiinP network, Lado edge){
     Network nodeX = NULL;
     Network nodeY = NULL;
-    Network net = NULL
+    Network net = NULL;
     u64 x, y;
     int result = 0;
     
@@ -214,7 +214,7 @@ int CargarUnLado(DovahkiinP network, Lado edge){
 /*Preprocesa el Dovahkiin para empezar a buscar caminos aumentantes. 
 Debe chequear que esten seteados s y t. 
 Devuelve 1 si puede preparar y 0 caso contrario*/
-int Prepararse(Dovahkiin network){
+int Prepararse(DovahkiinP network){
     int status=0;
     Network *src = NULL;
     Network *snk = NULL;
@@ -246,7 +246,7 @@ int ActualizarDistancias(DovahkiinP network){
     /* preparacion de las cosas que voy a usar*/
     UNSET_FLAG(SINK_REACHED);
     cut = network.cut;
-    HASH_CLEAR(hhCut, cut);    /*antes de empezar se limpia el corte*/
+    HASH_CLEAR(network->hhCut, cut);    /*antes de empezar se limpia el corte*/
     q = queue_create();
     qNext = queue_create();
     
@@ -262,11 +262,8 @@ int ActualizarDistancias(DovahkiinP network){
     /*actualizacion de distancias por BFS */
     while(!queue_isEmpty(q) && IS_SET_FLAG(SINK_REACHED)){
         node = queue_head(q);
-        /*Busqueda y actualizacion de niveles de nodos Forward*/
-        set_lvlNbrs(network->net, qNext, node, FWD, lvl);
-        /*Busqueda y actualizacion de niveles de nodos Backward*/
-        set_lvlNbrs(network->net, qNext, node, BWD, lvl);
-        /* Agregamos el elemento al candidato a corte*/
+        /*Busqueda y actualizacion de niveles de nodos*/
+        set_lvlNbrs(network->net, qNext, node, lvl);
         HASH_ADD(hhCut, cut, cut->name, sizeof(cut->name), queue_head(q));
         queue_dequeue(q);
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
@@ -277,8 +274,8 @@ int ActualizarDistancias(DovahkiinP network){
             lvl++;
         }
     }
-    queue_destroy(q);
-    queue_destroy(qNext);
+    queue_destroy(q, NULL);
+    queue_destroy(qNext, NULL);
     return IS_SET_FLAG(SINK_REACHED);
 }
 
@@ -293,7 +290,7 @@ int BusquedaCaminoAumentante(DovahkiinP network){
     t = network->sink;
     /*preparacion de todas las cosas que uso para buscar un camino aumentante*/
     stack_destroy(network->path, NULL);
-    HASH_FIND(hhNet, network->net, &(s), sizeof(s), node);
+    HASH_FIND(network->hhNet, network->net, &(s), sizeof(s), node);
     stack_push(network->path, node);
     
     if (IS_SET_FLAG(SINK_REACHED) && IS_SET_FLAG(PATHUSED)){
@@ -421,7 +418,7 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
             printf("%"PRIu64",", x->name);
     }
     printf("t}\n'");
-    printf("Capacidad: %"PRIu64, network->flow)      /*TODO*/
+    printf("Capacidad: %"PRIu64, network->flow);      /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
 }
 
@@ -493,29 +490,28 @@ static Network network_nextElement(Network node){
     }
     
     nNode = node;
-    dir = nbrhd_getNext(nNode.nbrs, flag, FWD|BWD, uNode);
+    dir = nbrhd_getNext(nNode.nbrs, flag, UKN, uNode);
     nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
     /*WARNING: Si se hace con un DO-WHILE se van a hacer busqueda de mas.*/
     while(next == NULL && !break_w){
         if(dir != NONE){
             nNode =NULL;/*TODO: apuntar el nodo "uNode" por nNode*/
-            if(get_lvl(nNode.name) == get_lvl(node.name)+1);
+            if(get_lvl(nNode.name) == get_lvl(node.name)+1)
                 next =NULL; /*TODO: apuntar el nodo "uNode" por next*/
             else
-                dir = nbrhd_getNext(nNode.nbrs, NXT, FWD|BWD, uNode);
-        }else{
+                dir = nbrhd_getNext(nNode.nbrs, NXT, UKN, uNode);
+        }else
             /*No existe un siguiente.*/
             break_w = true;
-        }
     }
     return next;
 }
 
-/* Actualiza las distancias de los vecinos FWD o BWD de un nodo. 
+/* Actualiza las distancias de los vecinos FWD y BWD de un nodo. 
  * Los vecinos que se actualizaron se agregan a la cola 'q'.
  * Precondicion: 
  */
-static void set_lvlNbrs(Network net, Queue q, Network node, int dir, int lvl){
+static void set_lvlNbrs(Network net, Queue q, Network node, int lvl){
     Network yNode = NULL;
     bool canBeUsed = false;
     Nbrhd nbrs = NULL;
@@ -523,16 +519,12 @@ static void set_lvlNbrs(Network net, Queue q, Network node, int dir, int lvl){
     Nbrhd obtained;
     
     assert(node != NULL && q != NULL);
-    assert(dir == FWD || dir == BWD);
     
     nbrs = node->nbrs;
     obtained = nbrhd_getNext(nbrs, FST, dir, &y);
     while(IS_SET_FLAG(SINK_REACHED) && obtained != NONE){
-        if (dir = FWD) /*chequeo si se puede usar para mandar flujo*/
-            canBeUsed = nbrhd_getCap(nbrs, y) > nbrhd_getFlow(nbrs, y); 
-        else
-            canBeUsed = nbrhd_getFlow(nbrs, y) > 0;
-    
+        canBeUsed = (nbrhd_getCap(nbrs, y) > nbrhd_getFlow(nbrs, y)) || \
+                    (nbrhd_getFlow(nbrs, y) > 0);
         if (canBeUsed){ /*busco el nodo y actualizo su nivel*/
             yNode = set_lvl(net, y, lvl);
             if (yNode != NULL)

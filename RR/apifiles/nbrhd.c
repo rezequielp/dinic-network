@@ -279,7 +279,7 @@ Bedge *bedge_create(u64 y, Fedge *fNbr){
     bNbr->x = fNbr;
     
     return bNbr;
-}    
+}
 
 
 /* Destructor de vecinos forwards */
