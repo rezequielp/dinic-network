@@ -54,9 +54,11 @@ Nbrhd nbrhd_create(void){
 void nbrhd_destroy(Nbrhd nbrs){
     assert(nbrs != NULL);
     /*destruyo todos los vecinos forward*/
-    fedge_destroy(nbrs->fNbrs);
+    if (nbrs->fNbrs)
+        fedge_destroy(nbrs->fNbrs);
     /*destruyo todos los vecinos backward*/
-    bedge_destroy(nbrs->bNbrs);    
+    if (nbrs->bNbrs)
+        bedge_destroy(nbrs->bNbrs);    
     free(nbrs);
 }
 

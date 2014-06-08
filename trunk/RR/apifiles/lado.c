@@ -21,8 +21,8 @@ Lado lado_new(u64 x, u64 y, u64 c){
 }
 
 void lado_destroy(Lado edge){
-    assert(edge!=NULL);
-	free(edge);
+    if(edge!=NULL)
+        free(edge);
 }
 
 /*  Operaciones
