@@ -23,7 +23,7 @@ typedef struct DovahkiinSt  *DovahkiinP;
 */
 
 /*Devuelve un puntero a la St o Null en caso de error*/
-DovahkiinP NuevoDovahkiin();
+DovahkiinP NuevoDovahkiin(void);
 
 /*Destruye D, devuelve 1 si no hubo errores, 0 en caso contrario*/
 int DestruirDovahkiin(DovahkiinP D);
@@ -50,7 +50,7 @@ int ImprimirResumidero(DovahkiinP D);
 devuelve el elemento de tipo Lado que lo representa si la linea es valida, 
 sino devuelve el elemento LadoNulo.
 Cada linea es de la forma x y c, siendo todos u64 representando el lado xy de capacidad c.*/
-Lado LeerUnLado();
+Lado LeerUnLado(void);
 
 /*Carga un lado L en D. Retorna 1 si no hubo problemas y 0 caso contrario.*/
 int CargarUnLado(DovahkiinP D, Lado L);

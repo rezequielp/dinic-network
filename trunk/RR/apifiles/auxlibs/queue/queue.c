@@ -108,30 +108,3 @@ int queue_size (Queue Q){
 	return (Q->size);
 }
 
-void main(){
-    Queue q;
-    q=queue_create();
-    int  a=1;
-    int  b=2;
-    int  c=3;
-    int  d=4;
-    int  e=4;
-    int aux, *aux2;
-    
-    queue_enqueue(q,&a);
-    queue_enqueue(q,&b);
-    queue_enqueue(q,&c);
-    queue_enqueue(q,&d);
-    queue_enqueue(q,&e);
-    printf("tamaño: %i\n", queue_size(q));
-    while(!queue_isEmpty(q)){
-        
-        aux2 =  queue_head(q);
-        aux = * aux2;
-        printf("el num es %i\n", aux);
-        queue_dequeue(q);
-    }
-    queue_destroy(q,NULL);
-}
-
-

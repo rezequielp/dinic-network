@@ -195,9 +195,3 @@ void lexer_skip_to (Lexer *self, const char *charset) {
     lexer_next_to (self, charset);
     lexer_new_item (self);
 }
-
-
-void main(){
-
-}
-
