@@ -1,5 +1,4 @@
 #include "parser_lado.h"
-/*#include "auxlibs/u64/u64.h"*/
 #include "u64.h"
 
 #define EOL "\n"            /*para indicador de final de linea*/
@@ -15,7 +14,7 @@ Lado parse_lado(Lexer *input){
     u64 x;                      /*nodo x*/
     u64 y;                      /*nodo y*/
     u64 cap;                    /*capacidad de xy*/
-    Lado *result = NULL;        /*lado parseado*/
+    Lado result = NULL;        /*lado parseado*/
     int its_ok = PARSER_ERR;    /*chequea que el parse va bien*/
     
     /*Pre:*/

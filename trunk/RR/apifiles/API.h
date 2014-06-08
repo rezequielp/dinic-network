@@ -11,12 +11,11 @@
 *               TADs
 */
 
-/*#include "auxlibs/u64/u64.h"*/
 #include "u64.h"
 #include "lado.h"
 
 
-typedef struct DovahkiinSt  DovahkiinP;
+typedef struct DovahkiinSt  *DovahkiinP;
 
 
 /*
@@ -97,4 +96,3 @@ Capacidad: <Capacidad>*/
 void ImprimirCorte(DovahkiinP D);
 
 #endif
-

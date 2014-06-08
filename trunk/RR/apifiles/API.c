@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-/*#include "auxlibs/uthash/uthash.h"*/
+#include "auxlibs/uthash/uthash.h"
 #include "auxlibs/stack/stack.h"
 #include "auxlibs/queue/queue.h"
 #include "auxlibs/bstring/bstrlib.h"
 #include "auxlibs/lexer/lexer.h"
-/*#include "nbrhd.h"*/
+#include "nbrhd.h"
 #include "API.h"
-
+#include "parser_lado.h"
 
 
 #define NOT_USED -1    /* Valor nulo de distancia si el elem no se uso*/
@@ -49,9 +49,9 @@ typedef struct NetworkSt{
     Nbrhd nbrs;                 /* hash value - vecinos del vertice*/
     int level;                  /* nivel de distancia del vertice*/
     UT_hash_handle hhNet,hhCut; /* makes this structure hashable */
-}*Network;
+} Network;
 
-typedef struct NetworkYFlujo{
+struct  DovahkiinSt{
     Network *net;       /* Network de los vertices para acceder a las aristas */
     u64 flow;           /* Valor del flujo del network */
     u64 source;         /* Vertice fijado como fuente (s) */
@@ -60,23 +60,23 @@ typedef struct NetworkYFlujo{
     Stack path;         /* Camino de vertices, de s a t */
     u64 pCounter;       /* Contador para la cantidad de caminos*/
     int flags;          /* Flags de estado, explicados en la seccion #define */
-} DovahkiinSt;
+};
 
 
 /*      Funciones estaticas     */
 static u64 get_pathFlow(DovahkiinP network, bool print);
 static Network *network_create(u64 n);
-static void network_destroy(Network net);
-static Network network_nextElement(Network node);
-static void set_lvlNbrs(Network net, Queue q, Network node, int lvl);
-static Network set_lvl(Network net, u64 name, int lvl);
+static void network_destroy(Network *net);
+static Network network_nextElement(Network *node);
+static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl);
+static Network set_lvl(Network *net, u64 name, int lvl);
 static u64 get_lvl(u64 name);
 
 /*Devuelve un puntero a la St o Null en caso de error */
 DovahkiinP NuevoDovahkiin(){
     DovahkiinP network;
     
-    network = (DovahkiinP) malloc (sizeof(DovahkiinSt));
+    network = (DovahkiinP) malloc (sizeof(struct DovahkiinSt));
     assert(network!=NULL);
     
     network->net = NULL;
@@ -134,7 +134,7 @@ Resumidero: t
 Donde x es el vertice que estamos conciderando como Resumidero.
 Este es el unico caso donde el resumidero se imprimira con su nombre real y 
 no con la letra t */
-int ImprimirResumidero(DovahkiinP D){
+int ImprimirResumidero(DovahkiinP network){
     int result = -1;
     
     assert(network != NULL);
@@ -153,9 +153,8 @@ Cada linea es de la forma x y c, siendo todos u64 representando el lado xy
 de capacidad c. */
 Lado LeerUnLado(){
     Lado edge = NULL;
-    u64 x, y, c;
-    lexer *input;   /*analizador lexico por lineas de un archivo*/
-    int garbage = PARSE_OK;      /*Indica si no se encontro basura al parsear*/
+    Lexer *input;   /*analizador lexico por lineas de un archivo*/
+    int garbage = PARSER_OK;      /*Indica si no se encontro basura al parsear*/
    
     /*construyo el lexer sobre la entrada estandar*/
     input = lexer_new(stdin);
@@ -165,7 +164,7 @@ Lado LeerUnLado(){
           algun error*/
         if (!lexer_is_off(input)){
             /*se parsea un lado*/
-            edge = parse_edge(input, x, y, c);
+            edge = parse_lado(input);
             /*se corre el parseo hasta la siguiente linea (o fin de archivo)*/
             garbage = parse_nextLine(input);
             if (edge != LadoNulo && garbage) /*habia basura, error*/

@@ -1,14 +1,13 @@
 #ifndef LADO_H
 #define LADO_H
 
-/*#include "auxlibs/u64/u64.h"*/
 #include "u64.h"
 
 /*
  * Lado es una estructura compuesta por el nombre del nodo x, el nombre del 
  * nodo y, y la capacidad de flujo del lado
  */
-typedef struct LadoSt * Lado;
+typedef struct LadoSt *Lado;
 
 #define LadoNulo NULL
 

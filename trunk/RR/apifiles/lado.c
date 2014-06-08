@@ -41,5 +41,3 @@ u64 lado_getCap(Lado edge){
     assert(edge!=NULL);
 	return edge->c;
 }
-
-void main(){}
