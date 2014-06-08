@@ -1,10 +1,11 @@
 #include "parser_lado.h"
 #include "u64.h"
+#include <assert.h>
 
 #define EOL "\n"            /*para indicador de final de linea*/
 #define WHITE_SPACE " "     /*para indicador de espacio en blanco*/
 
-static int parse_argument(Lexer *input, u64 arg);
+static int parse_argument(Lexer *input, u64 *arg);
 static bstring next_bstring(Lexer *input, const char *str);
 static bool is_theNextChar(Lexer *input, const char *ch);
 
@@ -21,13 +22,13 @@ Lado parse_lado(Lexer *input){
     assert(input != NULL);
     
     /*asigno el 1er argumento parseado a 'x'*/
-    its_ok = parse_argument(input, x);
+    its_ok = parse_argument(input, &x);
     if (its_ok && is_theNextChar(input, WHITE_SPACE)){
         /*asigno el 2do argumento parseado a 'y'*/
-        its_ok = parse_argument(input, y);
+        its_ok = parse_argument(input, &y);
         if (its_ok && is_theNextChar(input, WHITE_SPACE))
             /*asigno el 3er argumento parseado a 'cap'*/
-            its_ok = parse_argument(input, cap);   
+            its_ok = parse_argument(input, &cap);   
     }
     /* Si se parseo todo bien, creo el nuevo Lado con los valores*/
     if (its_ok){
@@ -66,10 +67,10 @@ int parse_nextLine(Lexer *input){
  * Si hubo error, no asigna nada a 'arg' y retorna PARSER_ERR
  * El llamador se encarga de liberarlo.
 */
-static int parse_argument(Lexer *input, u64 n){
+static int parse_argument(Lexer *input, u64 *n){
     int result = PARSER_ERR;    /*retorno (error al menos que todo salga bien)*/
     bstring barg = NULL;        /*argumento leido en tipo bstring*/
-    char * carg;
+    char * carg;                /*argumento leido en tipo char*/
     assert(input != NULL);
     
     /*quito los espacio en blanco que pueden haber al comienzo*/
@@ -81,7 +82,7 @@ static int parse_argument(Lexer *input, u64 n){
     if (barg != NULL){
         /*lo convierto a u64*/
         carg = bstr2cstr(barg, '\0');
-        result = sscanf(carg, "%" SCNu64 "\n", &n);
+        result = sscanf(carg, "%" SCNu64 "\n", n);
         assert(result == PARSER_OK);
         bdestroy(barg);
     }

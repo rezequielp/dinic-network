@@ -14,12 +14,11 @@
 
 #define NOT_USED -1    /* Valor nulo de distancia si el elem no se uso*/
 
-
 /*      Macro: Flags de permisos y estados.     */
 #ifndef MACRO_TOOLS
 #define SINK_REACHED    0b00010000      /*Se llego a t. Tambien implica corte
                                           seteo solo en actualizarDistancias()*/
-#define MAXFLOW         0b00001000      /*Imprimir flujo maximal*/
+#define MAXFLOW         0b00001000      /*Es flujo maximal*/
 #define SOURCE          0b00000100      /*Fuente fijada*/
 #define SINK            0b00000010      /*Resumidero fijado*/
 #define PATHUSED        0b00000001      /*Camino usado para aumentar flujo*/
@@ -70,10 +69,9 @@ static void network_destroy(Network *net);
 static Network *network_nextElement(Network *node);
 static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl);
 static Network *set_lvl(Network *net, u64 name, int lvl);
-static u64 get_lvl(u64 name);
 
 /*Devuelve un puntero a la St o Null en caso de error */
-DovahkiinP NuevoDovahkiin(){
+DovahkiinP NuevoDovahkiin(void){
     DovahkiinP network;
     
     network = (DovahkiinP) malloc (sizeof(struct DovahkiinSt));
@@ -98,6 +96,7 @@ int DestruirDovahkiin(DovahkiinP network){
     if (network->path != NULL)
         stack_destroy(network->path, NULL);
     free(network);
+    return 1;
 }
 
 /*Setea al vertice s como fuente */
@@ -151,7 +150,7 @@ devuelve el elemento de tipo Lado que lo representa si la linea es valida,
 sino devuelve el elemento LadoNulo.
 Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
 de capacidad c. */
-Lado LeerUnLado(){
+Lado LeerUnLado(void){
     Lado edge = NULL;
     Lexer *input;   /*analizador lexico por lineas de un archivo*/
     int garbage = PARSER_OK;      /*Indica si no se encontro basura al parsear*/
@@ -350,7 +349,7 @@ u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
     if (!IS_SET_FLAG(PATHUSED)){
         pflow = AumentarFlujo(network);
         /*printer*/ 
-        printf("camino aumentante %i:\n", network->pCounter );      
+        printf("camino aumentante %"PRIu64":\n", network->pCounter );      
         PATH_ITER(network->path, x, y){
             dir = nbrhd_getDir(x->nbrs, y->name); /*me fijo si son BWD/FWD*/
             assert(dir != UNK);
@@ -375,7 +374,7 @@ Flujo �:
 Lado x_1,y_2: <FlujoDelLado>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
 void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? de que????? TODO*/
-    Network *x = NULL;
+/*  Network *x = NULL;
     Network *y = NULL;
     u64 vflow = 0;
     assert(network != NULL);
@@ -389,6 +388,7 @@ void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? 
         vflow = nbrhd_getFlow(x->nbrs, y->name);
         printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->name, y->name, vflow);
     }
+*/
 }
 
 /*Debe imprimir el valor del flujo con el formato
@@ -408,11 +408,11 @@ void ImprimirCorte(DovahkiinP network){
 /*Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
 de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging.
 igual quedan programadas las dos formas y comentada una de ellas.*/
-    Network *x = NULL;
-    
+/*  Network *x = NULL;  
+*/    
     
     /*TODO ESTA MAL! el corte no queda en el path, sino en cut, rehacer TODO*/
-    /*printf("Corte Minimal: S ={");
+/*  printf("Corte Minimal: S ={");
     stack_resetViewer=(network->path);
     x = stack_nextItem(network->path);
     
@@ -422,7 +422,7 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
             printf("%"PRIu64",", x->name);
     }
     printf("t}\n'");
-    printf("Capacidad: %"PRIu64, network->flow);  */    /*TODO*/
+    printf("Capacidad: %"PRIu64, network->flow);         */ /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
 }
 
@@ -458,7 +458,7 @@ static Network *network_create(u64 n){
     
     node->name = n;
     node->nbrs = NULL;
-    int level = NOT_USED; 
+    node->level = NOT_USED; 
     
     return node;
 }
@@ -477,38 +477,8 @@ static void network_destroy(Network *net){
 
 /*Busca el siguente elemento que cumple las condiciones de poder mandar flujo 
 forward o backwar del nodo "node" y devuelve un puntero hacia ese elemento*/
-static Network *network_nextElement(Network node){
-    Network *next = NULL;
-    Network *nNode;
-    bool break_w;
-    u64 uNode;
-    int dir;
-    static int flag = NXT;
-    static u64 previousNode = node;
-    
-    if(previousNode != node.name){
-        previousNode = node.name;
-        flag = FST;
-    }else{
-        flag = NXT;
-    }
-    
-    nNode = node;
-    dir = nbrhd_getNext(nNode.nbrs, flag, UKN, uNode);
-    nNode =;/*TODO: apuntar el nodo "uNode" por nNode*/
-    /*WARNING: Si se hace con un DO-WHILE se van a hacer busqueda de mas.*/
-    while(next == NULL && !break_w){
-        if(dir != NONE){
-            nNode =NULL;/*TODO: apuntar el nodo "uNode" por nNode*/
-            if(get_lvl(nNode.name) == get_lvl(node.name)+1)
-                next =NULL; /*TODO: apuntar el nodo "uNode" por next*/
-            else
-                dir = nbrhd_getNext(nNode.nbrs, NXT, UKN, uNode);
-        }else
-            /*No existe un siguiente.*/
-            break_w = true;
-    }
-    return next;
+static Network *network_nextElement(Network *node){
+   return NULL;
 }
 
 /* Actualiza las distancias de los vecinos FWD y BWD de un nodo. 
@@ -516,7 +486,7 @@ static Network *network_nextElement(Network node){
  * Precondicion: 
  */
 static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl){
-    Network *yNode = NULL;
+/*  Network *yNode = NULL;
     bool canBeUsed = false;
     Nbrhd nbrs = NULL;
     u64 y;
@@ -529,17 +499,18 @@ static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl){
     while(IS_SET_FLAG(SINK_REACHED) && obtained != NONE){
         canBeUsed = (nbrhd_getCap(nbrs, y) > nbrhd_getFlow(nbrs, y)) || \
                     (nbrhd_getFlow(nbrs, y) > 0);
-        if (canBeUsed){ /*busco el nodo y actualizo su nivel*/
-            yNode = set_lvl(net, y, lvl);
+        if (canBeUsed){                 *//*busco el nodo y actualizo su nivel*/
+            /*yNode = set_lvl(net, y, lvl);
             if (yNode != NULL)
                 Queue_enqueue(q, yNode);
-            if(y == network->sink)  /*llego a t*/
-                SET_FLAG(SINK_REACHED);
+            if(y == network->sink)                              */ /*llego a t*/
+/*                SET_FLAG(SINK_REACHED);
             else
                 obtained = nbrhd_getNext(node->nbrs, y, dir, &y);
         }
     }
     return result;
+*/
 }
 
 /* Busca por 'name' y actualiza el valor de distancia de un nodo.
@@ -552,14 +523,9 @@ static Network *set_lvl(Network *net, u64 name, int lvl){
     assert(net != NULL);
     
     HASH_FIND(hhNet, net, &name, sizeof(name), node);
-    //assert(node != NULL);
+    assert(node != NULL);
     if(node->level == NOT_USED)
         node->level = lvl;
     
     return node;
-}
-
-/*TODO devuelve el valor de distancia del nodo y*/
-static u64 get_lvl(u64 name){
-
 }

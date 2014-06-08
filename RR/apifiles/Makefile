@@ -1,22 +1,23 @@
 TARGET=dinic
 CC=gcc
-CFLAGS+= -ansi -Wall -Wextra -Wdeclaration-after-statement -Wbad-function-cast -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes -Wno-unused-parameter -Werror -pedantic -g
+CFLAGS+= -O3 -Wall -Wextra -std=c99 -Wdeclaration-after-statement -Wbad-function-cast -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes -Wno-unused-parameter -Werror -g
 SOURCES=$(shell echo *.c)
-BSTRING_OBJECTS=bstring/bstrlib.o
-STACK_OBJECTS=auxlibs/queue&stack/stack.o
-LEXER_OBJECTS=auxlibs/lexer/lexer.o
+BSTRING_O=auxlibs/bstring/bstrlib.o
+STACK_O=auxlibs/stack/stack.o
+QUEUE_O=auxlibs/queue/queue.o
+LEXER_O=auxlibs/lexer/lexer.o
 OBJECTS=$(SOURCES:.c=.o)
 
 all: $(TARGET)
 
 # BString requiere flags distintos:
-$(BSTRING_OBJECTS):CFLAGS=-ansi -Wall -Werror -pedantic -g
+$(BSTRING_O):CFLAGS=-ansi -Wall -Werror -pedantic -g
 
-$(TARGET): $(OBJECTS) $(BSTRING_OBJECTS) $(STACK_OBJECTS) $(LEXER_OBJECTS)
+$(TARGET): $(OBJECTS) $(BSTRING_O) $(STACK_O) $(QUEUE_O) $(LEXER_O) 
 	$(CC) $^ -o $@
 
 clean:
-	rm -f $(TARGET) $(OBJECTS) $(BSTRING_OBJECTS) $(STACK_OBJECTS) $(LEXER_OBJECTS) .depend *~
+	rm -f $(TARGET) $(OBJECTS) $(BSTRING_O) $(STACK_O) $(QUEUE_O) $(LEXER_O) .depend *~
 
 .depend: *.[ch]
 	$(CC) -MM $(SOURCES) >.depend

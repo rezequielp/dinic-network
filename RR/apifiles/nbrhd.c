@@ -37,7 +37,7 @@ static Bedge *bedge_create(u64 y, Fedge *fNbr);
 
 
 /*Constructor de un nuevo Nbrhd*/
-Nbrhd nbrhd_create(){
+Nbrhd nbrhd_create(void){
     Nbrhd nbrs=NULL;
     
     nbrs = (Nbrhd) malloc(sizeof(struct NeighbourhoodSt));
@@ -54,9 +54,9 @@ Nbrhd nbrhd_create(){
 void nbrhd_destroy(Nbrhd nbrs){
     assert(nbrs != NULL);
     /*destruyo todos los vecinos forward*/
-    Fedge_destroy(nbrs->fNbrs);
+    fedge_destroy(nbrs->fNbrs);
     /*destruyo todos los vecinos backward*/
-    Bedge_destroy(nbrs->bNbrs);    
+    bedge_destroy(nbrs->bNbrs);    
     free(nbrs);
 }
 
@@ -102,7 +102,7 @@ int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
     if (flag == NXT) /*me posiciono en el sig de la tabla de uno ya consultado*/
         if(dir != BWD && fNbr != NULL)
             fNbr = fNbr->hhfNbrs.next;
-        if(dir != FWD && bNbr != NULL || fNbr == NULL )
+        if((dir != FWD && bNbr != NULL) || fNbr == NULL )
             bNbr = bNbr->hhbNbrs.next;
     else    /*el primer vecino que se encuentre en alguna direccion*/
         if (dir != BWD)
@@ -145,8 +145,9 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
     }else{                  /* es BWD, disminuyo el flujo*/
         bNbr = (Bedge*)nbr;
         fNbr = bNbr->x;
+        assert(fNbr->flow >= vf);
         fNbr->flow -= vf;
-        assert(fNbr->flow >= 0);
+        
     }
 
     return fNbr->flow;
@@ -187,12 +188,11 @@ u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
 /*devuelve la direccion (FWD o BWD) en la que se encuentra el vecino 'y'
  Precondicion: 'y' es vecino */
 int nbrhd_getDir(Nbrhd nbrs, u64 y){
-    void *nbr = NULL;   /*el vecino*/
-    int dir = UNK;        /*direccion en la que se encuentra el vecino*/
+    int dir = UNK;      /*direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
     findNbr(nbrs, y, &dir);
-    
+    assert(dir != UNK);
     return dir;
 }
 

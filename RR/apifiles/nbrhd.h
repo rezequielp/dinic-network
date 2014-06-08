@@ -36,7 +36,7 @@ typedef struct NeighbourhoodSt *Nbrhd;
  */
 
 /*Constructor de un nuevo Nbrhd*/
-Nbrhd nbrhd_create();
+Nbrhd nbrhd_create(void);
 
 
 /*Destructor de un Nbrhd*/
