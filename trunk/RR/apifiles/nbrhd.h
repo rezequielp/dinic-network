@@ -1,28 +1,28 @@
 #ifndef _NBRHD_H
 #define _NBRHD_H
 
-/*#include "auxlibs/u64/u64.h"*/
 #include "u64.h"
 #include "lado.h"
 
-/*          Parametros para nbrhd_getNext()
- */
-#ifndef _GET_NEXT
-#define _GET_NEXT
 /* 'dir' options:
  * Es la direccion en la que se encuentra un vecino.
  * Una vecindad (Nbrhd) se divide en 2 zonas: FWD y BWD.
  * Un mismo vecino no puede estar en ambas zonas (loops)*/
-#define FWD 0b01   /*Forward*/
-#define BWD 0b10  /*Backward*/
+#define FWD 1   /*Forward*/
+#define BWD -1  /*Backward*/
+#define UNK 0   /*direccion desconocida*/
 
+
+/*          Parametros para nbrhd_getNext()  */
+#ifndef _GET_NEXT
+#define _GET_NEXT
 /* 'flag' options:
  * Indica cual es el siguiente vecino que se quiere obtener.*/
 #define FST 0       /*El primero*/
 #define NXT 1       /*El siguiente*/
 
 /* 'return' options:
- * La 'flag' option con la que se llamo la funcion, o bien*/
+ * La direccion en la que se encuentra el vecino devuelto, o bien*/
 #define NONE -1   /*Ninguno. No hay mas vecinos en esa direccion*/
 
 #endif
@@ -54,13 +54,13 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
  * y retorno. Verlo como una iteracion sobre una lista en la que empiezo por 
  * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT)
  * 
- * Busca el vecino siguiente en la direccion 'dir' (FWD o BWD) y si existe 
- * almacena el nombre en 'y'
- * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD, y!=NULL
- * Retorno(r):  r = 'dir', si se encontro un vecino
- *              r = NONE, ya no hay mas vecinos en esa direccion
+ * Busca el vecino siguiente en la direccion 'dir' y si existe 
+ * almacena el nombre en 'y'. Si dir=UNK entonces primero intenta por FWD, y si
+ * no hay (o no existen) entonces intenta por BWD.
+ * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD|UNK, y!=NULL
+ * Retorno(r):  r = 'dir', en la que se encuentra el vecino
+ *              r = NONE, ya no hay mas vecinos que devolver
  */
-
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y);
 
 
