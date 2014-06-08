@@ -1,6 +1,5 @@
-#include "auxlibs/bstring/bstrlib.h"
 #include "nbrhd.h"
-/*#include "auxlibs/uthash//uthash.h"*/
+#include "auxlibs/uthash/uthash.h
 #include <stdlib.h>
 #include <assert.h>
 
@@ -9,15 +8,15 @@ typedef struct FedgeSt{
     u64 y;          /* El nodo forward de 'x', se usa como key en la hash*/
     u64 cap;        /* La capacidad restante de envio de flujo*/
     u64 flow;       /* El flujo por forward que se esta enviando*/
-    UT_hash_handler hhfNbrs;
-} *Fedge;
+    UT_hash_handle hhfNbrs;
+} Fedge;
 
 /* Estructura de un nodo por backward*/
 typedef struct BedgeSt{
     u64 y;          /* key */
-    Fedge * x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
-    UT_hash_handler hhbNbrs;
-} *Bedge;
+    Fedge *x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
+    UT_hash_handle hhbNbrs;
+} Bedge;
 
 /* Estructura de la vecindad de un nodo*/
 struct NeighbourhoodSt{
@@ -26,17 +25,15 @@ struct NeighbourhoodSt{
 };
 
 
-#define UNK 0    /*direccion desconocida*/
-
 /* 
  *                      Funciones del modulo
  */
 
-static void * findNbr(Nbrhd nbrs, u64 y, int dir);
-static void fedge_destroy(Fedge fNbrs);
-static void bedge_destroy(Bedge bNbrs);
-static Fedge fedge_create(u64 y, u64 c);
-static Bedge bedge_create(u64 y, Fedge fNbr);
+static void *findNbr(Nbrhd nbrs, u64 y, int* dir);
+static void fedge_destroy(Fedge *fNbrs);
+static void bedge_destroy(Bedge *bNbrs);
+static Fedge *fedge_create(u64 y, u64 c);
+static Bedge *bedge_create(u64 y, Fedge *fNbr);
 
 
 /*Constructor de un nuevo Nbrhd*/
@@ -56,43 +53,11 @@ Nbrhd nbrhd_create(){
 /*Destructor de un Nbrhd*/
 void nbrhd_destroy(Nbrhd nbrs){
     assert(nbrs != NULL);
-    
     /*destruyo todos los vecinos forward*/
     Fedge_destroy(nbrs->fNbrs);
     /*destruyo todos los vecinos backward*/
-    Bedge_destroy(nbrs->bNbrs);
-    
+    Bedge_destroy(nbrs->bNbrs);    
     free(nbrs);
-}
-
-
-/* Destructor de un Fedge*/
-void fedge_destroy(Fedge fNbrs){
-    Fedge felem = NULL;    /*el i-esimo elemento de fNbrs*/
-    Fedge feTmp = NULL;    /*el i-esimo+1 elemento de fNbrs*/
-    
-    assert(fNbrs!=NULL);
-    HASH_ITER(fNbrs->hhfNbrs, fNbrs, felem, feTmp){
-        HASH_DEL(fNbrs, felem);
-        free(felem);
-    }
-    
-    free(fNbrs);
-}
-
-
-/* Destructor de un Bedge*/
-void bedge_destroy(Bedge bNbrs){
-    Fedge belem = NULL;    /*el i-esimo elemento de bNbrs*/
-    Fedge beTmp = NULL;    /*el i-esimo+1 elemento de bNbrs*/
-    
-    assert(bNbrs!=NULL);
-    HASH_ITER(bNbrs->hhbNbrs, bNbrs, belem, beTmp){
-        HASH_DEL(bNbrs, belem);
-        free(belem);
-    }
-    
-    free(bNbrs);
 }
 
 
@@ -101,105 +66,59 @@ void bedge_destroy(Bedge bNbrs){
  * Precondicion: x, y, edge != NULL
  */
 void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
-    Fedge *fNbr=NULL;
-    Fedge fhTable=NULL;
-
-
-    Bedge *bNbr = NULL;     /* vecino backward*/
-    Bedge bhTable = NULL;    /* la tabla hash en la que agrego el vecino*/
+    Fedge *fNbr = NULL;  /* vecino forward*/
+    Bedge *bNbr = NULL;  /* vecino backward*/
     
-    /*Creo un vecino forward*/
-    fedge_create(lado_getY(edge), lado_getCap(edge));
-    /*lo agrego en la tabla de vecinos forward de 'x'*/ 
-    fhTable = *(x->fNbrs);
-    HASH_ADD(fhTable->hhfNbrs, fhTable, fhTable->y, sizeof(fhTable->y), fNbr);
+    assert(x!=NULL && y!=NULL && edge!=NULL);
+    /*Creo el vecino 'y' forward y lo agrego en x->fNbrs*/
+    fNbr = fedge_create(lado_getY(edge), lado_getCap(edge));
+    HASH_ADD(hhfNbrs, x->fNbrs, y, sizeof(x->fNbrs->y), fNbr);
     
-    /*Creo un vecino backward*/
-    bedge_create(lado_getX(edge), *fNbr);
-    /*lo agrego en la tabla de vecinos backward de 'y'*/
-    bhTable = *(y->bNbrs);
-    HASH_ADD(bhTable->hhbNbrs, bhTable, bhTable->y, sizeof(bhTable->y), bNbr);    
+    /*Creo el vecino 'x' backward y lo agrego en y->bNbrs*/
+    bNbr = bedge_create(lado_getX(edge), fNbr);
+    HASH_ADD(hhbNbrs, y->bNbrs, y, sizeof(y->bNbrs->y), bNbr);    
 }
-
-
-/* Construye un Fedge a partir del nombre del vecino (y) y la capacidad
-que se tiene con el (c). El valor del flujo se inicia en 0.*/
-Fedge fedge_create(u64 y, u64 c){
-    Fedge *fNbr = NULL;     /* vecino forward*/
-    
-    fNbr = (Fedge *) malloc(sizeof(Fedge));
-    assert(fNbr != NULL);
-    (*fNbr)->y = y;        
-    (*fNbr)->cap = c;
-    (*fNbr)->flow = 0;
-    
-    return (*fNbr);
-}
-
-
-/* Construye un Bedge a partir del nombre del vecino (y) y el vinculo
-a los datos por forward respecto a el*/
-Bedge bedge_create(u64 y, Fedge fNbr){
-    Bedge *bNbr = NULL;     /* vecino backward*/
-    
-    bNbr = (Bedge*) malloc(sizeof(Bedge));
-    assert(bNbr != NULL);
-    (*bNbr)->y = y;          
-    *((*bNbr)->x) = fNbr;
-    
-    return (*bNbr);
-}    
-    
 
 /* NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
  * y retorno. Verlo como una iteracion sobre una lista en la que empiezo por 
  * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT)
  * 
- * Busca el vecino siguiente en la direccion 'dir' (FWD o BWD) y si existe 
- * almacena el nombre en 'y'
- * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD, y!=NULL
- * Retorno(r):  r = 'dir', si se encontro un vecino
- *              r = NONE, ya no hay mas vecinos en esa direccion
+ * Busca el vecino siguiente en la direccion 'dir' y si existe 
+ * almacena el nombre en 'y'. Si dir=UNK entonces primero intenta por FWD, y si
+ * no hay (o no existen) entonces intenta por BWD.
+ * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD|UNK, y!=NULL
+ * Retorno(r):  r = 'dir', en la que se encuentra el vecino
+ *              r = NONE, ya no hay mas vecinos que devolver
  */
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
-    void *nbrY = NULL;
-    static u64 nxtNbr;
-    int result = NONE;
+    static Fedge *fNbr;     /*ptr al ultimo vecino forward consultado*/
+    static Bedge *bNbr;     /*ptr al ultimo vecino backward consultado*/
+    int result = NONE;      /*valor de retorno*/
 
-    assert(nbrs != NULL && y!=NULL);
+    assert(nbrs != NULL && y != NULL);
     assert(flag == FST || flag == NXT);
-    assert(dir == FWD || dir == BWD || flag == FWD||BWD);
-
-    if (dir & FWD > 0){
-        if (flag == NXT){   /*el siguiente vecino forward*/
-            nbrY = findNbr(nbrs, nxtNbr, dir);/*TODO hay qye castearke tipo sino no sabe como acceder a los campos de un puntero void*/
-            if ((*nbrY)->hhfNbrs.next != NULL){    /*existe un siguiente*/
-                nxtNbr = nbrY->hhfNbrs.next->y;
-                *y = nxtNbr;
-                result = FWD;
-            }
-        }else{   /*primer vecino forward*/
-            if (nbrs->fNbrs != NULL){
-                nxtNbr = nbrs->fNbrs->y;
-                *y = nxtNbr;
-                result = FWD;
-            }
+    assert(dir == FWD || dir == BWD || dir == UNK);
+    
+    if (flag == NXT) /*me posiciono en el sig de la tabla de uno ya consultado*/
+        if(dir != BWD && fNbr != NULL)
+            fNbr = fNbr->hhfNbrs.next;
+        if(dir != FWD && bNbr != NULL || fNbr == NULL )
+            bNbr = bNbr->hhbNbrs.next;
+    else    /*el primer vecino que se encuentre en alguna direccion*/
+        if (dir != BWD)
+            fNbr = nbrs->fNbrs;
+        if (dir != FWD || fNbr == NULL){
+            bNbr = nbrs->bNbrs;
+            dir = BWD;
         }
-    }
-    if(dir & BWD > 0 && result == NONE){
-        if (flag == NXT){   /*el sig vecino vecino backward*/
-            nbrY = findNbr(nbrs, nxtNbr, dir); /*TODO hay qye castearke tipo sino no sabe como acceder a los campos de un puntero void*/
-            if (nbrY->hhbNbrs.next != NULL){    /*existe un siguiente*/
-                nxtNbr = nbrY->hhbNbrs.next->y;
-                *y = nxtNbr;
-                result = BWD;
-            }
-        }else{   /*primer vecino backward*/
-            if (nbrs->bNbrs != NULL){
-                nxtNbr = nbrs->bNbrs->y;
-                *y = nxtNbr;
-                result = BWD;
-            }
+        
+    if (fNbr != NULL || bNbr != NULL){    /*se encontro un siguiente*/
+        if (dir != BWD){
+            *y = fNbr->y;
+            result = FWD;
+        }else{
+            *y = bNbr->y;
+            result = BWD;
         }
     }
     return result;
@@ -211,23 +130,26 @@ int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
  * Precondicion: 'y' es vecino. vf > 0
  * Retorno: valor del nuevo flujo que se esta enviando */
 u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
-    void *nbr = NULL;   /*el vecino*/
+    Fedge *fNbr = NULL;
+    Bedge *bNbr = NULL;
+    void *nbr = NULL;
     int dir = UNK;      /*direccion en la que se encuentra el vecino*/
     
-    assert(nbrs != NULL && vf > 0);
-    
-    nbr = findNbr(nbrs, y, dir);
+    assert(nbrs != NULL && vf > 0);    
+    nbr = findNbr(nbrs, y, &dir);
     
     if (dir == FWD){        /* es FWD, aumento el flujo*/
-        nbr->flow += vf;
-        assert(nbr->flow <= nbr->cap);
+        fNbr = (Fedge*)nbr;
+        fNbr->flow += vf;
+        assert(fNbr->flow <= fNbr->cap);
     }else{                  /* es BWD, disminuyo el flujo*/
-        nbr = nbr->x;
-        nbr->flow -= vf;
-        assert(nbr->flow >= 0);
+        bNbr = (Bedge*)nbr;
+        fNbr = bNbr->x;
+        fNbr->flow -= vf;
+        assert(fNbr->flow >= 0);
     }
 
-    return nbr->flow;
+    return fNbr->flow;
 }
 
 
@@ -238,13 +160,12 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
     int dir = UNK;        /*direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
-
-    nbr = findNbr(nbrs, y, dir);
+    nbr = findNbr(nbrs, y, &dir);
     
     if (dir == BWD)
-        nbr = nbr->x;
+        nbr = ((Bedge*)nbr)->x;
     
-    return nbr->cap;
+    return ((Fedge*)nbr)->cap;
 }
 
 
@@ -252,39 +173,33 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
  Precondicion: 'y' es vecino */
 u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
     void *nbr = NULL;   /*el vecino*/
-    u64 result;
     int dir = UNK;        /*direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
-
-    nbr = findNbr(nbrs, y, dir);
+    nbr = findNbr(nbrs, y, &dir);
     
     if (dir == BWD)
-        result = nbr->x->flow;
-    else
-        result = nbr->flow;
+        nbr = ((Bedge*)nbr)->x;
     
-    return result;
+    return ((Fedge*)nbr)->flow;
 }
 
 /*devuelve la direccion (FWD o BWD) en la que se encuentra el vecino 'y'
  Precondicion: 'y' es vecino */
-int nbrhd_getDir(Nbrhd nbrs, u64 y); 
+int nbrhd_getDir(Nbrhd nbrs, u64 y){
     void *nbr = NULL;   /*el vecino*/
-    int *dir = &UNK;        /*direccion en la que se encuentra el vecino*/
+    int dir = UNK;        /*direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
-
-    findNbr(nbrs, y, dir);
+    findNbr(nbrs, y, &dir);
     
     return dir;
 }
 
 
-
-
-
-
+/*
+ *          Funciones locales
+ */
 
 /* BUSQUEDA INDIVUDAL, por si no funciona la general
 Fedge nbrhd_findFnbr(Fedge fNbrs, u64 y){
@@ -313,29 +228,83 @@ Bedge nbrhd_findBnbr(Bedge bNbrs, u64 y){
  * Si 'dir' != UNK, busca unicamente en esa direccion; 
  * caso contrario, busca primero por forward y luego por backward.
  * Precondicion: 'y' es vecino */
-void *findNbr(Nbrhd nbrs, u64 y, int* dir){
-    Fedge fnbr = NULL;
-    Bedge bnbr = NULL;
+static void *findNbr(Nbrhd nbrs, u64 y, int* dir){
+    Fedge *fNbr = NULL;
+    Bedge *bNbr = NULL;
     void *result = NULL;
     
     assert(nbrs != NULL);
     
-    if (dir != BWD)         /*busqueda por vecinos forward (dir == UNK|FWD)*/
-        HASH_FIND(nbrs->fNbrs->hhfNbrs, nbrs->fNbrs, &(y), sizeof(y), fnbr);
+    if (*dir != BWD)         /*busqueda por vecinos forward (dir == UNK|FWD)*/
+        HASH_FIND(hhfNbrs, nbrs->fNbrs, &(y), sizeof(y), fNbr);
         /* caso dir == FWD, no puede ser fnbr == NULL */
-        assert(dir != FWD || fnbr != NULL);
+        assert(*dir != FWD || fNbr != NULL);
     
-    if (fnbr != NULL){      /* se encontro en forward*/
-        result = fnbr;
-        dir = FWD;
+    if (fNbr != NULL){      /* se encontro en forward*/
+        result = fNbr;
+        *dir = FWD;
     }else{                  /*busqueda por vecinos backward*/
-        HASH_FIND(nbrs->bNbrs->hhfNbrs, nbrs->bNbrs, &(y), sizeof(y), bnbr);
-        assert(bnbr != NULL);   /* 'y' no es vecino, error */
-        result = &bnbr;
-        dir = BWD;
+        HASH_FIND(hhbNbrs, nbrs->bNbrs, &(y), sizeof(y), bNbr);
+        assert(bNbr != NULL);   /* 'y' no es vecino, error */
+        result = bNbr;
+        *dir = BWD;
     }
         
     return result;
 }
 
-void main(){}
+/* Construye un Fedge a partir del nombre del vecino (y) y la capacidad
+que se tiene con el (c). El valor del flujo se inicia en 0.*/
+Fedge *fedge_create(u64 y, u64 c){
+    Fedge *fNbr = NULL;     /* vecino forward*/
+    
+    fNbr = (Fedge *) malloc(sizeof(struct FedgeSt));
+    assert(fNbr != NULL);
+    fNbr->y = y;        
+    fNbr->cap = c;
+    fNbr->flow = 0;
+    
+    return fNbr;
+}
+
+
+/* Construye un Bedge a partir del nombre del vecino (y) y el vinculo
+a los datos por forward respecto a el*/
+Bedge *bedge_create(u64 y, Fedge *fNbr){
+    Bedge *bNbr = NULL;     /* vecino backward*/
+    
+    bNbr = (Bedge*) malloc(sizeof(struct BedgeSt));
+    assert(bNbr != NULL);
+    bNbr->y = y;          
+    bNbr->x = fNbr;
+    
+    return bNbr;
+}    
+
+
+/* Destructor de vecinos forwards */
+static void fedge_destroy(Fedge *fNbrs){
+    Fedge *felem = NULL;    /*el i-esimo elemento de fNbrs*/
+    Fedge *feTmp = NULL;    /*el i-esimo+1 elemento de fNbrs*/
+    
+    assert(fNbrs != NULL);
+    HASH_ITER(hhfNbrs, fNbrs, felem, feTmp){
+        HASH_DELETE(hhfNbrs, fNbrs, felem);
+        free(felem);
+    }    
+    free(fNbrs);
+}
+
+
+/* Destructor de vecinos backwards */
+static void bedge_destroy(Bedge *bNbrs){
+    Bedge *belem = NULL;    /*el i-esimo elemento de bNbrs*/
+    Bedge *beTmp = NULL;    /*el i-esimo+1 elemento de bNbrs*/
+    
+    assert(bNbrs != NULL);
+    HASH_ITER(hhbNbrs, bNbrs, belem, beTmp){
+        HASH_DELETE(hhbNbrs, bNbrs, belem);
+        free(belem);
+    }
+    free(bNbrs);
+}
