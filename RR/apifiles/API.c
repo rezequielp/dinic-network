@@ -35,7 +35,7 @@
 
 /*      Macro: Iterador sobre un path.          */
 #define PATH_ITER(path, x, y)                                               \
-    stack_resetViewer=(path);                                               \
+    stack_resetViewer(path);                                               \
     y = stack_nextItem(path);                                               \
     x = stack_nextItem(path);                                               \
     for(; (x)!=NULL; (y)=(x), (x)=stack_nextItem(path))
@@ -64,12 +64,12 @@ struct  DovahkiinSt{
 
 
 /*      Funciones estaticas     */
-static u64 get_pathFlow(DovahkiinP network, bool print);
+static u64 get_pathFlow(DovahkiinP network);
 static Network *network_create(u64 n);
 static void network_destroy(Network *net);
-static Network network_nextElement(Network *node);
+static Network *network_nextElement(Network *node);
 static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl);
-static Network set_lvl(Network *net, u64 name, int lvl);
+static Network *set_lvl(Network *net, u64 name, int lvl);
 static u64 get_lvl(u64 name);
 
 /*Devuelve un puntero a la St o Null en caso de error */
@@ -237,15 +237,17 @@ int ActualizarDistancias(DovahkiinP network){
     
     Queue q, qNext, qAux;       /*Colas para el manejo de los niveles. 
                                  *q = actual, qNext = siguiente, qAux = swap*/
-    Network *node = NULL;        /* nodo actual de 'q' en el cual se itera*/
-    Network *k = NULL;           /* iterador en el reseteo de las distancias*/
+    Network *node = NULL;       /* nodo actual de 'q' en el cual se itera*/
+    Network *cut = NULL;        /*Alias de network->cut*/
+    Network *k = NULL;          /* iterador en el reseteo de las distancias*/
     int lvl = 0;                /* Distancia para elementos de qNext*/
 
     assert(network != NULL);
     
     /* preparacion de las cosas que voy a usar*/
     UNSET_FLAG(SINK_REACHED);
-    HASH_CLEAR(hhCut, network->cut);    /*antes de empezar se limpia el corte*/
+    cut = network->cut;
+    HASH_CLEAR(hhCut, cut);    /*antes de empezar se limpia el corte*/
     q = queue_create();
     qNext = queue_create();
     
@@ -263,7 +265,7 @@ int ActualizarDistancias(DovahkiinP network){
         node = queue_head(q);
         /*Busqueda y actualizacion de niveles de nodos*/
         set_lvlNbrs(network->net, qNext, node, lvl);
-        HASH_ADD(hhCut, network->cut, name, sizeof(cut->name), queue_head(q));
+        HASH_ADD(hhCut, cut, name, sizeof(cut->name), (Network*)queue_head(q));
         queue_dequeue(q);
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
         if(queue_isEmpty(q)){
@@ -282,19 +284,20 @@ int ActualizarDistancias(DovahkiinP network){
  * Devuelve 1 si llega a t, 0 caso contrario.*/
 int BusquedaCaminoAumentante(DovahkiinP network){
     u64 s, t;
-    Network node;
+    Network *node;
     
     assert(network != NULL);
     s = network->source;
     t = network->sink;
     /*preparacion de todas las cosas que uso para buscar un camino aumentante*/
     stack_destroy(network->path, NULL);
-    HASH_FIND(network->hhNet, network->net, &(s), sizeof(s), node);
+    HASH_FIND(hhNet, network->net, &(s), sizeof(s), node);
     stack_push(network->path, node);
     
+    /*Busqueda*/
     if (IS_SET_FLAG(SINK_REACHED) && IS_SET_FLAG(PATHUSED)){
         while(node->name != t && !stack_isEmpty(network->path)){
-            node = network_nextElement(node); /*TODO debe cumplir condicion de distancia*/
+            node = network_nextElement(node);
             if (node != NULL){
                 stack_push(network->path, node);
             }else{
@@ -305,7 +308,7 @@ int BusquedaCaminoAumentante(DovahkiinP network){
         UNSET_FLAG(PATHUSED);
     }
     
-    return (node == t);
+    return (node->name == t);
 }
 
 /*Precondicion: (BusquedaCaminoAumentante()==1) 
@@ -315,8 +318,8 @@ int BusquedaCaminoAumentante(DovahkiinP network){
  * 0 caso contrario (inclusive !precondicion).*/
 u64 AumentarFlujo(DovahkiinP network){
     u64 pflow = 0;          /*flujo a enviar por el camino aumentante*/ 
-    Network x = NULL;       /*nodo x de una arista xy*/
-    Netwrok y = NULL;       /*nodo y de una arista xy*/
+    Network *x = NULL;       /*nodo x de una arista xy*/
+    Network *y = NULL;       /*nodo y de una arista xy*/
     
     assert(network != NULL);
     
@@ -324,7 +327,7 @@ u64 AumentarFlujo(DovahkiinP network){
         pflow = get_pathFlow(network);
         /*incremento del flujo sobre cada arista xy*/
         PATH_ITER(network->path, x, y){
-            nbrhd_increaseFlow(x->nbrhd, y->name, pflow); /*por BWD disminuye!*/
+            nbrhd_increaseFlow(x->nbrs, y->name, pflow); /*por BWD disminuye!*/
         }
     }
     SET_FLAG(PATHUSED);
@@ -338,8 +341,9 @@ u64 AumentarFlujo(DovahkiinP network){
  * ";" se usa en caminos forward y ">" en backward.*/
 u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
     u64 pflow = 0;
-    Network x = NULL;
-    Network y = NULL;
+    Network *x = NULL;
+    Network *y = NULL;
+    int dir = UNK;
     
     assert(network != NULL);
     
@@ -349,6 +353,7 @@ u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
         printf("camino aumentante %i:\n", network->pCounter );      
         PATH_ITER(network->path, x, y){
             dir = nbrhd_getDir(x->nbrs, y->name); /*me fijo si son BWD/FWD*/
+            assert(dir != UNK);
             if(dir == FWD){
                 if(x->name != network->source)
                     printf(";%"PRIu64, x->name);
@@ -370,8 +375,8 @@ Flujo �:
 Lado x_1,y_2: <FlujoDelLado>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
 void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? de que????? TODO*/
-    Network x = NULL;
-    Network y = NULL;
+    Network *x = NULL;
+    Network *y = NULL;
     u64 vflow = 0;
     assert(network != NULL);
     
@@ -403,11 +408,11 @@ void ImprimirCorte(DovahkiinP network){
 /*Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
 de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging.
 igual quedan programadas las dos formas y comentada una de ellas.*/
-    Network x = NULL;
+    Network *x = NULL;
     
     
     /*TODO ESTA MAL! el corte no queda en el path, sino en cut, rehacer TODO*/
-    printf("Corte Minimal: S ={");
+    /*printf("Corte Minimal: S ={");
     stack_resetViewer=(network->path);
     x = stack_nextItem(network->path);
     
@@ -417,7 +422,7 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
             printf("%"PRIu64",", x->name);
     }
     printf("t}\n'");
-    printf("Capacidad: %"PRIu64, network->flow);      /*TODO*/
+    printf("Capacidad: %"PRIu64, network->flow);  */    /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
 }
 
@@ -427,17 +432,17 @@ igual quedan programadas las dos formas y comentada una de ellas.*/
 */
 
 /*Busca el maximo valor de flujo que se puede enviar por un camino sin usar*/
-u64 get_pathFlow(DovahkiinP network, bool print){
+u64 get_pathFlow(DovahkiinP network){
     u64 pflow;              /*path flow, valor de retorno*/
-    Network x = NULL;       /*nodo x de una arista xy*/
-    Network y = NULL;       /*nodo y de una arista xy*/
+    Network *x = NULL;       /*nodo x de una arista xy*/
+    Network *y = NULL;       /*nodo y de una arista xy*/
 
     assert(network != NULL);
     assert(!IS_SET_FLAG(PATHUSED));
     
     pflow = u64_MAX;
     /*busqueda del flujo maximal sobre el camino aumentante*/
-    PATH_ITER(network.path, x, y){
+    PATH_ITER(network->path, x, y){
         pflow = u64_min(pflow, nbrhd_getFlow(x->nbrs, y->name));
     }
 
@@ -449,7 +454,7 @@ static Network *network_create(u64 n){
     Network *node;
     
     node = (Network*) malloc(sizeof(Network));
-    assert(node!=NULL);
+    assert(node != NULL);
     
     node->name = n;
     node->nbrs = NULL;
@@ -458,28 +463,28 @@ static Network *network_create(u64 n){
     return node;
 }
 
-/*Destruye un elemento del network */
-static void network_destroy(Network net){
-    Network elem = NULL;    /*el i-esimo elemento de la hash table*/
-    Network eTmp = NULL;    /*el i-esimo + 1 elemento de la hash table*/
+/*Destrucot del network*/
+static void network_destroy(Network *net){
+    Network *elem = NULL;    /*el i-esimo elemento de la hash table*/
+    Network *eTmp = NULL;    /*el i-esimo + 1 elemento de la hash table*/
     
     HASH_ITER(hhNet, net, elem, eTmp){
-        HASH_DEL(net, elem); /*elimina la referencia sobre la hash table*/
-        nbrhd_destroy(elem.nbrs);
+        HASH_DELETE(hhNet, net, elem); /*elimina la referencia sobre la hash table*/
+        nbrhd_destroy(elem->nbrs);
         free(elem);
     }
 }
 
 /*Busca el siguente elemento que cumple las condiciones de poder mandar flujo 
 forward o backwar del nodo "node" y devuelve un puntero hacia ese elemento*/
-static Network network_nextElement(Network node){
-    Network next = NULL;
-    Network nNode;
+static Network *network_nextElement(Network node){
+    Network *next = NULL;
+    Network *nNode;
     bool break_w;
     u64 uNode;
     int dir;
     static int flag = NXT;
-    static u64 previousNode=node;
+    static u64 previousNode = node;
     
     if(previousNode != node.name){
         previousNode = node.name;
@@ -548,8 +553,8 @@ static Network *set_lvl(Network *net, u64 name, int lvl){
     
     HASH_FIND(hhNet, net, &name, sizeof(name), node);
     //assert(node != NULL);
-    if(node.level == NOT_USED)
-        node.level = lvl;
+    if(node->level == NOT_USED)
+        node->level = lvl;
     
     return node;
 }
