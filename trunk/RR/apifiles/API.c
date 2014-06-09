@@ -93,10 +93,12 @@ DovahkiinP NuevoDovahkiin(void){
 int DestruirDovahkiin(DovahkiinP network){
     assert(network!=NULL);
     
-    network_destroy(network->net);  /*esto tambien libera el corte*/
+    if (network->net != NULL)
+        network_destroy(network->net);  /*esto tambien libera el corte*/
     if (network->path != NULL)
         stack_destroy(network->path, NULL);
     free(network);
+    network = NULL;
     return 1;
 }
 
@@ -153,22 +155,25 @@ Cada linea es de la forma x y c, siendo todos u64 representando el lado xy
 de capacidad c. */
 Lado LeerUnLado(void){
     Lado edge = LadoNulo;
-    Lexer *input;   /*analizador lexico por lineas de un archivo*/
-    int garbage = PARSER_OK;      /*Indica si no se encontro basura al parsear*/
+    Lexer *input;               /*analizador lexico por lineas de un archivo*/
+    int clean = PARSER_OK;      /*Indica si no se encontro basura al parsear*/
    
     /*construyo el lexer sobre la entrada estandar*/
     input = lexer_new(stdin);
 
     if (input != NULL){
-        /*Leo un lado mientras no llegue a un fin de archivo o haya ocurrido
-          algun error*/
+        /*Leo un lado mientras no llegue a un fin de archivo o algun error*/
         if (!lexer_is_off(input)){
             /*se parsea un lado*/
-            edge = parse_lado(input);
+            edge = parser_lado(input);
             /*se corre el parseo hasta la siguiente linea (o fin de archivo)*/
-            garbage = parse_nextLine(input);
-            if (edge != LadoNulo && garbage) /*habia basura, error*/
+            clean = parser_nextLine(input);
+            
+            if (edge != LadoNulo && !clean){ /*habia basura, error*/
                 lado_destroy(edge);
+                edge = LadoNulo;
+            }
+            if (edge == LadoNulo)
         }
         lexer_destroy(input);
     }
@@ -180,31 +185,31 @@ Lado LeerUnLado(void){
 int CargarUnLado(DovahkiinP network, Lado edge){
     Network *nodeX = NULL;
     Network *nodeY = NULL;
-    Network *net = NULL;    /*alias de network->net*/
     u64 x, y;
     int result = 0;
     
     assert(network != NULL);
-    net = network->net;
     
     if (edge != LadoNulo){
         x = lado_getX(edge);
         /* cargo el nodo 'x', si todavia no existe*/
-        HASH_FIND(hhNet, net, &(x), sizeof(x), nodeX);
+        HASH_FIND(hhNet, network->net, &(x), sizeof(x), nodeX);
         if (nodeX == NULL){
             nodeX = network_create(x);
-            HASH_ADD(hhNet, net, name, sizeof(net->name), nodeX);
+            HASH_ADD(hhNet, network->net, name, sizeof(network->net->name), nodeX);
         }
+        
         y = lado_getY(edge);
         /*cargo el nodo 'y', si todavia no existe*/
-        HASH_FIND(hhNet, net, &(y), sizeof(y), nodeY);
+        HASH_FIND(hhNet, network->net, &(y), sizeof(y), nodeY);
         if (nodeY == NULL){
             nodeY = network_create(y);
-            HASH_ADD(hhNet, net, name, sizeof(net->name), nodeY);
+            HASH_ADD(hhNet, network->net, name, sizeof(network->net->name), nodeY);
         }
         /*se establecen como vecinos*/
         nbrhd_addEdge(nodeX->nbrs, nodeY->nbrs, edge);
         result = 1;
+        lado_destroy(edge); /*Destruyo el lado, ya no nos sirve*/
     }
     
     return result;
@@ -238,7 +243,6 @@ int ActualizarDistancias(DovahkiinP network){
     Queue q, qNext, qAux;       /*Colas para el manejo de los niveles. 
                                  *q = actual, qNext = siguiente, qAux = swap*/
     Network *node = NULL;       /* nodo actual de 'q' en el cual se itera*/
-    Network *cut = NULL;        /*Alias de network->cut*/
     Network *k = NULL;          /* iterador en el reseteo de las distancias*/
     int lvl = 0;                /* Distancia para elementos de qNext*/
 
@@ -246,8 +250,7 @@ int ActualizarDistancias(DovahkiinP network){
     
     /* preparacion de las cosas que voy a usar*/
     UNSET_FLAG(SINK_REACHED);
-    cut = network->cut;
-    HASH_CLEAR(hhCut, cut);    /*antes de empezar se limpia el corte*/
+    HASH_CLEAR(hhCut, network->cut);    /*antes de empezar se limpia el corte*/
     q = queue_create();
     qNext = queue_create();
     
@@ -265,7 +268,7 @@ int ActualizarDistancias(DovahkiinP network){
         node = queue_head(q);
         /*Busqueda y actualizacion de niveles de nodos*/
         set_lvlNbrs(network->net, qNext, node, lvl);
-        HASH_ADD(hhCut, cut, name, sizeof(cut->name), (Network*)queue_head(q));
+        HASH_ADD(hhCut, network->cut, name, sizeof(network->cut->name), (Network*)queue_head(q));
         queue_dequeue(q);
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
         if(queue_isEmpty(q)){
@@ -479,16 +482,18 @@ static Network *network_create(u64 n){
     return node;
 }
 
-/*Destrucot del network*/
+/*Destructor del network*/
 static void network_destroy(Network *net){
     Network *elem = NULL;    /*el i-esimo elemento de la hash table*/
     Network *eTmp = NULL;    /*el i-esimo + 1 elemento de la hash table*/
     
+    assert(net!=NULL);
     HASH_ITER(hhNet, net, elem, eTmp){
         HASH_DELETE(hhNet, net, elem); /*elimina la referencia sobre la hash table*/
         nbrhd_destroy(elem->nbrs);
         free(elem);
     }
+    net = NULL;
 }
 
 /*Busca el siguente elemento que cumple las condiciones de poder mandar flujo 

@@ -5,17 +5,21 @@
 #define EOL "\n"            /*para indicador de final de linea*/
 #define WHITE_SPACE " "     /*para indicador de espacio en blanco*/
 
+/*flags para next_bstring*/
+#define WITH 1              
+#define WITHOUT 0
+
 static int parse_argument(Lexer *input, u64 *arg);
-static bstring next_bstring(Lexer *input, const char *str);
+static bstring next_bstring(Lexer *input, int flag, const char *str);
 static bool is_theNextChar(Lexer *input, const char *ch);
 
 
 /* Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo*/
-Lado parse_lado(Lexer *input){
+Lado parser_lado(Lexer *input){
     u64 x;                      /*nodo x*/
     u64 y;                      /*nodo y*/
     u64 cap;                    /*capacidad de xy*/
-    Lado result = NULL;        /*lado parseado*/
+    Lado result = LadoNulo;     /*lado parseado*/
     int its_ok = PARSER_ERR;    /*chequea que el parse va bien*/
     
     /*Pre:*/
@@ -41,7 +45,7 @@ Lado parse_lado(Lexer *input){
 
 /* Consume el fin de línea.
  * Indica si encontro basura antes del fin de línea*/
-int parse_nextLine(Lexer *input){
+int parser_nextLine(Lexer *input){
     int result = PARSER_OK; /*si es EOF (o el sig char es '\n'), sera true*/
     bstring gbCollector = NULL; /*recolector de caracteres basura*/
     
@@ -49,7 +53,7 @@ int parse_nextLine(Lexer *input){
     assert(input != NULL);
 
     /*consumo toda la basura anterior al primer '\n' (o EOF)*/
-    gbCollector = next_bstring(input, EOL);
+    gbCollector = next_bstring(input, WITHOUT, EOL);
     /*si leyo algo, entonces gbCollector no es nulo*/
     if (gbCollector != NULL){
         result = PARSER_ERR;
@@ -78,7 +82,7 @@ static int parse_argument(Lexer *input, u64 *n){
         lexer_skip(input, WHITE_SPACE);
     
     /*leo hasta el siguiente caracter distinto de 'DIGIT'*/
-    barg = next_bstring(input, DIGIT);
+    barg = next_bstring(input, WITH, DIGIT);
     if (barg != NULL){
         /*lo convierto a u64*/
         carg = bstr2cstr(barg, '\0');
@@ -92,17 +96,22 @@ static int parse_argument(Lexer *input, u64 *n){
 }
 
 /*lee el siguiente item.
- * Consume todo caracter hasta encontrar alguno perteneciente a 'str'.
+ * Si flag = WITH: Consume todo caracter perteneciente a 'str'.
+ * Si flag = WITHOUT: Consume hasta encontrarse con un caracter de 'str'
  * El llamador se encarga de liberarlo*/
-static bstring next_bstring(Lexer *input, const char *str){
+static bstring next_bstring(Lexer *input, int flag, const char *str){
 
     bstring result=NULL;
     assert (input != NULL);
+    assert(flag == WITH || flag == WITHOUT);
     
     /*Leo todos los caracteres anteriores y no pertenecientes a 'str'*/
-    if (!lexer_is_off(input))
-        lexer_next(input, str);
-    
+    if (!lexer_is_off(input)){
+        if (flag == WITH)
+            lexer_next(input, str);
+        else
+            lexer_next_to(input, str);
+    }
     /*si (leyo algo) ´o´ (no EOF y no leyo nada)*/
     if (!lexer_is_off(input)){
         result = lexer_item(input);

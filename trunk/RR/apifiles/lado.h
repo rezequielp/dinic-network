@@ -9,7 +9,7 @@
  */
 typedef struct LadoSt *Lado;
 
-#define LadoNulo NULL
+#define LadoNulo (Lado)NULL
 
 /* Constructores
 */

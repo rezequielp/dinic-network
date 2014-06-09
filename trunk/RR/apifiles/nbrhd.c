@@ -38,7 +38,7 @@ static Bedge *bedge_create(u64 y, Fedge *fNbr);
 
 /*Constructor de un nuevo Nbrhd*/
 Nbrhd nbrhd_create(void){
-    Nbrhd nbrs=NULL;
+    Nbrhd nbrs = NULL;
     
     nbrs = (Nbrhd) malloc(sizeof(struct NeighbourhoodSt));
     assert(nbrs != NULL);
@@ -54,12 +54,13 @@ Nbrhd nbrhd_create(void){
 void nbrhd_destroy(Nbrhd nbrs){
     assert(nbrs != NULL);
     /*destruyo todos los vecinos forward*/
-    if (nbrs->fNbrs)
+    if (nbrs->fNbrs != NULL)
         fedge_destroy(nbrs->fNbrs);
     /*destruyo todos los vecinos backward*/
-    if (nbrs->bNbrs)
+    if (nbrs->bNbrs != NULL)
         bedge_destroy(nbrs->bNbrs);    
     free(nbrs);
+    nbrs = NULL;
 }
 
 
@@ -71,7 +72,7 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
     Fedge *fNbr = NULL;  /* vecino forward*/
     Bedge *bNbr = NULL;  /* vecino backward*/
     
-    assert(x!=NULL && y!=NULL && edge!=NULL);
+    assert(x!=NULL && y!=NULL && edge!=LadoNulo);
     /*Creo el vecino 'y' forward y lo agrego en x->fNbrs*/
     fNbr = fedge_create(lado_getY(edge), lado_getCap(edge));
     HASH_ADD(hhfNbrs, x->fNbrs, y, sizeof(x->fNbrs->y), fNbr);
@@ -257,7 +258,7 @@ static void *findNbr(Nbrhd nbrs, u64 y, int* dir){
 
 /* Construye un Fedge a partir del nombre del vecino (y) y la capacidad
 que se tiene con el (c). El valor del flujo se inicia en 0.*/
-Fedge *fedge_create(u64 y, u64 c){
+static Fedge *fedge_create(u64 y, u64 c){
     Fedge *fNbr = NULL;     /* vecino forward*/
     
     fNbr = (Fedge *) malloc(sizeof(struct FedgeSt));
@@ -272,7 +273,7 @@ Fedge *fedge_create(u64 y, u64 c){
 
 /* Construye un Bedge a partir del nombre del vecino (y) y el vinculo
 a los datos por forward respecto a el*/
-Bedge *bedge_create(u64 y, Fedge *fNbr){
+static Bedge *bedge_create(u64 y, Fedge *fNbr){
     Bedge *bNbr = NULL;     /* vecino backward*/
     
     bNbr = (Bedge*) malloc(sizeof(struct BedgeSt));
@@ -295,6 +296,7 @@ static void fedge_destroy(Fedge *fNbrs){
         free(felem);
     }    
     free(fNbrs);
+    fNbrs = NULL;
 }
 
 
@@ -309,4 +311,5 @@ static void bedge_destroy(Bedge *bNbrs){
         free(belem);
     }
     free(bNbrs);
+    bNbrs = NULL;
 }
