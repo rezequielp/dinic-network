@@ -543,7 +543,7 @@ static void set_lvlNbrs(DovahkiinP network, Network *node, Queue q, int lvl){
                     (nbrhd_getFlow(nbrs, y) > 0);
         if (canBeUsed){                 /*busco el nodo y actualizo su nivel*/
             yNode = set_lvl(node, y, lvl);
-            Queue_enqueue(q, yNode);
+            queue_enqueue(q, yNode);
             if(y == network->sink)       /*llego a t*/
                 SET_FLAG(SINK_REACHED);
             else
