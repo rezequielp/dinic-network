@@ -69,6 +69,7 @@ static void network_destroy(Network *net);
 static Network *network_nextElement(Network *node);
 static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl);
 static Network *set_lvl(Network *net, u64 name, int lvl);
+static void print_network();
 
 /*Devuelve un puntero a la St o Null en caso de error */
 DovahkiinP NuevoDovahkiin(void){
@@ -373,10 +374,13 @@ u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
 Flujo �:
 Lado x_1,y_2: <FlujoDelLado>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
-void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? de que????? TODO*/
-/*  Network *x = NULL;
-    Network *y = NULL;
+void ImprimirFlujo(DovahkiinP network){/* TODO*/
+    Network *x = NULL;
+    Network *xTmp = NULL;
+    u64 yName;
     u64 vflow = 0;
+    int dir;
+    
     assert(network != NULL);
     
     if(IS_SET_FLAG(MAXFLOW))
@@ -384,11 +388,14 @@ void ImprimirFlujo(DovahkiinP network){/* TODO el flujo del corte? del network? 
     else
         printf("Flujo no maximal:\n");
 
-    PATH_ITER(network->path, x, y){
-        vflow = nbrhd_getFlow(x->nbrs, y->name);
-        printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->name, y->name, vflow);
+    HASH_ITER(hhNet, network->net, x, xTmp){
+        dir = FST;
+        while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){
+            dir = NXT;
+            vflow = nbrhd_getFlow(x->nbrs, yName);
+            printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->name, yName, vflow);
+        }
     }
-*/
 }
 
 /*Debe imprimir el valor del flujo con el formato
@@ -404,26 +411,35 @@ void ImprimirValorFlujo(DovahkiinP network){
 /*Imprime un corte minimal y su capacidad con el formato:
 Corte minimial: S = {s,x_1,...}
 Capacidad: <Capacidad>*/
-void ImprimirCorte(DovahkiinP network){
+
 /*Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
 de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging.
-igual quedan programadas las dos formas y comentada una de ellas.*/
-/*  Network *x = NULL;  
-*/    
+igual quedan programadas las dos formas y comentada una de ellas.*/   
+void ImprimirCorte(DovahkiinP network){
+    Network *x = NULL;
+    Network *xTmp = NULL;
+    u64 yName;
+    u64 vflow = 0;
+    int dir;
     
-    /*TODO ESTA MAL! el corte no queda en el path, sino en cut, rehacer TODO*/
-/*  printf("Corte Minimal: S ={");
-    stack_resetViewer=(network->path);
-    x = stack_nextItem(network->path);
+    printf("Corte Minimal: S ={s,");
+
     
-    while (x != NULL){
-        x = stack_nextItem(network->path);
-        if (x->name != network->source)
-            printf("%"PRIu64",", x->name);
+    HASH_ITER(hhCut, network->net, x, xTmp){/*Itero sobre los nodos*/
+        dir = FST;
+        while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){/*Itero sobre los vecinos*/
+            HASH_FIND(hhCut, network->net, yName, sizeof(u64), node)
+            if(node == NULL)
+                vflow+=nbrhd_getFlow(x->nbrs, yName);
+            dir = NXT;
+            printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->name, yName, vflow);
+            
+        }
     }
-    printf("t}\n'");
-    printf("Capacidad: %"PRIu64, network->flow);         */ /*TODO*/
+    printf("Capacidad: %"PRIu64, network->flow);          /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
+    
+    printf("}\n");
 }
 
 
@@ -529,3 +545,4 @@ static Network *set_lvl(Network *net, u64 name, int lvl){
     
     return node;
 }
+
