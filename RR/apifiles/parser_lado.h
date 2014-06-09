@@ -28,7 +28,7 @@
  *  Se consumió input hasta el primer error o hasta completar el Lado.
  *  No se consumió ningun \n.
  */
-Lado parse_lado(Lexer *input);
+Lado parser_lado(Lexer *input);
 
 
 /* Consume el fin de línea. Indica si encontro basura antes del fin de línea.
@@ -42,6 +42,6 @@ Lado parse_lado(Lexer *input);
  *     no se consumió más entrada de la necesaria
  *     el lexer esta detenido justo luego de un \n o en el fin de archivo.
  */
-int parse_nextLine (Lexer *input);
+int parser_nextLine (Lexer *input);
 
 #endif

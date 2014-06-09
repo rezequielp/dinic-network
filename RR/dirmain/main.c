@@ -23,7 +23,7 @@
 
 
 void load_from_stdin(DovahkiinP network){
-    Lado lado = NULL;          /*un lado leido*/
+    Lado lado = LadoNulo;          /*un lado leido*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
     
     assert(network != NULL);
@@ -35,7 +35,7 @@ void load_from_stdin(DovahkiinP network){
     do{
         lado = LeerUnLado();
         load_ok = CargarUnLado(network, lado);
-    }while(lado != LadoNulo && load_ok);
+    }while(load_ok);
 }
 
 void print_help(char * programName){
