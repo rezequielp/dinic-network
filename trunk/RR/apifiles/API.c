@@ -69,7 +69,6 @@ static void network_destroy(Network *net);
 static Network *network_nextElement(Network *node);
 static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl);
 static Network *set_lvl(Network *net, u64 name, int lvl);
-static void print_network();
 
 /*Devuelve un puntero a la St o Null en caso de error */
 DovahkiinP NuevoDovahkiin(void){
@@ -106,12 +105,14 @@ int DestruirDovahkiin(DovahkiinP network){
 void FijarFuente(DovahkiinP network, u64 s){
     assert(network != NULL);
     network->source = s;
+    SET_FLAG(SOURCE);
 }
 
 /*Setea al vertice t como resumidero */
 void FijarResumidero(DovahkiinP network, u64 t){
     assert(network != NULL);
     network->sink = t;
+    SET_FLAG(SINK);
 }
 
 /*Si la fuente NO esta fijada devuelve -1, sino 0 e imprime por pantalla:
@@ -125,7 +126,7 @@ int ImprimirFuente(DovahkiinP network){
     assert(network != NULL);
     
     if(IS_SET_FLAG(SOURCE)){
-        printf("Fuente: %" PRIx64 "\n", network->source);
+        printf("Fuente: %"PRIu64"\n", network->source);
         result=0;
     }
     return result;
@@ -142,7 +143,7 @@ int ImprimirResumidero(DovahkiinP network){
     assert(network != NULL);
   
     if(IS_SET_FLAG(SOURCE)){
-        printf("Resumidero: %" PRIx64 "\n", network->sink);
+        printf("Resumidero: %"PRIu64"\n", network->sink);
         result=0;
     }
     return result;
@@ -173,7 +174,6 @@ Lado LeerUnLado(void){
                 lado_destroy(edge);
                 edge = LadoNulo;
             }
-            if (edge == LadoNulo)
         }
         lexer_destroy(input);
     }
@@ -428,9 +428,9 @@ void ImprimirCorte(DovahkiinP network){
     printf("Corte Minimal: S ={s,");
 
     
-    HASH_ITER(hhCut, network->net, x, xTmp){/*Itero sobre los nodos*/
+    HASH_ITER(hhCut, network->net, x, xTmp){        /*Itero sobre los nodos*/
         dir = FST;
-        while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){/*Itero sobre los vecinos*/
+        while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){    /*Itero sobre los vecinos*/
             HASH_FIND(hhCut, network->net, yName, sizeof(u64), node)
             if(node == NULL)
                 vflow+=nbrhd_getFlow(x->nbrs, yName);
@@ -441,7 +441,7 @@ void ImprimirCorte(DovahkiinP network){
     }
     printf("Capacidad: %"PRIu64, network->flow);          /*TODO*/
     /*TODO calcular la capacidad del  flujo maximal*/
-    
+
     printf("}\n");
 }
 
