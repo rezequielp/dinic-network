@@ -67,8 +67,7 @@ static u64 get_pathFlow(DovahkiinP network);
 static Network *network_create(u64 n);
 static void network_destroy(Network *net);
 static Network *network_nextElement(Network *node);
-static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl);
-static Network *set_lvl(Network *net, u64 name, int lvl);
+static void set_lvlNbrs(DovahkiinP network, Network *node, Queue q, int lvl);static Network *set_lvl(Network *net, u64 name, int lvl);
 
 /*Devuelve un puntero a la St o Null en caso de error */
 DovahkiinP NuevoDovahkiin(void){
@@ -267,7 +266,7 @@ int ActualizarDistancias(DovahkiinP network){
     while(!queue_isEmpty(q) && IS_SET_FLAG(SINK_REACHED)){
         node = queue_head(q);
         /*Busqueda y actualizacion de niveles de nodos*/
-        set_lvlNbrs(network->net, qNext, node, lvl);
+        set_lvlNbrs(network, node, qNext, lvl);
         HASH_ADD(hhCut, network->cut, name, sizeof(network->cut->name), (Network*)queue_head(q));
         queue_dequeue(q);
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
@@ -377,7 +376,7 @@ u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP network){
 Flujo �:
 Lado x_1,y_2: <FlujoDelLado>
 Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario*/
-void ImprimirFlujo(DovahkiinP network){/* TODO*/
+void ImprimirFlujo(DovahkiinP network){
     Network *x = NULL;
     Network *xTmp = NULL;
     u64 yName;
@@ -420,30 +419,38 @@ de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging
 igual quedan programadas las dos formas y comentada una de ellas.*/   
 void ImprimirCorte(DovahkiinP network){
     Network *x = NULL;
-    Network *xTmp = NULL;
+    Network *node = NULL;
     u64 yName;
-    u64 vflow = 0;
+    u64 cflow = 0;
     int dir;
     
     printf("Corte Minimal: S ={s,");
+    x=network->net;
+    dir = FST;
+    while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){/*Itero sobre los vecinos*/
+        HASH_FIND(hhCut, network->net, &yName, sizeof(yName), node);
+        if(node == NULL)
+            cflow+=nbrhd_getFlow(x->nbrs, yName);
+        else
+            printf(",%"PRIu64,x->name);
+        dir = NXT;
+    }
 
-    
-    HASH_ITER(hhCut, network->net, x, xTmp){        /*Itero sobre los nodos*/
+    for(x=x->hhCut.next; x != NULL; x=x->hhCut.next){/*Itero sobre los nodos*/
         dir = FST;
-        while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){    /*Itero sobre los vecinos*/
-            HASH_FIND(hhCut, network->net, yName, sizeof(u64), node)
+        while(nbrhd_getNext(network->net->nbrs, dir, FWD, &yName) != NONE ){/*Itero sobre los vecinos*/
+            HASH_FIND(hhCut, network->net, &yName, sizeof(yName), node);
             if(node == NULL)
-                vflow+=nbrhd_getFlow(x->nbrs, yName);
+                cflow+=nbrhd_getFlow(x->nbrs, yName);
+            else
+                printf(",%"PRIu64,x->name);
             dir = NXT;
-            printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->name, yName, vflow);
-            
         }
     }
-    printf("Capacidad: %"PRIu64, network->flow);          /*TODO*/
-    /*TODO calcular la capacidad del  flujo maximal*/
-
     printf("}\n");
+    printf("Capacidad: %"PRIu64"\n", cflow);
 }
+
 
 
 /* 
@@ -498,41 +505,53 @@ static void network_destroy(Network *net){
 
 /*Busca el siguente elemento que cumple las condiciones de poder mandar flujo 
 forward o backwar del nodo "node" y devuelve un puntero hacia ese elemento*/
-static Network *network_nextElement(Network *node){
-   return NULL;
+static Network *network_nextElement(Network *x){
+    Network * nextNode = NULL;
+    int dir, sentido;
+    u64 yName;
+    dir = FST;
+    sentido = nbrhd_getNext(x->nbrs, dir, UNK, &yName);
+    HASH_FIND(hhNet, x, &yName, sizeof(yName), nextNode);
+
+    while(sentido != NONE && nextNode->level !=  x->level +1){
+        dir = NXT;
+        sentido = nbrhd_getNext(x->nbrs, dir, UNK, &yName);
+        HASH_FIND(hhNet, x, &yName, sizeof(yName), nextNode);
+    }
+    if(sentido == NONE)
+        nextNode = NULL;
+    return nextNode;
 }
 
 /* Actualiza las distancias de los vecinos FWD y BWD de un nodo. 
  * Los vecinos que se actualizaron se agregan a la cola 'q'.
  * Precondicion: 
  */
-static void set_lvlNbrs(Network *net, Queue q, Network *node, int lvl){
-/*  Network *yNode = NULL;
+static void set_lvlNbrs(DovahkiinP network, Network *node, Queue q, int lvl){
+    Network *yNode = NULL;
     bool canBeUsed = false;
     Nbrhd nbrs = NULL;
     u64 y;
-    Nbrhd obtained;
+    int dir;
     
     assert(node != NULL && q != NULL);
     
     nbrs = node->nbrs;
-    obtained = nbrhd_getNext(nbrs, FST, dir, &y);
-    while(IS_SET_FLAG(SINK_REACHED) && obtained != NONE){
+    dir = nbrhd_getNext(nbrs, FST, UNK, &y);
+    while(IS_SET_FLAG(SINK_REACHED) && dir != NONE){
         canBeUsed = (nbrhd_getCap(nbrs, y) > nbrhd_getFlow(nbrs, y)) || \
                     (nbrhd_getFlow(nbrs, y) > 0);
-        if (canBeUsed){                 *//*busco el nodo y actualizo su nivel*/
-            /*yNode = set_lvl(net, y, lvl);
-            if (yNode != NULL)
-                Queue_enqueue(q, yNode);
-            if(y == network->sink)                              */ /*llego a t*/
-/*                SET_FLAG(SINK_REACHED);
+        if (canBeUsed){                 /*busco el nodo y actualizo su nivel*/
+            yNode = set_lvl(node, y, lvl);
+            Queue_enqueue(q, yNode);
+            if(y == network->sink)       /*llego a t*/
+                SET_FLAG(SINK_REACHED);
             else
-                obtained = nbrhd_getNext(node->nbrs, y, dir, &y);
+                dir = nbrhd_getNext(nbrs, NXT, UNK, &y);
         }
     }
-    return result;
-*/
 }
+
 
 /* Busca por 'name' y actualiza el valor de distancia de un nodo.
  * Retorna un puntero al nodo modificado.
