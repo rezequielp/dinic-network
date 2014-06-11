@@ -37,7 +37,6 @@ static bool isu64(char * sU64);
 void load_from_stdin(DovahkiinP network){
     Lado lado = LadoNulo;          /*un lado leido*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
-    int iterC = 0; /*TODO borrar*/
     
     assert(network != NULL);
     
@@ -48,10 +47,7 @@ void load_from_stdin(DovahkiinP network){
     do{
         lado = LeerUnLado();
         load_ok = CargarUnLado(network, lado);
-        if (load_ok)
-            iterC++;
     }while(load_ok);
-    printf("\t\t\t\tCAntidad de lados:%i\n", iterC);
 }
 
 void print_help(char * programName){
@@ -189,8 +185,8 @@ int main(int argc, char *argv[]){
     /*se calcula e imprime lo requerido*/
     FijarFuente(network, s);
     FijarResumidero(network, t);
-    ImprimirFuente(network);
-    ImprimirResumidero(network);
+//    ImprimirFuente(network);
+//    ImprimirResumidero(network);
     if (Prepararse(network) == 1){
         if (IS_SET_IMPST(IMP_TIEMPODINIC))
             clock_startTime = clock(); 
@@ -198,7 +194,6 @@ int main(int argc, char *argv[]){
         while (ActualizarDistancias(network)){        
             while (BusquedaCaminoAumentante(network)){
                 if (IS_SET_IMPST(IMP_CAMINO_AUMENTANTE)){
-                 printf("&&&&& pitones3:\n");
                     AumentarFlujoYTambienImprimirCamino(network); 
                     /*printf("Finish3\n");*/
                 }else{
@@ -209,7 +204,6 @@ int main(int argc, char *argv[]){
             }
         }
         
-       printf("pitones6:\n")  ;
         if (IS_SET_IMPST(IMP_TIEMPODINIC)){
             clock_finishTime = clock();
             dinicTime = (clock_finishTime-clock_startTime) / CLOCKS_PER_SEC; /*WARNING tipo de dato devuelto por clock(), generalmente un long int*/
