@@ -264,10 +264,6 @@ int ActualizarDistancias(DovahkiinP network){
     /*seteo Source en nivel 0*/
     node = set_lvl(network->net, network->source, lvl);
     assert(node != NULL);
-/**/printf("\n----------- NUEVA ITERACION\n");
-/**/printf("\n--- Distancias (BFS)\n");
-/**/printf("nodo: %"PRIu64" lvl: %i(%i)\n", node->name, node->level, lvl);
-/**/printf("vflow: %"PRIu64"\n", network->flow);
     queue_enqueue(q, node);
     lvl++;
 
@@ -277,7 +273,6 @@ int ActualizarDistancias(DovahkiinP network){
         /*Busqueda y actualizacion de niveles de nodos*/
         set_lvlNbrs(network, node, qNext, FWD, lvl);
         set_lvlNbrs(network, node, qNext, BWD, lvl);
-        printf("qNext_size %i\n", queue_size(qNext));
         HASH_ADD(hhCut, network->cut, name, sizeof(network->cut->name), node);
         queue_dequeue(q);        
         /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
@@ -347,7 +342,6 @@ u64 AumentarFlujo(DovahkiinP network){
     
     if (!IS_SET_FLAG(PATHUSED)){
         pflow = get_pathFlow(network);
-        printf("\n-- AumentarFlujo pflow: %"PRIu64"\n\n", pflow);
         /*incremento del flujo sobre cada arista xy*/
         PATH_ITER(network->path, x, y){
             nbrhd_increaseFlow(x->nbrs, y->name, pflow); /*por BWD disminuye!*/
@@ -527,21 +521,16 @@ static void network_destroy(Network *net){
 forward o backward del nodo "node" y devuelve un puntero hacia ese elemento*/
 static Network *network_nextElement(Network * net, Network * node){
     Network * nextNode = NULL;
-/*    Network * enextNode = NULL;
-    Network * fnextNode = NULL;
-*/            
     int dir = FWD;
     u64 yName, flow, cap;//, eName,fName;
     bool breakW= false;
     
     assert(net != NULL && node != NULL);
+
     dir = nbrhd_getNext(node->nbrs, FST, dir, &yName);
     if (dir == NONE){
         dir = nbrhd_getNext(node->nbrs, FST, dir, &yName);
     }
-        
-    if(node->name == 7)
-        printf("el nodo q le dan a f como siguiente es %"PRIu64"\n", yName);
 
     while(dir != NONE && !breakW){
         HASH_FIND(hhNet, net, &yName, sizeof(yName), nextNode);
@@ -552,7 +541,6 @@ static Network *network_nextElement(Network * net, Network * node){
                 breakW = cap > flow;
             }else if(dir == BWD)
                 breakW = flow > 0;
-           // printf("%i\t %"PRIu64"\n", dir, yName);
         }
         if (dir == FWD ){
             dir = nbrhd_getNext(node->nbrs, NXT, dir, &yName);
@@ -562,17 +550,7 @@ static Network *network_nextElement(Network * net, Network * node){
             }
         }else
             dir = nbrhd_getNext(node->nbrs, NXT, dir, &yName);
-        if(node->name == 7)
-            printf("el nodo q le dan a f como siguiente es (while)%"PRIu64"\n", yName);
     }
-/*    eName=6;
-    fName=7;
-    HASH_FIND(hhNet, net, &eName, sizeof(yName), enextNode);
-    HASH_FIND(hhNet, net, &fName, sizeof(yName), fnextNode);
-    printf("nodo e(%"PRIu64")->f(%"PRIu64")\n",eName, fName);
-    printf("e_lvl:%i   f_lvl:%i\n",enextNode->level, fnextNode->level);
-    printf("Capacidad: %"PRIu64"   Flujo: %"PRIu64"\n", nbrhd_getCap(enextNode->nbrs, fnextNode->name),nbrhd_getFlow(enextNode->nbrs, fnextNode->name));
-*/
     if(!breakW && dir == NONE){
         node->level = BANNED;
         nextNode = NULL;
@@ -588,7 +566,7 @@ static void set_lvlNbrs(DovahkiinP network, Network *node, Queue q, int dir, int
     Network *yNode = NULL;
     bool canBeUsed = false;
     Nbrhd nbrs = NULL;
-    u64 yName, oldname;
+    u64 yName;
 
     assert(node != NULL && q != NULL);
     
@@ -603,16 +581,12 @@ static void set_lvlNbrs(DovahkiinP network, Network *node, Queue q, int dir, int
                     (nbrhd_getFlow(nbrs, yName) > 0);*/
         if (canBeUsed){                 /*busco el nodo y actualizo su nivel*/
             yNode = set_lvl(node, yName, lvl);
-/*    printf("nodo: %"PRIu64" lvl: %i(%i) -- edge=%"PRIu64"_%"PRIu64"_%"PRIu64"\n", \
-               yNode->name, yNode->level, lvl, node->name, yName, nbrhd_getFlow(nbrs, yName));*/
             if(yNode != NULL)
                 queue_enqueue(q, yNode);
             if(yName == network->sink)       /*llego a t*/
                 SET_FLAG(SINK_REACHED);
         }
-        oldname=yName;
         dir = nbrhd_getNext(nbrs, NXT, dir, &yName);
-        printf("nodo: %"PRIu64" ->: %"PRIu64"\n", oldname, yName);
     }
 }
 
