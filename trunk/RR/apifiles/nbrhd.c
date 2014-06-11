@@ -2,6 +2,7 @@
 #include "auxlibs/uthash/uthash.h"
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h> /*TODO borrar*/
 
 /* Estructura de un nodo por forward*/
 typedef struct FedgeSt{
@@ -23,8 +24,12 @@ struct NeighbourhoodSt{
     Fedge *fNbrs;   /* vecinos forward*/
     Bedge *bNbrs;   /* vecinos backward*/
 };
-
-
+/*
+ *  CONSTANTES     
+ */
+/*#define NON_STARTED  0
+#define STARTED      1
+#define FINISHED    -1*/
 /* 
  *                      Funciones del modulo
  */
@@ -94,39 +99,109 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
  *              r = NONE, ya no hay mas vecinos que devolver
  */
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
-    static Fedge *fNbr;     /*ptr al ultimo vecino forward consultado*/
-    static Bedge *bNbr;     /*ptr al ultimo vecino backward consultado*/
+    static Fedge *fNbr = NULL;     /*ptr al ultimo vecino forward consultado*/
+    static Bedge *bNbr = NULL;     /*ptr al ultimo vecino backward consultado*/
+    /*static fNbrStatus = NON_STARTDED;
+    static bNbrStatus = NON_STARTDED;*/
     int result = NONE;      /*valor de retorno*/
-
+    
     assert(nbrs != NULL && y != NULL);
     assert(flag == FST || flag == NXT);
     assert(dir == FWD || dir == BWD || dir == UNK);
-    
-    if (flag == NXT) /*me posiciono en el sig de la tabla de uno ya consultado*/
-        if(dir != BWD && fNbr != NULL)
-            fNbr = fNbr->hhfNbrs.next;
-        if((dir != FWD && bNbr != NULL) || fNbr == NULL )
-            bNbr = bNbr->hhbNbrs.next;
-    else    /*el primer vecino que se encuentre en alguna direccion*/
-        if (dir != BWD)
-            fNbr = nbrs->fNbrs;
-        if (dir != FWD || fNbr == NULL){
-            bNbr = nbrs->bNbrs;
-            dir = BWD;
+
+    if(flag == FST){
+        if(dir != BWD && nbrs->fNbrs != NULL){
+                fNbr = nbrs->fNbrs;
+                *y = fNbr->y;
+                result = FWD;
+        }else if(dir != FWD && nbrs->bNbrs != NULL){
+                bNbr = nbrs->bNbrs;
+                *y = bNbr->y;
+                result = BWD;
         }
-        
-    if (fNbr != NULL || bNbr != NULL){    /*se encontro un siguiente*/
-        if (dir != BWD){
-            *y = fNbr->y;
-            result = FWD;
-        }else{
-            *y = bNbr->y;
-            result = BWD;
+    }else{
+        if(dir == FWD && fNbr != NULL){
+            fNbr = fNbr->hhfNbrs.next;
+            if(fNbr != NULL){
+                *y = fNbr->y;
+                result = FWD;
+            }
+        }else if(dir == BWD && bNbr != NULL){
+            bNbr = bNbr->hhbNbrs.next;
+            if(bNbr != NULL){
+                *y = bNbr->y;
+                result = BWD;
+            }
         }
     }
+
+
+
+/*    if(flag == FST){
+        if (dir == UNK){
+            if(nbrs->fNbrs != NULL)
+                dir = FWD;
+            else if(nbrs->bNbrs != NULL)
+                dir = BWD;
+        }
+        if(dir == FWD && nbrs->fNbrs != NULL){
+                fNbr = nbrs->fNbrs;
+                *y = fNbr->y;
+                result = FWD;
+                fNbrStatus = STARTED;
+        }else if(dir == BWD && nbrs->bNbrs != NULL){
+                bNbr = nbrs->bNbrs;
+                *y = bNbr->y;
+                result = BWD;
+                bNbrStatus = STARTED;
+        }
+    }else{
+        if(dir == FWD){
+            if(fNbrStatus == STARTED){
+                fNbr = fNbr->hhfNbrs.next;
+                if(fNbr != NULL){
+                    *y = fNbr->y;
+                    result = FWD;
+                }else
+                    fNbrStatus = FINISHED;
+            }
+        }else if(dir == BWD){
+            if(bNbrStatus == STARTED){
+                bNbr = bNbr->hhbNbrs.next;
+                if(bNbr != NULL){
+                    *y = bNbr->y;
+                    result = BWD;
+                }else
+                    bNbrStatus = FINISHED;
+            }
+        }else{ 
+            if(fNbrStatus == STARTED){
+                fNbr = fNbr->hhfNbrs.next;
+                if(fNbr != NULL){
+                    *y = fNbr->y;
+                    result = FWD;
+                }else
+                    fNbrStatus = FINISHED;
+            }
+           if(fNbrStatus = FINISHED){
+                if(bNbrStatus == STARTED){
+                    bNbr = bNbr->hhbNbrs.next;
+                    if(bNbr != NULL){
+                        *y = bNbr->y;
+                        result = BWD;
+                    }else
+                        bNbrStatus = FINISHED;
+                }else if (bNbrStatus == NOT_STARTED && nbrs->bNbrs != NULL){
+                    bNbr = nbrs->bNbrs;
+                    *y = bNbr->y;
+                    result = BWD;
+                    bNbrStatus = STARTED
+                }
+            }
+        }
+    }*/
     return result;
 }
-
 
 /* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad
@@ -137,8 +212,9 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
     Bedge *bNbr = NULL;
     void *nbr = NULL;
     int dir = UNK;      /*direccion en la que se encuentra el vecino*/
-    
-    assert(nbrs != NULL && vf > 0);    
+
+    assert(nbrs != NULL);
+    assert(vf > 0);    
     nbr = findNbr(nbrs, y, &dir);
     
     if (dir == FWD){        /* es FWD, aumento el flujo*/

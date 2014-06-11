@@ -23,7 +23,7 @@
 
 /* 'return' options:
  * La direccion en la que se encuentra el vecino devuelto, o bien*/
-#define NONE -1   /*Ninguno. No hay mas vecinos en esa direccion*/
+#define NONE -2   /*Ninguno. No hay mas vecinos en esa direccion*/
 
 #endif
 

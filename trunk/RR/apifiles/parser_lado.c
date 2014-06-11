@@ -51,14 +51,18 @@ int parser_nextLine(Lexer *input){
     
     /*Pre:*/
     assert(input != NULL);
-
+    /*quito los espacio en blanco que pueden haber al comienzo*/
+    if (!lexer_is_off(input))
+        lexer_skip(input, WHITE_SPACE);
     /*consumo toda la basura anterior al primer '\n' (o EOF)*/
     gbCollector = next_bstring(input, WITHOUT, EOL);
     /*si leyo algo, entonces gbCollector no es nulo*/
     if (gbCollector != NULL){
         result = PARSER_ERR;
         bdestroy(gbCollector);
-    }
+    }else if (is_theNextChar(input, EOL) || lexer_is_off(input))
+        result = PARSER_OK;
+        
     return result;
 }
 

@@ -36,8 +36,9 @@ int stack_destroy(Stack S, void ** garbage){
     sSize = stack_size(S);
     while(!stack_isEmpty(S)){
         if(garbage != NULL){
-            garbage[i] = stack_pop(S);
+            garbage[i] = stack_top(S);
         }
+        stack_pop(S);
         i ++;
     }
     if(sSize == i){
@@ -70,14 +71,10 @@ void * stack_pop(Stack S){
     assert(S != NULL && !stack_isEmpty(S));
     
 	aux = S->top;
-    if (aux->next != NULL){
-        S->top = S->top->next;
-    }else{ /*caso ultimo elemento*/
-        S->top = NULL;
-    }
+    S->top = S->top->next;
     elem = aux->elem;
     free(aux);
-    S->size -= 1; 
+    S->size --; 
 	return elem;
 }
 
@@ -88,8 +85,11 @@ int stack_isEmpty(Stack S){
 }
 
 void *stack_top(Stack S){
+    void * result = NULL;
     assert( S != NULL);
-    return(S->top->elem);
+    if (S->top != NULL)
+        result = S->top->elem;
+    return result;
 }
 
 int stack_size(Stack S){
@@ -116,16 +116,19 @@ int stack_revert(Stack S1, Stack S2 ){
 
 /*muestra un elemento y corre el visor al siguiente, NULL si no existe*/
 void* stack_nextItem(Stack S){
-    void * elem;
+    void * elem = NULL;
     assert(S!=NULL);
     
-    elem = S->iter->elem;
-    S->iter = S->iter->next;
+    if (S->iter != NULL){
+        elem = S->iter->elem;
+        S->iter = S->iter->next;
+    }
     return elem;
 }
 
 /*resetea el visor*/
 void stack_resetViewer(Stack S){
+    assert(S!=NULL);
     S->iter = S->top;
 }
 
