@@ -5,15 +5,14 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
-//#include "API.h"
 #include "../apifiles/API.h"
 
 
 /*MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA
 */
 #define IMP_ERROR                   0b10000000
-#define IMP_MISSINGOPTION_S         0b01000000
-#define IMP_MISSINGOPTION_T         0b00100000
+#define IMP_MISSINGOPTION_S         0b01000000  /*cambiar los nombres (no son IMP)*/
+#define IMP_MISSINGOPTION_T         0b00100000  /*cambiar los nombres (no son IMP)*/
 #define IMP_TIEMPODINIC             0b00010000
 #define IMP_CAMINO_AUMENTANTE       0b00001000
 #define IMP_FLUJO                   0b00000100
@@ -29,21 +28,19 @@
 static void load_from_stdin(DovahkiinP network);
 static void print_help(char * programName);
 static short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink);
-static void print_dinicTime(int time);
+static void print_dinicTime(float time);
 static bool isu64(char * sU64);
 
 
 
 void load_from_stdin(DovahkiinP network){
-    Lado lado = LadoNulo;          /*un lado leido*/
+    Lado lado = LadoNulo;   /*un lado leido*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
     
     assert(network != NULL);
     
     /* no hace falta limpiar el input porque lexer se come todo lo leido
-
      * caso vacio -> leerUnLado retorna LadoNulo*/
-    
     do{
         lado = LeerUnLado();
         load_ok = CargarUnLado(network, lado);
@@ -155,12 +152,14 @@ bool isu64(char * sU64){
     return result;    
 }
 
-void print_dinicTime(int time){
-    int hs,min,sec;
-    sec = time % 60;
-    min = time/60 % 60;
-    hs = time/3600;
-    printf("\nDinic demoró(hh:mm:ss): %2i:%2i:%2i\n\n", hs, min, sec);
+void print_dinicTime(float time){    
+    int hs,min,sec,ms;
+
+    ms = (int) (time * 1000) % 1000;
+    sec = (int) time % 60;
+    min = (int) (time / 60) % 60;
+    hs = (int) time / 3600;
+    printf("\nDinic demoró(hh:mm:ss): %02i:%02i:%02i.%03i\n\n", hs, min, sec, ms);
 }
 
 int main(int argc, char *argv[]){
@@ -169,17 +168,17 @@ int main(int argc, char *argv[]){
     u64 t = NULL;
     short int STATUS;
     clock_t clock_startTime, clock_finishTime;
-    double dinicTime;
+    float dinicTime;
     
     /*Se controlan los parametros de ingreso*/
     STATUS = parametersChecker(argc, argv, &s, &t);
 
     /* Se crea un nuevo network*/
     network = NuevoDovahkiin();
-
     assert(network != NULL);
+
+    /* Se carga los valores del network*/
     if(!IS_SET_IMPST(IMP_MISSINGOPTION_S) && !IS_SET_IMPST(IMP_MISSINGOPTION_T))
-        /* Se carga los valores del network*/
         load_from_stdin(network);
     
     /*se calcula e imprime lo requerido*/
@@ -195,39 +194,28 @@ int main(int argc, char *argv[]){
             while (BusquedaCaminoAumentante(network)){
                 if (IS_SET_IMPST(IMP_CAMINO_AUMENTANTE)){
                     AumentarFlujoYTambienImprimirCamino(network); 
-                    /*printf("Finish3\n");*/
                 }else{
-                    /*printf("pitones 4:\n");*/
                     AumentarFlujo(network); 
-                    /*printf("Finish4\n");*/
                 }  
             }
         }
         
         if (IS_SET_IMPST(IMP_TIEMPODINIC)){
             clock_finishTime = clock();
-            dinicTime = (clock_finishTime-clock_startTime) / CLOCKS_PER_SEC; /*WARNING tipo de dato devuelto por clock(), generalmente un long int*/
-/* printf("pitones7:\n");*/
+            dinicTime = (double)(clock_finishTime - clock_startTime) / CLOCKS_PER_SEC;
             print_dinicTime(dinicTime);
         }
         if (IS_SET_IMPST(IMP_FLUJO)){
-             /*printf("pitones5:");*/
             ImprimirFlujo(network);
-             /*printf("Finish5\n");*/
         }
-         /*printf("pitones8:\n");*/
         if (IS_SET_IMPST(IMP_VALOR_FLUJO))
             ImprimirValorFlujo(network);
-/* printf("pitones9:\n");*/
         if (IS_SET_IMPST(IMP_CORTE))
             ImprimirCorte(network);    
     }
 
-    
     /* destruyo el network*/
-    if (!DestruirDovahkiin(network)){
-  
-        printf("Error al intentar liberar el network\n");}
-  /*printf("pitones10:\n");*/
+    if (!DestruirDovahkiin(network))
+        printf("Error al intentar liberar el network\n");
     return 0;
 }

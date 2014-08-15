@@ -1,0 +1,13 @@
+- Renombrar los nombres de variables en la estructura Dovahkiin (por network) para aclarecer el codigo
+- Corregir el muestreo de opciones BIEN! o sea, si pido -h que no corra el algoritmo (o si estan mal los parametros, etc)
+- Corregir el make para que compile como quiere el profe (sin make :O)
+    - Poner todos los archivos al mismo nivel de direccion
+    - Cambiarle los nombres para diferenciar de librerias: _name.(h/c) para librerias
+    - modificar el codigo para que los include esten bien
+    
+
+- Correr los test en las 2 maquinas para monitorear los tiempos y RAM
+- Probar que pase todos los networks (test de robustez)
+
+- Limpiar y agregar comentarios en donde sea necesario
+- Informes (pdf y readme)

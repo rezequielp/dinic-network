@@ -408,7 +408,6 @@ void ImprimirFlujo(DovahkiinP network){
 
     HASH_ITER(hhNet, network->net, x, xTmp){
         flag = FST;
-        printf("»");
         while(nbrhd_getNext(x->nbrs, flag, FWD, &yName) != NONE ){
             printf(":");
             flag = NXT;

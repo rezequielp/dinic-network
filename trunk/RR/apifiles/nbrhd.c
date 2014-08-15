@@ -78,14 +78,21 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
     Bedge *bNbr = NULL;  /* vecino backward*/
     
     assert(x!=NULL && y!=NULL && edge!=LadoNulo);
-    /*Creo el vecino 'y' forward y lo agrego en x->fNbrs*/
-    fNbr = fedge_create(lado_getY(edge), lado_getCap(edge));
-    HASH_ADD(hhfNbrs, x->fNbrs, y, sizeof(x->fNbrs->y), fNbr);
     
-    /*Creo el vecino 'x' backward y lo agrego en y->bNbrs*/
-    bNbr = bedge_create(lado_getX(edge), fNbr);
-    HASH_ADD(hhbNbrs, y->bNbrs, y, sizeof(y->bNbrs->y), bNbr);    
-}
+    HASH_FIND(hhfNbrs, x->fNbrs, &(x->fNbrs->y), sizeof(x->fNbrs->y), fNbr);
+    if(fNbr == NULL){
+        /*Creo el vecino 'y' forward y lo agrego en x->fNbrs*/
+        fNbr = fedge_create(lado_getY(edge), lado_getCap(edge));
+        HASH_ADD(hhfNbrs, x->fNbrs, y, sizeof(x->fNbrs->y), fNbr);
+        
+        /*Creo el vecino 'x' backward y lo agrego en y->bNbrs*/
+        bNbr = bedge_create(lado_getX(edge), fNbr);
+        HASH_ADD(hhbNbrs, y->bNbrs, y, sizeof(y->bNbrs->y), bNbr);    
+    }else{
+        fNbr->cap += lado_getCap(edge);     /*caso lado paralelo*/
+    }
+        
+    }
 
 /* NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
  * y retorno. Verlo como una iteracion sobre una lista en la que empiezo por 
