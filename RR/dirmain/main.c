@@ -24,26 +24,20 @@
 #define CLEAR_IMPST() 0b00000000
 #define IS_SET_IMPST(f) (STATUS & f) > 0
 
-
-static void load_from_stdin(DovahkiinP network);
+static void load_from_stdin(DovahkiinP dova);
 static void print_help(char * programName);
 static short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink);
 static void print_dinicTime(float time);
 static bool isu64(char * sU64);
 
-
-
-void load_from_stdin(DovahkiinP network){
-    Lado lado = LadoNulo;   /*un lado leido*/
+void load_from_stdin(DovahkiinP dova){
+    Lado lado = LadoNulo;   /*un lado leido. Caso vacio se retorna LadoNulo*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
     
-    assert(network != NULL);
-    
-    /* no hace falta limpiar el input porque lexer se come todo lo leido
-     * caso vacio -> leerUnLado retorna LadoNulo*/
+    assert(dova != NULL);
     do{
         lado = LeerUnLado();
-        load_ok = CargarUnLado(network, lado);
+        load_ok = CargarUnLado(dova, lado);
     }while(load_ok);
 }
 
@@ -59,7 +53,7 @@ void print_help(char * programName){
     printf("\t-r --reloj \t\tImprime el tiempo en hh:mm:ss del algoritmo Dinic sin tener en cuenta el cargado de datos.\n");
     printf("\t-a --all \t\tEquivalente a -vf -f -p y -c.\n\n");
     printf("\tNETWORK: Una serie de elementos de la forma x y z\\n que representan el nodo x->y de capacidad z terminada con un EOF.\n\n");
-    printf("Ejemplo: $%s -f -vf -s 1 -t 0 <network.txt\n\n", programName);
+    printf("Ejemplo: $%s -f -vf -s 1 -t 0 < network.txt\n\n", programName);
 }
 
 short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
@@ -163,39 +157,37 @@ void print_dinicTime(float time){
 }
 
 int main(int argc, char *argv[]){
-    DovahkiinP network = NULL;  /*network principal*/
+    DovahkiinP dova = NULL;
     u64 s = NULL;
     u64 t = NULL;
     short int STATUS;
     clock_t clock_startTime, clock_finishTime;
-    float dinicTime;
+    float dinicTime = 0;
     
     /*Se controlan los parametros de ingreso*/
     STATUS = parametersChecker(argc, argv, &s, &t);
 
-    /* Se crea un nuevo network*/
-    network = NuevoDovahkiin();
-    assert(network != NULL);
-
-    /* Se carga los valores del network*/
+    /* Se crea un nuevo dova y se cargan los valores del network*/
+    dova = NuevoDovahkiin();
+    assert(dova != NULL);
     if(!IS_SET_IMPST(IMP_MISSINGOPTION_S) && !IS_SET_IMPST(IMP_MISSINGOPTION_T))
-        load_from_stdin(network);
+        load_from_stdin(dova);
     
     /*se calcula e imprime lo requerido*/
-    FijarFuente(network, s);
-    FijarResumidero(network, t);
-//    ImprimirFuente(network);
-//    ImprimirResumidero(network);
-    if (Prepararse(network) == 1){
+    FijarFuente(dova, s);
+    FijarResumidero(dova, t);
+//    ImprimirFuente(dova);
+//    ImprimirResumidero(dova);
+    if (Prepararse(dova) == 1){
         if (IS_SET_IMPST(IMP_TIEMPODINIC))
             clock_startTime = clock(); 
             
-        while (ActualizarDistancias(network)){        
-            while (BusquedaCaminoAumentante(network)){
+        while (ActualizarDistancias(dova)){
+            while (BusquedaCaminoAumentante(dova)){
                 if (IS_SET_IMPST(IMP_CAMINO_AUMENTANTE)){
-                    AumentarFlujoYTambienImprimirCamino(network); 
+                    AumentarFlujoYTambienImprimirCamino(dova); 
                 }else{
-                    AumentarFlujo(network); 
+                    AumentarFlujo(dova); 
                 }  
             }
         }
@@ -206,16 +198,16 @@ int main(int argc, char *argv[]){
             print_dinicTime(dinicTime);
         }
         if (IS_SET_IMPST(IMP_FLUJO)){
-            ImprimirFlujo(network);
+            ImprimirFlujo(dova);
         }
         if (IS_SET_IMPST(IMP_VALOR_FLUJO))
-            ImprimirValorFlujo(network);
+            ImprimirValorFlujo(dova);
         if (IS_SET_IMPST(IMP_CORTE))
-            ImprimirCorte(network);    
+            ImprimirCorte(dova);    
     }
-
-    /* destruyo el network*/
-    if (!DestruirDovahkiin(network))
-        printf("Error al intentar liberar el network\n");
+    
+    /* destruyo el dova*/
+    if (!DestruirDovahkiin(dova))
+        printf("Error al intentar liberar el dova\n");
     return 0;
 }
