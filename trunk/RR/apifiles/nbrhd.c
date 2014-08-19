@@ -76,13 +76,15 @@ void nbrhd_destroy(Nbrhd nbrs){
 void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
     Fedge *fNbr = NULL;  /* vecino forward*/
     Bedge *bNbr = NULL;  /* vecino backward*/
+    u64 yName;          /* nombre del nodo y*/
     
     assert(x!=NULL && y!=NULL && edge!=LadoNulo);
     
-    HASH_FIND(hhfNbrs, x->fNbrs, &(x->fNbrs->y), sizeof(x->fNbrs->y), fNbr);
+    yName = lado_getY(edge);
+    HASH_FIND(hhfNbrs, x->fNbrs, &(yName), sizeof(x->fNbrs->y), fNbr);
     if(fNbr == NULL){
         /*Creo el vecino 'y' forward y lo agrego en x->fNbrs*/
-        fNbr = fedge_create(lado_getY(edge), lado_getCap(edge));
+        fNbr = fedge_create(yName, lado_getCap(edge));
         HASH_ADD(hhfNbrs, x->fNbrs, y, sizeof(x->fNbrs->y), fNbr);
         
         /*Creo el vecino 'x' backward y lo agrego en y->bNbrs*/
