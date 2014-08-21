@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <stdlib.h> 
-#include "stack.h"
+#include "_stack.h"
 #include <stdio.h>
 
 /* Estructura que contiene un elemento y un puntero a la siguiente estructura */

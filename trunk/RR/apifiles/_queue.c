@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <stdlib.h>
-#include "queue.h"
+#include "_queue.h"
 #include <stdio.h>
 
 /* Estructura doblemente enlazada, tiene una referencia al primer elemento 
