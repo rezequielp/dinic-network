@@ -1,6 +1,6 @@
 #ifndef LEXER_H
 #define LEXER_H
-#include "../bstring/bstrlib.h"
+#include "_bstrlib.h"
 #include <stdio.h>   /* Para tener FILE */
 #include <stdbool.h> /* Para tener bool */
 

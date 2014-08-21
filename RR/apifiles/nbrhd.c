@@ -1,5 +1,5 @@
 #include "nbrhd.h"
-#include "auxlibs/uthash/uthash.h"
+#include "_uthash.h"
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h> /*TODO borrar*/

@@ -12,7 +12,7 @@
 #ifndef _PARSER_LADO_H
 #define _PARSER_LADO_H
 
-#include "auxlibs/lexer/lexer.h"
+#include "_lexer.h"
 #include "lado.h"
 
 #define PARSER_OK 1

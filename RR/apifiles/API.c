@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "auxlibs/uthash/uthash.h"
-#include "auxlibs/stack/stack.h"
-#include "auxlibs/queue/queue.h"
-#include "auxlibs/bstring/bstrlib.h"
-#include "auxlibs/lexer/lexer.h"
+#include "_uthash.h"
+#include "_stack.h"
+#include "_queue.h"
+#include "_bstrlib.h"
+#include "_lexer.h"
 #include "nbrhd.h"
 #include "API.h"
 #include "parser_lado.h"
