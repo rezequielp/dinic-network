@@ -2,7 +2,6 @@
 #include "_uthash.h"
 #include <stdlib.h>
 #include <assert.h>
-#include <stdio.h> /*TODO borrar*/
 
 /* Estructura de un nodo por forward*/
 typedef struct FedgeSt{
