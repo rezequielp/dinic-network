@@ -10,19 +10,19 @@
 
 /*MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA
 */
-#define IMP_ERROR                   0b10000000
-#define IMP_MISSINGOPTION_S         0b01000000  /*cambiar los nombres (no son IMP)*/
-#define IMP_MISSINGOPTION_T         0b00100000  /*cambiar los nombres (no son IMP)*/
-#define IMP_TIEMPODINIC             0b00010000
-#define IMP_CAMINO_AUMENTANTE       0b00001000
-#define IMP_FLUJO                   0b00000100
-#define IMP_CORTE                   0b00000010
-#define IMP_VALOR_FLUJO             0b00000001
+#define DONT_DINIC      0b10000000
+#define S_OK            0b01000000
+#define T_OK            0b00100000
+#define DINIC_TIME      0b00010000
+#define PATH            0b00001000
+#define FLOW            0b00000100
+#define CUT             0b00000010
+#define FLOW_V          0b00000001
 
-#define SET_IMPST(f) STATUS |= f
-#define UNSET_IMPST(f) STATUS &= ~f
-#define CLEAR_IMPST() 0b00000000
-#define IS_SET_IMPST(f) (STATUS & f) > 0
+#define SET_FLAG(f) STATUS |= f
+#define UNSET_FLAG(f) STATUS &= ~f
+#define CLEAR_FLAG() 0b00000000
+#define IS_SET_FLAG(f) (STATUS & f) > 0
 
 static void load_from_stdin(DovahkiinP dova);
 static void print_help(char * programName);
@@ -58,79 +58,82 @@ void print_help(char * programName){
 
 short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
     int i = 1;
-    short int STATUS = CLEAR_IMPST();
+    short int STATUS = CLEAR_FLAG();
+    short int HELP = 0;             /*flag de alcance local*/
     
-    SET_IMPST(IMP_MISSINGOPTION_S);
-    SET_IMPST(IMP_MISSINGOPTION_T);
-    
-    while (i < argc){
+    while (i < argc && !HELP){
         if(strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--flujo")== 0 )
-            SET_IMPST(IMP_FLUJO);
+            SET_FLAG(FLOW);
             
         else if(strcmp(argv[i], "-vf") == 0 || strcmp(argv[i], "--valorflujo")== 0 )
-            SET_IMPST(IMP_VALOR_FLUJO);
+            SET_FLAG(FLOW_V);
             
         else if(strcmp(argv[i], "-c") == 0 || strcmp(argv[i],"--corte" )== 0 )
-            SET_IMPST(IMP_CORTE );
+            SET_FLAG(CUT);
             
         else if(strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--path")== 0 )
-            SET_IMPST(IMP_CAMINO_AUMENTANTE);
+            SET_FLAG(PATH);
             
-        else if(strcmp(argv[i], "-s") == 0 && IS_SET_IMPST(IMP_MISSINGOPTION_S)){
+        else if(strcmp(argv[i], "-s") == 0 && !IS_SET_FLAG(S_OK)){
             if (i+1 < argc){
                 if(isu64(argv[i+1]))
                     sscanf(argv[i+1], "%" SCNu64, source);
                 else{
                     printf("%s: -s: Invalid argument \"%s\".\n", argv[0], argv[i+1]);
-                    SET_IMPST(IMP_ERROR);
+                    SET_FLAG(DONT_DINIC);
                 }
-                UNSET_IMPST(IMP_MISSINGOPTION_S);
+                SET_FLAG(S_OK);
                 i++;
-            }
+            }else
+                SET_FLAG(DONT_DINIC);
             
-        }else if(strcmp(argv[i], "-t") == 0 && IS_SET_IMPST(IMP_MISSINGOPTION_T)){
+        }else if(strcmp(argv[i], "-t") == 0 && !IS_SET_FLAG(T_OK)){
             if (i+1 < argc){
                 if(isu64(argv[i+1]))
                     sscanf(argv[i+1], "%" SCNu64, sink);
                 else{
                     printf("%s: -t: Invalid argument \"%s\".\n", argv[0], argv[i+1]);
-                    SET_IMPST(IMP_ERROR);
+                    SET_FLAG(DONT_DINIC);
                 }
-                UNSET_IMPST(IMP_MISSINGOPTION_T);
+                SET_FLAG(T_OK);
                 i++;
-            }
+            }else
+                SET_FLAG(DONT_DINIC);
             
         }else if(strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--all")== 0 ){
-            SET_IMPST(IMP_CAMINO_AUMENTANTE);
-            SET_IMPST(IMP_FLUJO);
-            SET_IMPST(IMP_CORTE);
-            SET_IMPST(IMP_VALOR_FLUJO);
-            SET_IMPST(IMP_TIEMPODINIC);
+            SET_FLAG(PATH);
+            SET_FLAG(FLOW);
+            SET_FLAG(CUT);
+            SET_FLAG(FLOW_V);
+            SET_FLAG(DINIC_TIME);
             
         }else if(strcmp(argv[i], "-r") == 0 || strcmp(argv[i],"--reloj" )== 0 )
-            SET_IMPST(IMP_TIEMPODINIC);
+            SET_FLAG(DINIC_TIME);
 
-        else if(strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")== 0 )
+        else if(strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")== 0 ){
             print_help(argv[0]);
-        else{/*default case*/
+            HELP = 1;
+        }else{/*default case*/
             printf("%s: %s: Invalid Option.\n", argv[0], argv[i]);
-            SET_IMPST(IMP_ERROR);
+            SET_FLAG(DONT_DINIC);
         }
         i++;
     }
-    i--;
-    if(IS_SET_IMPST(IMP_MISSINGOPTION_S)){
+       
+    if(!IS_SET_FLAG(S_OK) && !HELP){
         printf("%s: -s is not set.\n", argv[0]);
-        SET_IMPST(IMP_ERROR);
+        SET_FLAG(DONT_DINIC);
     }
     
-    if(IS_SET_IMPST(IMP_MISSINGOPTION_T)){
+    if(!IS_SET_FLAG(T_OK) && !HELP){
         printf("%s: -t is not set.\n", argv[0]);
-        SET_IMPST(IMP_ERROR);
+        SET_FLAG(DONT_DINIC);
     }
     
-    if(IS_SET_IMPST(IMP_ERROR))
-        print_help(argv[0]);
+    if(HELP)
+        SET_FLAG(DONT_DINIC);
+    else if(IS_SET_FLAG(DONT_DINIC))
+        printf("use -h for help.\n");
     
     return STATUS;
 }
@@ -170,21 +173,21 @@ int main(int argc, char *argv[]){
     /* Se crea un nuevo dova y se cargan los valores del network*/
     dova = NuevoDovahkiin();
     assert(dova != NULL);
-    if(!IS_SET_IMPST(IMP_MISSINGOPTION_S) && !IS_SET_IMPST(IMP_MISSINGOPTION_T))
+    if(!IS_SET_FLAG(DONT_DINIC))
         load_from_stdin(dova);
     
     /*se calcula e imprime lo requerido*/
     FijarFuente(dova, s);
     FijarResumidero(dova, t);
-//    ImprimirFuente(dova);
-//    ImprimirResumidero(dova);
+//  ImprimirFuente(dova);
+//  ImprimirResumidero(dova);
     if (Prepararse(dova) == 1){
-        if (IS_SET_IMPST(IMP_TIEMPODINIC))
+        if (IS_SET_FLAG(DINIC_TIME))
             clock_startTime = clock(); 
             
         while (ActualizarDistancias(dova)){
             while (BusquedaCaminoAumentante(dova)){
-                if (IS_SET_IMPST(IMP_CAMINO_AUMENTANTE)){
+                if (IS_SET_FLAG(PATH)){
                     AumentarFlujoYTambienImprimirCamino(dova); 
                 }else{
                     AumentarFlujo(dova); 
@@ -192,17 +195,17 @@ int main(int argc, char *argv[]){
             }
         }
         
-        if (IS_SET_IMPST(IMP_TIEMPODINIC)){
+        if (IS_SET_FLAG(DINIC_TIME)){
             clock_finishTime = clock();
             dinicTime = (double)(clock_finishTime - clock_startTime) / CLOCKS_PER_SEC;
             print_dinicTime(dinicTime);
         }
-        if (IS_SET_IMPST(IMP_FLUJO)){
+        if (IS_SET_FLAG(FLOW)){
             ImprimirFlujo(dova);
         }
-        if (IS_SET_IMPST(IMP_VALOR_FLUJO))
+        if (IS_SET_FLAG(FLOW_V))
             ImprimirValorFlujo(dova);
-        if (IS_SET_IMPST(IMP_CORTE))
+        if (IS_SET_FLAG(CUT))
             ImprimirCorte(dova);    
     }
     
