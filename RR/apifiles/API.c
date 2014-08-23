@@ -221,6 +221,7 @@ int CargarUnLado(DovahkiinP dova, Lado edge){
 Debe chequear que esten seteados s y t. 
 Devuelve 1 si puede preparar y 0 caso contrario*/
 int Prepararse(DovahkiinP dova){
+    
     int status = 0;
     u64 s, t;
     Network *src = NULL;
@@ -366,7 +367,7 @@ u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP dova){
     
     assert(dova != NULL);
     
-    if (!IS_SET_FLAG(PATHUSED)){
+    if (!IS_SET_FLAG(PATHUSED)){       
         pflow = AumentarFlujo(dova);
         /*printer*/ 
         printf("camino aumentante %"PRIu64":\nt", dova->pCounter );      
@@ -432,7 +433,8 @@ void ImprimirValorFlujo(DovahkiinP dova){
 Corte minimial: S = {s,x_1,...}
 Capacidad: <Capacidad>*/
 
-/*Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
+/*WARNING ESTE COMENTARIO ESTA MAL! (se esta calculando sumando los flujos)
+ * Si bien la capacidad del corte minimal es igual al flujo maximal, se va a calcular el flujo
 de S a su complemento. Eso es mas pesado pero sirve para propositos de debugging.
 igual quedan programadas las dos formas y comentada una de ellas.*/   
 void ImprimirCorte(DovahkiinP dova){
