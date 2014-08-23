@@ -3,3 +3,9 @@
 
 - Limpiar y agregar comentarios en donde sea necesario
 - Informes (pdf y readme)
+
+nodos      Arist            MemUsed     Mem/nodos   Mem/arist
+8             10            2215936     276992      221593.6
+668         1000            2891776     
+5000        7498            8048640
+16449      27490            21995520
