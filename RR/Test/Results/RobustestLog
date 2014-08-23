@@ -1,0 +1,48 @@
+
+---------------------------
+
+net1
+
+net2
+Valor del flujo no maximal: 0
+Corte Minimal: S = {s,2,3,4}
+Capacidad: 0
+
+net3
+Valor del flujo no maximal: 0
+Corte Minimal: S = {s,2}
+Capacidad: 0
+
+net4
+Valor del flujo maximal: 5
+Corte Minimal: S = {s}
+Capacidad: 5
+
+net5
+Valor del flujo no maximal: 0
+Corte Minimal: S = {s}
+Capacidad: 0
+
+net6
+Valor del flujo maximal: 7
+Corte Minimal: S = {s}
+Capacidad: 7
+
+net7
+camino aumentante 1:
+t;3;2;s: <3>
+
+net8
+Valor del flujo maximal: 3
+Corte Minimal: S = {s,2}
+Capacidad: 3
+
+net9
+Valor del flujo no maximal: 0
+Corte Minimal: S = {s,2}
+Capacidad: 0
+
+net10
+Valor del flujo maximal: 512
+Corte Minimal: S = {s}
+Capacidad: 512

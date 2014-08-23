@@ -1,0 +1,32 @@
+Networks para Test (s=0 y t=1)
+
+- net1
+    Caso network vacio. No debe calcular nada.
+- net2
+	Variacion sin camino posible. (flujo = 0, corte {0,2,3,4})
+
+- net3
+	Caso minimo con dos aristas desconectadas entre si para verificar que nada falla.(flujo = 0, corte{0,2})
+
+- net4
+	Caso para verificar comportamiento si aparece un bucle.(flujo = 5, corte{0})
+
+- net5
+	Caso con una arista inversa 1->0.(flujo = 0, corte{0})
+
+- net6
+    Caso con aristas paralelas.(flujo = 7, corte{0})
+
+- net7
+    Caso para verificar comportamiento con bucle entre 2 nodos. (flujo = 3, corte {0,2})
+
+- net8
+    Caso para verificar comportamiento con bucle entre 3 nodos. (flujo = 3, corte {0,2,3,4})
+
+- net9
+    Caso con fuente = resumidero. (flujo = 0, corte{0})
+
+- net10
+    Caso con una entra invalida. El comportamiento debe ser: cargar hasta la linea
+    inmediata anterior valida y correr normalmente con esos datos
+    (flujo = 512, corte{s})
