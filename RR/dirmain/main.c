@@ -7,22 +7,21 @@
 #include <string.h>
 #include "../apifiles/API.h"
 
-
-/*MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA
-*/
-#define DONT_DINIC      0b10000000
-#define S_OK            0b01000000
-#define T_OK            0b00100000
-#define DINIC_TIME      0b00010000
-#define PATH            0b00001000
-#define FLOW            0b00000100
-#define CUT             0b00000010
-#define FLOW_V          0b00000001
-
-#define SET_FLAG(f) STATUS |= f
-#define UNSET_FLAG(f) STATUS &= ~f
-#define CLEAR_FLAG() 0b00000000
-#define IS_SET_FLAG(f) (STATUS & f) > 0
+/*MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA*/
+/*Flags*/
+#define DONT_DINIC      0b10000000  /*Permite (o no) que se realice dinic*/
+#define S_OK            0b01000000  /*'s' fue pasado como parametro*/
+#define T_OK            0b00100000  /*'t' fue pasado como parametro*/
+#define DINIC_TIME      0b00010000  /*Activa el muestreo de tiempos de calculo*/
+#define PATH            0b00001000  /*Activa el muestreo de caminos aumentantes*/
+#define FLOW            0b00000100  /*Activa el muestreo de flujo*/
+#define CUT             0b00000010  /*Activa el muestreo de corte*/
+#define FLOW_V          0b00000001  /*Activa el muestre de valor del flujo*/
+/*Macros para manipular flags*/
+#define SET_FLAG(f) STATUS |= f         /*Setea un bit de flag en STATUS en 1 */
+#define UNSET_FLAG(f) STATUS &= ~f      /*Setea un bit de flag en STATUS en 0 */
+#define CLEAR_FLAG() 0b00000000         /*Pone todas las flags en 0*/
+#define IS_SET_FLAG(f) (STATUS & f) > 0 /*Consulta si una flag esta activa*/
 
 static void load_from_stdin(DovahkiinP dova);
 static void print_help(char * programName);
@@ -30,6 +29,8 @@ static short int parametersChecker(int argc, char *argv[], u64 * source, u64 * s
 static void print_dinicTime(float time);
 static bool isu64(char * sU64);
 
+/*Lee desde el standard input los lados del network y los carga en dovahkiin, 
+ *hasta acabar los lados o bien hasta el primer lado que no se pueda cargar*/
 void load_from_stdin(DovahkiinP dova){
     Lado lado = LadoNulo;   /*un lado leido. Caso vacio se retorna LadoNulo*/
     int load_ok = 0;        /*indica si el lado se pudo cargar*/
