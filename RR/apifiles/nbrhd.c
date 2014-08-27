@@ -5,8 +5,6 @@
 
 /** \file nbrhd.c
  *  Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
- * 
- *          ESCRIBIR lo que es y hace neighboorhood
  */
 
 /** Estructura de una artista en sentido forward.
