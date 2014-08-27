@@ -3,20 +3,27 @@
 #include "_queue.h"
 #include <stdio.h>
 
-/* Estructura doblemente enlazada, tiene una referencia al primer elemento 
- * y otra al ultimo */
+/** \file _queue.c
+La libreria _queue proporciona una serie de herramientas para almazenar cualquier tipo de elemento
+en el orden FIFO(First In, First Out) primero en entrar primero en salir, correspondiente a lo que 
+llamamos cotidianamente como una cola. La particularidad de esta cola es que no importa el tipo 
+de elemento que ordene ni se sabe que elemento se ordena. Por este motivo no se puede 
+destruir en el caso de querer sacar la cabeza de la cola o querer liberar la memoria de toda la estructura.
+Por lo cual, estas dos funciones devuelven el elemento o un arreglo de los elementos que se desean eliminan
+para que el llamador los elimine si lo considera pertinente.
+*/
  
 typedef struct ElementSt Element;
 
- /** Estructura que contiene un elemento y un puntero a la siguiente estructura. 
+ /** Estructura que contiene un elemento Alpha y un puntero a la siguiente estructura. 
  El tipo cola esta formado por un "encadenamieto" de esta estructura.*/
 struct ElementSt{
-    void *elem;/**< Elemento actual. Al ser del tipo void pointer puede apuntar a cualquier cosa.*/
+    void *elem;/**< Puntero al emento de esta estructura. Al ser del tipo void pointer puede apuntar a cualquier cosa.*/
     Element *next;/**<Puntero a la siguiente estructura del tipo ElementSt.*/
 };
 
 /**Estructura principal queue. Si bien es una cola, mantiene un puntero al primer elemento
- y al ultimo elemento de la cola solamente para propocitos de optimizacion.*/
+ y al ultimo elemento de la cola solamente para propocitos de optimizacion y futuros upgrades.*/
 struct queueSt{
     Element *head;/**<Puntero al primer elemento de la cola.*/
     Element *tail;/**<Puntero al ultimo elemento de la cola.*/
@@ -24,7 +31,7 @@ struct queueSt{
 };
 
 /**Crea una cola sin elementos.
-    \return Un puntero a una cola vacia.*/
+    \return Un puntero a la cola creada.*/
 Queue queue_create(void){
     
     Queue Q = NULL;
@@ -37,6 +44,7 @@ Queue queue_create(void){
     }
     return Q;
 }
+
 /**Agrega un elemento del tipo Alpha al final de la cola.
     \param Q Cola a la cual hay que agregarle el elemento.
     \param q Elemento a ser agregado a la cola.
@@ -62,7 +70,8 @@ int queue_enqueue(Queue Q, void * q){
     }
     return result;
 }
-/**Quita el ultimo elemento de la cola. Como precondicion la cola no
+
+/**Quita la cabeza de la cola. Como precondicion la cola no
 debe estar vacia ni ser nula.
     \param Q Cola a la cual se le va a quitar el ultimo elemento.
     \return Elemento que se le quita al a cola.*/
@@ -131,6 +140,7 @@ int queue_destroy (Queue Q, void ** garbage){
     }
     return result;
 }
+
 /**Devuelve la cantidad de elementos de la cola.
         \param Q Cola en la cual se contabilizaran los elementos.
         \return Cantidad de elementos de la cola.*/

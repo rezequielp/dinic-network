@@ -36,7 +36,6 @@ void *stack_top(Stack S);
 int stack_size(Stack S);
 /*Retorna la cantidad de elementos de la pila*/
 
-int stack_revert (Stack S1, Stack S2 );
-/*Devuelve en S2 la pila S1 revertida*/
+
 
 #endif
