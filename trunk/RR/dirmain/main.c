@@ -187,7 +187,7 @@ de carga de los elementos del network ni otras acciones inecesarias. Esto es asi
 supone que el tiempo de carga varia mucho cuando se pide al sistema operativo interactuar 
 con IO. De esta manera se logra un tiempo solamente de la parte del programa que implementa 
 DINIC.
-    \param time Tiempo que tardo el algoritmo DINIC en correr medidos en clocks del micro.
+    \param time Tiempo que tardo el algoritmo DINIC en correr medidos segundos.
 */
 void print_dinicTime(float time){    
     int hs,min,sec,ms;
@@ -200,7 +200,8 @@ void print_dinicTime(float time){
 }
 /**Algoritmo principal. Se encarga de llamar las funciones del API para implementar DINIC.
     \param argc Cantidad de argumentos con los que se invoco el programa.
-    \param argv Vector de argumentos con los que se invoco el programa.*/
+    \param argv Vector de argumentos con los que se invoco el programa.
+    \return Retorna un 0 si el programa termina.*/
 int main(int argc, char *argv[]){
     DovahkiinP dova = NULL;
     u64 s = NULL;
@@ -221,8 +222,11 @@ int main(int argc, char *argv[]){
     /*se calcula e imprime lo requerido*/
     FijarFuente(dova, s);
     FijarResumidero(dova, t);
+    
+//  Funciones no utilizadas en nuestro main. Quedan para testeo de la API.
 //  ImprimirFuente(dova);
 //  ImprimirResumidero(dova);
+
     if (Prepararse(dova) == 1){
         if (IS_SET_FLAG(DINIC_TIME))
             clock_startTime = clock(); 
@@ -242,17 +246,18 @@ int main(int argc, char *argv[]){
             dinicTime = (double)(clock_finishTime - clock_startTime) / CLOCKS_PER_SEC;
             print_dinicTime(dinicTime);
         }
-        if (IS_SET_FLAG(FLOW)){
+        if (IS_SET_FLAG(FLOW))
             ImprimirFlujo(dova);
-        }
+
         if (IS_SET_FLAG(FLOW_V))
             ImprimirValorFlujo(dova);
+            
         if (IS_SET_FLAG(CUT))
             ImprimirCorte(dova);    
     }
-    
     /* destruyo el dova*/
     if (!DestruirDovahkiin(dova))
         printf("Error al intentar liberar el dova\n");
+
     return 0;
 }

@@ -5,40 +5,49 @@
 
 /* Estructura doblemente enlazada, tiene una referencia al primer elemento 
  * y otra al ultimo */
-
+ 
 typedef struct ElementSt Element;
-/* Estructura que contiene un elemento y un puntero a la siguiente estructura */
+
+ /** Estructura que contiene un elemento y un puntero a la siguiente estructura. 
+ El tipo cola esta formado por un "encadenamieto" de esta estructura.*/
 struct ElementSt{
-	void *elem;
-	Element *next;
+    void *elem;/**< Elemento actual. Al ser del tipo void pointer puede apuntar a cualquier cosa.*/
+    Element *next;/**<Puntero a la siguiente estructura del tipo ElementSt.*/
 };
 
+/**Estructura principal queue. Si bien es una cola, mantiene un puntero al primer elemento
+ y al ultimo elemento de la cola solamente para propocitos de optimizacion.*/
 struct queueSt{
-	Element *head;
-    Element *tail;
-	int size;
+    Element *head;/**<Puntero al primer elemento de la cola.*/
+    Element *tail;/**<Puntero al ultimo elemento de la cola.*/
+    int size; /**<Cantidad de elementos en la cola.*/
 };
 
+/**Crea una cola sin elementos.
+    \return Un puntero a una cola vacia.*/
 Queue queue_create(void){
-	
-	Queue Q = NULL;
-	
-	Q = (Queue) malloc (sizeof(struct queueSt));
-	if (Q != NULL){
+    
+    Queue Q = NULL;
+    
+    Q = (Queue) malloc (sizeof(struct queueSt));
+    if (Q != NULL){
         Q->head = NULL;
         Q->tail = NULL;
         Q->size = 0;
     }
-	return Q;
+    return Q;
 }
-
+/**Agrega un elemento del tipo Alpha al final de la cola.
+    \param Q Cola a la cual hay que agregarle el elemento.
+    \param q Elemento a ser agregado a la cola.
+    \return  0 si se agrego.\n 1 caso contrario.*/
 int queue_enqueue(Queue Q, void * q){
-	
-	Element *new = NULL;
+    
+    Element *new = NULL;
     int result = 1;
-	
-	new = (Element*) malloc (sizeof(struct ElementSt));
-	if (new != NULL){
+    
+    new = (Element*) malloc (sizeof(struct ElementSt));
+    if (new != NULL){
         new->elem = q;
         new->next = NULL;
         if(queue_isEmpty(Q)){
@@ -51,35 +60,54 @@ int queue_enqueue(Queue Q, void * q){
         Q->size = (Q->size + 1);
         result = 0;
     }
-	return result;
+    return result;
 }
-
+/**Quita el ultimo elemento de la cola. Como precondicion la cola no
+debe estar vacia ni ser nula.
+    \param Q Cola a la cual se le va a quitar el ultimo elemento.
+    \return Elemento que se le quita al a cola.*/
 void * queue_dequeue(Queue Q){
-	Element * aux = NULL;
-	void * elem = NULL;
+    Element * aux = NULL;
+    void * elem = NULL;
     assert(Q != NULL && !queue_isEmpty(Q));
     
-	aux = Q->head;
-	if(aux->next != NULL){
-		Q->head = Q->head->next;
-	}else{
+    aux = Q->head;
+    if(aux->next != NULL){
+        Q->head = Q->head->next;
+    }else{
         Q->head = NULL;
         Q->tail = NULL;
     }
     elem = aux->elem;
     free(aux);
-	Q->size -= 1;
-	return elem;
+    Q->size -= 1;
+    return elem;
 }
 
+/**Muestra la cabeza de la cola. 
+    \param Q Cola de la cual se le va a mostrar la cabeza.
+    \return El elemento correspondiente a la cabeza de la cola.*/
 void * queue_head(Queue Q){
-	return(Q->head->elem);
+    return(Q->head->elem);
 }
 
+/**Verifica que la cola este vacia.
+    \param Q Cola sobre la cual se hará la verificación.
+    \return True si Q esta vacia.\n
+    False caso contrario.*/
 int queue_isEmpty(Queue Q){
-	return (Q->tail == NULL);
+    return (Q->tail == NULL);
 }
 
+/**Destruye y libera la memoria de la cola Q preservando los elementos. Esta funcion no elimina los elementos 
+que se agregaron a la cola. Es tarea del llamador destruirlos si se consideraba necesario. 
+Esto es asi porque no se sabe cual es el tipo de las cosas encoladas y porque no es la 
+funcion de queue_destroy.
+    \param Q Cola a destruir.
+    \param garbage  Puntero a un arreglo de punteros de elementos que se agregaron a la cola. Si se pasa 
+    NULL, queue_destroy no guardara los elementos en ningun lado. El llamador debe tener cuidado de no perder
+    la referencia a esta memoria para no generar memory leaks.
+    \return Cantidad de elementos (del tipo ElementSt) que se eliminaron efectivamente de la cola.*/
 int queue_destroy (Queue Q, void ** garbage){
     int result = -1;
     int i = 0;
@@ -101,10 +129,12 @@ int queue_destroy (Queue Q, void ** garbage){
         free(Q);
         Q = NULL;
     }
-	return result;
+    return result;
 }
-
+/**Devuelve la cantidad de elementos de la cola.
+        \param Q Cola en la cual se contabilizaran los elementos.
+        \return Cantidad de elementos de la cola.*/
 int queue_size (Queue Q){
-	return (Q->size);
+    return (Q->size);
 }
 
