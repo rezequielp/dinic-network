@@ -3,27 +3,38 @@
 #include <stdlib.h>
 #include <assert.h>
 
-/* Estructura de una artista en sentido forward
- * Relacion xy (y es nodo forward de x) */
+/** \file nbrhd.c
+ *  Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
+ * 
+ *          ESCRIBIR lo que es y hace neighboorhood
+ */
+
+/** Estructura de una artista en sentido forward.
+ * Relacion xy (y es nodo forward de x).
+ */
 typedef struct FedgeSt{
-    u64 fy;       /* Nodo forward de 'x', se usa como key en la hash*/
-    u64 cap;        /* La capacidad restante de envio de flujo*/
-    u64 flow;       /* El flujo que se esta enviando*/
-    UT_hash_handle hhfNbrs;
+    u64 y;                  /**< Nodo forward de \a x. Es key de la hash.*/
+    u64 cap;                /**< La capacidad restante de envio de flujo.*/
+    u64 flow;               /**< El flujo que se esta enviando.*/
+    UT_hash_handle hhfNbrs; /**< La tabla hash.*/
 } Fedge;
 
-/* Estructura de una arista en sentido backward 
- * Relacion yx*/
+/** Estructura de una arista en sentido backward.
+ * Relacion yx (y es nodo backward de x).
+ * Ej: x=3; y=2; Lado(yx)=23. 2 es backward de 3, 3 es forward de 2, 
+ * por lo que existe una estructura Fedge para 3 relacionada al nodo 2. 
+ * Esta estructura es a la que apunta \a *x.
+ */
 typedef struct BedgeSt{
-    u64 by;          /* key */
-    Fedge *x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
-    UT_hash_handle hhbNbrs;
+    u64 y;              /**< Nodo backward de \a x. Es key de la hash.*/
+    Fedge *x;           /**< Puntero a la entrada \a x por forward del nodo 'y'.*/
+    UT_hash_handle hhbNbrs; /**< La tabla hash.*/
 } Bedge;
 
-/* Estructura de la vecindad de un nodo*/
+/** Estructura Nbhd de la vecindad de un nodo \a x.*/
 struct NeighbourhoodSt{
-    Fedge *fNbrs;   /* vecinos forward*/
-    Bedge *bNbrs;   /* vecinos backward*/
+    Fedge *fNbrs;   /**< vecinos forward. Tabla hash de todos los vecinos forward de \a x*/
+    Bedge *bNbrs;   /**< vecinos backward. Tabla hash de todos los vecinos backward de \a x*/
 };
 
 /*                      Funciones del modulo
@@ -35,14 +46,13 @@ static Fedge *fedge_create(u64 y, u64 c);
 static Bedge *bedge_create(u64 y, Fedge *fNbr);
 
 
-/*Constructor de un nuevo Nbrhd*/
+/** Constructor de un nuevo Nbrhd*/
 Nbrhd nbrhd_create(void){
-    Nbrhd nbrs = NULL;
-    
-    
+    Nbrhd nbrs = NULL;  /*nuevo Nbrhd*/
+    /*asigno memoria*/
     nbrs = (Nbrhd) malloc(sizeof(struct NeighbourhoodSt));
     assert(nbrs != NULL);
-    
+    /*inicializo campos*/
     nbrs->fNbrs = NULL;
     nbrs->bNbrs = NULL;
     
@@ -50,7 +60,7 @@ Nbrhd nbrhd_create(void){
 }
 
 
-/*Destructor de un Nbrhd*/
+/** Destructor de un Nbrhd*/
 void nbrhd_destroy(Nbrhd nbrs){
     assert(nbrs != NULL);
     /*destruyo todos los vecinos forward*/
@@ -64,7 +74,7 @@ void nbrhd_destroy(Nbrhd nbrs){
 }
 
 
-/* Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos,
+/** Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos,
  * la relacion es xy: 'y' vecino forward de 'x', 'x' vecino backward de 'y'
  * Precondicion: x, y, edge != NULL
  */
@@ -91,7 +101,7 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
         
     }
 
-/* NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
+/** NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
  * y retorno. Verlo como una iteracion sobre una lista en la que empiezo por 
  * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT)
  * 
@@ -138,76 +148,10 @@ int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
             }
         }
     }
-
-
-
-/*    if(flag == FST){
-        if (dir == UNK){
-            if(nbrs->fNbrs != NULL)
-                dir = FWD;
-            else if(nbrs->bNbrs != NULL)
-                dir = BWD;
-        }
-        if(dir == FWD && nbrs->fNbrs != NULL){
-                fNbr = nbrs->fNbrs;
-                *y = fNbr->y;
-                result = FWD;
-                fNbrStatus = STARTED;
-        }else if(dir == BWD && nbrs->bNbrs != NULL){
-                bNbr = nbrs->bNbrs;
-                *y = bNbr->y;
-                result = BWD;
-                bNbrStatus = STARTED;
-        }
-    }else{
-        if(dir == FWD){
-            if(fNbrStatus == STARTED){
-                fNbr = fNbr->hhfNbrs.next;
-                if(fNbr != NULL){
-                    *y = fNbr->y;
-                    result = FWD;
-                }else
-                    fNbrStatus = FINISHED;
-            }
-        }else if(dir == BWD){
-            if(bNbrStatus == STARTED){
-                bNbr = bNbr->hhbNbrs.next;
-                if(bNbr != NULL){
-                    *y = bNbr->y;
-                    result = BWD;
-                }else
-                    bNbrStatus = FINISHED;
-            }
-        }else{ 
-            if(fNbrStatus == STARTED){
-                fNbr = fNbr->hhfNbrs.next;
-                if(fNbr != NULL){
-                    *y = fNbr->y;
-                    result = FWD;
-                }else
-                    fNbrStatus = FINISHED;
-            }
-           if(fNbrStatus = FINISHED){
-                if(bNbrStatus == STARTED){
-                    bNbr = bNbr->hhbNbrs.next;
-                    if(bNbr != NULL){
-                        *y = bNbr->y;
-                        result = BWD;
-                    }else
-                        bNbrStatus = FINISHED;
-                }else if (bNbrStatus == NOT_STARTED && nbrs->bNbrs != NULL){
-                    bNbr = nbrs->bNbrs;
-                    *y = bNbr->y;
-                    result = BWD;
-                    bNbrStatus = STARTED
-                }
-            }
-        }
-    }*/
     return result;
 }
 
-/* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
+/** Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad
  * Precondicion: 'y' es vecino. vf > 0
  * Retorno: valor del nuevo flujo que se esta enviando */
@@ -237,7 +181,7 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
 }
 
 
-/*devuelve la capacidad con el vecino y
+/** Devuelve la capacidad con el vecino y
  Precondicion: 'y' es vecino */
 u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
     void *nbr = NULL;   /*el vecino*/
@@ -253,7 +197,7 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
 }
 
 
-/*devuelve el valor del flujo con el vecino 'y'
+/** Devuelve el valor del flujo con el vecino 'y'
  Precondicion: 'y' es vecino */
 u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
     void *nbr = NULL;   /*el vecino*/
@@ -268,7 +212,7 @@ u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
     return ((Fedge*)nbr)->flow;
 }
 
-/*devuelve la direccion (FWD o BWD) en la que se encuentra el vecino 'y'
+/** Devuelve la direccion (FWD o BWD) en la que se encuentra el vecino 'y'
  Precondicion: 'y' es vecino */
 int nbrhd_getDir(Nbrhd nbrs, u64 y){
     int dir = UNK;      /*direccion en la que se encuentra el vecino*/
@@ -284,30 +228,7 @@ int nbrhd_getDir(Nbrhd nbrs, u64 y){
  *          Funciones locales
  */
 
-/* BUSQUEDA INDIVUDAL, por si no funciona la general
-Fedge nbrhd_findFnbr(Fedge fNbrs, u64 y){
-    Fedge fnbr = NULL;
-    
-    assert(fNbrs != NULL && y != NULL);
-    
-    HASH_FIND(fNbrs->hhfNbrs, fNbrs, &(y), sizeof(y), fnbr);
-    
-    return fnbr;
-}
-
-Bedge nbrhd_findBnbr(Bedge bNbrs, u64 y){
-    Bedge bnbr = NULL;
-    
-    assert(bNbrs != NULL && y != NULL);
-    
-    HASH_FIND(bNbrs->hhbNbrs, bNbrs, &(y), sizeof(y), bnbr);
-    
-    return bnbr;
-}
-*/
-/* ATTENTION Arriba esta hecho por separado, por si esto no funciona
- * 
- * Devuelve el vecino 'y' con la direccion en la que se encontro en 'dir'. 
+/** Devuelve el vecino 'y' con la direccion en la que se encontro en 'dir'. 
  * Si 'dir' != UNK, busca unicamente en esa direccion; 
  * caso contrario, busca primero por forward y luego por backward.
  * Precondicion: 'y' es vecino */
@@ -336,7 +257,7 @@ static void *findNbr(Nbrhd nbrs, u64 y, int* dir){
     return result;
 }
 
-/* Construye un Fedge a partir del nombre del vecino (y) y la capacidad
+/** Construye un Fedge a partir del nombre del vecino (y) y la capacidad
 que se tiene con el (c). El valor del flujo se inicia en 0.*/
 static Fedge *fedge_create(u64 y, u64 c){
     Fedge *fNbr = NULL;     /* vecino forward*/
@@ -351,7 +272,7 @@ static Fedge *fedge_create(u64 y, u64 c){
 }
 
 
-/* Construye un Bedge a partir del nombre del vecino (y) y el vinculo
+/** Construye un Bedge a partir del nombre del vecino (y) y el vinculo
 a los datos por forward respecto a el*/
 static Bedge *bedge_create(u64 y, Fedge *fNbr){
     Bedge *bNbr = NULL;     /* vecino backward*/
@@ -365,7 +286,7 @@ static Bedge *bedge_create(u64 y, Fedge *fNbr){
 }
 
 
-/* Destructor de vecinos forwards */
+/** Destructor de vecinos forwards */
 static void fedge_destroy(Fedge *fNbrs){
     Fedge *felem = NULL;    /*el i-esimo elemento de fNbrs*/
     Fedge *feTmp = NULL;    /*el i-esimo+1 elemento de fNbrs*/
@@ -380,7 +301,7 @@ static void fedge_destroy(Fedge *fNbrs){
 }
 
 
-/* Destructor de vecinos backwards */
+/** Destructor de vecinos backwards */
 static void bedge_destroy(Bedge *bNbrs){
     Bedge *belem = NULL;    /*el i-esimo elemento de bNbrs*/
     Bedge *beTmp = NULL;    /*el i-esimo+1 elemento de bNbrs*/
