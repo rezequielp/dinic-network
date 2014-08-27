@@ -3,17 +3,19 @@
 #include <stdlib.h>
 #include <assert.h>
 
-/* Estructura de un nodo por forward*/
+/* Estructura de una artista en sentido forward
+ * Relacion xy (y es nodo forward de x) */
 typedef struct FedgeSt{
-    u64 y;          /* El nodo forward de 'x', se usa como key en la hash*/
+    u64 fy;       /* Nodo forward de 'x', se usa como key en la hash*/
     u64 cap;        /* La capacidad restante de envio de flujo*/
-    u64 flow;       /* El flujo por forward que se esta enviando*/
+    u64 flow;       /* El flujo que se esta enviando*/
     UT_hash_handle hhfNbrs;
 } Fedge;
 
-/* Estructura de un nodo por backward*/
+/* Estructura de una arista en sentido backward 
+ * Relacion yx*/
 typedef struct BedgeSt{
-    u64 y;          /* key */
+    u64 by;          /* key */
     Fedge *x;      /* Puntero a la entrada 'x' de la fhash del nodo 'y'  */
     UT_hash_handle hhbNbrs;
 } Bedge;
@@ -23,16 +25,9 @@ struct NeighbourhoodSt{
     Fedge *fNbrs;   /* vecinos forward*/
     Bedge *bNbrs;   /* vecinos backward*/
 };
-/*
- *  CONSTANTES     
- */
-/*#define NON_STARTED  0
-#define STARTED      1
-#define FINISHED    -1*/
-/* 
- *                      Funciones del modulo
- */
 
+/*                      Funciones del modulo
+ */
 static void *findNbr(Nbrhd nbrs, u64 y, int* dir);
 static void fedge_destroy(Fedge *fNbrs);
 static void bedge_destroy(Bedge *bNbrs);
@@ -43,6 +38,7 @@ static Bedge *bedge_create(u64 y, Fedge *fNbr);
 /*Constructor de un nuevo Nbrhd*/
 Nbrhd nbrhd_create(void){
     Nbrhd nbrs = NULL;
+    
     
     nbrs = (Nbrhd) malloc(sizeof(struct NeighbourhoodSt));
     assert(nbrs != NULL);
@@ -265,7 +261,7 @@ u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
     
     assert(nbrs != NULL);
     nbr = findNbr(nbrs, y, &dir);
-    
+    assert(nbr != NULL && dir != UNK);
     if (dir == BWD)
         nbr = ((Bedge*)nbr)->x;
     

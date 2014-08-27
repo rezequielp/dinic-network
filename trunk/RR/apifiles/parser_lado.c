@@ -9,32 +9,32 @@
 #define WITH 1              
 #define WITHOUT 0
 
+/*                      Funciones del modulo
+ */
 static int parse_argument(Lexer *input, u64 *arg);
 static bstring next_bstring(Lexer *input, int flag, const char *str);
 static bool is_theNextChar(Lexer *input, const char *ch);
 
-
-/* Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo*/
+/*Lee todo un Lado de `input' hasta llegar a un fin de línea o de archivo*/
 Lado parser_lado(Lexer *input){
-    u64 x;                      /*nodo x*/
-    u64 y;                      /*nodo y*/
-    u64 cap;                    /*capacidad de xy*/
-    Lado result = LadoNulo;     /*lado parseado*/
-    int its_ok = PARSER_ERR;    /*chequea que el parse va bien*/
-    
-    /*Pre:*/
+    u64 x;                      /*Nodo x*/
+    u64 y;                      /*Nodo y*/
+    u64 cap;                    /*Capacidad de xy*/
+    Lado result = LadoNulo;     /*Lado parseado*/
+    int its_ok = PARSER_ERR;    /*Chequea que el parse va bien*/   
+
     assert(input != NULL);
     
-    /*asigno el 1er argumento parseado a 'x'*/
+    /*Asigno el 1er argumento parseado a 'x'*/
     its_ok = parse_argument(input, &x);
     if (its_ok && is_theNextChar(input, WHITE_SPACE)){
-        /*asigno el 2do argumento parseado a 'y'*/
+        /*Asigno el 2do argumento parseado a 'y'*/
         its_ok = parse_argument(input, &y);
         if (its_ok && is_theNextChar(input, WHITE_SPACE))
-            /*asigno el 3er argumento parseado a 'cap'*/
+            /*Asigno el 3er argumento parseado a 'cap'*/
             its_ok = parse_argument(input, &cap);   
     }
-    /* Si se parseo todo bien, creo el nuevo Lado con los valores*/
+    /*Si se parseo todo bien, creo el nuevo Lado con los valores*/
     if (its_ok){
         result = lado_new(x, y, cap);
     }
@@ -44,19 +44,19 @@ Lado parser_lado(Lexer *input){
 
 
 /* Consume el fin de línea.
- * Indica si encontro basura antes del fin de línea*/
+ * Indica si encontro (o no) basura antes del fin de línea.
+ * Retorno: PARSER_OK si no hay basura, PARSER_ERR caso contrario*/
 int parser_nextLine(Lexer *input){
-    int result = PARSER_OK; /*si es EOF (o el sig char es '\n'), sera true*/
-    bstring gbCollector = NULL; /*recolector de caracteres basura*/
+    int result = PARSER_OK;     /*Si es EOF (o el sig char es '\n'), sera true*/
+    bstring gbCollector = NULL; /*Recolector de caracteres basura*/
     
-    /*Pre:*/
     assert(input != NULL);
-    /*quito los espacio en blanco que pueden haber al comienzo*/
+    /*Quito los espacio en blanco que pueden haber al comienzo*/
     if (!lexer_is_off(input))
         lexer_skip(input, WHITE_SPACE);
-    /*consumo toda la basura anterior al primer '\n' (o EOF)*/
+    /*Consumo toda la basura anterior al primer '\n' (o EOF)*/
     gbCollector = next_bstring(input, WITHOUT, EOL);
-    /*si leyo algo, entonces gbCollector no es nulo*/
+    /*Si leyo algo, entonces gbCollector no es nulo*/
     if (gbCollector != NULL){
         result = PARSER_ERR;
         bdestroy(gbCollector);
@@ -76,22 +76,24 @@ int parser_nextLine(Lexer *input){
  * El llamador se encarga de liberarlo.
 */
 static int parse_argument(Lexer *input, u64 *n){
-    int result = PARSER_ERR;    /*retorno (error al menos que todo salga bien)*/
-    bstring barg = NULL;        /*argumento leido en tipo bstring*/
-    char * carg;                /*argumento leido en tipo char*/
-    assert(input != NULL);
+    int result = PARSER_ERR;    /*Retorno (error al menos que todo salga bien)*/
+    bstring barg = NULL;        /*Argumento leido en tipo bstring*/
+    char * carg;                /*Argumento leido en tipo char*/
+    int sr = 0;                 /*Resultado del scaneo (sscanf())*/
     
-    /*quito los espacio en blanco que pueden haber al comienzo*/
+    assert(input != NULL);
+    /*Quito los espacio en blanco que pueden haber al comienzo*/
     if (!lexer_is_off(input))
         lexer_skip(input, WHITE_SPACE);
-    
-    /*leo hasta el siguiente caracter distinto de 'DIGIT'*/
+    /*Leo hasta el siguiente caracter distinto de 'DIGIT'*/
     barg = next_bstring(input, WITH, DIGIT);
     if (barg != NULL){
-        /*lo convierto a u64*/
+        /*Lo convierto a u64*/
         carg = bstr2cstr(barg, '\0');
-        result = sscanf(carg, "%" SCNu64 "\n", n);
-        assert(result == PARSER_OK);
+        rs = sscanf(carg, "%"SCNu64"\n", n)
+        if (rs > 0)
+            result = PARSER_OK;
+        /*Libero memoria*/
         bcstrfree(carg);
         bdestroy(barg);
     }
@@ -100,23 +102,23 @@ static int parse_argument(Lexer *input, u64 *n){
 }
 
 /*lee el siguiente item.
- * Si flag = WITH: Consume todo caracter perteneciente a 'str'.
+ * Si flag = WITH: Consume hasta encontrarse con un caracter distinto de 'str'
  * Si flag = WITHOUT: Consume hasta encontrarse con un caracter de 'str'
  * El llamador se encarga de liberarlo*/
 static bstring next_bstring(Lexer *input, int flag, const char *str){
-
-    bstring result=NULL;
+    bstring result = NULL;        /*Los caracteres que se leyeron*/
+    
     assert (input != NULL);
     assert(flag == WITH || flag == WITHOUT);
     
-    /*Leo todos los caracteres anteriores y no pertenecientes a 'str'*/
     if (!lexer_is_off(input)){
+        /*Leo todos los caracteres anteriores WITH/WITHOUT 'str'*/
         if (flag == WITH)
             lexer_next(input, str);
         else
             lexer_next_to(input, str);
     }
-    /*si (leyo algo) ´o´ (no EOF y no leyo nada)*/
+    /*Caso: (leyo algo) o (no EOF y no leyo nada)*/
     if (!lexer_is_off(input)){
         result = lexer_item(input);
         /*Si no leyo ningun caracter, destruyo el puntero.
@@ -135,25 +137,23 @@ static bstring next_bstring(Lexer *input, int flag, const char *str){
 /*Decide si el siguiente caracter leido pertenece a 'ch'.
  * Consume el caracter leido*/
 static bool is_theNextChar(Lexer *input, const char *ch){
+    bool result = false;    /*Resultado*/
+    bstring taken = NULL;   /*Caracter obtenido en la lectura*/
 
-    bool result = false;
-    bstring taken = NULL;
-
-    /*Pre:*/
     assert (input != NULL);
     
-    /*Leo el siguiente caracter para ver si pertenece a 'ch'*/
     if (!lexer_is_off(input)){
+        /*Leo el siguiente caracter para ver si pertenece a 'ch'*/
         lexer_next_char(input, ch);
         
-    /*si (leyo algo) ´o´ (no EOF y no leyo nada)*/
+    /*Caso: (leyo algo) o (no EOF y no leyo nada)*/
     if (!lexer_is_off(input)){
         taken = lexer_item(input);
-        /*Decide si leyo el caracter perteneciente a 'ch'*/
         if ((blength(taken) > 0)){
+            /*Hay un caracter leido y es igual a 'ch'*/
             result = true;
         }
-        /*libero el puntero despues de usarlo*/
+        /*Libero el puntero despues de usarlo*/
         bdestroy(taken);
     }
     }

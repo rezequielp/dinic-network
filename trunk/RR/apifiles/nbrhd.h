@@ -12,19 +12,16 @@
 #define BWD -1  /*Backward*/
 #define UNK 0   /*direccion desconocida*/
 
-
 /*          Parametros para nbrhd_getNext()  */
 #ifndef _GET_NEXT
 #define _GET_NEXT
 /* 'flag' options:
  * Indica cual es el siguiente vecino que se quiere obtener.*/
 #define FST 0       /*El primero*/
-#define NXT 1       /*El siguiente*/
-
+#define NXT 1       /*El siguiente del último consultado*/
 /* 'return' options:
- * La direccion en la que se encuentra el vecino devuelto, o bien*/
+ * La direccion en la que se encuentra el vecino devuelto (FST o NXT), o bien*/
 #define NONE -2   /*Ninguno. No hay mas vecinos en esa direccion*/
-
 #endif
 
 
@@ -52,13 +49,13 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
 
 /* NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
  * y retorno. Verlo como una iteracion sobre una lista en la que empiezo por 
- * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT)
+ * el primer(FST) elemento, o bien por el siguiente(NXT) del ultimo consultado
  * 
  * Busca el vecino siguiente en la direccion 'dir' y si existe 
  * almacena el nombre en 'y'. Si dir=UNK entonces primero intenta por FWD, y si
  * no hay (o no existen) entonces intenta por BWD.
  * Precondicion: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD|UNK, y!=NULL
- * Retorno(r):  r = 'dir', en la que se encuentra el vecino
+ * Retorno(r):  r = 'dir', en la que se encontro un vecino
  *              r = NONE, ya no hay mas vecinos que devolver
  */
 int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y);
