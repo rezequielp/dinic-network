@@ -27,6 +27,7 @@ typedef struct ElementSt{
     \warning Sobre una pila no se pueden correr dos iteraciones simultaneas ya que cada una moveria el visor iter 
      accediendo a los elementos alternadamente. Esta caracteristica es exclusiva. En futuros upgrades se evitara que
      se puedan correr diferentes iteraciones o se haran visores multilples para que si se pueda.*/
+     
 struct StackSt{
     Element *top;/**<Puntero al elemento superior de la pila.*/
     Element *iter;/**<Puntero al elemento de la iteracion. Tambien llamado visor.*/
@@ -79,7 +80,7 @@ int stack_destroy(Stack S, void ** garbage){
 }
 
 /**Agrega un elemento del tipo Alpha a la parte superior de la pila.
-    \param s Pila a la cual hay que agregarle el elemento.
+    \param S Pila a la cual hay que agregarle el elemento.
     \param elem Elemento a ser agregado a la pila.
     \return  0 si se agrego.\n 1 caso contrario.*/
 int stack_push(Stack S, void *elem){
@@ -161,10 +162,11 @@ int stack_revert(Stack S1, Stack S2 ){
     return result;
 }
 
-
-/**muestra un elemento y corre el visor al siguiente, NULL si no existe.
+/**Muestra un elemento y corre el visor al siguiente, NULL si no existe.
     \param S Pila sobre la cual se itera.
-    \return Elemento al cual esta apuntando el visor.*/
+    \return Elemento al cual esta apuntando el visor.
+    \warning Esto se usa SOLAMENTE para iterar en el stack, si se elimina el elemento devuelto 
+      queda un stack inconsistente.*/
 void* stack_nextItem(Stack S){
     void * elem = NULL;
     assert(S!=NULL);
@@ -175,7 +177,6 @@ void* stack_nextItem(Stack S){
     }
     return elem;
 }
-
 
 /**Situal el visor en la parte superior de la pila.
     \param S Pila sobre la cual se reseteara el visor.*/
