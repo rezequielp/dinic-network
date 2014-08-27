@@ -68,21 +68,21 @@ void print_help(char * programName){
     \param argv Vector de argumentos con los que se invoco al programa.
     \param source Fuente del Network.
     \param sink Resumidero del Network.
-    \return STATUS Retorna un Short int indicando el estado de los parametros.
-    Estados:
-        DONT_DINIC   Permite (o no) que se realice dinic.
-        S_OK        s' fue pasado como parametro.
-        T_OK        t' fue pasado como parametro.
-        DINIC_TIME  Activa el muestreo de tiempos de calculo.
-        PATH        Activa el muestreo de caminos aumentantes.
-        FLOW        Activa el muestreo de flujo.
-        CUT         Activa el muestreo de corte.
-        FLOW_V      Activa el muestre de valor del flujo.
-    Macros para manipular los estados:
-        SET_FLAG(f)     Setea un bit de flag en STATUS en 1.
-        UNSET_FLAG(f)   Setea un bit de flag en STATUS en 0.
-        CLEAR_FLAG()    Pone todas las flags en 0.
-        IS_SET_FLAG(f)  Consulta si una flag esta activa.*/
+    \return Retorna un Short int indicando el estado de los parametros.\n
+    - Estados:\n
+        - DONT_DINIC   Permite (o no) que se realice dinic.\n
+        - S_OK        Indica que 's' fue pasado como parametro.\n
+        - T_OK        Indica que 't' fue pasado como parametro.\n
+        - DINIC_TIME  Activa el muestreo de tiempos de calculo.\n
+        - PATH        Activa el muestreo de caminos aumentantes.\n
+        - FLOW        Activa el muestreo de flujo.\n
+        - CUT         Activa el muestreo de corte.\n
+        - FLOW_V      Activa el muestre de valor del flujo.\n
+    - Macros para manipular los estados:\n
+        - SET_FLAG(f)     Setea un bit de flag en STATUS en 1.\n
+        - UNSET_FLAG(f)   Setea un bit de flag en STATUS en 0.\n
+        - CLEAR_FLAG()    Pone todas las flags en 0.\n
+        - IS_SET_FLAG(f)  Consulta si una flag esta activa.*/
 short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
     int i = 1;/*Indice para loopear entre los parametros de entrada. Saltea el nombre del programa.*/
     short int STATUS = CLEAR_FLAG();/*Retorno de la funcion. Se limpia al inicializar.*/
@@ -149,26 +149,30 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
         }
         i++;
     }/*Finaliza el ciclo while.*/
-       
+   /*Imprime un mensaje de error por que no se seteo la fuenta
+   y configura que no se corra el algoritmo DINIC*/
     if(!IS_SET_FLAG(S_OK) && !HELP){
         printf("%s: -s is not set.\n", argv[0]);
         SET_FLAG(DONT_DINIC);
     }
-    
+   /*Imprime un mensaje de error por que no se seteo el resumidero
+   y configura que no se corra el algoritmo DINIC*/
     if(!IS_SET_FLAG(T_OK) && !HELP){
         printf("%s: -t is not set.\n", argv[0]);
         SET_FLAG(DONT_DINIC);
     }
     
-    if(HELP)
+    if(HELP)/*Imprime la ayuda si asi se seteo y configura que no se corra el algoritmo DINIC*/
         SET_FLAG(DONT_DINIC);
     else if(IS_SET_FLAG(DONT_DINIC))
-        printf("use -h for help.\n");
+        printf("use -h for help.\n");/*Si no se pidio ayuda y esta configurado que no se corra DINIC muestra un error*/
     
     return STATUS;
 }
 
-
+/**Verifica que se le haya pasado como parametro algo de tipo u64.
+    \param sU64 Puntero al elemento para verificar que sea u64.
+    \return Un elemento del tipo bool indicando si el parametro sU64 es del tipo u64.*/
 bool isu64(char * sU64){
     int i = 0;
     bool result = true;
@@ -178,7 +182,13 @@ bool isu64(char * sU64){
     }
     return result;    
 }
-
+/**Imprime el tiempo que tarda el algoritmo DINIC en ejecutarse en formato [hh:mm:ss.ms]. No contabiliza el tiempo
+de carga de los elementos del network ni otras acciones inecesarias. Esto es asi porque se 
+supone que el tiempo de carga varia mucho cuando se pide al sistema operativo interactuar 
+con IO. De esta manera se logra un tiempo solamente de la parte del programa que implementa 
+DINIC.
+    \param time Tiempo que tardo el algoritmo DINIC en correr medidos en clocks del micro.
+*/
 void print_dinicTime(float time){    
     int hs,min,sec,ms;
 
@@ -186,9 +196,11 @@ void print_dinicTime(float time){
     sec = (int) time % 60;
     min = (int) (time / 60) % 60;
     hs = (int) time / 3600;
-    printf("\nDinic demoró(hh:mm:ss): %02i:%02i:%02i.%03i\n\n", hs, min, sec, ms);
+    printf("\nDinic demoró(hh:mm:ss.ms): %02i:%02i:%02i.%03i\n\n", hs, min, sec, ms);
 }
-/**kjggvkgvgvk*/
+/**Algoritmo principal. Se encarga de llamar las funciones del API para implementar DINIC.
+    \param argc Cantidad de argumentos con los que se invoco el programa.
+    \param argv Vector de argumentos con los que se invoco el programa.*/
 int main(int argc, char *argv[]){
     DovahkiinP dova = NULL;
     u64 s = NULL;
