@@ -19,7 +19,7 @@
 #define CUT             0b00000010  /**<Activa el muestreo de corte.*/
 #define FLOW_V          0b00000001  /**<Activa el muestre de valor del flujo.*/
 /**\def Macros para manipular flags.*/
-#define SET_FLAG(f) STATUS |= f         /*Setea un bit de flag en STATUS en 1.*/
+#define SET_FLAG(f) STATUS |= f         /**<Setea un bit de flag en STATUS en 1.*/
 #define UNSET_FLAG(f) STATUS &= ~f      /**<Setea un bit de flag en STATUS en 0.*/
 #define CLEAR_FLAG() 0b00000000         /**<Pone todas las flags en 0.*/
 #define IS_SET_FLAG(f) (STATUS & f) > 0 /**<Consulta si una flag esta activa.*/
@@ -36,8 +36,8 @@ hasta acabar los lados o bien hasta el primer lado que no se pueda cargar
     \param dova DovahkiinP donde carga los lados.*/
 void load_from_stdin(DovahkiinP dova){
 
-    Lado lado = LadoNulo;/**<Lado leido. Caso vacio se retorna LadoNulo.*/
-    int load_ok = 0;/**<Indica si el lado se pudo cargar.*/
+    Lado lado = LadoNulo;/*Lado leido. Caso vacio se retorna LadoNulo.*/
+    int load_ok = 0;/*Indica si el lado se pudo cargar.*/
     
     assert(dova != NULL);
     do{
@@ -84,29 +84,29 @@ void print_help(char * programName){
         CLEAR_FLAG()    Pone todas las flags en 0.
         IS_SET_FLAG(f)  Consulta si una flag esta activa.*/
 short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
-    int i = 1;/**<Indice para loopear entre los parametros de entrada. Saltea el nombre del programa.*/
-    short int STATUS = CLEAR_FLAG();/**<Retorno de la funcion. Se limpia al inicializar.*/
-    short int HELP = 0;             /*<flag de alcance local*/
+    int i = 1;/*Indice para loopear entre los parametros de entrada. Saltea el nombre del programa.*/
+    short int STATUS = CLEAR_FLAG();/*Retorno de la funcion. Se limpia al inicializar.*/
+    short int HELP = 0;             /*flag de alcance local*/
     
-    /**<Valida cada uno de los parametros de entrada en un loop que
+    /*Valida cada uno de los parametros de entrada en un loop que
     termina cuando se pide imprimir la ayuda o cuando se leyeron todos los parametros*/
     while (i < argc && !HELP){
-        /**Se fija si el parametro indica que se debe imprimir el flujo.*/
+        /*Se fija si el parametro indica que se debe imprimir el flujo.*/
         if(strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--flujo")== 0 )
             SET_FLAG(FLOW);
-        /**Se fija si el parametro indica que se debe imprimir el valor del flujo.*/
+        /*Se fija si el parametro indica que se debe imprimir el valor del flujo.*/
         else if(strcmp(argv[i], "-vf") == 0 || strcmp(argv[i], "--valorflujo")== 0 )
             SET_FLAG(FLOW_V);
-        /**Se fija si el parametro indica que se debe imprimir el corte.*/
+        /*Se fija si el parametro indica que se debe imprimir el corte.*/
         else if(strcmp(argv[i], "-c") == 0 || strcmp(argv[i],"--corte" )== 0 )
             SET_FLAG(CUT);
-        /**Se fija si el parametro indica que se debe imprimir los caminos.*/
+        /*Se fija si el parametro indica que se debe imprimir los caminos.*/
         else if(strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--path")== 0 )
             SET_FLAG(PATH);
-        /**Se fija si el parametro indica que elemento es la fuente.*/
+        /*Se fija si el parametro indica que elemento es la fuente.*/
         else if(strcmp(argv[i], "-s") == 0 && !IS_SET_FLAG(S_OK)){
-            if (i+1 < argc){/**<Valida que exista un siguiente argumento(Fuente)*/
-                if(isu64(argv[i+1]))/**<Valida que sea u64 caso contrario imprime el error y no corre el algoritmo.*/
+            if (i+1 < argc){/*Valida que exista un siguiente argumento(Fuente)*/
+                if(isu64(argv[i+1]))/*Valida que sea u64 caso contrario imprime el error y no corre el algoritmo.*/
                     sscanf(argv[i+1], "%" SCNu64, source);
                 else{
                     printf("%s: -s: Invalid argument \"%s\".\n", argv[0], argv[i+1]);
@@ -116,7 +116,7 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
                 i++;
             }else
                 SET_FLAG(DONT_DINIC);
-            
+        /*Se fija si el parametro indica que elemento es el resumidero.*/
         }else if(strcmp(argv[i], "-t") == 0 && !IS_SET_FLAG(T_OK)){
             if (i+1 < argc){
                 if(isu64(argv[i+1]))
@@ -129,17 +129,17 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
                 i++;
             }else
                 SET_FLAG(DONT_DINIC);
-            
+        /*Este parametro setea todos los demas parametros menos la ayuda.*/
         }else if(strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--all")== 0 ){
             SET_FLAG(PATH);
             SET_FLAG(FLOW);
             SET_FLAG(CUT);
             SET_FLAG(FLOW_V);
             SET_FLAG(DINIC_TIME);
-            
+        /*Se fija si el parametro indica que se debe imprimir el tiempo que tarda el el algoritmo DINIC.*/
         }else if(strcmp(argv[i], "-r") == 0 || strcmp(argv[i],"--reloj" )== 0 )
             SET_FLAG(DINIC_TIME);
-
+        /*Se fija si el parametro indica que se debe imprimir el menu de ayuda.*/
         else if(strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")== 0 ){
             print_help(argv[0]);
             HELP = 1;
@@ -148,7 +148,7 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
             SET_FLAG(DONT_DINIC);
         }
         i++;
-    }
+    }/*Finaliza el ciclo while.*/
        
     if(!IS_SET_FLAG(S_OK) && !HELP){
         printf("%s: -s is not set.\n", argv[0]);
@@ -188,7 +188,7 @@ void print_dinicTime(float time){
     hs = (int) time / 3600;
     printf("\nDinic demoró(hh:mm:ss): %02i:%02i:%02i.%03i\n\n", hs, min, sec, ms);
 }
-
+/**kjggvkgvgvk*/
 int main(int argc, char *argv[]){
     DovahkiinP dova = NULL;
     u64 s = NULL;
