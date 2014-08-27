@@ -26,7 +26,7 @@ Lado lado_new(u64 x, u64 y, u64 c);
 
 /* Destructor de un lado.
  * Se destruye un lado, al menos que ya sea un lado nulo.
- * edge lado a destruir.
+ * edge Lado a destruir.
  */
 void lado_destroy(Lado edge);
 
@@ -34,21 +34,21 @@ void lado_destroy(Lado edge);
 /*  Operaciones */
 
 /* Obtener el nombre del nodo \a x.
- * edge lado en el que se desea consultar.
+ * edge Lado en el que se desea consultar.
  * pre: \a edge no es un lado nulo.
  * return: El nombre del nodo \a x.
  */
 u64 lado_getX(Lado edge);
 
 /* Obtener el nombre del nodo \a y.
- * edge lado en el que se desea consultar.
+ * edge Lado en el que se desea consultar.
  * pre: \a edge no es un lado nulo.
  * return: El nombre del nodo \a y.
  */
 u64 lado_getY(Lado edge);
 
 /* Obtener la capacidad de un lado.
- * edge lado en el que se desea consultar.
+ * edge Lado en el que se desea consultar.
  * pre: \a edge no es un lado nulo.
  * return: La capacidad del lado
  */
