@@ -9,7 +9,7 @@
 #include "../apifiles/API.h"
 
 /**MACROS PARA MANEJAR LOS PARAMETROS DE ENTRADA.*/
-/**\def Flags.*/
+/** \def Flags.*/
 #define DONT_DINIC      0b10000000  /**<Permite (o no) que se realice dinic.*/
 #define S_OK            0b01000000  /**<'s' fue pasado como parametro.*/
 #define T_OK            0b00100000  /**<'t' fue pasado como parametro.*/
@@ -18,7 +18,7 @@
 #define FLOW            0b00000100  /**<Activa el muestreo de flujo.*/
 #define CUT             0b00000010  /**<Activa el muestreo de corte.*/
 #define FLOW_V          0b00000001  /**<Activa el muestre de valor del flujo.*/
-/**\def Macros para manipular flags.*/
+/** \def Macros para manipular flags.*/
 #define SET_FLAG(f) STATUS |= f         /**<Setea un bit de flag en STATUS en 1.*/
 #define UNSET_FLAG(f) STATUS &= ~f      /**<Setea un bit de flag en STATUS en 0.*/
 #define CLEAR_FLAG() 0b00000000         /**<Pone todas las flags en 0.*/
