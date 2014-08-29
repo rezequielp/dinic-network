@@ -12,53 +12,61 @@
 #include "parser_lado.h"
 
 
-#define BANNED -1    /* Valor nulo de distancia si el elem no se debe usar*/
+#define BANNED -1    /**< Valor nulo de distancia si el elem no se debe usar*/
 
-/*      Macro: Flags de permisos y estados.     */
-#ifndef MACRO_TOOLS
-#define SINK_REACHED    0b00010000      /*Se llego a t. Tambien implica corte
+/* Macro: Flags de permisos y estados.*/
+#define SINK_REACHED    0b00010000      /**<Se llego a t. Tambien implica corte
                                           seteo solo en actualizarDistancias()*/
-#define MAXFLOW         0b00001000      /*Es flujo maximal*/
-#define SOURCE          0b00000100      /*Fuente fijada*/
-#define SINK            0b00000010      /*Resumidero fijado*/
-#define PATHUSED        0b00000001      /*Camino usado para aumentar flujo*/
-/*
- *          Macro: Manejo de flags.
- */
-#define SET_FLAG(f) dova->flags |= f
-#define UNSET_FLAG(f) dova->flags &= ~f
-#define CLEAR_FLAG() 0b00000001
-#define IS_SET_FLAG(f) (dova->flags & f) > 0
-#endif
+#define MAXFLOW         0b00001000      /**<Es flujo maximal*/
+#define SOURCE          0b00000100      /**<Fuente fijada*/
+#define SINK            0b00000010      /**<Resumidero fijado*/
+#define PATHUSED        0b00000001      /**<Camino usado para aumentar flujo*/
+
+/* Macro: Manejo de flags.*/
+#define SET_FLAG(f) dova->flags |= f    /**<Activa(1) el bit de la flag f*/
+#define UNSET_FLAG(f) dova->flags &= ~f /**<Desactiva(0) el bit de la flag f*/
+#define CLEAR_FLAG() 0b00000001         /**<Inicializa todas las flags (reset)*/
+#define IS_SET_FLAG(f) (dova->flags & f) > 0 /**<El bit de la flag f es 1?*/
 
 
-/*      Macro: Iterador sobre un path.          */
+/* Macro: Iterador sobre un path.*/
 #define PATH_ITER(path, x, y)                                               \
     stack_resetViewer(path);                                               \
     y = stack_nextItem(path);                                               \
     x = stack_nextItem(path);                                               \
     for(; (x)!=NULL; (y)=(x), (x)=stack_nextItem(path))
 
-
-/*
- *          Estructuras
+/* Estructuras */
+/** Estructura de un netwrok con la información de los nodos.
+ * Contiene la información de un nodo: su nombre, quiénes son sus vecinos y 
+ * su nivel de distancia en la búsqueda de caminos aumentantes. 
+ * Estos nodos estan registrados en una tabla hash: La del network original que 
+ * conforman, y en el corte si es que forman parte.
  */
 typedef struct NetworkSt{
-    u64 name;                   /* hash key - nombre del vertice*/
-    Nbrhd nbrs;                 /* hash value - vecinos del vertice*/
-    int level;                  /* nivel de distancia del vertice*/
-    UT_hash_handle hhNet,hhCut; /* makes this structure hashable */
+    u64 name;                   /**<Hash key - nombre del nodo*/
+    Nbrhd nbrs;                 /**<Hash value - vecinos del nodo*/
+    int level;                  /**<Nivel de distancia del nodo*/
+    UT_hash_handle hhNet,hhCut; /**<Hace esta estructura hashable */
 } Network;
 
+/** Estructura de un DovahkiinP con los datos que se necesitan almacenar para 
+ * ejecutar Dinic.
+ * Contiene toda la información en el nivel más alto de ejecución, como el
+ * acceso al network, el valor de flujo y corte calculados, qué nodo es la 
+ * fuente y cuál es resumidero. El último camino aumentante encontrado sin usar 
+ * y la cantidad ya utilizados. También se almacenan las flags de estados 
+ * que se necesiten en el correr de Dinic.
+ */
 struct  DovahkiinSt{
-    Network *net;       /* Network de los vertices para acceder a las aristas */
-    u64 flow;           /* Valor del flujo del dova */
-    u64 source;         /* Vertice fijado como fuente (s) */
-    u64 sink;           /* Vertice fijado como resumidero (t) */
-    Network *cut;       /* Corte (se aprovecha como dova auxiliar)*/
-    Stack path;         /* Camino de vertices, de s a t */
-    u64 pCounter;       /* Contador para la cantidad de caminos*/
-    int flags;          /* Flags de estado, explicados en la seccion #define */
+    Network *net;       /**<Network de los nodos para acceder a las aristas.*/
+    u64 flow;           /**<Valor del flujo del dova.*/
+    u64 source;         /**<Vertice fijado como fuente (s).*/
+    u64 sink;           /**<Vertice fijado como resumidero (t).*/
+    Network *cut;       /**<Corte (se aprovecha como dova auxiliar)*/
+    Stack path;         /**<Camino de nodos, de s a t.*/
+    u64 pCounter;       /**<Contador para la cantidad de caminos.*/
+    int flags;          /**<Flags de estado, explicados en la seccion define.*/
 };
 
 
@@ -70,13 +78,16 @@ static Network *network_nextElement(Network * net, Network *node);
 static void set_lvlNbrs(DovahkiinP dova, Network *node, Queue q, int dir, int lvl);
 static Network *set_lvl(Network *net, u64 name, int lvl);
 
-/*Devuelve un puntero a la St o Null en caso de error */
+/** Creador de un nuevo DovahkiinP.
+ * \return un DovahkiinP vacío.
+ */
 DovahkiinP NuevoDovahkiin(void){
-    DovahkiinP dova;
+    DovahkiinP dova;    /*El dova a crear y devolver*/
     
+    /*Se le asigna memoria*/
     dova = (DovahkiinP) malloc (sizeof(struct DovahkiinSt));
     assert(dova!=NULL);
-    
+    /*Valores iniciales de un dova vacío*/
     dova->net = NULL;
     dova->flow = 0;
     dova->source = 0;
@@ -88,14 +99,23 @@ DovahkiinP NuevoDovahkiin(void){
     return dova;
 }
 
-/*Destruye D, devuelve 1 si no hubo errores, 0 en caso contrario */
+/** Destructor de un DovahkiinP.
+ * \param dova El dova a destruir.
+ * \return devuelve 1 si no hubo errores, 0 en caso contrario.
+ * \note Por la cátedra se indica un retorno distinto en caso de error, pero 
+ * en la implementación no surgen casos en lo que esto pueda suceder.
+ */
 int DestruirDovahkiin(DovahkiinP dova){
     assert(dova!=NULL);
-    
+    /*Primero hay que destruir las entradas de la hash del corte.
+    Si se destruyen primero los nodos entonces pierdo referencias*/
     if (dova->cut != NULL)
-        HASH_CLEAR(hhCut, dova->cut);    
+        HASH_CLEAR(hhCut, dova->cut);
+    /*En este punto ya se puede destruir el network y todos los nodos.
+    Esto tambien libera la hash del corte.*/
     if (dova->net != NULL)
-        network_destroy(dova->net);  /*esto tambien libera el corte*/
+        network_destroy(dova->net);
+    /*Se destruye cualquier path almacenado.*/
     if (dova->path != NULL)
         stack_destroy(dova->path, NULL);
     free(dova);
@@ -103,30 +123,43 @@ int DestruirDovahkiin(DovahkiinP dova){
     return 1;
 }
 
-/*Setea al vertice s como fuente */
+/** Establece un nodo como fuente del network.
+ * \param dova  El dova en el que se trabaja.
+ * \param s     El nombre del nodo.
+ * \pre \a dova debe ser un DovahkiinP no nulo.
+ */
 void FijarFuente(DovahkiinP dova, u64 s){
     assert(dova != NULL);
     dova->source = s;
     SET_FLAG(SOURCE);
 }
 
-/*Setea al vertice t como resumidero */
+/** Establece un nodo como resumidero del network.
+ * \param dova  El dova en el que se trabaja.
+ * \param t     El nombre del nodo.
+ * \pre \a dova debe ser un DovahkiinP no nulo.
+ */
 void FijarResumidero(DovahkiinP dova, u64 t){
     assert(dova != NULL);
     dova->sink = t;
     SET_FLAG(SINK);
 }
 
-/*Si la fuente NO esta fijada devuelve -1, sino 0 e imprime por pantalla:
-Fuente: s
-Donde s es el vertice que estamos conciderando como fuente.
-Este es el unico caso donde la fuente se imprimira con su nombre real y 
-no con la letra s */
+/** Imprime por la salida estandar el nombre del nodo que es fuente.
+ * Imprime por pantalla:
+ * Fuente: s
+ * Donde s es el nodo que estamos conciderando como fuente. Este es el unico 
+ * caso donde la fuente se imprimira con su nombre real y no con la letra s. 
+ * \param dova  El dova en el que se trabaja.
+ * \pre \a dova debe ser un DovahkiinP no nulo.
+ * \return  -1 si la fuente no esta fijada.
+ *          0 caso contrario e imprime por pantalla.
+ */
 int ImprimirFuente(DovahkiinP dova){
-    int result = -1;
+    int result = -1;    /*Resultado de la operacion.*/
     
     assert(dova != NULL);
-    
+    /*Imprimo solo si la fuente fue fijada*/
     if(IS_SET_FLAG(SOURCE)){
         printf("Fuente: %"PRIu64"\n", dova->source);
         result=0;
@@ -134,45 +167,53 @@ int ImprimirFuente(DovahkiinP dova){
     return result;
 }
 
-/*Si el Resumidero NO esta fijada devuelve -1, sino 0 e imprime por pantalla:
-Resumidero: t
-Donde x es el vertice que estamos conciderando como Resumidero.
-Este es el unico caso donde el resumidero se imprimira con su nombre real y 
-no con la letra t */
+/** Imprime por la salida estandar el nombre del nodo que es resumidero.
+ * Imprime por pantalla:
+ * Resumidero: t
+ * Donde t es el nodo que estamos conciderando como resumidero. Este es el unico 
+ * caso donde el resumidero se imprimira con su nombre real y no con la letra t. 
+ * \param dova  El dova en el que se trabaja.
+ * \pre \a dova debe ser un DovahkiinP no nulo.
+ * \return  -1 si el resumidero no esta fijado.
+ *          0 caso contrario e imprime por pantalla.
+ */
 int ImprimirResumidero(DovahkiinP dova){
-    int result = -1;
+    int result = -1;    /*Resultado de la operacion.*/
     
     assert(dova != NULL);
-  
-    if(IS_SET_FLAG(SOURCE)){
+    /*Imprimo solo si el resumidero fue fijado*/
+    if(IS_SET_FLAG(SINK)){
         printf("Resumidero: %"PRIu64"\n", dova->sink);
         result=0;
     }
     return result;
 }
 
-/*Lee una linea desde Standar Imput que representa un lado y
-devuelve el elemento de tipo Lado que lo representa si la linea es valida, 
-sino devuelve el elemento LadoNulo.
-Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
-de capacidad c. */
+/** Lee un lado desde la entrada estandar.
+ * Lee una linea desde Standar Input que representa un lado y
+ * devuelve el elemento de tipo Lado que lo representa si la linea es valida, 
+ * sino devuelve el elemento LadoNulo.
+ * Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
+ * de capacidad c. 
+ * \return  Un lado legal con los datos leidos.
+ *          LadoNulo si la linea leida no es valida.
+ */
 Lado LeerUnLado(void){
-    Lado edge = LadoNulo;
-    Lexer *input;               /*analizador lexico por lineas de un archivo*/
-    int clean = PARSER_OK;      /*Indica si no se encontro basura al parsear*/
+    Lado edge = LadoNulo;   /*El lado con los datos leidos*/
+    Lexer *input;           /*Analizador lexico por lineas de un archivo*/
+    int clean = PARSER_OK;  /*Indica si no se encontro basura al parsear*/
    
-    /*construyo el lexer sobre la entrada estandar*/
+    /*Construyo el lexer sobre la entrada estandar*/
     input = lexer_new(stdin);
-
     if (input != NULL){
         /*Leo un lado mientras no llegue a un fin de archivo o algun error*/
         if (!lexer_is_off(input)){
-            /*se parsea un lado*/
+            /*Se parsea un lado*/
             edge = parser_lado(input);
-            /*se corre el parseo hasta la siguiente linea (o fin de archivo)*/
+            /*Se corre el parseo hasta la siguiente linea (o fin de archivo)*/
             clean = parser_nextLine(input);
-            
-            if (edge != LadoNulo && !clean){ /*habia basura, error*/
+            /*Si habia basura, error*/
+            if (edge != LadoNulo && !clean){
                 lado_destroy(edge);
                 edge = LadoNulo;
             }
@@ -217,7 +258,7 @@ int CargarUnLado(DovahkiinP dova, Lado edge){
     return result;
 }
 
-/*Preprocesa el Dovahkiin para empezar a buscar caminos aumentantes. 
+/*Preprocesa el DovahkiinP para empezar a buscar caminos aumentantes. 
 Debe chequear que esten seteados s y t. 
 Devuelve 1 si puede preparar y 0 caso contrario*/
 int Prepararse(DovahkiinP dova){
@@ -276,7 +317,7 @@ int ActualizarDistancias(DovahkiinP dova){
         set_lvlNbrs(dova, node, qNext, BWD, lvl);
         HASH_ADD(hhCut, dova->cut, name, sizeof(dova->cut->name), node);
         queue_dequeue(q);        
-        /* Se terminaron los vertices de este nivel, se pasa al siguiente*/
+        /* Se terminaron los nodos de este nivel, se pasa al siguiente*/
         if(queue_isEmpty(q)){
             qAux = q;
             q = qNext;
