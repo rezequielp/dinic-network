@@ -106,8 +106,8 @@ static int parse_argument(Lexer *input, u64 *n){
     if (barg != NULL){
         /*Lo convierto a u64*/
         carg = bstr2cstr(barg, '\0');
-        rs = sscanf(carg, "%"SCNu64"\n", n)
-        if (rs > 0)
+        sr = sscanf(carg, "%"SCNu64"\n", n);
+        if (sr > 0)
             result = PARSER_OK;
         /*Libero memoria*/
         bcstrfree(carg);

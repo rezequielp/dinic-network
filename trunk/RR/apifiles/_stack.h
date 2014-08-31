@@ -30,6 +30,11 @@ debe estar vacia ni ser nula.
     \return Elemento que se le quita a la pila.*/
 void * stack_pop(Stack S);
 
+/**Devuelve en S2 la pila S1 revertida.
+Fuincion que invierte el orden de la pila utilizando una nueva pila.
+    \warning Es altamente ineficiente en cuanto a la memoria que ocupa.*/
+int stack_revert(Stack S1, Stack S2 );
+
 /**Muestra un elemento y corre el visor al siguiente, NULL si no existe.
     \param S Pila sobre la cual se itera.
     \return Elemento al cual esta apuntando el visor.
