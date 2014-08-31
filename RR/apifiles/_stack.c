@@ -14,8 +14,6 @@ para que el llamador los elimine si lo considera pertinente.
 */
 
 
-static int stack_revert (Stack S1, Stack S2 );
-
 /** Estructura que contiene un elemento Alpha y un puntero a la siguiente estructura. 
  El tipo pila esta formado por un "apilamiento" de esta estructura.*/
 typedef struct ElementSt{
@@ -145,8 +143,7 @@ int stack_size(Stack S){
 
 /**Devuelve en S2 la pila S1 revertida
 Fuincion que invierte el orden de la pila utilizando una nueva pila.
-    \warning Es altamente ineficiente en cuanto a la memoria que ocupa.
-    Por lo pronto se encuentra deshabilitada.*/
+    \warning Es altamente ineficiente en cuanto a la memoria que ocupa.*/
 int stack_revert(Stack S1, Stack S2 ){
     Element *aux = NULL;
     int result = 1;

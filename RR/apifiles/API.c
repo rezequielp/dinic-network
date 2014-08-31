@@ -12,12 +12,12 @@
 #include "parser_lado.h"
 
 
-#define BANNED -1    /**< Valor nulo de distancia si el elem no se debe usar*/
+#define LVL_NIL -1    /**< Valor nulo de distancia para los nodos*/
 
 /* Macro: Flags de permisos y estados.*/
-#define SINK_REACHED    0b00010000      /**<Se llego a t. Tambien implica corte
-                                          seteo solo en actualizarDistancias()*/
-#define MAXFLOW         0b00001000      /**<Es flujo maximal*/
+#define SINK_REACHED    0b00010000      /**<Se llego a t.*/
+#define MAXFLOW         0b00001000      /**<Es flujo maximal. Implica corte.
+                                          Seteo solo en actualizarDistancias()*/
 #define SOURCE          0b00000100      /**<Fuente fijada*/
 #define SINK            0b00000010      /**<Resumidero fijado*/
 #define PATHUSED        0b00000001      /**<Camino usado para aumentar flujo*/
@@ -30,6 +30,7 @@
 
 
 /* Macro: Iterador sobre un path.*/
+/** Itera sobre los elementos de un path*/
 #define PATH_ITER(path, x, y)                                               \
     stack_resetViewer(path);                                               \
     y = stack_nextItem(path);                                               \
@@ -146,13 +147,13 @@ void FijarResumidero(DovahkiinP dova, u64 t){
 }
 
 /** Imprime por la salida estandar el nombre del nodo que es fuente.
- * Imprime por pantalla:
- * Fuente: s
+ * Imprime por pantalla:\n
+ * Fuente: s \n
  * Donde s es el nodo que estamos conciderando como fuente. Este es el unico 
  * caso donde la fuente se imprimira con su nombre real y no con la letra s. 
  * \param dova  El dova en el que se trabaja.
  * \pre \a dova debe ser un DovahkiinP no nulo.
- * \return  -1 si la fuente no esta fijada.
+ * \return  -1 si la fuente no esta fijada.\n
  *          0 caso contrario e imprime por pantalla.
  */
 int ImprimirFuente(DovahkiinP dova){
@@ -168,13 +169,13 @@ int ImprimirFuente(DovahkiinP dova){
 }
 
 /** Imprime por la salida estandar el nombre del nodo que es resumidero.
- * Imprime por pantalla:
- * Resumidero: t
+ * Imprime por pantalla:\n
+ * Resumidero: t \n
  * Donde t es el nodo que estamos conciderando como resumidero. Este es el unico 
  * caso donde el resumidero se imprimira con su nombre real y no con la letra t. 
  * \param dova  El dova en el que se trabaja.
  * \pre \a dova debe ser un DovahkiinP no nulo.
- * \return  -1 si el resumidero no esta fijado.
+ * \return  -1 si el resumidero no esta fijado.\n
  *          0 caso contrario e imprime por pantalla.
  */
 int ImprimirResumidero(DovahkiinP dova){
@@ -192,10 +193,10 @@ int ImprimirResumidero(DovahkiinP dova){
 /** Lee un lado desde la entrada estandar.
  * Lee una linea desde Standar Input que representa un lado y
  * devuelve el elemento de tipo Lado que lo representa si la linea es valida, 
- * sino devuelve el elemento LadoNulo.
+ * sino devuelve el elemento LadoNulo. \n
  * Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
  * de capacidad c. 
- * \return  Un lado legal con los datos leidos.
+ * \return  Un lado legal con los datos leidos.\n
  *          LadoNulo si la linea leida no es valida.
  */
 Lado LeerUnLado(void){
@@ -224,18 +225,27 @@ Lado LeerUnLado(void){
     return edge;
 }
 
-/*Carga un edge al dova. Retorna 1 si no hubo problemas y 0 caso contrario.*/
+/** Carga un lado no nulo en un DovahkiinP.
+ * Se utilizan los datos que contiene el lado para crear las estructuras de los
+ * nodos y cargarlos en el netwrok, y se establecen como vecinos para crear la
+ * arista que los relaciona.
+ * \param dova  El dova en el que se trabaja.
+ * \param edge  El lado a cargar.
+ * \pre \a dova Debe ser un DovahkiinP no nulo.
+ * \return  1 si no hubo problemas.\n
+ *          0 caso contrario.
+ */
 int CargarUnLado(DovahkiinP dova, Lado edge){
-    Network *nodeX = NULL;
-    Network *nodeY = NULL;
-    u64 x, y;
-    int result = 0;
+    Network *nodeX = NULL;  /*Estructura con los datos del nodo 'x'*/
+    Network *nodeY = NULL;  /*Estructura con los datos del nodo 'y'*/
+    u64 x, y;               /*Nombres del nodo 'x' e 'y'*/
+    int result = 0;         /*retorno*/
     
     assert(dova != NULL);
     
     if (edge != LadoNulo){
         x = lado_getX(edge);
-        /* cargo el nodo 'x', si todavia no existe*/
+        /*Cargo el nodo 'x', si todavia no existe en el network*/
         HASH_FIND(hhNet, dova->net, &(x), sizeof(x), nodeX);
         if (nodeX == NULL){
             nodeX = network_create(x);
@@ -243,13 +253,13 @@ int CargarUnLado(DovahkiinP dova, Lado edge){
         }
         
         y = lado_getY(edge);
-        /*cargo el nodo 'y', si todavia no existe*/
+        /*Cargo el nodo 'y', si todavia no existe en el network*/
         HASH_FIND(hhNet, dova->net, &(y), sizeof(y), nodeY);
         if (nodeY == NULL){
             nodeY = network_create(y);
             HASH_ADD(hhNet, dova->net, name, sizeof(dova->net->name), nodeY);
         }
-        /*se establecen como vecinos*/
+        /*Se establecen como vecinos. Arista 'xy'*/
         nbrhd_addEdge(nodeX->nbrs, nodeY->nbrs, edge);
         result = 1;
         lado_destroy(edge); /*Destruyo el lado, ya no nos sirve*/
@@ -258,32 +268,50 @@ int CargarUnLado(DovahkiinP dova, Lado edge){
     return result;
 }
 
-/*Preprocesa el DovahkiinP para empezar a buscar caminos aumentantes. 
-Debe chequear que esten seteados s y t. 
-Devuelve 1 si puede preparar y 0 caso contrario*/
+/** Preprocesa el DovahkiinP para empezar a buscar caminos aumentantes. 
+ * Aqui se debe chequear y preparar todo lo que sea necesario para comenzar
+ * a buscar caminos aumentantes. \n
+ * Por el momento solo hace falta chequear que esten seteados s y t, 
+ * y que estos nodos existen en el network.
+ * \param dova  El dova en el que se trabaja.
+ * \pre \a dova Debe ser un DovahkiinP no nulo.
+ * \return  1 si los preparativos fueron exitosos.\n
+ *          0 caso contrario.
+ */
 int Prepararse(DovahkiinP dova){
-    
-    int status = 0;
-    u64 s, t;
-    Network *src = NULL;
-    Network *snk = NULL;
+    int status = 0;         /*Estado de los preparativos. Retorno*/
+    u64 s, t;               /*Nombres del nodo 's' y 't'*/
+    Network *src = NULL;    /*Puntero al nodo 's' en el network*/
+    Network *snk = NULL;    /*Puntero al nodo 't' en el network*/
     
     assert(dova != NULL);
+    /*Si la fuente y el resumidero estan fijados entonces chequeo que existen
+     en el network*/
     if(IS_SET_FLAG(SINK) && IS_SET_FLAG(SOURCE)){
         s = dova->source;
         t = dova->sink;
+        /*Se buscan en el network*/
         HASH_FIND(hhNet, dova->net, &(s), sizeof(s), src);
         HASH_FIND(hhNet, dova->net, &(t), sizeof(t), snk);
-        if (src != NULL && snk != NULL)
-            status = 1;
+        if (src != NULL && snk != NULL) 
+            status = 1; /*Ambos existen, todo OK*/
     }
     return status;
 }
 
-/*Actualiza haciendo una busqueda BFS-FF. 
- * Devuelve 1 si existe un camino aumentante entre s y t, 0 caso contrario*/
+/** Actualiza las distancias haciendo una busqueda BFS-FF.
+ * Se reinician todas las distancias a nulo y se comienzan a actualizar a partir
+ * del nodo fuente \a s utilizando BFS-FF, hasta encontrarse con el
+ * nodo resumidero \a t. \n
+ * Si se alcanza \a t entonces implica un camino aumentante. Caso contrario, el
+ * flujo actual es maximal y los nodos que fueron actualizados conforman el
+ * corte.
+ * \param dova  El dova en el que se trabaja.
+ * \pre \a dova Debe ser un DovahkiinP no nulo.
+ * \return  1 si existe un camino aumentante entre \a s y \a t. \n
+ *          0 caso contrario.
+ */
 int ActualizarDistancias(DovahkiinP dova){
-    
     Queue q, qNext, qAux;       /*Colas para el manejo de los niveles. 
                                  *q = actual, qNext = siguiente, qAux = swap*/
     Network *node = NULL;       /* nodo actual de 'q' en el cual se itera*/
@@ -291,33 +319,34 @@ int ActualizarDistancias(DovahkiinP dova){
     int lvl = 0;                /* Distancia para elementos de qNext*/
 
     assert(dova != NULL);
-   
-    /* preparacion de las cosas que voy a usar*/
+    
+    /*Preparacion de las cosas que voy a usar*/
     UNSET_FLAG(SINK_REACHED);
-    HASH_CLEAR(hhCut, dova->cut);    /*antes de empezar se limpia el corte*/
+    HASH_CLEAR(hhCut, dova->cut);
     q = queue_create();
     qNext = queue_create();
-   
-    /* Reset de distancias por corridas anteriores*/
+    
+    /* Reset de distancias por posibles corridas anteriores*/
     for(k = dova->net; k != NULL; k = k->hhNet.next){
-        k->level = BANNED;
+        k->level = LVL_NIL;
     }
-
-    /*seteo Source en nivel 0*/
+    
+    /*La fuente es nivel 0*/
     node = set_lvl(dova->net, dova->source, 0);
     assert(node != NULL);
     queue_enqueue(q, node);
     lvl++;
 
-    /*actualizacion de distancias por BFS */
+    /*Actualizacion de distancias por BFS */
     while(!queue_isEmpty(q) && !IS_SET_FLAG(SINK_REACHED)){
         node = queue_head(q);
-        /*Busqueda y actualizacion de niveles de nodos*/
-        set_lvlNbrs(dova, node, qNext, FWD, lvl);
-        set_lvlNbrs(dova, node, qNext, BWD, lvl);
+        /*Busqueda y actualizacion de niveles de nodos vecinos de 'node'*/
+        set_lvlNbrs(dova, node, qNext, FWD, lvl);   /*Forwards*/
+        set_lvlNbrs(dova, node, qNext, BWD, lvl);   /*Backwards*/
+        /*Agrego 'node' al posible corte*/
         HASH_ADD(hhCut, dova->cut, name, sizeof(dova->cut->name), node);
-        queue_dequeue(q);        
-        /* Se terminaron los nodos de este nivel, se pasa al siguiente*/
+        queue_dequeue(q);
+        /*Si se terminaron los nodos de este nivel, se pasa al siguiente*/
         if(queue_isEmpty(q)){
             qAux = q;
             q = qNext;
@@ -325,15 +354,27 @@ int ActualizarDistancias(DovahkiinP dova){
             lvl++;
         }
     }
-    if (IS_SET_FLAG(SINK_REACHED))
-        SET_FLAG(MAXFLOW);
+    /*Si se alcanzo 't'*/
+    if(IS_SET_FLAG(SINK_REACHED)){
+        HASH_CLEAR(hhCut, dova->cut);   /*No hay corte*/
+    }else
+        SET_FLAG(MAXFLOW);  /*El flujo es maximal => hay corte*/
+
     queue_destroy(q, NULL);
     queue_destroy(qNext, NULL);
     return IS_SET_FLAG(SINK_REACHED);
 }
 
-/*Hace una busqueda FF DFS usando las etiquetas de ActualizarDistancia(). 
- * Devuelve 1 si llega a t, 0 caso contrario.*/
+/** Hace una busqueda DFS-FF de un camino aumentante de menor longitud.
+ * Solo se utilizan los nodos que tengan su distancia actualizada.
+ * El ultimo nodo agregado al camino solo agrega a otro nodo si este ultimo 
+ * tiene una distancia +1 que el, y si se puede aumentar (o disminuir) flujo 
+ * entre ellos.
+ * \param dova  El dova en el que se trabaja.
+ * \pre \a dova Debe ser un DovahkiinP no nulo.
+ * \return  1 si llega a \a t. \n
+ *          0 caso contrario.
+ */
 int BusquedaCaminoAumentante(DovahkiinP dova){
     u64 s, t;
     Network *node = NULL;
@@ -485,8 +526,8 @@ void ImprimirCorte(DovahkiinP dova){
     u64 cflow = 0;
     int dir;
     assert(dova!=NULL);
+    /*TODO hay que chequear que dova->cut no es nulo*/
     printf("Corte Minimal: S = {s");
-
     for(node=dova->cut; node != NULL; node=node->hhCut.next){/*Itero sobre los nodos*/
         dir = FST;
         while(nbrhd_getNext(node->nbrs, dir, FWD, &yName) != NONE ){/*Itero sobre los vecinos*/
@@ -539,7 +580,7 @@ static Network *network_create(u64 n){
     
     node->name = n;
     node->nbrs = nbrhd_create();
-    node->level = BANNED; 
+    node->level = LVL_NIL; 
     
     return node;
 }
@@ -573,7 +614,7 @@ static Network *network_nextElement(Network * net, Network * node){
 
     while(dir != NONE && !breakW){
         HASH_FIND(hhNet, net, &yName, sizeof(yName), nextNode);
-        if(nextNode->level != BANNED && nextNode->level == (node->level+1)){ 
+        if(nextNode->level != LVL_NIL && nextNode->level == (node->level+1)){ 
             flow = nbrhd_getFlow(node->nbrs, nextNode->name);        
             if(dir == FWD){
                 cap = nbrhd_getCap(node->nbrs, nextNode->name);
@@ -593,7 +634,7 @@ static Network *network_nextElement(Network * net, Network * node){
     
     if(!breakW && dir == NONE){
         /*no se encontro ningun vecino valido, anulo node para futuras busquedas*/
-        node->level = BANNED;
+        node->level = LVL_NIL;
         nextNode = NULL;
     }    
     return nextNode;
@@ -640,7 +681,7 @@ static Network *set_lvl(Network *net, u64 name, int lvl){
     
     HASH_FIND(hhNet, net, &name, sizeof(name), node);
     assert(node != NULL);
-    if(node->level == BANNED)
+    if(node->level == LVL_NIL)
         node->level = lvl;
     else
         node=NULL;
