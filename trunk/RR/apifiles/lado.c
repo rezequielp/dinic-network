@@ -4,15 +4,15 @@
 
 /** Estructura de un Lado*/
 struct LadoSt{
-    u64 x;
-    u64 y;
-    u64 c;
+    u64 x;  /**<El nombre del nodo 'x'.*/
+    u64 y;  /**<El nombre del nodo 'y'.*/
+    u64 c;  /**<La capacidad del lado 'xy'.*/
 };
 
 /* Constructores */
 
 /** Creador de un nuevo lado.
- * Es la representación de una arista \a xy con capacidad de flujo \a c.
+ * Es la representación de una arista 'xy' con capacidad de flujo 'c'.
  * \param x Nombre del nodo x.
  * \param y Nombre del nodo y.
  * \param c Capacidad del lado xy.
@@ -43,20 +43,20 @@ void lado_destroy(Lado edge){
 
 /*  Operaciones */
 
-/** Obtener el nombre del nodo \a x.
+/** Obtener el nombre del nodo 'x'.
  * \param edge Lado en el que se desea consultar.
- * \pre \a edge no es un lado nulo.
- * \return El nombre del nodo \a x.
+ * \pre \p edge no es un lado nulo.
+ * \return El nombre del nodo 'x'.
  */
 u64 lado_getX(Lado edge){
     assert(edge!=LadoNulo);
     return edge->x;
 }
 
-/** Obtener el nombre del nodo \a y.
+/** Obtener el nombre del nodo 'y'.
  * \param edge Lado en el que se desea consultar.
- * \pre \a edge no es un lado nulo.
- * \return El nombre del nodo \a y.
+ * \pre \p edge no es un lado nulo.
+ * \return El nombre del nodo 'y'.
  */
 u64 lado_getY(Lado edge){
     assert(edge!=LadoNulo);
@@ -65,7 +65,7 @@ u64 lado_getY(Lado edge){
 
 /** Obtener la capacidad de un lado.
  * \param edge Lado en el que se desea consultar.
- * \pre \a edge no es un lado nulo.
+ * \pre \p edge no es un lado nulo.
  * \return La capacidad del lado
  */
 u64 lado_getCap(Lado edge){
