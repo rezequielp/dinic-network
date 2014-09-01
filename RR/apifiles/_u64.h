@@ -1,6 +1,13 @@
 #ifndef U64_H
 #define U64_H
 
+/** \file u64.h
+ * Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin
+ * signo.
+ * Todos los enteros sin signo de 64 bits que aparezcan en la implementacion 
+ * deberan usar este tipo de dato.
+ */
+
 /** Define los macros de formato standard de C para imprimir valores u64*/  
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>

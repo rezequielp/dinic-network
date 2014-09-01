@@ -3,27 +3,12 @@
 #include "_stack.h"
 #include <stdio.h>
 
-/** \file _stack.c
- * La libreria _stack proporciona una serie de herramientas para almacenar 
- * cualquier tipo de elemento en el orden LIFO(Last In, First Out), ultimo en 
- * entrar primero en salir, correspondiente a lo que llamamos cotidianamente 
- * como una pila. La particularidad de esta pila es que no importa el tipo de 
- * elemento que ordene ni se sabe que elemento se ordena. Por este motivo no se 
- * puede destruir en el caso de querer sacar el elemento superior o querer 
- * liberar la memoria de toda la estructura. Por lo cual, estas dos funciones 
- * devuelven el elemento o un arreglo de los elementos que se desean eliminar 
- * para que el llamador los elimine si lo considera pertinente.
-*/
-
-/*TODO*/
-/*static int stack_revert (Stack S1, Stack S2 );*/
-
 /** Estructura que encapsula un elemento que se apila. 
  * Contiene un elemento Alpha y un puntero a la siguiente estructura. 
  * El tipo pila esta formado por un "apilamiento" de esta estructura.*/
 typedef struct SElemSt{
     void * elem;            /**<Puntero al elemento de esta estructura.*/
-    struct SElemSt *next; /**<Puntero a la siguiente estructura.*/
+    struct SElemSt *next;   /**<Puntero a la siguiente estructura.*/
 }SElem;
 
 /** Estructura principal de una pila.
@@ -36,7 +21,7 @@ typedef struct SElemSt{
 struct StackSt{
     SElem *top;   /**<Puntero al elemento superior de la pila.*/
     SElem *iter;  /**<Puntero al elemento de la iteracion. Visor.*/
-    int size;       /**<Cantidad de elementos de la pila.*/
+    int size;     /**<Cantidad de elementos de la pila.*/
 };
 
 
@@ -103,8 +88,8 @@ int stack_destroy(Stack S, void ** garbage){
  *          0 caso contrario.
  */
 int stack_push(Stack S, void *elem){
-    SElem *new = NULL;    /*El nuevo elemento a apilar*/
-    int result = 0;         /*1 = esta todo OK*/
+    SElem *new = NULL;  /*El nuevo elemento a apilar*/
+    int result = 0;     /*1 = esta todo OK*/
     
     new = (SElem *) malloc(sizeof(struct SElemSt));
     if(new != NULL){
@@ -123,8 +108,8 @@ int stack_push(Stack S, void *elem){
  * \return Elemento que se le quita a la pila.
  */
 void *stack_pop(Stack S){
-    SElem *aux = NULL;    /*Puntero auxiliar para no perder referencias*/
-    void *elem = NULL;      /*El elemento de la estructura apilada*/
+    SElem *aux = NULL;  /*Puntero auxiliar para no perder referencias*/
+    void *elem = NULL;  /*El elemento de la estructura apilada*/
     
     assert(S != NULL && !stack_isEmpty(S));
     
@@ -157,7 +142,7 @@ int stack_isEmpty(Stack S){
  */
 void *stack_top(Stack S){
     void * result = NULL;   /*El elemento top que retorno*/
-    assert( S != NULL);
+    assert(S != NULL);
     if (S->top != NULL)
         result = S->top->elem;
     return result;
@@ -169,10 +154,10 @@ void *stack_top(Stack S){
  * \return Cantidad de elementos de la pila.
  */
 int stack_size(Stack S){
-    assert( S != NULL);
+    assert(S != NULL);
     return (S->size);
 }
-/*TODO*/
+
 /** Devuelve en S2 la pila S1 revertida.
  * Funcion que invierte el orden de la pila utilizando una nueva pila. El 
  * llamador debe proporcionar las pilas y se encarga de liberarlas.
@@ -181,22 +166,21 @@ int stack_size(Stack S){
  * \return  1 si no hubo error.\n
  *          0 caso contrario.
  */
-
-/*int stack_revert(Stack S1, Stack S2 ){
-    SElem *aux = NULL;    //Puntero auxiliar para no perder referencias
-    int result = 0;         //Resultado del revertido
+int stack_revert(Stack S1, Stack S2 ){
+    SElem *aux = NULL;    /*Puntero auxiliar para no perder referencias*/
+    int result = 0;       /*Resultado del revertido*/
     
     assert((S1 != NULL) && (S2 != NULL));
     assert(stack_isEmpty(S2));
 
     aux = stack_top(S1);
-    do{ //copio los elementos de una pila a otra hasta el final de S1
+    do{ /*copio los elementos de una pila a otra hasta el final de S1*/
         result = stack_push(S2, aux);
         aux = aux->next;
     }while((stack_size(S1) != stack_size(S2)) && (result != 0));
     
     return result;
-}*/
+}
 
 /** Muestra un elemento y corre el visor al siguiente, NULL si no existe.
  * \param S Pila sobre la cual se itera.
@@ -204,7 +188,7 @@ int stack_size(Stack S){
  * \return Elemento al cual esta apuntando el visor.
  * \warning Esto se usa SOLAMENTE para iterar en el stack, si se elimina el 
  * elemento devuelto queda un stack inconsistente.*/
-void* stack_nextItem(Stack S){
+void * stack_nextItem(Stack S){
     void * elem = NULL;     /*El elemento a mostrar por el visor*/
     assert(S!=NULL);
     

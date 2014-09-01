@@ -1,15 +1,16 @@
-/*
+/** \file _bstrlib.h
+ * The Better String Library is an abstraction of a string data type which is 
+ * superior to the C library char buffer string type, or C++'s std::string.
+ * 
+ * This file is the header file for the core module for implementing the 
+ * bstring functions.
+ * 
  * This source file is part of the bstring string library.  This code was
  * written by Paul Hsieh in 2002-2010, and is covered by either the 3-clause 
  * BSD open source license or GPL v2.0. Refer to the accompanying documentation 
  * for details on usage and license.
- */
-
-/*
- * bstrlib.h
- *
- * This file is the header file for the core module for implementing the 
- * bstring functions.
+ * 
+ * http://bstring.sourceforge.net/
  */
 
 #ifndef BSTRLIB_INCLUDE

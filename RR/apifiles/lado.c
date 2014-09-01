@@ -19,7 +19,7 @@ struct LadoSt{
  * \return Un nuevo lado con los correspondientes valores asignados.
  */
 Lado lado_new(u64 x, u64 y, u64 c){
-	Lado edge = NULL;   /*El lado a crear y devolver*/
+    Lado edge = NULL;   /*El lado a crear y devolver*/
     
     edge = (Lado)malloc(sizeof(struct LadoSt));
     assert(edge != NULL);
@@ -60,7 +60,7 @@ u64 lado_getX(Lado edge){
  */
 u64 lado_getY(Lado edge){
     assert(edge!=LadoNulo);
-	return edge->y;
+    return edge->y;
 }
 
 /** Obtener la capacidad de un lado.
@@ -70,5 +70,5 @@ u64 lado_getY(Lado edge){
  */
 u64 lado_getCap(Lado edge){
     assert(edge!=LadoNulo);
-	return edge->c;
+    return edge->c;
 }

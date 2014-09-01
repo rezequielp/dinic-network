@@ -1,10 +1,10 @@
 #ifndef _PARSER_LADO_H
 #define _PARSER_LADO_H
 /** \file parser_lado.h
- * Parseador de lados desde la entrada \a input.
+ * Parseador de lados desde la entrada Estandar Input.
  * El path es un archivo con 3 int separados por un espacio entre ellos
- * y luego un "\n", esta estructura puede estar repetida
- * varias veces. al final hay un EOF.
+ * y luego un "\n". Esta estructura puede estar repetida varias veces. 
+ * Al final hay un EOF.
  * \verbatim 
     s::= {'+int+' '+int+' '+int+'\n'}+EOF
     
