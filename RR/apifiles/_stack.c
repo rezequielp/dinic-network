@@ -15,6 +15,8 @@
  * para que el llamador los elimine si lo considera pertinente.
 */
 
+/*TODO*/
+/*static int stack_revert (Stack S1, Stack S2 );*/
 
 /** Estructura que encapsula un elemento que se apila. 
  * Contiene un elemento Alpha y un puntero a la siguiente estructura. 
@@ -170,7 +172,7 @@ int stack_size(Stack S){
     assert( S != NULL);
     return (S->size);
 }
-
+/*TODO*/
 /** Devuelve en S2 la pila S1 revertida.
  * Funcion que invierte el orden de la pila utilizando una nueva pila. El 
  * llamador debe proporcionar las pilas y se encarga de liberarlas.
@@ -179,21 +181,22 @@ int stack_size(Stack S){
  * \return  1 si no hubo error.\n
  *          0 caso contrario.
  */
-int stack_revert(Stack S1, Stack S2 ){
-    SElem *aux = NULL;    /*Puntero auxiliar para no perder referencias*/
-    int result = 0;         /*Resultado del revertido*/
+
+/*int stack_revert(Stack S1, Stack S2 ){
+    SElem *aux = NULL;    //Puntero auxiliar para no perder referencias
+    int result = 0;         //Resultado del revertido
     
     assert((S1 != NULL) && (S2 != NULL));
     assert(stack_isEmpty(S2));
 
     aux = stack_top(S1);
-    do{ /*copio los elementos de una pila a otra hasta el final de S1*/
+    do{ //copio los elementos de una pila a otra hasta el final de S1
         result = stack_push(S2, aux);
         aux = aux->next;
     }while((stack_size(S1) != stack_size(S2)) && (result != 0));
     
     return result;
-}
+}*/
 
 /** Muestra un elemento y corre el visor al siguiente, NULL si no existe.
  * \param S Pila sobre la cual se itera.

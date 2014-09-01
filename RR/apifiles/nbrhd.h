@@ -1,7 +1,7 @@
 #ifndef _NBRHD_H
 #define _NBRHD_H
 
-#include "u64.h"
+#include "_u64.h"
 #include "lado.h"
 
 /** \file nbrhd.h
