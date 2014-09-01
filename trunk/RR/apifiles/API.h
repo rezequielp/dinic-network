@@ -12,10 +12,6 @@
  * 
  */
 
-
-#include "u64.h"
-#include "lado.h"
-
 /*      
 *               TADs
 */
