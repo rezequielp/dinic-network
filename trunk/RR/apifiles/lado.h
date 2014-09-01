@@ -1,7 +1,7 @@
 #ifndef LADO_H
 #define LADO_H
 
-#include "u64.h"
+#include "_u64.h"
 
 /** \file lado.h
  * Lado es una estructura compuesta por el nombre del nodo 'x', el nombre del 

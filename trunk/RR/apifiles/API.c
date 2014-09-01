@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "_uthash.h"
+#include "__uthash.h"
 #include "_stack.h"
 #include "_queue.h"
-#include "_bstrlib.h"
+#include "__bstrlib.h"
 #include "_lexer.h"
 #include "nbrhd.h"
 #include "API.h"
