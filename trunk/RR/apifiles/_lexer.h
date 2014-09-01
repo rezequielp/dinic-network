@@ -4,7 +4,20 @@
 #include <stdio.h>   /* Para tener FILE */
 #include <stdbool.h> /* Para tener bool */
 
-
+/** \file _lexer.h
+ * Analizador léxico que lee el flujo de caracteres de entrada y lo transforma
+ * en una secuencia de componentes léxicos que utilizará el analizador
+ * sintáctico (parser).
+ * Al tiempo que realiza esta función, el analizador léxico se ocupa de ciertas
+ * labores de "limpieza". Entre ellas esta eliminar los espacios en blancos o
+ * los fin de línea. También se ocupa de los problemas que pueder surgir por los
+ * distintos juegos de caracteres o si el lenguaje no distingue mayúsculas y
+ * minúsculas.
+ * Los posibles símbolos se agrupan en categorías léxicas.
+ * 
+ * Este código fue proporcionado por los profesores de FaMAF en la materia 
+ * Sistemas operativos.
+ */
 
 /*** Constantes ***/
 #define UPPER "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

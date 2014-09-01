@@ -7,6 +7,15 @@
 *       Ruiz Ezequiel Pablo
 */
 
+/** \file API.h
+ * Permite cargar un network y calcular su flujo maximal utilizando Dinic.
+ * 
+ */
+
+
+#include "u64.h"
+#include "lado.h"
+
 /*      
 *               TADs
 */

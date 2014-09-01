@@ -6,8 +6,8 @@
 #define WHITE_SPACE " "     /**<Para indicador de espacio en blanco.*/
 
 /*flags para next_bstring*/
-#define ACCEPT 1   /**<Solo se aceptan caracteres contenidos en \a str. */
-#define EXCEPT 0   /**<Se acepta cualquier caracter que no este contenido en \a str.*/
+#define ACCEPT 1   /**<Solo se aceptan char contenidos en str.*/
+#define EXCEPT 0   /**<Se acepta cualquier char que no este contenido en str.*/
 
 /*                      Funciones del modulo
  */
@@ -15,7 +15,7 @@ static int parse_argument(Lexer *input, u64 *arg);
 static bstring next_bstring(Lexer *input, int flag, const char *str);
 static bool is_theNextChar(Lexer *input, const char *ch);
 
-/** Lee todo un Lado de \a input hasta llegar a un fin de línea o de archivo.
+/** Lee todo un Lado de \p input hasta llegar a un fin de línea o de archivo.
  *  Se asegura que se consumió input hasta el primer error o hasta completar 
  *  el lado y No se consumió ningún "\n".
  * \param input El analizador léxico del descriptor de entrada
@@ -88,8 +88,9 @@ int parser_nextLine(Lexer *input){
  * \param input El analizador léxico del descriptor de entrada.
  * \param n     El argumento parseado resultante.
  * \pre input!=NULL.
- * \return  Si no hubo error, asigna el argumento parseado en \a n y retorna PARSER_OK \n
- *          Si hubo error, no asigna nada a \a n y retorna PARSER_ERR
+ * \return  Si no hubo error, asigna el argumento parseado en 'n' y retorna 
+ *          PARSER_OK. \n
+ *          Si hubo error, no asigna nada a 'n' y retorna PARSER_ERR
 */
 static int parse_argument(Lexer *input, u64 *n){
     int result = PARSER_ERR;    /*Retorno (error al menos que todo salga bien)*/
@@ -118,12 +119,12 @@ static int parse_argument(Lexer *input, u64 *n){
 }
 
 /** Lee el siguiente item.
- * Si \a flag=ACCEPT: Consume hasta encontrarse con un caracter distinto de \a str.
- * Si \a flag=EXCEPT: Consume hasta encontrarse con un caracter de \a str.
+ * Si \p flag=ACCEPT: Consume hasta encontrarse con un char distinto de 'str'.
+ * Si \p flag=EXCEPT: Consume hasta encontrarse con un char de 'str'.
  * \param input El analizador léxico del descriptor de entrada.
- * \param flag  ACCEPT|EXCEPT respecto al contenido de \a str.
+ * \param flag  ACCEPT|EXCEPT respecto al contenido de 'str'.
  * \param str   Los caracteres con los que se compara cada caracter leído.
- * \pre input!=NULL y flag debe ser una opcion valida.
+ * \pre input!=NULL, y flag debe ser una opcion valida.
  * \return  Un \a bstring del item leído. El llamador se encarga de liberarlo.\n
  *          NULL caso contrario.\n
  */
@@ -156,12 +157,12 @@ static bstring next_bstring(Lexer *input, int flag, const char *str){
 }
 
 
-/** Decide si el siguiente caracter leido es \a ch.
+/** Decide si el siguiente caracter leido es 'ch'.
  * Consume el caracter leido.
  * \param input El analizador léxico del descriptor de entrada.
  * \param ch    El caracter con el que se quiere comparar.
  * \pre input!=NULL.
- * \return  True si el caracter leido es \a ch. \n
+ * \return  True si el caracter leido es 'ch'. \n
  *          False caso contrario.
  */
 static bool is_theNextChar(Lexer *input, const char *ch){

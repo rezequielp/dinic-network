@@ -1,6 +1,18 @@
 #ifndef STACK_H
 #define STACK_H
 
+/** \file _stack.h
+ * La libreria _stack proporciona una serie de herramientas para almacenar 
+ * cualquier tipo de elemento en el orden LIFO(Last In, First Out), ultimo en 
+ * entrar primero en salir, correspondiente a lo que llamamos cotidianamente 
+ * como una pila. La particularidad de esta pila es que no importa el tipo de 
+ * elemento que ordene ni se sabe que elemento se ordena. Por este motivo no se 
+ * puede destruir en el caso de querer sacar el elemento superior o querer 
+ * liberar la memoria de toda la estructura. Por lo cual, estas dos funciones 
+ * devuelven el elemento o un arreglo de los elementos que se desean eliminar 
+ * para que el llamador los elimine si lo considera pertinente.
+*/
+
 /** \struct Stack
  * Puntero a una pila.
  */

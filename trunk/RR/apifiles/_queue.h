@@ -1,6 +1,18 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+/** \file _queue.h
+ * La libreria _queue proporciona una serie de herramientas para almacenar 
+ * cualquier tipo de elemento en el orden FIFO(First In, First Out), primero en
+ * entrar primero en salir, correspondiente a lo que llamamos cotidianamente 
+ * como una cola. La particularidad de esta cola es que no importa el tipo de 
+ * elemento que ordene ni se sabe que elemento se ordena. Por este motivo no se 
+ * puede destruir en el caso de querer sacar la cabeza de la cola o querer 
+ * liberar la memoria de toda la estructura. Por lo cual, estas dos funciones 
+ * devuelven el elemento o un arreglo de los elementos que se desean eliminan
+ * para que el llamador los elimine si lo considera pertinente.
+ */
+
 /** \struct QueueSt
  * Puntero a una cola.
  */
@@ -68,6 +80,5 @@ int queue_size (Queue Q);
  * Q2 La otra cola.
  */
 void queue_swap (Queue *Q1, Queue *Q2);
-
 
 #endif

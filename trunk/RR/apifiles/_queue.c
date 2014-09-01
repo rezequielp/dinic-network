@@ -3,19 +3,6 @@
 #include "_queue.h"
 #include <stdio.h>
 
-/** \file _queue.c
- * La libreria _queue proporciona una serie de herramientas para almacenar 
- * cualquier tipo de elemento en el orden FIFO(First In, First Out), primero en
- * entrar primero en salir, correspondiente a lo que llamamos cotidianamente 
- * como una cola. La particularidad de esta cola es que no importa el tipo de 
- * elemento que ordene ni se sabe que elemento se ordena. Por este motivo no se 
- * puede destruir en el caso de querer sacar la cabeza de la cola o querer 
- * liberar la memoria de toda la estructura. Por lo cual, estas dos funciones 
- * devuelven el elemento o un arreglo de los elementos que se desean eliminan
- * para que el llamador los elimine si lo considera pertinente.
- */
-
-
 /** Estructura que encapsula un elemento que se encola. 
  * Contiene un elemento Alpha y un puntero a la siguiente estructura. El tipo 
  * cola esta formado por un "encadenamieto" de esta estructura.
@@ -33,7 +20,7 @@ typedef struct QElemSt{
 struct QueueSt{
     QElem *head;  /**<Puntero al primer elemento de la cola.*/
     QElem *tail;  /**<Puntero al ultimo elemento de la cola.*/
-    int size;       /**<Cantidad de elementos en la cola.*/
+    int size;     /**<Cantidad de elementos en la cola.*/
 };
 
 
@@ -60,8 +47,8 @@ Queue queue_create(void){
  *          0 caso contrario.
  */
 int queue_enqueue(Queue Q, void * q){
-    QElem *new = NULL;    /*El nuevo elemento a apilar*/
-    int result = 0;         /*1 = esta todo OK*/
+    QElem *new = NULL;  /*El nuevo elemento a apilar*/
+    int result = 0;     /*1 = esta todo OK*/
     
     new = (QElem*) malloc (sizeof(struct QElemSt));
     if (new != NULL){
@@ -86,8 +73,8 @@ int queue_enqueue(Queue Q, void * q){
  * \return Elemento que se le quita a la cola.
  */
 void * queue_dequeue(Queue Q){
-    QElem *aux = NULL;    /*Puntero auxiliar para no perder referencias*/
-    void *elem = NULL;      /*El elemento de la estructura encolada*/
+    QElem *aux = NULL;  /*Puntero auxiliar para no perder referencias*/
+    void *elem = NULL;  /*El elemento de la estructura encolada*/
     
     assert(Q != NULL && !queue_isEmpty(Q));
     
