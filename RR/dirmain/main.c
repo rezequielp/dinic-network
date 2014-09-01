@@ -239,9 +239,6 @@ int main(int argc, char *argv[]){
                     AumentarFlujo(dova); 
                 }  
             }
-            /*TODO borrar*/
-            if (IS_SET_FLAG(FLOW_V))
-                ImprimirValorFlujo(dova);
         }
         
         if (IS_SET_FLAG(DINIC_TIME)){

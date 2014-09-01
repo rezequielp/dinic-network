@@ -1,7 +1,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-typedef struct queueSt *Queue;
+typedef struct QueueSt *Queue;
 typedef struct ElementSt Element;
 
 /**Crea una cola sin elementos.
@@ -46,6 +46,12 @@ int queue_destroy (Queue Q, void ** garbage);
         \param Q Cola en la cual se contabilizaran los elementos.
         \return Cantidad de elementos de la cola.*/
 int queue_size (Queue Q);
+
+/** Permuta las colas.
+ * \param fstQ Una cola.
+ * \param sndQ La otra cola.
+ */
+void queue_swap (Queue *fstQ, Queue *sndQ);
 
 
 #endif
