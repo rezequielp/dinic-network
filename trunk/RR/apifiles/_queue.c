@@ -24,7 +24,7 @@ struct ElementSt{
 
 /**Estructura principal queue. Si bien es una cola, mantiene un puntero al primer elemento
  y al ultimo elemento de la cola solamente para propocitos de optimizacion y futuros upgrades.*/
-struct queueSt{
+struct QueueSt{
     Element *head;/**<Puntero al primer elemento de la cola.*/
     Element *tail;/**<Puntero al ultimo elemento de la cola.*/
     int size; /**<Cantidad de elementos en la cola.*/
@@ -36,7 +36,7 @@ Queue queue_create(void){
     
     Queue Q = NULL;
     
-    Q = (Queue) malloc (sizeof(struct queueSt));
+    Q = (Queue) malloc (sizeof(struct QueueSt));
     if (Q != NULL){
         Q->head = NULL;
         Q->tail = NULL;
@@ -148,3 +148,12 @@ int queue_size (Queue Q){
     return (Q->size);
 }
 
+/** Permuta las colas.
+ * \param fstQ Una cola.
+ * \param sndQ La otra cola.
+ */
+void queue_swap (Queue *fstQ, Queue *sndQ){
+    Queue qAux = *fstQ;    
+    *fstQ = *sndQ;
+    *sndQ = qAux;
+}

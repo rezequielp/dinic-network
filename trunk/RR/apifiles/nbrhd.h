@@ -10,6 +10,10 @@
  * ESCRIBIR lo que es y hace neighboorhood 
  */
 
+/** \struct Nbrhd 
+ * Puntero a la vecindad de un nodo. */
+typedef struct NeighbourhoodSt *Nbrhd;
+
 /* dir options:
  * Es la direccion en la que se encuentra un vecino.
  * Una vecindad (Nbrhd) se divide en 2 zonas: FWD y BWD.
@@ -23,11 +27,10 @@
 #define FST 0       /**<El primero*/
 #define NXT 1       /**<El siguiente del último consultado*/
 /* 'return' options: La direccion hacia el vecino devuelto: FWD, NXT, NONE.*/
-#define NONE -2   /**<Ninguno. No hay mas vecinos en esa direccion*/
+#define NONE -2   /**<Ninguno. No hay mas vecinos en esa direccion.*/
 
 
-/** Estructura de la vecindad de un nodo. */
-typedef struct NeighbourhoodSt *Nbrhd;
+
 
 /*          Funciones
  */

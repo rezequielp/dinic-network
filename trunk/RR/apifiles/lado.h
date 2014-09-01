@@ -8,6 +8,8 @@
  * nodo y, y la capacidad de flujo del lado.
  */
 
+/** \struct Lado
+ * Puntero a un lado.*/
 typedef struct LadoSt *Lado;
 
 /* Representación de un lado nulo*/
