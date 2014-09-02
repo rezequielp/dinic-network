@@ -259,5 +259,5 @@ int main(int argc, char *argv[]){
     if (!DestruirDovahkiin(dova))
         printf("Error al intentar liberar el dova\n");
 
-    return 0;
+    return 1;
 }

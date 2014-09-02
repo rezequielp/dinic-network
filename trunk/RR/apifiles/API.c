@@ -47,7 +47,7 @@
 typedef struct NetworkSt{
     u64 name;                   /**<Hash key - nombre del nodo*/
     Nbrhd nbrs;                 /**<Hash value - vecinos del nodo*/
-    int level;                  /**<Nivel de distancia del nodo*/
+    int lvl;                    /**<Nivel de distancia del nodo*/
     UT_hash_handle hhNet,hhCut; /**<Hace esta estructura hashable.*/
 } Network;
 
@@ -75,8 +75,8 @@ struct  DovahkiinSt{
 static u64 get_pathFlow(DovahkiinP dova);
 static Network *network_create(u64 n);
 static void network_destroy(Network *net);
-static Network *network_nextNode(Network * net, Network *node);
-static void set_lvlNbrs(DovahkiinP dova, Network *node, Queue q, int dir);
+static Network *network_nextNode(Network * net, Network *x);
+static void set_lvlNbrs(DovahkiinP dova, Network *x, Queue q);
 
 /** Creador de un nuevo DovahkiinP.
  * \return un DovahkiinP vacío.
@@ -329,21 +329,20 @@ int ActualizarDistancias(DovahkiinP dova){
     
     /* Reset de distancias por posibles corridas anteriores*/
     for(k = dova->net; k != NULL; k = k->hhNet.next){
-        k->level = LVL_NIL;
+        k->lvl = LVL_NIL;
     }
     
     /*La fuente es nivel 0*/
     HASH_FIND(hhNet, dova->net, &(dova->src), sizeof(dova->src), node);
     assert(node != NULL);
-    node->level = 0;
+    node->lvl = 0;
     queue_enqueue(q, node);
 
     /*Actualizacion de distancias por BFS */
     while(!queue_isEmpty(q) && !IS_SET_FLAG(SINK_REACHED)){
         node = queue_head(q);
-        /*Busqueda y actualizacion de niveles de nodos vecinos de 'node'*/
-        set_lvlNbrs(dova, node, qNext, FWD);   /*Forwards*/
-        set_lvlNbrs(dova, node, qNext, BWD);   /*Backwards*/
+        /*Actualizacion de niveles de distancia de los nodos vecinos de 'node'*/
+        set_lvlNbrs(dova, node, qNext);
         /*Agrego 'node' al corte*/
         HASH_ADD(hhCut, dova->cut, name, sizeof(dova->cut->name), node);
         queue_dequeue(q);
@@ -391,7 +390,7 @@ int BusquedaCaminoAumentante(DovahkiinP dova){
         while(!stack_isEmpty(dova->path) && (node->name != dova->snk)){
             /*Busco el siguiente nodo que cualifica para el camino aumentante*/
             node = network_nextNode(dova->net, node);
-            if (node != NULL){ /*Se agrega al camino*/
+            if(node != NULL){ /*Se agrega al camino*/
                 stack_push(dova->path, node);
             }else{  /*No hay siguiente. Descarto el nodo*/
                 stack_pop(dova->path);
@@ -498,7 +497,7 @@ void ImprimirFlujo(DovahkiinP dova){
     Network *ref = NULL;    /*Lo necesita HASH_ITER para no perder referencias*/
     u64 yName;              /*Nombre del nodo 'y', vecino del nodo 'x'*/
     u64 vflow = 0;          /*Valor del flujo del lado a imprimir*/
-    int flag;               /*Manejo de flag para la busqueda de nodos vecinos*/
+    int rqst;               /*Manejo de rqst para la busqueda de nodos vecinos*/
     
     assert(dova != NULL);
     
@@ -508,13 +507,13 @@ void ImprimirFlujo(DovahkiinP dova){
         printf("Flujo no maximal:\n");
     /*Itero sobre cada nodo del network.*/
     HASH_ITER(hhNet, dova->net, x, ref){
-        flag = FST;
+        rqst = FST;
         /*Imprimo todos los lados 'xy' hasta acabar los vecinos*/
-        while(nbrhd_getNext(x->nbrs, flag, FWD, &yName) != NONE ){
+        while(nbrhd_getFwd(x->nbrs, rqst, &yName)){
             vflow = nbrhd_getFlow(x->nbrs, yName);
             printf("Lado %"PRIu64",%"PRIu64": %"PRIu64"\n",x->name, yName, 
                    vflow);
-            flag = NXT;
+            rqst = NXT;
         }
     }
     printf("\n");
@@ -555,7 +554,7 @@ void ImprimirCorte(DovahkiinP dova){
     Network *ref = NULL;    /*Lo necesita HASH_ITER para no perder referencias*/
     u64 yName;              /*Nombre del nodo 'y'*/
     u64 capCut = 0;         /*Capacidad del corte*/
-    int flag;               /*Para establecer flags de busqueda de vecinos*/
+    int rqst;               /*Para establecer rqsts de busqueda de vecinos*/
     
     assert(dova!=NULL);
     assert(dova->cut!=NULL && IS_SET_FLAG(MAXFLOW));
@@ -563,14 +562,14 @@ void ImprimirCorte(DovahkiinP dova){
     printf("Corte Minimal: S = {s");
     /*Itero sobre cada nodo del corte.*/
     HASH_ITER(hhCut, dova->cut, x, ref){
-        flag = FST;
+        rqst = FST;
         /*Itero sobre los vecinos de 'x'*/
-        while(nbrhd_getNext(x->nbrs, flag, FWD, &yName) != NONE ){
+        while(nbrhd_getFwd(x->nbrs, rqst, &yName)){
             /*Me fijo si el vecino 'y' esta en el corte*/
             HASH_FIND(hhCut, dova->cut, &yName, sizeof(yName), y);
             if(y == NULL) /*Esta en el complemento. Sumo la cap*/
                 capCut+=nbrhd_getCap(x->nbrs, yName);
-            flag = NXT;
+            rqst = NXT;
         }
         if(x->name != dova->src)
             printf(",%"PRIu64, x->name);
@@ -626,7 +625,7 @@ static Network *network_create(u64 n){
     
     node->name = n;
     node->nbrs = nbrhd_create();
-    node->level = LVL_NIL; 
+    node->lvl = LVL_NIL; 
     
     return node;
 }
@@ -647,47 +646,52 @@ static void network_destroy(Network *net){
  * forward, si no encuentra ninguno entonces intenta por backward. \n
  * El nodo es anulado si no tiene un siguiente a quien enviar flujo.
  * \param net El Network que los nodos pertenecen.
- * \param node El nodo ancestro.
+ * \param x El nodo ancestro.
  * \pre El network y el nodo no son nulos.
  * \return  Puntero al nodo encontrado. \n
  *          NULL si no hay un siguiente que cualifique.
 */
-static Network *network_nextNode(Network *net, Network *node){
-    Network *nxtNode = NULL; /*El nodo candidato a ser el siguente. Retorno*/
-    int dir;                /*Direccion en la que se busca un vecino*/
-    u64 yName;              /*Nombre del nodo 'nxtNode'*/
-    u64 flow, cap;          /*Flujo y capacidad entre 'node' y 'nxtNode'*/
-    bool breakW = false;    /*Termina la busqueda iterativa*/
+static Network *network_nextNode(Network *net, Network *x){
+    Network *y = NULL;    /*El nodo candidato a ser el siguente. Retorno*/
+    int getNbr;           /*Resultado de los nbrhd_getX()*/
+    int dir;              /*Direccion en la que se encuentra el vecino*/
+    u64 yName;            /*Nombre del nodo 'y'*/
+    u64 flow, cap;        /*Flujo y capacidad entre 'x' e 'y'*/
+    bool breakW = false;  /*Termina la busqueda iterativa*/
     
-    assert(net != NULL && node != NULL);
+    assert(net != NULL && x != NULL);
     /*Inicio con el primer vecino que encuentre*/
-    dir = nbrhd_getNext(node->nbrs, FST, UNK, &yName);
-    while(dir != NONE && !breakW){
-        HASH_FIND(hhNet, net, &yName, sizeof(yName), nxtNode);
+    getNbr = nbrhd_getFwd(x->nbrs, FST, &yName);
+    if(!getNbr)
+        getNbr = nbrhd_getBwd(x->nbrs, FST, &yName);
+        
+    while(getNbr && !breakW){
+        HASH_FIND(hhNet, net, &yName, sizeof(yName), y);
+        assert(y!=NULL);
+        /*Ahora las cosas dependen de la direccion*/
+        dir = nbrhd_getDir(x->nbrs, yName);
         /*Compruebo si su distancia es mayor por 1 unidad*/
-        if(nxtNode->level != LVL_NIL && nxtNode->level == (node->level+1)){ 
-            flow = nbrhd_getFlow(node->nbrs, nxtNode->name);
-            cap = nbrhd_getCap(node->nbrs, nxtNode->name);
-            /*Según su direccion, compruebo el envio de flujo
-              True: Este nodo cumple lo requerido! salgo*/
+        if(y->lvl != LVL_NIL && y->lvl == (x->lvl+1)){ 
+            flow = nbrhd_getFlow(x->nbrs, yName);
+            cap = nbrhd_getCap(x->nbrs, yName);
+            /*Compruebo el envio de flujo. True = Cumple lo requerido! salgo*/
             breakW = (dir == FWD && cap > flow) || (dir == BWD && flow > 0);
         }
         /*Si no es valido, se descarta y busca otro (prioridad por FWD)*/
-        if (dir == FWD && !breakW){
-            dir = nbrhd_getNext(node->nbrs, NXT, dir, &yName);
-            if (dir == NONE){   /*Se acabaron los FWD, sigo con los BWD*/
-                dir = nbrhd_getNext(node->nbrs, FST, BWD, &yName);
+        if(dir == FWD && !breakW){
+            getNbr = nbrhd_getFwd(x->nbrs, NXT, &yName);
+            if(!getNbr){   /*Se acabaron los FWD, sigo con los BWD*/
+                getNbr = nbrhd_getBwd(x->nbrs, FST, &yName);
             }
-        }else if (dir == BWD && !breakW)
-            dir = nbrhd_getNext(node->nbrs, NXT, dir, &yName);
+        }else if(dir == BWD && !breakW)
+            getNbr = nbrhd_getBwd(x->nbrs, NXT, &yName);
     }
-    
-    if(!breakW && dir == NONE){
-        /*Ningun vecino cualifica, anulo 'node' para futuras busquedas*/
-        node->level = LVL_NIL;
-        nxtNode = NULL;
+    /*Si ningun vecino cualifica, anulo 'x' para futuras busquedas*/
+    if(!breakW && !getNbr){
+        x->lvl = LVL_NIL;
+        y = NULL;
     }    
-    return nxtNode;
+    return y;
 }
 
 /** Actualiza los niveles de distancias de los vecinos forward y backward
@@ -697,41 +701,47 @@ static Network *network_nextNode(Network *net, Network *node){
  * respecto a su ancestro, y se agregan a una cola que el llamador debe 
  * proporcionar y se encarga de liberar.
  * \param dova  El dova en el que se trabaja.
- * \param xNode Nodo ancestro.
+ * \param x     Nodo ancestro.
  * \param upd   Cola en la que se agregan vecinos que se actualicen.
- * \param dir   La dirrecion de busqueda (FWD o BWD).
- * \pre <tt>dova, node y upd</tt> No deben ser nulos.\n
- *      \p dir es \a FWD o \a BWD.
+ * \pre 'dova', 'x' y 'upd' No deben ser nulos.
  */
-static void set_lvlNbrs(DovahkiinP dova, Network *node, Queue upd, int dir){
-    Network *y = NULL;      /*Nodo 'y' vecino de 'node' por actualizar*/
-    bool canBeUsed = false; /*Indica si el nodo 'y' habilita envio de flujo*/
-    u64 yName, cap, flow;   /*Nombre del nodo 'y', capacidad y flujo con el*/
+static void set_lvlNbrs(DovahkiinP dova, Network *x, Queue upd){
+    Network *y = NULL;      /*Nodo 'y' vecino de 'x' por actualizar*/
+    int getNbr;             /*Resultado de los nbrhd_getX()*/
+    int dir;                /*Direccion en la que se encuentra el vecino*/
+    u64 yName, cap, flow;   /*Nombre del nodo 'y', capacidad y flujo con 'x'*/
     
     assert(dova != NULL);
-    assert(node != NULL && upd != NULL);
-    assert(dir == FWD || dir == BWD);
-    /*Inicio con el primer vecino en la direccion pedida*/
-    dir = nbrhd_getNext(node->nbrs, FST, dir, &yName);
+    assert(x != NULL && upd != NULL);
+    
+    /*Inicio con el primer vecino que encuentre*/
+    getNbr = nbrhd_getFwd(x->nbrs, FST, &yName);
+    if(!getNbr)
+        getNbr = nbrhd_getBwd(x->nbrs, FST, &yName);
     /*No paro hasta que alcance 't' o se me acaben los vecinos*/
-    while(!IS_SET_FLAG(SINK_REACHED) && dir != NONE){
-        flow = nbrhd_getFlow(node->nbrs, yName);
-        cap = nbrhd_getCap(node->nbrs, yName);
+    while(getNbr && !IS_SET_FLAG(SINK_REACHED)){
+        flow = nbrhd_getFlow(x->nbrs, yName);
+        cap = nbrhd_getCap(x->nbrs, yName);
         /*Según su direccion, compruebo el envio de flujo*/
-        canBeUsed = (dir == FWD && cap > flow) || (dir == BWD && flow > 0);
-       
-        if(canBeUsed){
+        dir = nbrhd_getDir(x->nbrs, yName);
+        if((dir == FWD && cap > flow) || (dir == BWD && flow > 0)){
             /*Busco el nodo y actualizo su nivel (si nadie ya lo hizo)*/
             HASH_FIND(hhNet, dova->net, &yName, sizeof(yName), y);
             assert(y != NULL);
-            if(y->level == LVL_NIL){
-                y->level = node->level + 1;
+            if(y->lvl == LVL_NIL){
+                y->lvl = x->lvl + 1;
                 queue_enqueue(upd, y);
                 if(yName == dova->snk)  /*Se llego a t*/
                     SET_FLAG(SINK_REACHED);
             }
         }
-        dir = nbrhd_getNext(node->nbrs, NXT, dir, &yName);
+        /*Busco el siguiente vecino*/
+        if(dir == FWD && !IS_SET_FLAG(SINK_REACHED)){
+            getNbr = nbrhd_getFwd(x->nbrs, NXT, &yName);
+            if(!getNbr){   /*Se acabaron los FWD, sigo con los BWD*/
+                getNbr = nbrhd_getBwd(x->nbrs, FST, &yName);
+            }
+        }else if(dir == BWD && !IS_SET_FLAG(SINK_REACHED))
+            getNbr = nbrhd_getBwd(x->nbrs, NXT, &yName);
     }
 }
-
