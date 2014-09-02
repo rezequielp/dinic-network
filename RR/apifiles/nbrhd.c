@@ -7,14 +7,15 @@
  *  Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
  */
 
+
 /** Estructura de una artista en sentido forward.
  * Relacion xy (y es nodo forward de x).
  */
 typedef struct FedgeSt{
-    u64 y;                  /**< Nodo forward de 'x'. Es key de la hash.*/
-    u64 cap;                /**< La capacidad restante de envio de flujo.*/
-    u64 flow;               /**< El flujo que se esta enviando.*/
-    UT_hash_handle hhfNbrs; /**< La tabla hash.*/
+    u64 y;                  /**<Nodo forward de 'x'. Es key de la hash.*/
+    u64 cap;                /**<La capacidad restante de envio de flujo.*/
+    u64 flow;               /**<El flujo que se esta enviando.*/
+    UT_hash_handle hhfNbrs; /**<La tabla hash.*/
 } Fedge;
 
 /** Estructura de una arista en sentido backward.
@@ -24,15 +25,15 @@ typedef struct FedgeSt{
  * Esta estructura es a la que apunta *x.
  */
 typedef struct BedgeSt{
-    u64 y;              /**< Nodo backward de 'x'. Es key de la hash.*/
-    Fedge *x;           /**< Puntero a la entrada 'x' por forward del nodo 'y'*/
+    u64 y;              /**<Nodo backward de 'x'. Es key de la hash.*/
+    Fedge *x;           /**<Referencia al nodo 'y' como forward del nodo 'x'*/
     UT_hash_handle hhbNbrs; /**< La tabla hash.*/
 } Bedge;
 
 /** Estructura Nbhd de la vecindad de un nodo 'x'.*/
 struct NeighbourhoodSt{
-    Fedge *fNbrs;   /**< vecinos forward. Hash de vecinos forward de 'x'*/
-    Bedge *bNbrs;   /**< vecinos backward. Hash de vecinos backward de 'x'*/
+    Fedge *fNbrs;       /**<Vecinos forward. Hash de vecinos forward de 'x'*/
+    Bedge *bNbrs;       /**<Vecinos backward. Hash de vecinos backward de 'x'*/
 };
 
 /*Funciones estaticas */
@@ -108,68 +109,90 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
         
 }
 
-/** \note Tener en cuenta la documentacion sobre las opciones de los parametros
- * y retorno. Verlo como una iteracion sobre una tabla en la que empiezo por 
- * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT).
+/**Busca el siguiente vecino forward.
+ * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * o bien por el siguiente(NXT) del ultimo pedido. 
+ * Si existe almacena el nombre en 'y'.
  * 
- * Busca el vecino siguiente en la direccion \p dir y si existe almacena el 
- * nombre en 'y'. Si \p dir=UNK entonces primero intenta por FWD, y si
- * no hay (o no existen) entonces intenta por BWD.
+ * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * Verlo como un iterador de consultas a una tabla.
+ * 
  * \param nbrs  El vecindario de 'x'. 
- * \param flag  Buscar desde el inicio de la tabla o desde el ultimo encontrado.
- * \param dir   La dirección en la que se pretende buscar.
- * \param y    Variable en la que se almacena el nombre del vecino encontrado.
- * \pre nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD|UNK, y!=NULL
- * \return \p dir en la que se encuentra el vecino.\n
- *         \p NONE si ya no hay mas vecinos que devolver.
+ * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
+ * \param y     Variable en la que se almacena el nombre del vecino encontrado.
+ * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
+ * \return 1 Si se encontro y almaceno en 'y' un vecino.\n
+ *         0 Caso contrario.
  */
-int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y){
+int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
     static Fedge *fNbr = NULL;  /*Puntero al ultimo vecino forward consultado*/
-    static Bedge *bNbr = NULL;  /*Puntero al ultimo vecino backward consultado*/
-    int result = NONE;          /*Valor de retorno*/
+    int result = 0;             /*Valor de retorno*/
     
     assert(nbrs != NULL && y != NULL);
-    assert(flag == FST || flag == NXT);
-    assert(dir == FWD || dir == BWD || dir == UNK);
-
-    /*Se pide un vecino desde el inicio de la tabla*/
-    if(flag == FST){
-        /*Si no se pide por backward y existen vecinos por forward*/
-        if(dir != BWD && nbrs->fNbrs != NULL){
-                /*Se asigna el primero de la tabla por forward*/
-                fNbr = nbrs->fNbrs;
-                *y = fNbr->y;
-                result = FWD;
-        /*Si no se pide por forward y existen vecinos por backward*/
-        }else if(dir != FWD && nbrs->bNbrs != NULL){
-                /*Se asigna el primero de la tabla por backward*/
-                bNbr = nbrs->bNbrs;
-                *y = bNbr->y;
-                result = BWD;
-        /*Observar que si dir=UNK por el orden se prueba primero por forward*/
-        }
-    /*Se pide el siguiente vecino de uno anterior*/
-    }else{
-        /*Si se pide por forward y anteriormente se retorno un vecino forward*/
-        if(dir == FWD && fNbr != NULL){
-            /*Se asigna el sig de la tabla, NULL si el anterior fue el ultimo*/
-            fNbr = fNbr->hhfNbrs.next;
+    assert(rqst == FST || rqst == NXT);
+    
+    if(nbrs->fNbrs != NULL){
+        /*Se asigna el primero de la tabla*/
+        if(rqst == FST){
+            fNbr = nbrs->fNbrs;
+            *y = fNbr->y;
+            result = 1;
+        /*Se pide el siguiente. El ultimo pedido esta referenciado en 'fNbr'*/
+        }else{
             if(fNbr != NULL){
-                *y = fNbr->y;
-                result = FWD;
-            }
-        /*Si se pide por backward y anteriormente se retorno un vecino backward*/
-        }else if(dir == BWD && bNbr != NULL){
-            /*Se asigna el sig de la tabla, NULL si el anterior fue el ultimo*/
-            bNbr = bNbr->hhbNbrs.next;
-            if(bNbr != NULL){
-                *y = bNbr->y;
-                result = BWD;
+                /*Se asigna el sig de la tabla, NULL si el anterior fue el ultimo*/
+                fNbr = fNbr->hhfNbrs.next;
+                if(fNbr != NULL){
+                    *y = fNbr->y;
+                    result = 1;
+                }
             }
         }
-        /*Observar que pedir NXT en direccion UNK no es un caso a tener en cuenta*/
     }
-    return result;
+    return result;   
+}
+
+/**Busca el siguiente vecino backward.
+ * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * o bien por el siguiente(NXT) del ultimo pedido. 
+ * Si existe almacena el nombre en 'y'.
+ * 
+ * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * Verlo como un iterador de consultas a una tabla.
+ * 
+ * \param nbrs  El vecindario de 'x'. 
+ * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
+ * \param y     Variable en la que se almacena el nombre del vecino encontrado.
+ * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
+ * \return 1 Si se encontro y almaceno en 'y' un vecino.\n
+ *         0 Caso contrario.
+ */
+int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
+    static Bedge *bNbr = NULL;  /*Puntero al ultimo vecino backward consultado*/
+    int result = 0;             /*Valor de retorno*/
+    
+    assert(nbrs != NULL && y != NULL);
+    assert(rqst == FST || rqst == NXT);
+    
+    if(nbrs->bNbrs != NULL){
+        /*Se asigna el primero de la tabla*/
+        if(rqst == FST){
+            bNbr = nbrs->bNbrs;
+            *y = bNbr->y;
+            result = 1;
+        /*Se pide el siguiente. El ultimo pedido esta referenciado en 'bNbr'*/
+        }else{
+            if(bNbr != NULL){
+                /*Se asigna el sig de la tabla, NULL si el anterior fue el ultimo*/
+                bNbr = bNbr->hhbNbrs.next;
+                if(bNbr != NULL){
+                    *y = bNbr->y;
+                    result = 1;
+                }
+            }
+        }
+    }
+    return result;   
 }
 
 /** Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 

@@ -54,22 +54,39 @@ void nbrhd_destroy(Nbrhd nbrhd);
  */
 void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
 
-/* NOTE Tener en cuenta la documentacion sobre las opciones de los parametros
- * y retorno. Verlo como una iteracion sobre una tabla en la que empiezo por 
- * el primer(FST) elemento, o bien por el siguiente del ultimo consultado(NXT).
+/* Busca el siguiente vecino forward.
+ * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * o bien por el siguiente(NXT) del ultimo pedido. 
+ * Si existe almacena el nombre en 'y'.
  * 
- * Busca el vecino siguiente en la direccion dir y si existe almacena el 
- * nombre en 'y'. Si dir=UNK entonces primero intenta por FWD, y si
- * no hay (o no existen) entonces intenta por BWD.
+ * NOTE Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * Verlo como un iterador de consultas a una tabla.
+ * 
  * nbrs  El vecindario de 'x'. 
- * flag  Buscar desde el inicio de la tabla o desde el ultimo encontrado.
- * dir   La dirección en la que se pretende buscar.
- * y    Variable en la que se almacena el nombre del vecino encontrado.
- * pre: nbrs!=NULL, flag=FST|NXT, dir=FWD|BWD|UNK, y!=NULL
- * return: dir en la que se encuentra el vecino.
- *         NONE si ya no hay mas vecinos que devolver.
+ * rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
+ * y     Variable en la que se almacena el nombre del vecino encontrado.
+ * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
+ * return: 1 Si se encontro y almaceno en 'y' un vecino.
+ *         0 Caso contrario.
  */
-int nbrhd_getNext(Nbrhd nbrs, int flag, int dir, u64 *y);
+int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y);
+
+/* Busca el siguiente vecino backward.
+ * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * o bien por el siguiente(NXT) del ultimo pedido. 
+ * Si existe almacena el nombre en 'y'.
+ * 
+ * NOTE Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * Verlo como un iterador de consultas a una tabla.
+ * 
+ * nbrs  El vecindario de 'x'. 
+ * rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
+ * y     Variable en la que se almacena el nombre del vecino encontrado.
+ * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
+ * return: 1 Si se encontro y almaceno en 'y' un vecino.
+ *         0 Caso contrario.
+ */
+int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y);
 
 /* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad.
