@@ -5,6 +5,14 @@
 
 /** \file nbrhd.c
  *  Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
+ * Conceptos a tener en cuenta:
+ * 
+ * Notacion para la representación de los lados:
+ * xy: lado forward, y es nodo forward de x.
+ * yx: lado backward, y es nodo backward de x.
+ * Es decir, siempre llamamos con 'x' al nodo ancestro y con 'y' al nodo con
+ * quien se relaciona (un vecino).
+ * Aclaramos que 
  */
 
 
@@ -37,7 +45,7 @@ struct NeighbourhoodSt{
 };
 
 /*Funciones estaticas */
-static void *findNbr(Nbrhd nbrs, u64 y, int* dir);
+static void *findNbr(Nbrhd nbrs, u64 y, short int dir);
 static Fedge *fedge_create(u64 y, u64 c);
 static Bedge *bedge_create(u64 y, Fedge *fNbr);
 static void fedge_destroy(Fedge *fNbrs);
@@ -59,7 +67,6 @@ Nbrhd nbrhd_create(void){
     return nbrs;
 }
 
-
 /** Destructor de un Nbrhd.
  * \pre \p Nbrhd no es nulo.
  */
@@ -75,9 +82,8 @@ void nbrhd_destroy(Nbrhd nbrs){
     nbrs = NULL;
 }
 
-
 /** Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos.
- * la relacion es 'xy': 'y' vecino forward de 'x', 'x' vecino backward de 'y'
+ * La relacion es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'
  * \pre 'x', 'y', 'edge' no son nulos.
  * \param x Vecindario del nodo 'x'.
  * \param y Vecindario del nodo 'y'.
@@ -95,11 +101,11 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
     HASH_FIND(hhfNbrs, x->fNbrs, &(yName), sizeof(x->fNbrs->y), fNbr);
     /*Si no existe, creo las estructuras correspondientes*/
     if(fNbr == NULL){
-        /*Creo el vecino 'y' forward y lo agrego en x->fNbrs*/
+        /*Creo a 'y' como vecino forward de 'x'*/
         fNbr = fedge_create(yName, lado_getCap(edge));
         HASH_ADD(hhfNbrs, x->fNbrs, y, sizeof(x->fNbrs->y), fNbr);
         
-        /*Creo el vecino 'x' backward y lo agrego en y->bNbrs*/
+        /*Creo a 'x' como vecino backward de 'y'*/
         bNbr = bedge_create(lado_getX(edge), fNbr);
         HASH_ADD(hhbNbrs, y->bNbrs, y, sizeof(y->bNbrs->y), bNbr);
     /*Si existe, es un caso de lados paralelos*/
@@ -109,7 +115,7 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
         
 }
 
-/**Busca el siguiente vecino forward.
+/** Busca el siguiente vecino forward.
  * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
  * o bien por el siguiente(NXT) del ultimo pedido. 
  * Si existe almacena el nombre en 'y'.
@@ -117,11 +123,11 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
  * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
  * Verlo como un iterador de consultas a una tabla.
  * 
- * \param nbrs  El vecindario de 'x'. 
+ * \param nbrs  El vecindario del ancestro 'x'. 
  * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * \param y     Variable en la que se almacena el nombre del vecino encontrado.
  * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * \return 1 Si se encontro y almaceno en 'y' un vecino.\n
+ * \return 1 Si se encontro y se almaceno en 'y' un vecino.\n
  *         0 Caso contrario.
  */
 int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
@@ -152,7 +158,7 @@ int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
     return result;   
 }
 
-/**Busca el siguiente vecino backward.
+/** Busca el siguiente vecino backward.
  * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
  * o bien por el siguiente(NXT) del ultimo pedido. 
  * Si existe almacena el nombre en 'y'.
@@ -160,11 +166,11 @@ int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
  * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
  * Verlo como un iterador de consultas a una tabla.
  * 
- * \param nbrs  El vecindario de 'x'. 
+ * \param nbrs  El vecindario del ancestro 'x'. 
  * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * \param y     Variable en la que se almacena el nombre del vecino encontrado.
  * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * \return 1 Si se encontro y almaceno en 'y' un vecino.\n
+ * \return 1 Si se encontro y se almaceno en 'y' un vecino.\n
  *         0 Caso contrario.
  */
 int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
@@ -197,22 +203,22 @@ int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
 
 /** Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad.
- * \param nbrs  El vecindario de 'x'. 
+ * \param nbrs  El vecindario del ancestro 'x'. 
  * \param y     El nombre del vecino.
  * \param vf    El valor de flujo.
  * \pre 'y' es vecino de 'x'. 'vf' > 0
- * \return Valor del nuevo flujo que se esta enviando entre 'x' e 'y'. */
-u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
+ * \return Valor del nuevo flujo que se esta enviando entre 'x' e 'y'.*/
+u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf){
     Fedge *fNbr = NULL; /*Para manipular el lado si 'dir'=FWD*/
     Bedge *bNbr = NULL; /*Para manipular el lado si 'dir'=BWD*/
     void *nbr = NULL;   /*El vecino*/
-    int dir = UNK;      /*Direccion en la que se encuentra el vecino*/
 
     assert(nbrs != NULL);
-    assert(vf > 0);    
-    nbr = findNbr(nbrs, y, &dir); /*Se busca*/
+    assert(dir == FWD || dir == BWD);
+    assert(vf > 0);  
     
-    if (dir == FWD){    /*Es FWD, aumento el flujo*/
+    nbr = findNbr(nbrs, y, dir); /*Se busca*/
+    if(dir == FWD){    /*Es FWD, aumento el flujo*/
         fNbr = (Fedge*)nbr;
         fNbr->flow += vf;
         assert(fNbr->flow <= fNbr->cap);
@@ -227,109 +233,92 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf){
     return fNbr->flow;
 }
 
-
-/** Devuelve la capacidad con el vecino 'y' del lado 'xy'.
- * \param nbrs  El vecindario de 'x'. 
+/** Devuelve la capacidad del lado que relaciona al ancestro 'x' con el vecino 
+ * 'y'.
+ * Como pueden haber loops hay que especificar si se esta tratando del lado 'xy'
+ * o 'yx'.
+ * \param nbrs  El vecindario del ancestro 'x'. 
  * \param y     El nombre del vecino.
+ * \param dir   Direccion que se encuentra el vecino (lado FWD o BWD)
  * \pre 'y' es vecino de 'x'. 
- * \return  La capacidad del lado 'xy'.
+ * \return  La capacidad sobre este lado.
  */
-u64 nbrhd_getCap(Nbrhd nbrs, u64 y){
+u64 nbrhd_getCap(Nbrhd nbrs, u64 y, short int dir){
     void *nbr = NULL;   /*El vecino*/
-    int dir = UNK;      /*Direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
-    nbr = findNbr(nbrs, y, &dir);   /*Se busca*/
-    assert(nbr != NULL && (dir != UNK && dir != NONE));  /*Debe conocerse*/
-    if (dir == BWD)
-        /*Es backward, se maneja distinto*/
+    assert(dir == FWD || dir == BWD);
+
+    nbr = findNbr(nbrs, y, dir); /*Se busca*/
+    if(dir == BWD)  /*Es backward, se maneja distinto*/
         nbr = ((Bedge*)nbr)->x;
     
     return ((Fedge*)nbr)->cap;
 }
 
-
-/** Devuelve el valor del flujo con el vecino 'y' del lado 'xy'.
+/** Devuelve el valor del flujo del lado que relaciona al ancestro 'x' con el 
+ * vecino 'y'.
+ * Como pueden haber loops hay que especificar si se esta tratando del lado 'xy'
+ * o 'yx'.
  * \param nbrs  El vecindario de 'x'. 
  * \param y     El nombre del vecino.
+ * \param dir   Direccion que se encuentra el vecino (lado FWD o BWD)
  * \pre 'y' es vecino de 'x'. 
- * \return  El valor de flujo del lado 'xy'.
+ * \return  El valor del flujo sobre este lado.
  */
-u64 nbrhd_getFlow(Nbrhd nbrs, u64 y){
+u64 nbrhd_getFlow(Nbrhd nbrs, u64 y, short int dir){
     void *nbr = NULL;   /*El vecino*/
-    int dir = UNK;      /*Direccion en la que se encuentra el vecino*/
     
     assert(nbrs != NULL);
-    nbr = findNbr(nbrs, y, &dir); /*Se busca*/
-    assert(nbr != NULL && (dir != UNK && dir != NONE));  /*Debe conocerse*/
-    if (dir == BWD)
-        /*Es backward, se maneja distinto*/
+    assert(dir == FWD || dir == BWD);
+
+    nbr = findNbr(nbrs, y, dir); /*Se busca*/
+    if(dir == BWD)  /*Es backward, se maneja distinto*/
         nbr = ((Bedge*)nbr)->x;
     
     return ((Fedge*)nbr)->flow;
 }
 
-/** Devuelve la dirección en la que se encuentra el vecino 'y' respecto a 'x'.
- * \param nbrs  El vecindario de 'x'.
- * \param y     El nombre del vecino.
- * \pre 'y' es vecino de 'x'. 
- * \return  La dirección entre el nodo 'x' e 'y'.
- */
-int nbrhd_getDir(Nbrhd nbrs, u64 y){
-    int dir = UNK;      /*Direccion en la que se encuentra el vecino*/  
-    
-    assert(nbrs != NULL);
-    findNbr(nbrs, y, &dir); /*Se busca*/
-    assert(dir != UNK && dir != NONE); /*Debe conocerse*/
-    return dir;
-}
-
-
 /*
  *          Funciones locales
  */
 
-/** Busca un vecino con nombre 'y', en alguna dirección dada. 
- * Si \p dir!=UNK, busca unicamente en esa direccion; caso contrario, 
- * busca primero por forward y luego por backward.
+/** Busca un vecino con nombre 'y', en la dirección especificada.
  * \param nbrs  El vecindario de 'x'.
  * \param y     El nombre del vecino.
  * \pre 'y' es vecino de 'x'.
  * \return  La representación del lado dependiendo de la dirección 
- *          en la que se encuentra 'y'. \n
+ *          en la que se encuentra 'y': \n
  *          Si es forward, se retorna un puntero a un Fedge. \n
  *          Si es backward, se retorna un puntero a un Bedge.
  */
-static void *findNbr(Nbrhd nbrs, u64 y, int* dir){
+static void *findNbr(Nbrhd nbrs, u64 y, short int dir){
     Fedge *fNbr = NULL;     /*Para manipular el lado si 'dir'=FWD*/
     Bedge *bNbr = NULL;     /*Para manipular el lado si 'dir'=BWD*/
     void *result = NULL;    /*El lado de retorno, fNbr o bNbr*/
     
-    assert(nbrs != NULL);   
-    if (*dir != BWD)         /*Busqueda por vecinos forward (dir == UNK|FWD)*/
+    assert(nbrs != NULL);
+    assert(dir == FWD || dir == BWD);
+    if(dir == FWD){  /*Busqueda por vecinos forward*/
         HASH_FIND(hhfNbrs, nbrs->fNbrs, &(y), sizeof(y), fNbr);
-        /*Caso dir == FWD, no puede ser fnbr == NULL */
-        assert(*dir != FWD || fNbr != NULL);
-    
-    if (fNbr != NULL){      /*Se encontro en forward*/
+        assert(fNbr != NULL);    /*Debe existir*/
         result = fNbr;
-        *dir = FWD;
-    }else{                  /*Busqueda por vecinos backward*/
+    }
+    else{                  /*Busqueda por vecinos backward*/
         HASH_FIND(hhbNbrs, nbrs->bNbrs, &(y), sizeof(y), bNbr);
-        assert(bNbr != NULL);   /*'y' no es vecino, error */
+        assert(bNbr != NULL);   /*Debe existir*/
         result = bNbr;
-        *dir = BWD;
     }
         
     return result;
 }
 
-/** Construye un nuevo Fedge para el nodo 'x'. 
+/** Construye un nuevo vecino forward (Fedge) para el nodo ancestro 'x'. 
  * El valor del flujo se inicia en 0.
- * \param y Nombre del vecino que se relaciona.
- * \param c Capacidad con el vecino.
- * \return Puntero al nuevo Fedge inicializado. 
- *          El llamador se encarga de liberarlo.
+ * \param y Nombre del nuevo vecino forward.
+ * \param c Capacidad de envio de flujo a este vecino.
+ * \return Puntero a la estructura que representa el nuevo vecino forward.\n
+ *         El llamador se encarga de liberarlo.
 */
 static Fedge *fedge_create(u64 y, u64 c){
     Fedge *fNbr = NULL;     /*Vecino forward*/
@@ -344,11 +333,11 @@ static Fedge *fedge_create(u64 y, u64 c){
 }
 
 
-/** Construye un nuevo Bedge para el nodo 'x'. 
+/** Construye un nuevo vecino backward para el nodo ancestro 'x'. 
  * Se vincula a los datos forward respecto a él.
- * \param y Nombre del vecino que se relaciona.
- * \param fNbr Puntero al Fedge en donde 'x' es forward de 'y'.
- * \return Puntero al nuevo Bedge inicializado. 
+ * \param y Nombre del nuevo vecino backward.
+ * \param fNbr Puntero al lado en donde el nodo 'y' es forward del nodo 'x'.
+ * \return Puntero a la estructura que representa el nuevo vecino backward.\n
  *          El llamador se encarga de liberarlo.
 */
 static Bedge *bedge_create(u64 y, Fedge *fNbr){

@@ -46,7 +46,7 @@ Nbrhd nbrhd_create(void);
 void nbrhd_destroy(Nbrhd nbrhd);
 
 /* Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos.
- * la relacion es 'xy': 'y' vecino forward de 'x', 'x' vecino backward de 'y'
+ * La relacion es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'
  * pre: 'x', 'y', 'edge' no son nulos.
  * x Vecindario del nodo 'x'.
  * y Vecindario del nodo 'y'.
@@ -62,11 +62,11 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
  * NOTE Tener en cuenta la documentacion sobre las opciones de los parametros.
  * Verlo como un iterador de consultas a una tabla.
  * 
- * nbrs  El vecindario de 'x'. 
+ * nbrs  El vecindario del ancestro 'x'. 
  * rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * y     Variable en la que se almacena el nombre del vecino encontrado.
  * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * return: 1 Si se encontro y almaceno en 'y' un vecino.
+ * return: 1 Si se encontro y se almaceno en 'y' un vecino.
  *         0 Caso contrario.
  */
 int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y);
@@ -79,46 +79,46 @@ int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y);
  * NOTE Tener en cuenta la documentacion sobre las opciones de los parametros.
  * Verlo como un iterador de consultas a una tabla.
  * 
- * nbrs  El vecindario de 'x'. 
+ * nbrs  El vecindario del ancestro 'x'. 
  * rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * y     Variable en la que se almacena el nombre del vecino encontrado.
  * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * return: 1 Si se encontro y almaceno en 'y' un vecino.
+ * return: 1 Si se encontro y se almaceno en 'y' un vecino.
  *         0 Caso contrario.
  */
 int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y);
 
 /* Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad.
- * nbrs  El vecindario de 'x'. 
+ * nbrs  El vecindario del ancestro 'x'. 
  * y     El nombre del vecino.
  * vf    El valor de flujo.
  * pre: 'y' es vecino de 'x'. 'vf' > 0
- * return: Valor del nuevo flujo que se esta enviando entre 'x' e 'y'. */
-u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, u64 vf); 
+ * return: Valor del nuevo flujo que se esta enviando entre 'x' e 'y'.*/
+u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf); 
 
-/* Devuelve la capacidad con el vecino 'y' del lado 'xy'.
+/* Devuelve la capacidad del lado que relaciona al ancestro 'x' con el vecino 
+ * 'y'.
+ * Como pueden haber loops hay que especificar si se esta tratando del lado 'xy'
+ * o 'yx'.
+ * nbrs  El vecindario del ancestro 'x'. 
+ * y     El nombre del vecino.
+ * dir   Direccion que se encuentra el vecino (lado FWD o BWD)
+ * pre: 'y' es vecino de 'x'. 
+ * return:  La capacidad sobre este lado.
+ */
+u64 nbrhd_getCap(Nbrhd nbrs, u64 y, short int dir);  
+
+/* Devuelve el valor del flujo del lado que relaciona al ancestro 'x' con el 
+ * vecino 'y'.
+ * Como pueden haber loops hay que especificar si se esta tratando del lado 'xy'
+ * o 'yx'.
  * nbrs  El vecindario de 'x'. 
  * y     El nombre del vecino.
+ * dir   Direccion que se encuentra el vecino (lado FWD o BWD)
  * pre: 'y' es vecino de 'x'. 
- * return:  La capacidad del lado 'xy'.
+ * return:  El valor del flujo sobre este lado.
  */
-u64 nbrhd_getCap(Nbrhd nbrs, u64 y);  
-
-/* Devuelve el valor del flujo con el vecino 'y' del lado 'xy'.
- * nbrs  El vecindario de 'x'. 
- * y     El nombre del vecino.
- * pre: 'y' es vecino de 'x'. 
- * return:  El valor de flujo del lado 'xy'.
- */
-u64 nbrhd_getFlow(Nbrhd nbrs, u64 y); 
-
-/* Devuelve la dirección en la que se encuentra el vecino 'y' respecto a 'x'.
- * nbrs  El vecindario de 'x'.
- * y     El nombre del vecino.
- * pre: 'y' es vecino de 'x'. 
- * return:  La dirección entre el nodo 'x' e 'y'.
- */
-int nbrhd_getDir(Nbrhd nbrs, u64 y); 
+u64 nbrhd_getFlow(Nbrhd nbrs, u64 y, short int dir); 
 
 #endif

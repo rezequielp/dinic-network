@@ -22,7 +22,7 @@ echo -e "\nnet6" >> ./Results/RobustestLog
 ../dirmain/dinic -s 0 -t 1 -vf -c < ./Networks/Robustez/net6 >> ./Results/RobustestLog
 echo "net7"
 echo -e "\nnet7" >> ./Results/RobustestLog
-../dirmain/dinic -s 0 -t 1 -a < ./Networks/Robustez/net7 >> ./Results/RobustestLog
+../dirmain/dinic -s 0 -t 1 -vf -c < ./Networks/Robustez/net7 >> ./Results/RobustestLog
 echo "net8"
 echo -e "\nnet8" >> ./Results/RobustestLog
 ../dirmain/dinic -s 0 -t 1 -vf -c < ./Networks/Robustez/net8 >> ./Results/RobustestLog
