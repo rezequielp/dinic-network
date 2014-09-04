@@ -4,15 +4,7 @@
 #include <assert.h>
 
 /** \file nbrhd.c
- *  Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
- * Conceptos a tener en cuenta:
- * 
- * Notacion para la representación de los lados:
- * xy: lado forward, y es nodo forward de x.
- * yx: lado backward, y es nodo backward de x.
- * Es decir, siempre llamamos con 'x' al nodo ancestro y con 'y' al nodo con
- * quien se relaciona (un vecino).
- * Aclaramos que 
+ * Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
  */
 
 
@@ -123,7 +115,7 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
  * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
  * Verlo como un iterador de consultas a una tabla.
  * 
- * \param nbrs  El vecindario del ancestro 'x'. 
+ * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * \param y     Variable en la que se almacena el nombre del vecino encontrado.
  * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
@@ -166,7 +158,7 @@ int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
  * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
  * Verlo como un iterador de consultas a una tabla.
  * 
- * \param nbrs  El vecindario del ancestro 'x'. 
+ * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * \param y     Variable en la que se almacena el nombre del vecino encontrado.
  * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
@@ -203,7 +195,7 @@ int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
 
 /** Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. 
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad.
- * \param nbrs  El vecindario del ancestro 'x'. 
+ * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param y     El nombre del vecino.
  * \param vf    El valor de flujo.
  * \pre 'y' es vecino de 'x'. 'vf' > 0
@@ -233,11 +225,11 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf){
     return fNbr->flow;
 }
 
-/** Devuelve la capacidad del lado que relaciona al ancestro 'x' con el vecino 
- * 'y'.
+/** Devuelve la capacidad del lado que relaciona al nodo ancestro 'x' con el 
+ * vecino 'y'.
  * Como pueden haber loops hay que especificar si se esta tratando del lado 'xy'
  * o 'yx'.
- * \param nbrs  El vecindario del ancestro 'x'. 
+ * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param y     El nombre del vecino.
  * \param dir   Direccion que se encuentra el vecino (lado FWD o BWD)
  * \pre 'y' es vecino de 'x'. 
@@ -256,8 +248,8 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y, short int dir){
     return ((Fedge*)nbr)->cap;
 }
 
-/** Devuelve el valor del flujo del lado que relaciona al ancestro 'x' con el 
- * vecino 'y'.
+/** Devuelve el valor del flujo del lado que relaciona al nodo ancestro 'x' con 
+ * el vecino 'y'.
  * Como pueden haber loops hay que especificar si se esta tratando del lado 'xy'
  * o 'yx'.
  * \param nbrs  El vecindario de 'x'. 

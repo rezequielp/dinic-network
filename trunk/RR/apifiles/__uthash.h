@@ -1,4 +1,4 @@
-/** \file _uthash.h
+/** \file __uthash.h
  * A Hash in C.
  * This document is written for C programmers. Since you’re reading this, 
  * chances are that you know a hash is used for looking up items using a key. 
