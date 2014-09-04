@@ -1,4 +1,4 @@
-/** \file _bstrlib.h
+/** \file __bstrlib.h
  * The Better String Library is an abstraction of a string data type which is 
  * superior to the C library char buffer string type, or C++'s std::string.
  * 

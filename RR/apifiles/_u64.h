@@ -1,7 +1,7 @@
 #ifndef U64_H
 #define U64_H
 
-/** \file u64.h
+/** \file _u64.h
  * Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin
  * signo.
  * Todos los enteros sin signo de 64 bits que aparezcan en la implementacion 
