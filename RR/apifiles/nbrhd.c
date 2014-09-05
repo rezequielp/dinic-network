@@ -5,24 +5,27 @@
 
 /** \file nbrhd.c
  * Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí.
+ * \note
+ * Para los comentarios y documentación, tener en cuenta la notación enunciada
+ * en nbrhd.h
  */
 
 
 /** Estructura de una artista en sentido forward.
- * Relacion xy (y es nodo forward de x).
+ * Relacion 'xy' (y es nodo forward de x).
  */
 typedef struct FedgeSt{
     u64 y;                  /**<Nodo forward de 'x'. Es key de la hash.*/
-    u64 cap;                /**<La capacidad restante de envio de flujo.*/
+    u64 cap;                /**<La capacidad de envio de flujo.*/
     u64 flow;               /**<El flujo que se esta enviando.*/
     UT_hash_handle hhfNbrs; /**<La tabla hash.*/
 } Fedge;
 
 /** Estructura de una arista en sentido backward.
- * Relacion yx (y es nodo backward de x).
- * Ej: x=3; y=2; Lado(yx)=23. 2 es backward de 3, 3 es forward de 2, 
- * por lo que existe una estructura Fedge para 3 relacionada al nodo 2. 
- * Esta estructura es a la que apunta *x.
+ * Relacion 'yx' (y es nodo backward de x).
+ * Ej: x=3; y=2; Lado 'yx'=23. 2 es backward de 3, y 3 es forward de 2, 
+ * por lo que existe para el nodo 2 (como ancestro), una estructura Fedge para 3 
+ * en su vecindad. Esta estructura es a la que apunta *x.
  */
 typedef struct BedgeSt{
     u64 y;              /**<Nodo backward de 'x'. Es key de la hash.*/
