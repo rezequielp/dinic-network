@@ -18,9 +18,9 @@
  * 'y'. Cuando nos refiramos a un lado FWD vamos a estar indicando esta 
  * correspondencia y lo denotaremos como lado (('xy')). Todo flujo enviado
  * por un lado FWD aumenta el valor del flujo existente en este lado.
- * Por el contrario, 'y' es BWD de 'x' si dicha dirección es de 'y' hacia 'x', y 
- * denotaremos al lado BWD como (('yx')). Todo flujo enviado por un lado BWD
- * disminuye el valor del flujo existente en este lado.
+ * Por otro lado, un nodo 'y' es BWD de 'x' si dicha dirección es de 'y' hacia 
+ * 'x', y denotaremos al lado BWD como (('yx')). Todo flujo enviado por un 
+ * lado BWD disminuye el valor del flujo existente en este lado.
  * 
  * Con esta noción de Nbrhd se puede deducir que todos los lados 'xy' 
  * pertenecientes al network estan representados como lado FWD en el Nbrhd de

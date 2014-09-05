@@ -9,7 +9,6 @@
 
 /** \file API.h
  * Permite cargar un network y calcular su flujo maximal utilizando Dinic.
- * 
  */
 
 /*      

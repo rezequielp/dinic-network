@@ -60,7 +60,7 @@ typedef struct NetworkSt{
  * acceso al network, el valor de flujo y corte minimal calculados, qué nodo 
  * es la fuente y cuál es resumidero. El último camino aumentante encontrado 
  * sin usar y la cantidad ya utilizados. También se almacenan las flags de 
- * estados que se necesiten en el correr de Dinic.
+ * estados que se necesiten en el transcurso de ejecucion de DINIC.
  */
 struct DovahkiinSt{
     Network *net;   /**<Network de los nodos para acceder a las aristas.*/

@@ -19,8 +19,8 @@
 #define CUT             0b00000010  /**<Activa el muestreo de corte.*/
 #define FLOW_V          0b00000001  /**<Activa el muestre de valor del flujo.*/
 /**Macros para manipular flags.*/
-#define SET_FLAG(f) STATUS |= f         /**<Setea un bit de flag en STATUS en 1.*/
-#define UNSET_FLAG(f) STATUS &= ~f      /**<Setea un bit de flag en STATUS en 0.*/
+#define SET_FLAG(f) STATUS |= f         /**<Setea un bit de flag en STATUS en 1*/
+#define UNSET_FLAG(f) STATUS &= ~f      /**<Setea un bit de flag en STATUS en 0*/
 #define CLEAR_FLAG() 0b00000000         /**<Pone todas las flags en 0.*/
 #define IS_SET_FLAG(f) (STATUS & f) > 0 /**<Consulta si una flag esta activa.*/
 
@@ -31,9 +31,11 @@ static short int parametersChecker(int argc, char *argv[], u64 * source, u64 * s
 static void print_dinicTime(float time);
 static bool isu64(char * sU64);
 
-/**Lee desde el standard input los lados del network y los carga en dovahkiin, 
-hasta acabar los lados o bien hasta el primer lado que no se pueda cargar
-    \param dova DovahkiinP donde carga los lados.*/
+/** Lee desde el standard input los lados del network y los carga en dovahkiin. 
+ * Se lee hasta acabar los lados o bien hasta el primer lado que no se pueda 
+ * cargar.
+ * \param dova El dova donde se cargaran los lados.
+ */
 void load_from_stdin(DovahkiinP dova){
 
     Lado lado = LadoNulo;/*Lado leido. Caso vacio se retorna LadoNulo.*/
@@ -46,8 +48,10 @@ void load_from_stdin(DovahkiinP dova){
     }while(load_ok);
 }
 
-/**Imprime la ayuda del programa.
-    \param programName Nompre del programa. Se pasa por parametro por si se cambia al compilar. Encotrado en arv[0].*/
+/** Imprime la ayuda del programa.
+ * \param programName Nompre del programa. Se pasa por parametro por si se 
+                        cambia al compilar. Encotrado en arv[0].
+*/
 void print_help(char * programName){
     printf("\n\nUSO: %s -s source -t sink [OPCIONES] < NETWORK\n\n", programName);
     printf("OPCIONES:\n");
@@ -57,44 +61,45 @@ void print_help(char * programName){
     printf("\t-f --flujo \t\tImprime el flujo.\n");
     printf("\t-c --corte \t\tImprime el corte.\n");
     printf("\t-p --path \t\tImprime los caminos aumentantes.\n");
-    printf("\t-r --reloj \t\tImprime el tiempo en hh:mm:ss del algoritmo Dinic sin tener en cuenta el cargado de datos.\n");
+    printf("\t-r --reloj \t\tImprime el tiempo en hh:mm:ss.ms de la ejecucion "
+            "ignorando el tiempo\n\t\t\t\tde carga de datos. Usarlo sin otros "
+            "parametros de impresion para\n\t\t\t\tobtener el tiempo de calculo"
+            " del algoritmo de Dinic. \n");
     printf("\t-a --all \t\tEquivalente a -vf -f -p y -c.\n\n");
-    printf("\tNETWORK: Una serie de elementos de la forma x y z\\n que representan el nodo x->y de capacidad z terminada con un EOF.\n\n");
+    printf("\tNETWORK\t\t\tUna serie de elementos de la forma: x y c \\n, que "
+            "representan el lado\n\t\t\t\tx->y de capacidad c.\n\n");
     printf("Ejemplo: $%s -f -vf -s 1 -t 0 < network.txt\n\n", programName);
 }
 
 /**Verifica si los paramentros con los que se invoco al programa son correctos.
-    \param argc Indica el largo de arreglo argv.
-    \param argv Vector de argumentos con los que se invoco al programa.
-    \param source Fuente del Network.
-    \param sink Resumidero del Network.
-    \return Retorna un Short int indicando el estado de los parametros.\n
-    - Estados:\n
-        - DONT_DINIC   Permite (o no) que se realice dinic.\n
-        - S_OK        Indica que 's' fue pasado como parametro.\n
-        - T_OK        Indica que 't' fue pasado como parametro.\n
-        - DINIC_TIME  Activa el muestreo de tiempos de calculo.\n
-        - PATH        Activa el muestreo de caminos aumentantes.\n
-        - FLOW        Activa el muestreo de flujo.\n
-        - CUT         Activa el muestreo de corte.\n
-        - FLOW_V      Activa el muestre de valor del flujo.\n
-    - Macros para manipular los estados:\n
-        - SET_FLAG(f)     Setea un bit de flag en STATUS en 1.\n
-        - UNSET_FLAG(f)   Setea un bit de flag en STATUS en 0.\n
-        - CLEAR_FLAG()    Pone todas las flags en 0.\n
-        - IS_SET_FLAG(f)  Consulta si una flag esta activa.*/
+ * \param argc Indica el largo del arreglo argv.
+ * \param argv Vector de argumentos con los que se invoco al programa.
+ * \param source Fuente del Network.
+ * \param sink Resumidero del Network.
+ * \return Retorna un Short int indicando el estado de los parametros.\n
+ * - Estados:\n
+ *      - DONT_DINIC   Permite (o no) que se realice dinic.\n
+ *      - S_OK        Indica que 's' fue pasado como parametro.\n
+ *      - T_OK        Indica que 't' fue pasado como parametro.\n
+ *      - DINIC_TIME  Activa el muestreo de tiempos de calculo.\n
+ *      - PATH        Activa el muestreo de caminos aumentantes.\n
+ *      - FLOW        Activa el muestreo de flujo.\n
+ *      - CUT         Activa el muestreo de corte.\n
+ *      - FLOW_V      Activa el muestre de valor del flujo.\n
+*/
 short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
-    int i = 1;/*Indice para loopear entre los parametros de entrada. Saltea el nombre del programa.*/
-    short int STATUS = CLEAR_FLAG();/*Retorno de la funcion. Se limpia al inicializar.*/
-    short int HELP = 0;             /*flag de alcance local*/
+    int i = 1;                          /*Iterador para parametros de entrada. 
+                                        Saltea el nombre del programa.*/
+    short int STATUS = CLEAR_FLAG();    /*Retorno de la funcion.*/
+    short int HELP = 0;                 /*Se pide ayuda. Flag de alcance local*/
     
-    /*Valida cada uno de los parametros de entrada en un loop que
-    termina cuando se pide imprimir la ayuda o cuando se leyeron todos los parametros*/
+    /*Valida cada uno de los parametros de entrada en un loop que termina cuando
+     * se pide imprimir la ayuda o cuando se leyeron todos los parametros*/
     while (i < argc && !HELP){
         /*Se fija si el parametro indica que se debe imprimir el flujo.*/
         if(strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--flujo")== 0 )
             SET_FLAG(FLOW);
-        /*Se fija si el parametro indica que se debe imprimir el valor del flujo.*/
+        /*Se fija si el parametro indica que se debe imprimir el valor del flujo*/
         else if(strcmp(argv[i], "-vf") == 0 || strcmp(argv[i], "--valorflujo")== 0 )
             SET_FLAG(FLOW_V);
         /*Se fija si el parametro indica que se debe imprimir el corte.*/
@@ -103,12 +108,13 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
         /*Se fija si el parametro indica que se debe imprimir los caminos.*/
         else if(strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--path")== 0 )
             SET_FLAG(PATH);
-        /*Se fija si el parametro indica que elemento es la fuente.*/
+        /*Se fija si el parametro indica cual nodo va a ser la fuente.*/
         else if(strcmp(argv[i], "-s") == 0 && !IS_SET_FLAG(S_OK)){
             if (i+1 < argc){/*Valida que exista un siguiente argumento(Fuente)*/
-                if(isu64(argv[i+1]))/*Valida que sea u64 caso contrario imprime el error y no corre el algoritmo.*/
+                if(isu64(argv[i+1]))/*Valida que sea u64*/
                     sscanf(argv[i+1], "%" SCNu64, source);
                 else{
+                    /*No es u64, se imprime el error y no corre el algoritmo.*/
                     printf("%s: -s: Invalid argument \"%s\".\n", argv[0], argv[i+1]);
                     SET_FLAG(DONT_DINIC);
                 }
@@ -116,7 +122,7 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
                 i++;
             }else
                 SET_FLAG(DONT_DINIC);
-        /*Se fija si el parametro indica que elemento es el resumidero.*/
+        /*Se fija si el parametro indica cual nodo va a ser el resumidero.*/
         }else if(strcmp(argv[i], "-t") == 0 && !IS_SET_FLAG(T_OK)){
             if (i+1 < argc){
                 if(isu64(argv[i+1]))
@@ -129,17 +135,18 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
                 i++;
             }else
                 SET_FLAG(DONT_DINIC);
-        /*Este parametro setea todos los demas parametros menos la ayuda.*/
+        /*Este parametro setea todos los demas parametros, menos el de ayuda.*/
         }else if(strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--all")== 0 ){
             SET_FLAG(PATH);
             SET_FLAG(FLOW);
             SET_FLAG(CUT);
             SET_FLAG(FLOW_V);
             SET_FLAG(DINIC_TIME);
-        /*Se fija si el parametro indica que se debe imprimir el tiempo que tarda el el algoritmo DINIC.*/
+        /*Se fija si el parametro indica que se debe imprimir el tiempo que 
+         * tarda el algoritmo DINIC.*/
         }else if(strcmp(argv[i], "-r") == 0 || strcmp(argv[i],"--reloj" )== 0 )
             SET_FLAG(DINIC_TIME);
-        /*Se fija si el parametro indica que se debe imprimir el menu de ayuda.*/
+        /*Se fija si el parametro indica que se debe imprimir el menu de ayuda*/
         else if(strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help")== 0 ){
             print_help(argv[0]);
             HELP = 1;
@@ -149,44 +156,53 @@ short int parametersChecker(int argc, char *argv[], u64 * source, u64 * sink){
         }
         i++;
     }/*Finaliza el ciclo while.*/
-   /*Imprime un mensaje de error por que no se seteo la fuenta
+   /*Imprime un mensaje de error porque no se seteo la fuente
    y configura que no se corra el algoritmo DINIC*/
     if(!IS_SET_FLAG(S_OK) && !HELP){
         printf("%s: -s is not set.\n", argv[0]);
         SET_FLAG(DONT_DINIC);
     }
-   /*Imprime un mensaje de error por que no se seteo el resumidero
+   /*Imprime un mensaje de error porque no se seteo el resumidero
    y configura que no se corra el algoritmo DINIC*/
     if(!IS_SET_FLAG(T_OK) && !HELP){
         printf("%s: -t is not set.\n", argv[0]);
         SET_FLAG(DONT_DINIC);
     }
     
-    if(HELP)/*Imprime la ayuda si asi se seteo y configura que no se corra el algoritmo DINIC*/
+    /*Si se pidio imprimir ayuda entonces se configura que no corra 
+     *el algoritmo de DINIC*/
+    if(HELP)
         SET_FLAG(DONT_DINIC);
+    /*Si se cometio un error con algun parametro, se le aconseja imprimir ayuda*/
     else if(IS_SET_FLAG(DONT_DINIC))
-        printf("use -h for help.\n");/*Si no se pidio ayuda y esta configurado que no se corra DINIC muestra un error*/
+        printf("use -h for help.\n");
     
     return STATUS;
 }
 
-/**Verifica que se le haya pasado como parametro algo de tipo u64.
-    \param sU64 Puntero al elemento para verificar que sea u64.
-    \return Un elemento del tipo bool indicando si el parametro sU64 es del tipo u64.*/
+/** Verifica que se le haya pasado como parametro algo de tipo u64.
+ * \param sU64 String para verificar que sea u64.
+ * \pre su64 no es nulo.
+ * \return  True si el parametro es un u64. 
+ *          False caso contrario.
+ */
 bool isu64(char * sU64){
     int i = 0;
     bool result = true;
+    assert(sU64 != NULL);
     while(sU64[i] != '\0' && result){
         result =result && isdigit(sU64[i]);
         i++;
     }
     return result;    
 }
-/**Imprime el tiempo que tarda el algoritmo DINIC en ejecutarse en formato [hh:mm:ss.ms]. No contabiliza el tiempo
-de carga de los elementos del network ni otras acciones inecesarias. Esto es asi porque se 
-supone que el tiempo de carga varia mucho cuando se pide al sistema operativo interactuar 
-con IO. De esta manera se logra un tiempo solamente de la parte del programa que implementa 
-DINIC.
+/** Imprime el tiempo que tarda el algoritmo DINIC en ejecutarse en formato 
+ * [hh:mm:ss.ms]. 
+ * No contabiliza el tiempo de carga de los elementos del network ni otras 
+ * acciones innecesarias. Esto es asi porque se supone que el tiempo de carga 
+ * varia mucho cuando se pide al sistema operativo interactuar con IO. 
+ * De esta manera se logra un tiempo solamente de la parte del programa que 
+ * implementa DINIC.
     \param time Tiempo que tardo el algoritmo DINIC en correr medidos segundos.
 */
 void print_dinicTime(float time){    
@@ -198,17 +214,21 @@ void print_dinicTime(float time){
     hs = (int) time / 3600;
     printf("\nDinic demoró(hh:mm:ss.ms): %02i:%02i:%02i.%03i\n\n", hs, min, sec, ms);
 }
-/**Algoritmo principal. Se encarga de llamar las funciones del API para implementar DINIC.
-    \param argc Cantidad de argumentos con los que se invoco el programa.
-    \param argv Vector de argumentos con los que se invoco el programa.
-    \return Retorna un 0 si el programa termina.*/
+
+/** Algoritmo principal. 
+ * Se encarga de llamar las funciones del API para implementar DINIC.
+ * \param argc Cantidad de argumentos con los que se invoco el programa.
+ * \param argv Vector de argumentos con los que se invoco el programa.
+ * \return Retorna un 0 si el programa termina.
+ */
 int main(int argc, char *argv[]){
-    DovahkiinP dova = NULL;
-    u64 s = NULL;
-    u64 t = NULL;
-    short int STATUS;
-    clock_t clock_startTime, clock_finishTime;
-    float dinicTime = 0;
+    DovahkiinP dova = NULL; /*El dovahkiin que voy a usar*/
+    u64 s = NULL;           /*El nombre del nodo que sera fuente*/
+    u64 t = NULL;           /*El nombre del nodo que sera resumidero*/
+    short int STATUS;       /*Estado de ejecucion segun el ingreso de parametros*/
+    clock_t clock_startTime = 0; /*Registra el tiempo de inicio*/
+    clock_t clock_finishTime = 0; /*Registra el tiempo de finalizacion*/
+    float dinicTime = 0;    /*Resultado del tiempo*/
     
     /*Se controlan los parametros de ingreso*/
     STATUS = parametersChecker(argc, argv, &s, &t);
@@ -229,8 +249,8 @@ int main(int argc, char *argv[]){
 
     if (Prepararse(dova) == 1){
         if (IS_SET_FLAG(DINIC_TIME))
-            clock_startTime = clock(); 
-            
+            clock_startTime = clock();
+        
         while (ActualizarDistancias(dova)){
             while (BusquedaCaminoAumentante(dova)){
                 if (IS_SET_FLAG(PATH)){
@@ -240,12 +260,7 @@ int main(int argc, char *argv[]){
                 }  
             }
         }
-        
-        if (IS_SET_FLAG(DINIC_TIME)){
-            clock_finishTime = clock();
-            dinicTime = (double)(clock_finishTime - clock_startTime) / CLOCKS_PER_SEC;
-            print_dinicTime(dinicTime);
-        }
+        /*Imprimo resultados de lo que se haya pedido*/
         if (IS_SET_FLAG(FLOW))
             ImprimirFlujo(dova);
 
@@ -253,7 +268,13 @@ int main(int argc, char *argv[]){
             ImprimirValorFlujo(dova);
             
         if (IS_SET_FLAG(CUT))
-            ImprimirCorte(dova);    
+            ImprimirCorte(dova);
+        
+        if (IS_SET_FLAG(DINIC_TIME)){
+            clock_finishTime = clock();
+            dinicTime = (double)(clock_finishTime - clock_startTime) / CLOCKS_PER_SEC;
+            print_dinicTime(dinicTime);
+        }
     }
     /* destruyo el dova*/
     if (!DestruirDovahkiin(dova))
