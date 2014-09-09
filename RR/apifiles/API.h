@@ -1,4 +1,4 @@
-#ifndef API_H
+﻿#ifndef API_H
 #define API_H
 
 /*
@@ -54,11 +54,11 @@ void FijarFuente(DovahkiinP dova, u64 x);
  */
 void FijarResumidero(DovahkiinP dova, u64 x);
 
-/* Imprime por la salida estandar el nombre del nodo que es fuente.
+/* Imprime por la salida estándar el nombre del nodo que es fuente.
  * Imprime por pantalla:
  * Fuente: s 
- * Donde s es el nodo que estamos conciderando como fuente. Este es el unico 
- * caso donde la fuente se imprimira con su nombre real y no con la letra s. 
+ * Donde s es el nodo que estamos considerando como fuente. Este es el único 
+ * caso donde la fuente se imprimirá con su nombre real y no con la letra s. 
  * dova  El dova en el que se trabaja.
  * pre: dova debe ser un DovahkiinP no nulo.
  * return:  -1 si la fuente no esta fijada.
@@ -66,11 +66,11 @@ void FijarResumidero(DovahkiinP dova, u64 x);
  */
 int ImprimirFuente(DovahkiinP dova);
 
-/* Imprime por la salida estandar el nombre del nodo que es resumidero.
+/* Imprime por la salida estándar el nombre del nodo que es resumidero.
  * Imprime por pantalla:
  * Resumidero: t 
- * Donde t es el nodo que estamos conciderando como resumidero. Este es el unico 
- * caso donde el resumidero se imprimira con su nombre real y no con la letra t. 
+ * Donde t es el nodo que estamos considerando como resumidero. Este es el único 
+ * caso donde el resumidero se imprimirá con su nombre real y no con la letra t. 
  * dova  El dova en el que se trabaja.
  * pre: dova debe ser un DovahkiinP no nulo.
  * return:  -1 si el resumidero no esta fijado.
@@ -78,14 +78,14 @@ int ImprimirFuente(DovahkiinP dova);
  */
 int ImprimirResumidero(DovahkiinP dova);
 
-/* Lee un lado desde la entrada estandar.
+/* Lee un lado desde la entrada estándar.
  * Lee una linea desde Standar Input que representa un lado y
  * devuelve el elemento de tipo Lado que lo representa si la linea es valida, 
  * sino devuelve el elemento LadoNulo. 
  * Cada linea es de la forma x y c, siendo todos u64 representando el lado xy 
  * de capacidad c. 
- * return:  Un lado legal con los datos leidos.
- *          LadoNulo si la linea leida no es valida.
+ * return:  Un lado legal con los datos leídos.
+ *          LadoNulo si la linea leída no es valida.
  */
 Lado LeerUnLado(void);
 
@@ -113,7 +113,7 @@ int CargarUnLado(DovahkiinP dova, Lado L);
  */
 int Prepararse(DovahkiinP dova);
 
-/* Actualiza las distancias haciendo una busqueda BFS-FF.
+/* Actualiza las distancias haciendo una búsqueda BFS-FF.
  * Se reinician todas las distancias a nulo y se comienzan a actualizar a partir
  * del nodo fuente 's' utilizando BFS-FF, hasta encontrarse con el
  * nodo resumidero 't'. 
@@ -127,9 +127,9 @@ int Prepararse(DovahkiinP dova);
  */
 int ActualizarDistancias(DovahkiinP dova);
 
-/* Hace una busqueda DFS-FF de un camino aumentante de menor longitud.
+/* Hace una búsqueda DFS-FF de un camino aumentante de menor longitud.
  * Solo se utilizan los nodos que tengan su distancia actualizada.
- * El ultimo nodo agregado al camino solo agrega a otro nodo si este ultimo 
+ * El ultimo nodo agregado al camino solo agrega a otro nodo si este último 
  * tiene una distancia +1 que el, y si se puede aumentar (o disminuir) flujo 
  * entre ellos.
  * dova  El dova en el que se trabaja.
@@ -141,18 +141,18 @@ int BusquedaCaminoAumentante(DovahkiinP dova);
 
 /* Aumenta el flujo del network.
  * Actualiza el flujo en el network de  dova sobre el camino aumentante 
- * encontrado. La actualizacion es por el maximo aumento de flujo que se pueda 
+ * encontrado. La actualización es por el máximo aumento de flujo que se pueda 
  * enviar por ese camino, teniendo en cuenta flujos anteriores.
  * dova  El dova en el que se trabaja.
  * pre: dova Debe ser un DovahkiinP no nulo.
- *      Se busco y encontro un camino aumentante que todavia no se ha usado para
+ *      Se busco y encontró un camino aumentante que todavía no se ha usado para
  *      actualizar el flujo.
  * return:  Valor por el cual se aumenta el flujo, si no hubo errores.
- *          0 si hubo error o no se cumple la precondicion de camino aumentante.
+ *          0 si hubo error o no se cumple la precondición de camino aumentante.
  */
 u64 AumentarFlujo(DovahkiinP dova);
 
-/* Idem AumentarFlujo() pero tambien imprime el camino por el Estandar Output.
+/* Idem AumentarFlujo() pero también imprime el camino por el Estandar Output.
  * Imprime el camino con el formato: 
  * camino aumentante #:
  * t;x_r;...;x_1;s: <cantDelIncremento>
@@ -161,7 +161,7 @@ u64 AumentarFlujo(DovahkiinP dova);
  * dova  El dova en el que se trabaja.
  * pre: dova Debe ser un DovahkiinP no nulo.
  * return:  Valor por el cual se aumenta el flujo, si no hubo errores.
- *          0 si hubo error o no se cumple la precondicion de camino aumentante.
+ *          0 si hubo error o no se cumple la precondición de camino aumentante.
  */
 u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP dova);
 
@@ -185,7 +185,7 @@ void ImprimirFlujo(DovahkiinP dova);
 void ImprimirValorFlujo(DovahkiinP dova);
 
 /* Imprime por Estandar Output un corte minimal y su capacidad.
- * La capacidad del corte minimal es igual a la suma de todas las capicades
+ * La capacidad del corte minimal es igual a la suma de todas las capacidades
  * de las aristas que van desde el corte a su complemento. Este valor debe
  * ser igual al valor del flujo maximal. Aquí no se compara dicha igualdad, pero
  * si se calcula la capacidad del corte como se enuncia.

@@ -6,7 +6,7 @@
 /** \file lado.h
  * Lado es una estructura que representa un lado del network.
  * Esta compuesta por el nombre del nodo 'x', el nombre del nodo 'y', y la 
- * capacidad 'c' de flujo que se puede enviar a traves del lado 'xy'. 
+ * capacidad 'c' de flujo que se puede enviar a través del lado 'xy'. 
  */
 
 /** \struct Lado

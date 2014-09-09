@@ -1,4 +1,4 @@
-#ifndef _PARSER_LADO_H
+﻿#ifndef _PARSER_LADO_H
 #define _PARSER_LADO_H
 /** \file parser_lado.h
  * Parseador de lados desde la entrada Estandar Input.
@@ -16,7 +16,7 @@
 
 /* Indicadores de resultados de las operaciones realizadas con el parser*/
 #define PARSER_OK 1     /**< Operación exitosa.*/
-#define PARSER_ERR 0    /**< Operación erronea.*/
+#define PARSER_ERR 0    /**< Operación errónea.*/
 
 
 /* Lee todo un Lado de \a input hasta llegar a un fin de línea o de archivo.
@@ -30,7 +30,7 @@
 Lado parser_lado(Lexer *input);
 
 /* Consume el fin de línea.
- * Indica si encontro (o no) basura antes del fin de línea.
+ * Indica si encontró (o no) basura antes del fin de línea.
  * Se asegura que no se consumió más entrada de la necesaria y el lexer esta 
  * detenido justo luego de un "\n" o en el fin de archivo.
  * input El analizador léxico del descriptor de entrada.

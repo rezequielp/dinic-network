@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-/** Estructura de un Lado*/
+/** Estructura principal de un lado.*/
 struct LadoSt{
     u64 x;  /**<El nombre del nodo 'x'.*/
     u64 y;  /**<El nombre del nodo 'y'.*/

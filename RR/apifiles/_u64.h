@@ -1,14 +1,14 @@
-#ifndef U64_H
+﻿#ifndef U64_H
 #define U64_H
 
 /** \file _u64.h
  * Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin
  * signo.
- * Todos los enteros sin signo de 64 bits que aparezcan en la implementacion 
- * deberan usar este tipo de dato.
+ * Todos los enteros sin signo de 64 bits que aparezcan en la implementación 
+ * deberán usar este tipo de dato.
  */
 
-/** Define los macros de formato standard de C para imprimir valores u64*/  
+/** Define los macros de formato estándar de C para imprimir valores u64*/  
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
 
@@ -21,10 +21,10 @@ typedef uint64_t u64;
  * ejemplo: printf("%" PRIu64 "\n", my_u64);
 */
 
-/* Maximo valor de u64*/
-#define u64_MAX UINT64_MAX /**< Máximo valor posible para u64*/
+/* Máximo valor de u64*/
+#define u64_MAX UINT64_MAX /**< Máximo valor posible para u64.*/
 
-/* Macros utiles*/
+/* Macros útiles*/
 /**Retorna el maximo entre 2 números u64.*/
 #define u64_max(a, b) ((a) > (b) ? (a) : (b))
 /**Retorna el minimo entre 2 números u64.*/
