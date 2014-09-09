@@ -1,4 +1,4 @@
-#include <assert.h>
+﻿#include <assert.h>
 #include <stdlib.h>
 #include "_queue.h"
 #include <stdio.h>
@@ -14,7 +14,7 @@ typedef struct QElemSt{
 
 /**Estructura principal de una queue. 
  * Si bien es una cola, mantiene un puntero al primer elemento y al ultimo 
- * elemento de la cola solamente para propocitos de optimizacion y futuros 
+ * elemento de la cola solamente para propósitos de optimización y futuros 
  * upgrades.
  */
 struct QueueSt{
@@ -25,7 +25,7 @@ struct QueueSt{
 
 
 /** Crea una cola sin elementos.
- * \return Un puntero a una cola vacia.
+ * \return Un puntero a una cola vacía.
  */
 Queue queue_create(void){
     Queue Q = NULL; /*La nueva cola*/
@@ -43,7 +43,7 @@ Queue queue_create(void){
  * \param Q Cola a la cual hay que agregarle el elemento.
  * \param elem Elemento a ser agregado a la cola.
  * \pre Q no es una cola nula.
- * \return  1 si se agrego.\n 
+ * \return  1 si se agregó.\n 
  *          0 caso contrario.
  */
 int queue_enqueue(Queue Q, void * q){
@@ -69,7 +69,7 @@ int queue_enqueue(Queue Q, void * q){
 
 /** Quita el ultimo elemento de la cola. 
  * \param Q Cola a la cual se le va a quitar el ultimo elemento.
- * \pre Q no debe estar vacia ni ser nula.
+ * \pre Q no debe estar vacía ni ser nula.
  * \return Elemento que se le quita a la cola.
  */
 void * queue_dequeue(Queue Q){
@@ -105,10 +105,10 @@ void * queue_head(Queue Q){
     
 }
 
-/** Verifica que la cola este vacia.
+/** Verifica que la cola este vacía.
  * \param Q Cola sobre la cual se hará la verificación.
  * \pre Q no es una cola nula.
- * \return  True si Q esta vacia.\n
+ * \return  True si Q esta vacía.\n
  *          False caso contrario.
  */
 int queue_isEmpty(Queue Q){
@@ -117,14 +117,14 @@ int queue_isEmpty(Queue Q){
 }
 
 /** Destruye y libera la memoria de la cola Q preservando los elementos. 
- * Esta funcion no elimina los elementos que se agregaron a la cola. Es tarea 
- * del llamador destruirlos si se consideraba necesario. Esto es asi porque no 
- * se sabe cual es el tipo de las cosas encoladasy porque no es una tarea 
+ * Esta función no elimina los elementos que se agregaron a la cola. Es tarea 
+ * del llamador destruirlos si se consideraba necesario. Esto es así porque no 
+ * se sabe cual es el tipo de las cosas encoladas y porque no es una tarea 
  * de queue_destroy.
  * \param Q Cola a destruir.
  * \param garbage  Puntero a un arreglo de punteros de elementos que se 
  * agregaron a la cola. Si es NULL, queue_destroy no guardara los elementos en 
- * ningun lado. El llamador debe tener cuidado de no perder la referencia a esta
+ * ningún lado. El llamador debe tener cuidado de no perder la referencia a esta
  * memoria para no generar memory leaks.
  * \pre Q no es una cola nula.
  * \return Cantidad de elementos que se eliminaron efectivamente de la cola.*/
@@ -165,7 +165,7 @@ int queue_size (Queue Q){
     return (Q->size);
 }
 
-/** Permutacion entre las colas.
+/** Permutación entre las colas.
  * \param Q1 Una cola.
  * \param Q2 La otra cola.
  */

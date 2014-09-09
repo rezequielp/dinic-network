@@ -1,4 +1,4 @@
-#include "nbrhd.h"
+﻿#include "nbrhd.h"
 #include "__uthash.h"
 #include <stdlib.h>
 #include <assert.h>
@@ -12,11 +12,11 @@
 
 
 /** Estructura de una artista en sentido forward.
- * Relacion 'xy' (y es nodo forward de x).
+ * Relación 'xy' (y es nodo forward de x).
  */
 typedef struct FedgeSt{
     u64 y;                  /**<Nodo forward de 'x'. Es key de la hash.*/
-    u64 cap;                /**<La capacidad de envio de flujo.*/
+    u64 cap;                /**<La capacidad de envío de flujo.*/
     u64 flow;               /**<El flujo que se esta enviando.*/
     UT_hash_handle hhfNbrs; /**<La tabla hash.*/
 } Fedge;
@@ -29,17 +29,17 @@ typedef struct FedgeSt{
  */
 typedef struct BedgeSt{
     u64 y;              /**<Nodo backward de 'x'. Es key de la hash.*/
-    Fedge *x;           /**<Referencia al nodo 'y' como forward del nodo 'x'*/
+    Fedge *x;           /**<Referencia al nodo 'y' como forward del nodo 'x'.*/
     UT_hash_handle hhbNbrs; /**< La tabla hash.*/
 } Bedge;
 
 /** Estructura Nbhd de la vecindad de un nodo 'x'.*/
 struct NeighbourhoodSt{
-    Fedge *fNbrs;       /**<Vecinos forward. Hash de vecinos forward de 'x'*/
-    Bedge *bNbrs;       /**<Vecinos backward. Hash de vecinos backward de 'x'*/
+    Fedge *fNbrs;       /**<Vecinos forward. Hash de vecinos forward de 'x'.*/
+    Bedge *bNbrs;       /**<Vecinos backward. Hash de vecinos backward de 'x'.*/
 };
 
-/*Funciones estaticas */
+/* Funciones estáticas */
 static void *findNbr(Nbrhd nbrs, u64 y, short int dir);
 static Fedge *fedge_create(u64 y, u64 c);
 static Bedge *bedge_create(u64 y, Fedge *fNbr);
@@ -77,8 +77,8 @@ void nbrhd_destroy(Nbrhd nbrs){
     nbrs = NULL;
 }
 
-/** Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos.
- * La relacion es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'
+/** Genera el vinculo entre 'x' e 'y' (edge) convirtiéndolos en vecinos.
+ * La relación es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'.
  * \pre 'x', 'y', 'edge' no son nulos.
  * \param x Vecindario del nodo 'x'.
  * \param y Vecindario del nodo 'y'.
@@ -111,18 +111,18 @@ void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge){
 }
 
 /** Busca el siguiente vecino forward.
- * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * La petición de búsqueda puede ser por el primer nodo (FST) de la tabla, 
  * o bien por el siguiente(NXT) del ultimo pedido. 
  * Si existe almacena el nombre en 'y'.
  * 
- * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * \note Tener en cuenta la documentación sobre las opciones de los parámetros.
  * Verlo como un iterador de consultas a una tabla.
  * 
  * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * \param y     Variable en la que se almacena el nombre del vecino encontrado.
- * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * \return 1 Si se encontro y se almaceno en 'y' un vecino.\n
+ * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opción valida (FST o NXT).
+ * \return 1 Si se encontró y se almacenó en 'y' un vecino.\n
  *         0 Caso contrario.
  */
 int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
@@ -154,18 +154,18 @@ int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y){
 }
 
 /** Busca el siguiente vecino backward.
- * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * La petición de búsqueda puede ser por el primer nodo (FST) de la tabla, 
  * o bien por el siguiente(NXT) del ultimo pedido. 
  * Si existe almacena el nombre en 'y'.
  * 
- * \note Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * \note Tener en cuenta la documentación sobre las opciones de los parámetros.
  * Verlo como un iterador de consultas a una tabla.
  * 
  * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * \param y     Variable en la que se almacena el nombre del vecino encontrado.
- * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * \return 1 Si se encontro y se almaceno en 'y' un vecino.\n
+ * \pre 'nbrs' e 'y' no son nulos y 'rqst' es una opción valida (FST o NXT).
+ * \return 1 Si se encontró y se almaceno en 'y' un vecino.\n
  *         0 Caso contrario.
  */
 int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
@@ -201,7 +201,7 @@ int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
  * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param y     El nombre del vecino.
  * \param vf    El valor de flujo.
- * \pre 'y' es vecino de 'x'. 'vf' > 0
+ * \pre 'y' es vecino de 'x'. 'vf' > 0.
  * \return Valor del nuevo flujo que se esta enviando entre 'x' e 'y'.*/
 u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf){
     Fedge *fNbr = NULL; /*Para manipular el lado si 'dir'=FWD*/
@@ -234,7 +234,7 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf){
  * o 'yx'.
  * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param y     El nombre del vecino.
- * \param dir   Direccion que se encuentra el vecino (lado FWD o BWD)
+ * \param dir   Dirección que se encuentra el vecino (lado FWD o BWD).
  * \pre 'y' es vecino de 'x'. 
  * \return  La capacidad sobre este lado.
  */
@@ -257,7 +257,7 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y, short int dir){
  * o 'yx'.
  * \param nbrs  El vecindario de 'x'. 
  * \param y     El nombre del vecino.
- * \param dir   Direccion que se encuentra el vecino (lado FWD o BWD)
+ * \param dir   Dirección que se encuentra el vecino (lado FWD o BWD).
  * \pre 'y' es vecino de 'x'. 
  * \return  El valor del flujo sobre este lado.
  */
@@ -311,7 +311,7 @@ static void *findNbr(Nbrhd nbrs, u64 y, short int dir){
 /** Construye un nuevo vecino forward (Fedge) para el nodo ancestro 'x'. 
  * El valor del flujo se inicia en 0.
  * \param y Nombre del nuevo vecino forward.
- * \param c Capacidad de envio de flujo a este vecino.
+ * \param c Capacidad de envió de flujo a este vecino.
  * \return Puntero a la estructura que representa el nuevo vecino forward.\n
  *         El llamador se encarga de liberarlo.
 */
@@ -348,7 +348,7 @@ static Bedge *bedge_create(u64 y, Fedge *fNbr){
 
 
 /** Destructor de vecinos forwards.
- * \param fNbrs Puntero a la hash de vecinos forward
+ * \param fNbrs Puntero a la hash de vecinos forward.
  * \pre \p fNbrs no es nulo.
  */
 static void fedge_destroy(Fedge *fNbrs){
@@ -366,7 +366,7 @@ static void fedge_destroy(Fedge *fNbrs){
 
 
 /** Destructor de vecinos backwards.
- * \param bNbrs Puntero a la hash de vecinos forward
+ * \param bNbrs Puntero a la hash de vecinos forward.
  * \pre \p bNbrs no es nulo.
  */
 static void bedge_destroy(Bedge *bNbrs){

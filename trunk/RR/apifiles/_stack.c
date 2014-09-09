@@ -1,4 +1,4 @@
-#include <assert.h>
+﻿#include <assert.h>
 #include <stdlib.h> 
 #include "_stack.h"
 #include <stdio.h>
@@ -13,19 +13,19 @@ typedef struct SElemSt{
 
 /** Estructura principal de una pila.
  * \warning Sobre una pila no se pueden correr dos iteraciones simultaneas ya 
- * que cada una moveria el visor 'iter' accediendo a los elementos 
- * alternadamente. Esta caracteristica es exclusiva. En futuros upgrades se 
- * evitara que se puedan correr diferentes iteraciones o se haran visores 
- * multilples para que si se pueda.
+ * que cada una movería el visor 'iter' accediendo a los elementos 
+ * alternadamente. Esta característica es exclusiva. En futuros upgrades se 
+ * evitara que se puedan correr diferentes iteraciones o se harán visores 
+ * múltiples para que si se pueda.
  */   
 struct StackSt{
     SElem *top;   /**<Puntero al elemento superior de la pila.*/
-    SElem *iter;  /**<Puntero al elemento de la iteracion. Visor.*/
+    SElem *iter;  /**<Puntero al elemento de la iteración. Visor.*/
     int size;     /**<Cantidad de elementos de la pila.*/
 };
 
 
-/** Crea una pila vacia.
+/** Crea una pila vacía.
  * \return Un puntero a la pila creada.
 */
 Stack stack_create (void){
@@ -41,21 +41,21 @@ Stack stack_create (void){
 }
 
 /** Destruye y libera la memoria de la pila S preservando los elementos. 
- * Esta funcion no elimina los elementos que se agregaron en la pila. Es tarea 
- * del llamador destruirlos si se consideraba necesario. Esto es asi porque 
+ * Esta función no elimina los elementos que se agregaron en la pila. Es tarea 
+ * del llamador destruirlos si se consideraba necesario. Esto es así porque 
  * no se sabe cual es el tipo de las cosas apiladas y porque no es una tarea 
  * de stack_destroy.
  * \param S La pila a destruir.
  * \param garbage  Puntero a un arreglo de punteros de elementos que se 
  * agregaron a la pila. Si es NULL, stack_destroy no guardara los elementos en 
- * ningun lado. El llamador debe tener cuidado de no perder la referencia a esta
+ * ningún lado. El llamador debe tener cuidado de no perder la referencia a esta
  * memoria para no generar memory leaks.
  * \pre La pila S no es nula.
  * \return Cantidad de elementos que se eliminaron efectivamente de la pila.
  */
 int stack_destroy(Stack S, void ** garbage){
-    int result = -1;    /*Retorno de la operacion*/
-    int i = 0;          /*Contador de elementos que despilo*/
+    int result = -1;    /*Retorno de la operación*/
+    int i = 0;          /*Contador de elementos que despiló*/
     int sSize;          /*Tamaño de la pila*/
     void *elem;         /*El elemento que se despila*/
     
@@ -71,7 +71,7 @@ int stack_destroy(Stack S, void ** garbage){
         }
         i++;
     }
-    /*Si despile todos los elementos, ya puedo destruir la pila*/
+    /*Si despilé todos los elementos, ya puedo destruir la pila*/
     if(sSize == i){
         result = i;
         free(S);
@@ -104,7 +104,7 @@ int stack_push(Stack S, void *elem){
 
 /** Quita el elemento superior de la pila. 
  * \param S Pila a la cual se le va a quitar el elemento superior.
- * \pre La pila S no debe estar vacia ni ser nula.
+ * \pre La pila S no debe estar vacía ni ser nula.
  * \return Elemento que se le quita a la pila.
  */
 void *stack_pop(Stack S){
@@ -124,10 +124,10 @@ void *stack_pop(Stack S){
     return elem;
 }
 
-/** Verifica que la pila este vacia.
+/** Verifica que la pila este vacía.
  * \param S Pila sobre la cual se hará la verificación.
  * \pre La pila S no es nula.
- * \return  True si S esta vacia.\n
+ * \return  True si S esta vacía.\n
             False caso contrario.
 */
 int stack_isEmpty(Stack S){
@@ -159,10 +159,10 @@ int stack_size(Stack S){
 }
 
 /** Devuelve en S2 la pila S1 revertida.
- * Funcion que invierte el orden de la pila utilizando una nueva pila. El 
+ * Función que invierte el orden de la pila utilizando una nueva pila. El 
  * llamador debe proporcionar las pilas y se encarga de liberarlas.
  * \warning Es altamente ineficiente en cuanto a la memoria que ocupa.
- * \pre Las pilas no son nulas y S2 esta vacia.
+ * \pre Las pilas no son nulas y S2 esta vacía.
  * \return  1 si no hubo error.\n
  *          0 caso contrario.
  */
@@ -199,8 +199,8 @@ void * stack_nextItem(Stack S){
     return elem;
 }
 
-/** Situa el visor en la parte superior de la pila.
- * \param S Pila sobre la cual se reseteara el visor.
+/** Sitúa el visor en la parte superior de la pila.
+ * \param S Pila sobre la cual se reseteará el visor.
  * \pre La pila S no es nula.
  */
 void stack_resetViewer(Stack S){

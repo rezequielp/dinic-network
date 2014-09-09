@@ -1,8 +1,8 @@
-#ifndef STACK_H
+﻿#ifndef STACK_H
 #define STACK_H
 
 /** \file _stack.h
- * La libreria _stack proporciona una serie de herramientas para almacenar 
+ * La librería _stack proporciona una serie de herramientas para almacenar 
  * cualquier tipo de elemento en el orden LIFO(Last In, First Out), ultimo en 
  * entrar primero en salir, correspondiente a lo que llamamos cotidianamente 
  * como una pila. La particularidad de esta pila es que no importa el tipo de 
@@ -24,7 +24,7 @@ typedef struct StackSt *Stack;
 Stack stack_create(void);
 
 /* Destruye y libera la memoria de la pila S preservando los elementos. 
- * Esta funcion no elimina los elementos que se agregaron en la pila. Es tarea 
+ * Esta función no elimina los elementos que se agregaron en la pila. Es tarea 
  * del llamador destruirlos si se consideraba necesario. Esto es asi porque 
  * no se sabe cual es el tipo de las cosas apiladas y porque no es una tarea 
  * de stack_destroy.
@@ -49,15 +49,15 @@ int stack_push(Stack S, void *elem);
 
 /* Quita el elemento superior de la pila. 
  * S Pila a la cual se le va a quitar el elemento superior.
- * pre: La pila S no debe estar vacia ni ser nula.
+ * pre: La pila S no debe estar vacía ni ser nula.
  * return: Elemento que se le quita a la pila.
  */
 void * stack_pop(Stack S);
 
-/* Verifica que la pila este vacia.
+/* Verifica que la pila este vacía.
  * S Pila sobre la cual se hará la verificación.
  * pre: La pila S no es nula.
- * return:  True si S esta vacia.
+ * return:  True si S esta vacía.
             False caso contrario.
 */
 int stack_isEmpty(Stack S);
@@ -77,10 +77,10 @@ void *stack_top(Stack S);
 int stack_size(Stack S);
 
 /* Devuelve en S2 la pila S1 revertida.
- * Funcion que invierte el orden de la pila utilizando una nueva pila. El 
+ * Función que invierte el orden de la pila utilizando una nueva pila. El 
  * llamador debe proporcionar las pilas y se encarga de liberarlas.
  * WARNING Es altamente ineficiente en cuanto a la memoria que ocupa.
- * pre: Las pilas no son nulas y S2 esta vacia.
+ * pre: Las pilas no son nulas y S2 esta vacía.
  * return:  1 si no hubo error.
  *          0 caso contrario.
  */
@@ -95,7 +95,7 @@ int stack_revert(Stack S1, Stack S2 );
 void * stack_nextItem(Stack S);
 
 /* Situa el visor en la parte superior de la pila.
- * S Pila sobre la cual se reseteara el visor.
+ * S Pila sobre la cual se reseteará el visor.
  * pre: La pila S no es nula.
  */
 void stack_resetViewer(Stack S);

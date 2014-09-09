@@ -1,4 +1,4 @@
-#ifndef _NBRHD_H
+﻿#ifndef _NBRHD_H
 #define _NBRHD_H
 
 #include "_u64.h"
@@ -7,14 +7,14 @@
 /** \file nbrhd.h
  * Encabezado de nbrhd.c.
  * \note
- * Lo que figure en doble parentesis en este texto, como por ej ((algo)), estará
+ * Lo que figure en doble paréntesis en este texto, como por ej ((algo)), estará
  * indicando una notación sobre toda la implementación de este archivo.
  * 
  * La vecindad ((Nbrhd)) de un nodo ancestro (('x')), es la representación del 
- * conjunto de nodos vecinos (('y')) que estan relacionados a éste por medio de 
+ * conjunto de nodos vecinos (('y')) que están relacionados a éste por medio de 
  * un lado en el network. Nbrhd se divide en 2 subconjuntos de nodos 'y': los 
  * forward ((FWD)) y los backward ((BWD)).
- * Un nodo 'y' es FWD de 'x' si la dirección de envio de flujo es de 'x' hacia 
+ * Un nodo 'y' es FWD de 'x' si la dirección de envío de flujo es de 'x' hacia 
  * 'y'. Cuando nos refiramos a un lado FWD vamos a estar indicando esta 
  * correspondencia y lo denotaremos como lado (('xy')). Todo flujo enviado
  * por un lado FWD aumenta el valor del flujo existente en este lado.
@@ -23,7 +23,7 @@
  * lado BWD disminuye el valor del flujo existente en este lado.
  * 
  * Con esta noción de Nbrhd se puede deducir que todos los lados 'xy' 
- * pertenecientes al network estan representados como lado FWD en el Nbrhd de
+ * pertenecientes al network están representados como lado FWD en el Nbrhd de
  * su correspondiente nodo 'x', y como lado BWD en el Nbrhd de su 
  * correspondiente nodo 'y'.
  * 
@@ -40,15 +40,15 @@
 typedef struct NeighbourhoodSt *Nbrhd;
 
 /* dir options:
- * Es la direccion en la que se encuentra un vecino.
+ * Es la dirección en la que se encuentra un vecino.
  * Una vecindad (Nbrhd) se divide en 2 zonas: FWD y BWD.*/
-#define FWD 1   /**<Forward*/
-#define BWD -1  /**<Backward*/
+#define FWD 1   /**<Forward.*/
+#define BWD -1  /**<Backward.*/
 
-/* Parametros para nbrhd_getFwd() y nbrhd_getBwd */
+/* Parámetros para nbrhd_getFwd() y nbrhd_getBwd */
 /*'rqst' options: Indica cual es el siguiente vecino que se quiere obtener.*/
-#define FST 0       /**<El primero*/
-#define NXT 1       /**<El siguiente del último consultado*/
+#define FST 0       /**<El primero.*/
+#define NXT 1       /**<El siguiente del último consultado.*/
 
 
 /*          Funciones
@@ -64,8 +64,8 @@ Nbrhd nbrhd_create(void);
  */
 void nbrhd_destroy(Nbrhd nbrhd);
 
-/* Genera el vinculo entre 'x' e 'y' (edge) convirtiendolos en vecinos.
- * La relacion es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'.
+/* Genera el vinculo entre 'x' e 'y' (edge) convirtiéndolos en vecinos.
+ * La relación es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'.
  * pre: 'x', 'y', 'edge' no son nulos.
  * x Vecindario del nodo 'x'.
  * y Vecindario del nodo 'y'.
@@ -74,35 +74,35 @@ void nbrhd_destroy(Nbrhd nbrhd);
 void nbrhd_addEdge(Nbrhd x, Nbrhd y, Lado edge);
 
 /* Busca el siguiente vecino forward.
- * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * La petición de búsqueda puede ser por el primer nodo (FST) de la tabla, 
  * o bien por el siguiente(NXT) del ultimo pedido. 
  * Si existe, almacena el nombre en 'y'.
  * 
- * NOTE Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * NOTE Tener en cuenta la documentación sobre las opciones de los parámetros.
  * Verlo como un iterador de consultas a una tabla.
  * 
  * nbrs  El vecindario del nodo ancestro 'x'. 
  * rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * y     Variable en la que se almacena el nombre del vecino encontrado.
- * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * return: 1 Si se encontro y se almaceno en 'y' un vecino.
+ * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opción valida (FST o NXT).
+ * return: 1 Si se encontró y se almacenó en 'y' un vecino.
  *         0 Caso contrario.
  */
 int nbrhd_getFwd(Nbrhd nbrs, int rqst, u64 *y);
 
 /* Busca el siguiente vecino backward.
- * La peticion de busqueda puede ser por el primer nodo (FST) de la tabla, 
+ * La petición de búsqueda puede ser por el primer nodo (FST) de la tabla, 
  * o bien por el siguiente(NXT) del ultimo pedido. 
  * Si existe almacena el nombre en 'y'.
  * 
- * NOTE Tener en cuenta la documentacion sobre las opciones de los parametros.
+ * NOTE Tener en cuenta la documentación sobre las opciones de los parámetros.
  * Verlo como un iterador de consultas a una tabla.
  * 
  * nbrs  El vecindario del nodo ancestro 'x'. 
  * rqst  Si se pide el primero 'FST' o un siguiente 'NXT'.
  * y     Variable en la que se almacena el nombre del vecino encontrado.
- * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opcion valida (FST o NXT)
- * return: 1 Si se encontro y se almaceno en 'y' un vecino.
+ * pre: 'nbrs' e 'y' no son nulos y 'rqst' es una opción valida (FST o NXT)
+ * return: 1 Si se encontró y se almacenó en 'y' un vecino.
  *         0 Caso contrario.
  */
 int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y);
@@ -112,7 +112,7 @@ int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y);
  * nbrs  El vecindario del nodo ancestro 'x'. 
  * y     El nombre del vecino.
  * vf    El valor de flujo.
- * pre: 'y' es vecino de 'x'. 'vf' > 0
+ * pre: 'y' es vecino de 'x'. 'vf' > 0.
  * return: Valor del nuevo flujo que se esta enviando entre 'x' e 'y'.*/
 u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf); 
 
@@ -122,7 +122,7 @@ u64 nbrhd_increaseFlow(Nbrhd nbrs, u64 y, short int dir, u64 vf);
  * o 'yx'.
  * nbrs  El vecindario del nodo ancestro 'x'. 
  * y     El nombre del vecino.
- * dir   Direccion que se encuentra el vecino (lado FWD o BWD)
+ * dir   Dirección que se encuentra el vecino (lado FWD o BWD).
  * pre: 'y' es vecino de 'x'. 
  * return:  La capacidad sobre este lado.
  */
@@ -134,7 +134,7 @@ u64 nbrhd_getCap(Nbrhd nbrs, u64 y, short int dir);
  * o 'yx'.
  * nbrs  El vecindario de 'x'. 
  * y     El nombre del vecino.
- * dir   Direccion que se encuentra el vecino (lado FWD o BWD)
+ * dir   Dirección que se encuentra el vecino (lado FWD o BWD).
  * pre: 'y' es vecino de 'x'. 
  * return:  El valor del flujo sobre este lado.
  */
