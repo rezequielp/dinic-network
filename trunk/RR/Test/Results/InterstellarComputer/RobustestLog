@@ -1,0 +1,49 @@
+-e 
+---------------------------
+-e 
+net1
+-e 
+net2
+Valor del flujo maximal: 0
+Corte Minimal: S = {s,2,3,4}
+Capacidad: 0
+-e 
+net3
+Valor del flujo maximal: 0
+Corte Minimal: S = {s,2}
+Capacidad: 0
+-e 
+net4
+Valor del flujo maximal: 5
+Corte Minimal: S = {s}
+Capacidad: 5
+-e 
+net5
+Valor del flujo maximal: 0
+Corte Minimal: S = {s}
+Capacidad: 0
+-e 
+net6
+Valor del flujo maximal: 7
+Corte Minimal: S = {s}
+Capacidad: 7
+-e 
+net7
+Valor del flujo maximal: 3
+Corte Minimal: S = {s,2}
+Capacidad: 3
+-e 
+net8
+Valor del flujo maximal: 3
+Corte Minimal: S = {s,2}
+Capacidad: 3
+-e 
+net9
+Valor del flujo maximal: 0
+Corte Minimal: S = {s,2}
+Capacidad: 0
+-e 
+net10
+Valor del flujo maximal: 512
+Corte Minimal: S = {s}
+Capacidad: 512
