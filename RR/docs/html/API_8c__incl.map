@@ -1,0 +1,12 @@
+<map id="apifiles/API.c" name="apifiles/API.c">
+<area shape="rect" href="$____uthash_8h.html" title="A Hash in C. " alt="" coords="432,80,517,107"/>
+<area shape="rect" href="$__stack_8h.html" title="La librería _stack proporciona una serie de herramientas para almacenar cualquier tipo de elemento en..." alt="" coords="803,80,872,107"/>
+<area shape="rect" href="$__queue_8h.html" title="La librería _queue proporciona una serie de herramientas para almacenar cualquier tipo de elemento en..." alt="" coords="896,80,973,107"/>
+<area shape="rect" href="$____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="191,229,273,256"/>
+<area shape="rect" href="$__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="129,155,199,181"/>
+<area shape="rect" href="$nbrhd_8h.html" title="Encabezado de nbrhd.c. " alt="" coords="619,80,685,107"/>
+<area shape="rect" href="$API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="541,80,595,107"/>
+<area shape="rect" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="256,80,357,107"/>
+<area shape="rect" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="588,229,649,256"/>
+<area shape="rect" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="615,155,671,181"/>
+</map>

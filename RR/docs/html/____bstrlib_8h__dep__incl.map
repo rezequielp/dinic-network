@@ -1,0 +1,8 @@
+<map id="apifiles/__bstrlib.h" name="apifiles/__bstrlib.h">
+<area shape="rect" href="$____bstrlib_8c.html" title="apifiles/__bstrlib.c" alt="" coords="5,80,131,107"/>
+<area shape="rect" href="$__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="231,80,343,107"/>
+<area shape="rect" href="$API_8c.html" title="apifiles/API.c" alt="" coords="169,229,268,256"/>
+<area shape="rect" href="$__lexer_8c.html" title="apifiles/_lexer.c" alt="" coords="256,155,368,181"/>
+<area shape="rect" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="392,155,539,181"/>
+<area shape="rect" href="$parser__lado_8c.html" title="apifiles/parser_lado.c" alt="" coords="392,229,539,256"/>
+</map>

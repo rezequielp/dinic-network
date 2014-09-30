@@ -1,0 +1,747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Referencia del Archivo apifiles/nbrhd.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('nbrhd_8c.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Estructuras de datos</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia del Archivo nbrhd.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Las estructuras <a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a>, <a class="el" href="structFedge.html" title="Estructura de una artista en sentido forward. ">Fedge</a>, <a class="el" href="structBedge.html" title="Estructura de una arista en sentido backward. ">Bedge</a> y todas sus funciones se definen aquí.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="nbrhd_8h_source.html">nbrhd.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="____uthash_8h_source.html">__uthash.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Dependencia gráfica adjunta para nbrhd.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="nbrhd_8c__incl.png" border="0" usemap="#apifiles_2nbrhd_8c" alt=""/></div>
+<map name="apifiles_2nbrhd_8c" id="apifiles_2nbrhd_8c">
+<area shape="rect" href="nbrhd_8h.html" title="Encabezado de nbrhd.c. " alt="" coords="19,80,85,107"/><area shape="rect" href="____uthash_8h.html" title="A Hash in C. " alt="" coords="189,80,275,107"/><area shape="rect" href="__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="19,229,80,256"/><area shape="rect" href="lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="24,155,80,181"/></map>
+</div>
+</div>
+<p><a href="nbrhd_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Estructuras de datos</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structFedge.html">Fedge</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura de una artista en sentido forward.  <a href="structFedge.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBedge.html">Bedge</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura de una arista en sentido backward.  <a href="structBedge.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNeighbourhoodSt.html">Nbrhd</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura Nbhd de la vecindad de un nodo 'x'.  <a href="structNeighbourhoodSt.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a76930d1a32559a205f2c338052cb8f5d"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a76930d1a32559a205f2c338052cb8f5d">findNbr</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> y, short int dir)</td></tr>
+<tr class="memdesc:a76930d1a32559a205f2c338052cb8f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca un vecino con nombre 'y', en la dirección especificada.  <a href="#a76930d1a32559a205f2c338052cb8f5d">Más...</a><br /></td></tr>
+<tr class="separator:a76930d1a32559a205f2c338052cb8f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d8c81442e4d3572b8a51d40e7aa34bc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structFedge.html">Fedge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a0d8c81442e4d3572b8a51d40e7aa34bc">fedge_create</a> (<a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> y, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> c)</td></tr>
+<tr class="memdesc:a0d8c81442e4d3572b8a51d40e7aa34bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construye un nuevo vecino forward (<a class="el" href="structFedge.html" title="Estructura de una artista en sentido forward. ">Fedge</a>) para el nodo ancestro 'x'.  <a href="#a0d8c81442e4d3572b8a51d40e7aa34bc">Más...</a><br /></td></tr>
+<tr class="separator:a0d8c81442e4d3572b8a51d40e7aa34bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8de2170875c7554daa01a47a83858d86"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structBedge.html">Bedge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a8de2170875c7554daa01a47a83858d86">bedge_create</a> (<a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> y, <a class="el" href="structFedge.html">Fedge</a> *fNbr)</td></tr>
+<tr class="memdesc:a8de2170875c7554daa01a47a83858d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construye un nuevo vecino backward para el nodo ancestro 'x'.  <a href="#a8de2170875c7554daa01a47a83858d86">Más...</a><br /></td></tr>
+<tr class="separator:a8de2170875c7554daa01a47a83858d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892790b1612a9cc3f6c958c9707d5b18"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a892790b1612a9cc3f6c958c9707d5b18">fedge_destroy</a> (<a class="el" href="structFedge.html">Fedge</a> *fNbrs)</td></tr>
+<tr class="memdesc:a892790b1612a9cc3f6c958c9707d5b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor de vecinos forwards.  <a href="#a892790b1612a9cc3f6c958c9707d5b18">Más...</a><br /></td></tr>
+<tr class="separator:a892790b1612a9cc3f6c958c9707d5b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff69d906f4fba72a3737e0f2e3c2ed92"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#aff69d906f4fba72a3737e0f2e3c2ed92">bedge_destroy</a> (<a class="el" href="structBedge.html">Bedge</a> *bNbrs)</td></tr>
+<tr class="memdesc:aff69d906f4fba72a3737e0f2e3c2ed92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor de vecinos backwards.  <a href="#aff69d906f4fba72a3737e0f2e3c2ed92">Más...</a><br /></td></tr>
+<tr class="separator:aff69d906f4fba72a3737e0f2e3c2ed92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a006b65686eb0a5b9866d5c820e080c36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a006b65686eb0a5b9866d5c820e080c36">nbrhd_create</a> (void)</td></tr>
+<tr class="memdesc:a006b65686eb0a5b9866d5c820e080c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor de un nuevo <a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a>.  <a href="#a006b65686eb0a5b9866d5c820e080c36">Más...</a><br /></td></tr>
+<tr class="separator:a006b65686eb0a5b9866d5c820e080c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011cf0e134a632ddac08a769e3275f22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a011cf0e134a632ddac08a769e3275f22">nbrhd_destroy</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs)</td></tr>
+<tr class="memdesc:a011cf0e134a632ddac08a769e3275f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor de un <a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a>.  <a href="#a011cf0e134a632ddac08a769e3275f22">Más...</a><br /></td></tr>
+<tr class="separator:a011cf0e134a632ddac08a769e3275f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adba3ec97b97e982e7f5bfc486e9e22b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#adba3ec97b97e982e7f5bfc486e9e22b5">nbrhd_addEdge</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> x, <a class="el" href="structNbrhd.html">Nbrhd</a> y, <a class="el" href="structLado.html">Lado</a> edge)</td></tr>
+<tr class="memdesc:adba3ec97b97e982e7f5bfc486e9e22b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera el vinculo entre 'x' e 'y' (edge) convirtiéndolos en vecinos.  <a href="#adba3ec97b97e982e7f5bfc486e9e22b5">Más...</a><br /></td></tr>
+<tr class="separator:adba3ec97b97e982e7f5bfc486e9e22b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0c3e02751a0077f2bf1f90e4d0384d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#ad0c3e02751a0077f2bf1f90e4d0384d1">nbrhd_getFwd</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs, int rqst, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *y)</td></tr>
+<tr class="memdesc:ad0c3e02751a0077f2bf1f90e4d0384d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca el siguiente vecino forward.  <a href="#ad0c3e02751a0077f2bf1f90e4d0384d1">Más...</a><br /></td></tr>
+<tr class="separator:ad0c3e02751a0077f2bf1f90e4d0384d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0563715d3cfbbb59cf3e83ef242283e2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a0563715d3cfbbb59cf3e83ef242283e2">nbrhd_getBwd</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs, int rqst, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *y)</td></tr>
+<tr class="memdesc:a0563715d3cfbbb59cf3e83ef242283e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca el siguiente vecino backward.  <a href="#a0563715d3cfbbb59cf3e83ef242283e2">Más...</a><br /></td></tr>
+<tr class="separator:a0563715d3cfbbb59cf3e83ef242283e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab32ddc38828b7a18e3dfba02180ce6fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#ab32ddc38828b7a18e3dfba02180ce6fa">nbrhd_increaseFlow</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> y, short int dir, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> vf)</td></tr>
+<tr class="memdesc:ab32ddc38828b7a18e3dfba02180ce6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad.  <a href="#ab32ddc38828b7a18e3dfba02180ce6fa">Más...</a><br /></td></tr>
+<tr class="separator:ab32ddc38828b7a18e3dfba02180ce6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd3e6d98e45f2bbf494d6bba07ffd15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#a0dd3e6d98e45f2bbf494d6bba07ffd15">nbrhd_getCap</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> y, short int dir)</td></tr>
+<tr class="memdesc:a0dd3e6d98e45f2bbf494d6bba07ffd15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve la capacidad del lado que relaciona al nodo ancestro 'x' con el vecino 'y'.  <a href="#a0dd3e6d98e45f2bbf494d6bba07ffd15">Más...</a><br /></td></tr>
+<tr class="separator:a0dd3e6d98e45f2bbf494d6bba07ffd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc04eb8a4ab84cddef449ba3f698f6d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nbrhd_8c.html#afc04eb8a4ab84cddef449ba3f698f6d8">nbrhd_getFlow</a> (<a class="el" href="structNbrhd.html">Nbrhd</a> nbrs, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> y, short int dir)</td></tr>
+<tr class="memdesc:afc04eb8a4ab84cddef449ba3f698f6d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve el valor del flujo del lado que relaciona al nodo ancestro 'x' con el vecino 'y'.  <a href="#afc04eb8a4ab84cddef449ba3f698f6d8">Más...</a><br /></td></tr>
+<tr class="separator:afc04eb8a4ab84cddef449ba3f698f6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Las estructuras <a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a>, <a class="el" href="structFedge.html" title="Estructura de una artista en sentido forward. ">Fedge</a>, <a class="el" href="structBedge.html" title="Estructura de una arista en sentido backward. ">Bedge</a> y todas sus funciones se definen aquí. </p>
+<dl class="section note"><dt>Nota</dt><dd>Para los comentarios y documentación, tener en cuenta la notación enunciada en <a class="el" href="nbrhd_8h.html" title="Encabezado de nbrhd.c. ">nbrhd.h</a> </dd></dl>
+
+<p>Definición en el archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+</div><h2 class="groupheader">Documentación de las funciones</h2>
+<a class="anchor" id="a76930d1a32559a205f2c338052cb8f5d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void * findNbr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">short int&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Busca un vecino con nombre 'y', en la dirección especificada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbrs</td><td>El vecindario de 'x'. </td></tr>
+    <tr><td class="paramname">y</td><td>El nombre del vecino. </td></tr>
+    <tr><td class="paramname">dir</td><td>Dirección que se encuentra el vecino (lado FWD o BWD). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'y' es vecino de 'x'. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>La representación del lado dependiendo de la dirección en la que se encuentra 'y': <br />
+ Si es forward, se retorna un puntero a un <a class="el" href="structFedge.html" title="Estructura de una artista en sentido forward. ">Fedge</a>. <br />
+ Si es backward, se retorna un puntero a un <a class="el" href="structBedge.html" title="Estructura de una arista en sentido backward. ">Bedge</a>. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00292">292</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="nbrhd_8c_source.html#l00242">nbrhd_getCap()</a>, <a class="el" href="nbrhd_8c_source.html#l00265">nbrhd_getFlow()</a> y <a class="el" href="nbrhd_8c_source.html#l00207">nbrhd_increaseFlow()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0d8c81442e4d3572b8a51d40e7aa34bc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structFedge.html">Fedge</a> * fedge_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construye un nuevo vecino forward (<a class="el" href="structFedge.html" title="Estructura de una artista en sentido forward. ">Fedge</a>) para el nodo ancestro 'x'. </p>
+<p>El valor del flujo se inicia en 0. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>Nombre del nuevo vecino forward. </td></tr>
+    <tr><td class="paramname">c</td><td>Capacidad de envió de flujo a este vecino. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero a la estructura que representa el nuevo vecino forward.<br />
+ El llamador se encarga de liberarlo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00320">320</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="nbrhd_8c_source.html#l00087">nbrhd_addEdge()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8de2170875c7554daa01a47a83858d86"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structBedge.html">Bedge</a> * bedge_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structFedge.html">Fedge</a> *&#160;</td>
+          <td class="paramname"><em>fNbr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construye un nuevo vecino backward para el nodo ancestro 'x'. </p>
+<p>Se vincula a los datos forward respecto a él. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>Nombre del nuevo vecino backward. </td></tr>
+    <tr><td class="paramname">fNbr</td><td>Puntero al lado en donde el nodo 'y' es forward del nodo 'x'. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero a la estructura que representa el nuevo vecino backward.<br />
+ El llamador se encarga de liberarlo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00340">340</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="nbrhd_8c_source.html#l00087">nbrhd_addEdge()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a892790b1612a9cc3f6c958c9707d5b18"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void fedge_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structFedge.html">Fedge</a> *&#160;</td>
+          <td class="paramname"><em>fNbrs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor de vecinos forwards. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fNbrs</td><td>Puntero a la hash de vecinos forward. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>fNbrs</code> no es nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00356">356</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="nbrhd_8c_source.html#l00068">nbrhd_destroy()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aff69d906f4fba72a3737e0f2e3c2ed92"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void bedge_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBedge.html">Bedge</a> *&#160;</td>
+          <td class="paramname"><em>bNbrs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor de vecinos backwards. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bNbrs</td><td>Puntero a la hash de vecinos forward. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>bNbrs</code> no es nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00374">374</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="nbrhd_8c_source.html#l00068">nbrhd_destroy()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a006b65686eb0a5b9866d5c820e080c36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNbrhd.html">Nbrhd</a> nbrhd_create </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor de un nuevo <a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a>. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>un <code><a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a></code> vacío. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00053">53</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a011cf0e134a632ddac08a769e3275f22"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nbrhd_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destructor de un <a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a>. </p>
+<dl class="section pre"><dt>Precondición</dt><dd><code><a class="el" href="structNbrhd.html" title="Puntero a la vecindad de un nodo. ">Nbrhd</a></code> no es nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00068">68</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adba3ec97b97e982e7f5bfc486e9e22b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nbrhd_addEdge </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structLado.html">Lado</a>&#160;</td>
+          <td class="paramname"><em>edge</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Genera el vinculo entre 'x' e 'y' (edge) convirtiéndolos en vecinos. </p>
+<p>La relación es 'xy': 'y' vecino forward de 'x'; 'x' vecino backward de 'y'. </p><dl class="section pre"><dt>Precondición</dt><dd>'x', 'y', 'edge' no son nulos. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Vecindario del nodo 'x'. </td></tr>
+    <tr><td class="paramname">y</td><td>Vecindario del nodo 'y'. </td></tr>
+    <tr><td class="paramname">edge</td><td><a class="el" href="structLado.html" title="Puntero a un lado. ">Lado</a> 'xy' con su capacidad y flujo. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00087">87</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad0c3e02751a0077f2bf1f90e4d0384d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nbrhd_getFwd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rqst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Busca el siguiente vecino forward. </p>
+<p>La petición de búsqueda puede ser por el primer nodo (FST) de la tabla, o bien por el siguiente(NXT) del ultimo pedido. Si existe almacena el nombre en 'y'.</p>
+<dl class="section note"><dt>Nota</dt><dd>Tener en cuenta la documentación sobre las opciones de los parámetros. Verlo como un iterador de consultas a una tabla.</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbrs</td><td>El vecindario del nodo ancestro 'x'. </td></tr>
+    <tr><td class="paramname">rqst</td><td>Si se pide el primero 'FST' o un siguiente 'NXT'. </td></tr>
+    <tr><td class="paramname">y</td><td>Variable en la que se almacena el nombre del vecino encontrado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'nbrs' e 'y' no son nulos y 'rqst' es una opción valida (FST o NXT). </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>1 Si se encontró y se almacenó en 'y' un vecino.<br />
+ 0 Caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00128">128</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0563715d3cfbbb59cf3e83ef242283e2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int nbrhd_getBwd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rqst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Busca el siguiente vecino backward. </p>
+<p>La petición de búsqueda puede ser por el primer nodo (FST) de la tabla, o bien por el siguiente(NXT) del ultimo pedido. Si existe almacena el nombre en 'y'.</p>
+<dl class="section note"><dt>Nota</dt><dd>Tener en cuenta la documentación sobre las opciones de los parámetros. Verlo como un iterador de consultas a una tabla.</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbrs</td><td>El vecindario del nodo ancestro 'x'. </td></tr>
+    <tr><td class="paramname">rqst</td><td>Si se pide el primero 'FST' o un siguiente 'NXT'. </td></tr>
+    <tr><td class="paramname">y</td><td>Variable en la que se almacena el nombre del vecino encontrado. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'nbrs' e 'y' no son nulos y 'rqst' es una opción valida (FST o NXT). </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>1 Si se encontró y se almaceno en 'y' un vecino.<br />
+ 0 Caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00171">171</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab32ddc38828b7a18e3dfba02180ce6fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> nbrhd_increaseFlow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">short int&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>vf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Se aumenta el flujo para con el vecino 'y' por 'vf' cantidad. </p>
+<p>Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbrs</td><td>El vecindario del nodo ancestro 'x'. </td></tr>
+    <tr><td class="paramname">y</td><td>El nombre del vecino. </td></tr>
+    <tr><td class="paramname">dir</td><td>Dirección que se encuentra el vecino (lado FWD o BWD). </td></tr>
+    <tr><td class="paramname">vf</td><td>El valor de flujo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'y' es vecino de 'x'. 'vf' &gt; 0. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Valor del nuevo flujo que se esta enviando entre 'x' e 'y'. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00207">207</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0dd3e6d98e45f2bbf494d6bba07ffd15"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> nbrhd_getCap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">short int&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve la capacidad del lado que relaciona al nodo ancestro 'x' con el vecino 'y'. </p>
+<p>Como pueden haber loops hay que especificar si se esta tratando del lado 'xy' o 'yx'. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbrs</td><td>El vecindario del nodo ancestro 'x'. </td></tr>
+    <tr><td class="paramname">y</td><td>El nombre del vecino. </td></tr>
+    <tr><td class="paramname">dir</td><td>Dirección que se encuentra el vecino (lado FWD o BWD). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'y' es vecino de 'x'. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>La capacidad sobre este lado. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00242">242</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afc04eb8a4ab84cddef449ba3f698f6d8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> nbrhd_getFlow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNbrhd.html">Nbrhd</a>&#160;</td>
+          <td class="paramname"><em>nbrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">short int&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Devuelve el valor del flujo del lado que relaciona al nodo ancestro 'x' con el vecino 'y'. </p>
+<p>Como pueden haber loops hay que especificar si se esta tratando del lado 'xy' o 'yx'. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nbrs</td><td>El vecindario de 'x'. </td></tr>
+    <tr><td class="paramname">y</td><td>El nombre del vecino. </td></tr>
+    <tr><td class="paramname">dir</td><td>Dirección que se encuentra el vecino (lado FWD o BWD). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'y' es vecino de 'x'. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>El valor del flujo sobre este lado. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="nbrhd_8c_source.html#l00265">265</a> del archivo <a class="el" href="nbrhd_8c_source.html">nbrhd.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="nbrhd_8c.html">nbrhd.c</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>
