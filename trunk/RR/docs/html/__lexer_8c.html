@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Referencia del Archivo apifiles/_lexer.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('__lexer_8c.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Estructuras de datos</a> &#124;
+<a href="#define-members">'defines'</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia del Archivo _lexer.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="__lexer_8h_source.html">_lexer.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Dependencia gráfica adjunta para _lexer.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="__lexer_8c__incl.png" border="0" usemap="#apifiles_2__lexer_8c" alt=""/></div>
+<map name="apifiles_2__lexer_8c" id="apifiles_2__lexer_8c">
+<area shape="rect" href="__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="235,80,304,107"/><area shape="rect" href="____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="88,155,171,181"/></map>
+</div>
+</div>
+<p><a href="__lexer_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Estructuras de datos</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__lexer__t.html">Lexer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+'defines'</h2></td></tr>
+<tr class="memitem:a0a8c93409988f507215933a6c37a9caa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a0a8c93409988f507215933a6c37a9caa">BASE_ALLOC</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:a0a8c93409988f507215933a6c37a9caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ac29f752bb184c9e4edbef38b8614d01d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#ac29f752bb184c9e4edbef38b8614d01d">lexer_accept</a> (Lexer *self)</td></tr>
+<tr class="separator:ac29f752bb184c9e4edbef38b8614d01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d47a4c3159e0d2d8e34a7d72a07365c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a5d47a4c3159e0d2d8e34a7d72a07365c">lexer_lookahead</a> (Lexer *self)</td></tr>
+<tr class="separator:a5d47a4c3159e0d2d8e34a7d72a07365c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3819e88a54bc68f575d7e9604311bc08"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a3819e88a54bc68f575d7e9604311bc08">lexer_new_item</a> (Lexer *self)</td></tr>
+<tr class="separator:a3819e88a54bc68f575d7e9604311bc08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab02b4d1aa9740ac7a34420b4b9bbd6d"><td class="memItemLeft" align="right" valign="top">Lexer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#aab02b4d1aa9740ac7a34420b4b9bbd6d">lexer_new</a> (FILE *f)</td></tr>
+<tr class="separator:aab02b4d1aa9740ac7a34420b4b9bbd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12aff8e140d703e68362dc301a3ade01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a12aff8e140d703e68362dc301a3ade01">lexer_destroy</a> (Lexer *self)</td></tr>
+<tr class="separator:a12aff8e140d703e68362dc301a3ade01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26f8b93963415d431d3e4e90aaf4a098"><td class="memItemLeft" align="right" valign="top">bstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a26f8b93963415d431d3e4e90aaf4a098">lexer_item</a> (Lexer *self)</td></tr>
+<tr class="separator:a26f8b93963415d431d3e4e90aaf4a098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4bb4b844cd11e0b36321040e45ddb27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#ac4bb4b844cd11e0b36321040e45ddb27">lexer_is_started</a> (const Lexer *self)</td></tr>
+<tr class="separator:ac4bb4b844cd11e0b36321040e45ddb27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5130d55b06d8a9e22a76dab34df192"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#aef5130d55b06d8a9e22a76dab34df192">lexer_is_off</a> (const Lexer *self)</td></tr>
+<tr class="separator:aef5130d55b06d8a9e22a76dab34df192"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58cdcf051edb318e0642fd10e1d4f07a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a58cdcf051edb318e0642fd10e1d4f07a">lexer_next</a> (Lexer *self, const char *charset)</td></tr>
+<tr class="separator:a58cdcf051edb318e0642fd10e1d4f07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3c560130b4f7c71490ce797ed36e578"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#ad3c560130b4f7c71490ce797ed36e578">lexer_next_to</a> (Lexer *self, const char *charset)</td></tr>
+<tr class="separator:ad3c560130b4f7c71490ce797ed36e578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11463cc517bb27d0b711d6a85f3e57ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a11463cc517bb27d0b711d6a85f3e57ad">lexer_next_char</a> (Lexer *self, const char *charset)</td></tr>
+<tr class="separator:a11463cc517bb27d0b711d6a85f3e57ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab3e8693f54ef46c91a8589f35a60d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#aeab3e8693f54ef46c91a8589f35a60d0">lexer_skip</a> (Lexer *self, const char *charset)</td></tr>
+<tr class="separator:aeab3e8693f54ef46c91a8589f35a60d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206000c56ea092f4a7f21696633d05a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="__lexer_8c.html#a206000c56ea092f4a7f21696633d05a9">lexer_skip_to</a> (Lexer *self, const char *charset)</td></tr>
+<tr class="separator:a206000c56ea092f4a7f21696633d05a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de los 'defines'</h2>
+<a class="anchor" id="a0a8c93409988f507215933a6c37a9caa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BASE_ALLOC&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00018">18</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00061">lexer_new()</a> y <a class="el" href="__lexer_8c_source.html#l00047">lexer_new_item()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones</h2>
+<a class="anchor" id="ac29f752bb184c9e4edbef38b8614d01d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void lexer_accept </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00020">20</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00129">lexer_next()</a> y <a class="el" href="__lexer_8c_source.html#l00149">lexer_next_to()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d47a4c3159e0d2d8e34a7d72a07365c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void lexer_lookahead </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00033">33</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00129">lexer_next()</a>, <a class="el" href="__lexer_8c_source.html#l00170">lexer_next_char()</a> y <a class="el" href="__lexer_8c_source.html#l00149">lexer_next_to()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3819e88a54bc68f575d7e9604311bc08"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void lexer_new_item </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00047">47</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00129">lexer_next()</a>, <a class="el" href="__lexer_8c_source.html#l00170">lexer_next_char()</a>, <a class="el" href="__lexer_8c_source.html#l00149">lexer_next_to()</a>, <a class="el" href="__lexer_8c_source.html#l00189">lexer_skip()</a> y <a class="el" href="__lexer_8c_source.html#l00194">lexer_skip_to()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aab02b4d1aa9740ac7a34420b4b9bbd6d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Lexer* lexer_new </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00061">61</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a12aff8e140d703e68362dc301a3ade01"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_destroy </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00081">81</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a26f8b93963415d431d3e4e90aaf4a098"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bstring lexer_item </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00092">92</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00168">is_theNextChar()</a> y <a class="el" href="parser__lado_8c_source.html#l00131">next_bstring()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac4bb4b844cd11e0b36321040e45ddb27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lexer_is_started </td>
+          <td>(</td>
+          <td class="paramtype">const Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00111">111</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00092">lexer_item()</a>, <a class="el" href="__lexer_8c_source.html#l00129">lexer_next()</a>, <a class="el" href="__lexer_8c_source.html#l00170">lexer_next_char()</a> y <a class="el" href="__lexer_8c_source.html#l00149">lexer_next_to()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aef5130d55b06d8a9e22a76dab34df192"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lexer_is_off </td>
+          <td>(</td>
+          <td class="paramtype">const Lexer *&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00119">119</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00168">is_theNextChar()</a>, <a class="el" href="__lexer_8c_source.html#l00020">lexer_accept()</a>, <a class="el" href="__lexer_8c_source.html#l00092">lexer_item()</a>, <a class="el" href="__lexer_8c_source.html#l00033">lexer_lookahead()</a>, <a class="el" href="parser__lado_8c_source.html#l00131">next_bstring()</a>, <a class="el" href="parser__lado_8c_source.html#l00095">parse_argument()</a> y <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a58cdcf051edb318e0642fd10e1d4f07a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_next </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>charset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00129">129</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00189">lexer_skip()</a> y <a class="el" href="parser__lado_8c_source.html#l00131">next_bstring()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad3c560130b4f7c71490ce797ed36e578"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_next_to </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>charset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00149">149</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="__lexer_8c_source.html#l00194">lexer_skip_to()</a> y <a class="el" href="parser__lado_8c_source.html#l00131">next_bstring()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a11463cc517bb27d0b711d6a85f3e57ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_next_char </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>charset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00170">170</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00168">is_theNextChar()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeab3e8693f54ef46c91a8589f35a60d0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_skip </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>charset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00189">189</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00095">parse_argument()</a> y <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a206000c56ea092f4a7f21696633d05a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_skip_to </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>charset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="__lexer_8c_source.html#l00194">194</a> del archivo <a class="el" href="__lexer_8c_source.html">_lexer.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="__lexer_8c.html">_lexer.c</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Referencia del Archivo apifiles/parser_lado.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('parser__lado_8c.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">'defines'</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia del Archivo parser_lado.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="parser__lado_8h_source.html">parser_lado.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="__u64_8h_source.html">_u64.h</a>&quot;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Dependencia gráfica adjunta para parser_lado.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="parser__lado_8c__incl.png" border="0" usemap="#apifiles_2parser__lado_8c" alt=""/></div>
+<map name="apifiles_2parser__lado_8c" id="apifiles_2parser__lado_8c">
+<area shape="rect" href="parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="312,80,413,107"/><area shape="rect" href="__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="420,229,481,256"/><area shape="rect" href="__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="243,155,312,181"/><area shape="rect" href="lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="347,155,403,181"/><area shape="rect" href="____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="132,229,215,256"/></map>
+</div>
+</div>
+<p><a href="parser__lado_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+'defines'</h2></td></tr>
+<tr class="memitem:a4e67e9429d48a2ba8f833ee3b1dceb5d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a4e67e9429d48a2ba8f833ee3b1dceb5d">EOL</a>&#160;&#160;&#160;&quot;\n&quot;</td></tr>
+<tr class="memdesc:a4e67e9429d48a2ba8f833ee3b1dceb5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Para indicador de final de linea.  <a href="#a4e67e9429d48a2ba8f833ee3b1dceb5d">Más...</a><br /></td></tr>
+<tr class="separator:a4e67e9429d48a2ba8f833ee3b1dceb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca3321d60a25310d108cb125e8e639e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#aca3321d60a25310d108cb125e8e639e0">WHITE_SPACE</a>&#160;&#160;&#160;&quot; &quot;</td></tr>
+<tr class="memdesc:aca3321d60a25310d108cb125e8e639e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Para indicador de espacio en blanco.  <a href="#aca3321d60a25310d108cb125e8e639e0">Más...</a><br /></td></tr>
+<tr class="separator:aca3321d60a25310d108cb125e8e639e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68bba71affb47e257eda87eff8d3e028"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a68bba71affb47e257eda87eff8d3e028">ACCEPT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a68bba71affb47e257eda87eff8d3e028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solo se aceptan char contenidos en str.  <a href="#a68bba71affb47e257eda87eff8d3e028">Más...</a><br /></td></tr>
+<tr class="separator:a68bba71affb47e257eda87eff8d3e028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a856399da589b98c7ff4d5b6c475edc23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a856399da589b98c7ff4d5b6c475edc23">EXCEPT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a856399da589b98c7ff4d5b6c475edc23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Se acepta cualquier char que no este contenido en str.  <a href="#a856399da589b98c7ff4d5b6c475edc23">Más...</a><br /></td></tr>
+<tr class="separator:a856399da589b98c7ff4d5b6c475edc23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a1f7b38352a220869f9345262e00a76ba"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a1f7b38352a220869f9345262e00a76ba">parse_argument</a> (Lexer *input, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *n)</td></tr>
+<tr class="memdesc:a1f7b38352a220869f9345262e00a76ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parsea un argumento de los ingresados.  <a href="#a1f7b38352a220869f9345262e00a76ba">Más...</a><br /></td></tr>
+<tr class="separator:a1f7b38352a220869f9345262e00a76ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9927beb4bcbbc38a6f8302a66e5f4e69"><td class="memItemLeft" align="right" valign="top">static bstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a9927beb4bcbbc38a6f8302a66e5f4e69">next_bstring</a> (Lexer *input, int flag, const char *str)</td></tr>
+<tr class="memdesc:a9927beb4bcbbc38a6f8302a66e5f4e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lee el siguiente ítem.  <a href="#a9927beb4bcbbc38a6f8302a66e5f4e69">Más...</a><br /></td></tr>
+<tr class="separator:a9927beb4bcbbc38a6f8302a66e5f4e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d2dfa654c9624f344138f5f06ba5d4b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a9d2dfa654c9624f344138f5f06ba5d4b">is_theNextChar</a> (Lexer *input, const char *ch)</td></tr>
+<tr class="memdesc:a9d2dfa654c9624f344138f5f06ba5d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decide si el siguiente caracter leído es 'ch'.  <a href="#a9d2dfa654c9624f344138f5f06ba5d4b">Más...</a><br /></td></tr>
+<tr class="separator:a9d2dfa654c9624f344138f5f06ba5d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a333eb635ada6c988a7734f60094844b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structLado.html">Lado</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#a333eb635ada6c988a7734f60094844b5">parser_lado</a> (Lexer *input)</td></tr>
+<tr class="memdesc:a333eb635ada6c988a7734f60094844b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lee todo un <a class="el" href="structLado.html" title="Puntero a un lado. ">Lado</a> de <code>input</code> hasta llegar a un fin de línea o de archivo.  <a href="#a333eb635ada6c988a7734f60094844b5">Más...</a><br /></td></tr>
+<tr class="separator:a333eb635ada6c988a7734f60094844b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7926b7db6f62e0136312eb5c39a726a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser__lado_8c.html#ab7926b7db6f62e0136312eb5c39a726a">parser_nextLine</a> (Lexer *input)</td></tr>
+<tr class="memdesc:ab7926b7db6f62e0136312eb5c39a726a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume el fin de línea.  <a href="#ab7926b7db6f62e0136312eb5c39a726a">Más...</a><br /></td></tr>
+<tr class="separator:ab7926b7db6f62e0136312eb5c39a726a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de los 'defines'</h2>
+<a class="anchor" id="a4e67e9429d48a2ba8f833ee3b1dceb5d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EOL&#160;&#160;&#160;&quot;\n&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Para indicador de final de linea. </p>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00005">5</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aca3321d60a25310d108cb125e8e639e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WHITE_SPACE&#160;&#160;&#160;&quot; &quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Para indicador de espacio en blanco. </p>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00006">6</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00095">parse_argument()</a>, <a class="el" href="parser__lado_8c_source.html#l00026">parser_lado()</a> y <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a68bba71affb47e257eda87eff8d3e028"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ACCEPT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solo se aceptan char contenidos en str. </p>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00009">9</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00131">next_bstring()</a> y <a class="el" href="parser__lado_8c_source.html#l00095">parse_argument()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a856399da589b98c7ff4d5b6c475edc23"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EXCEPT&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Se acepta cualquier char que no este contenido en str. </p>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00010">10</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00131">next_bstring()</a> y <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones</h2>
+<a class="anchor" id="a1f7b38352a220869f9345262e00a76ba"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int parse_argument </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Parsea un argumento de los ingresados. </p>
+<p>Los caracteres que se lean deben ser dígitos para que el argumento sea válido. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>El analizador léxico del descriptor de entrada. </td></tr>
+    <tr><td class="paramname">n</td><td>El argumento parseado resultante. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>input!=NULL. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Si no hubo error, asigna el argumento parseado en 'n' y retorna PARSER_OK. <br />
+ Si hubo error, no asigna nada a 'n' y retorna PARSER_ERR. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00095">95</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00026">parser_lado()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9927beb4bcbbc38a6f8302a66e5f4e69"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bstring next_bstring </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lee el siguiente ítem. </p>
+<p>Si <code>flag=ACCEPT:</code> Consume hasta encontrarse con un char distinto de 'str'. Si <code>flag=EXCEPT:</code> Consume hasta encontrarse con un char de 'str'. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>El analizador léxico del descriptor de entrada. </td></tr>
+    <tr><td class="paramname">flag</td><td>ACCEPT|EXCEPT respecto al contenido de 'str'. </td></tr>
+    <tr><td class="paramname">str</td><td>Los caracteres con los que se compara cada caracter leído. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>input!=NULL, y flag debe ser una opción valida. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Un <em>bstring</em> del ítem leído. El llamador se encarga de liberarlo.<br />
+ NULL caso contrario.<br />
+</dd></dl>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00131">131</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00095">parse_argument()</a> y <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9d2dfa654c9624f344138f5f06ba5d4b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool is_theNextChar </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>ch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Decide si el siguiente caracter leído es 'ch'. </p>
+<p>Consume el caracter leído. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>El analizador léxico del descriptor de entrada. </td></tr>
+    <tr><td class="paramname">ch</td><td>El caracter con el que se quiere comparar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>input!=NULL. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si el caracter leído es 'ch'. <br />
+ False caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00168">168</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="parser__lado_8c_source.html#l00026">parser_lado()</a> y <a class="el" href="parser__lado_8c_source.html#l00062">parser_nextLine()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a333eb635ada6c988a7734f60094844b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structLado.html">Lado</a> parser_lado </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lee todo un <a class="el" href="structLado.html" title="Puntero a un lado. ">Lado</a> de <code>input</code> hasta llegar a un fin de línea o de archivo. </p>
+<p>Se asegura que se consumió input hasta el primer error o hasta completar el lado y No se consumió ningún "\n". </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>El analizador léxico del descriptor de entrada. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>input!=NULL. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Un lado bien formado si el parseo fue exitoso. <br />
+ LadoNulo caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00026">26</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab7926b7db6f62e0136312eb5c39a726a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int parser_nextLine </td>
+          <td>(</td>
+          <td class="paramtype">Lexer *&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Consume el fin de línea. </p>
+<p>Indica si encontró (o no) basura antes del fin de línea. Se asegura que no se consumió más entrada de la necesaria y el lexer esta detenido justo luego de un "\n" o en el fin de archivo. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>El analizador léxico del descriptor de entrada. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>input!=NULL. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>PARSER_OK si no hay basura. <br />
+ PARSER_ERR caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="parser__lado_8c_source.html#l00062">62</a> del archivo <a class="el" href="parser__lado_8c_source.html">parser_lado.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="parser__lado_8c.html">parser_lado.c</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>

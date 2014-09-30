@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Fichero Fuente apifiles/_queue.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('__queue_8h_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">_queue.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="__queue_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef QUEUE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define QUEUE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structQueueSt.html">QueueSt</a> *<a class="code" href="structQueue.html">Queue</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/* Crea una cola sin elementos.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * return: Un puntero a una cola vacía.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;Queue <a class="code" href="__queue_8h.html#a24a786275016ae7b4831f94fa44dd6a8">queue_create</a> (<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/* Agrega un elemento del tipo Alpha al final de la cola.</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * Q Cola a la cual hay que agregarle el elemento.</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * elem Elemento a ser agregado a la cola.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * pre: Q no es una cola nula.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * return:  1 si se agrego. </span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> *          0 caso contrario.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">int</span> <a class="code" href="__queue_8h.html#a04a047a583d8f00d4c8ae2dbc4eb4dc5">queue_enqueue</a>(Queue Q, <span class="keywordtype">void</span> *elem);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">/* Quita el ultimo elemento de la cola. </span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * Q Cola a la cual se le va a quitar el ultimo elemento.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> * pre: Q no debe estar vacía ni ser nula.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * return: Elemento que se le quita a la cola.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> * <a class="code" href="__queue_8h.html#a1f8653e2322de90458051e3061af90ce">queue_dequeue</a> (Queue Q);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/* Muestra la cabeza de la cola.</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * Q Cola de la cual se le va a mostrar la cabeza.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * pre: Q no es una cola nula.</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * return: El elemento correspondiente a la cabeza de la cola.</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> *<a class="code" href="__queue_8h.html#a211ac9b50a8c7917a328cf68efb1f7e9">queue_head</a> (Queue Q);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">/* Verifica que la cola este vacía.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> * Q Cola sobre la cual se hará la verificación.</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> * pre: Q no es una cola nula.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * return:  True si Q esta vacía.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> *          False caso contrario.</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">int</span> <a class="code" href="__queue_8h.html#ae9892369297db38bc1b7955a310f8c30">queue_isEmpty</a> (Queue Q);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">/* Destruye y libera la memoria de la cola Q preservando los elementos. </span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"> * Esta función no elimina los elementos que se agregaron a la cola. Es tarea </span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment"> * del llamador destruirlos si se consideraba necesario. Esto es así porque no </span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"> * se sabe cual es el tipo de las cosas encoladas y porque no es una tarea </span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"> * de queue_destroy.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> * Q Cola a destruir.</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> * garbage  Puntero a un arreglo de punteros de elementos que se </span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> * agregaron a la cola. Si es NULL, queue_destroy no guardara los elementos en </span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> * ningún lado. El llamador debe tener cuidado de no perder la referencia a esta</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> * memoria para no generar memory leaks.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> * pre: Q no es una cola nula.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> * return: Cantidad de elementos que se eliminaron efectivamente de la cola.*/</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">int</span> <a class="code" href="__queue_8h.html#aa3ba377a4b21e817c50a4e52607cb94a">queue_destroy</a> (Queue Q, <span class="keywordtype">void</span> ** garbage);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/* Devuelve la cantidad de elementos de la cola.</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> * Q Cola en la cual se contabilizaran los elementos.</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> * pre: Q no es una cola nula.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> * return: Cantidad de elementos de la cola.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">int</span> <a class="code" href="__queue_8h.html#a1def9cad01fbb534514155b984cde15a">queue_size</a> (Queue Q);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/* Permutación entre las colas.</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"> * Q1 Una cola.</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"> * Q2 La otra cola.</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__queue_8h.html#ac713676fd6b09455383d4f6276ce1d8d">queue_swap</a> (Queue *Q1, Queue *Q2);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="__queue_8h_html_a1f8653e2322de90458051e3061af90ce"><div class="ttname"><a href="__queue_8h.html#a1f8653e2322de90458051e3061af90ce">queue_dequeue</a></div><div class="ttdeci">void * queue_dequeue(Queue Q)</div><div class="ttdoc">Quita el ultimo elemento de la cola. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00075">_queue.c:75</a></div></div>
+<div class="ttc" id="__queue_8h_html_a1def9cad01fbb534514155b984cde15a"><div class="ttname"><a href="__queue_8h.html#a1def9cad01fbb534514155b984cde15a">queue_size</a></div><div class="ttdeci">int queue_size(Queue Q)</div><div class="ttdoc">Devuelve la cantidad de elementos de la cola. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00163">_queue.c:163</a></div></div>
+<div class="ttc" id="__queue_8h_html_a04a047a583d8f00d4c8ae2dbc4eb4dc5"><div class="ttname"><a href="__queue_8h.html#a04a047a583d8f00d4c8ae2dbc4eb4dc5">queue_enqueue</a></div><div class="ttdeci">int queue_enqueue(Queue Q, void *elem)</div><div class="ttdoc">Agrega un elemento del tipo Alpha al final de la cola. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00049">_queue.c:49</a></div></div>
+<div class="ttc" id="__queue_8h_html_ac713676fd6b09455383d4f6276ce1d8d"><div class="ttname"><a href="__queue_8h.html#ac713676fd6b09455383d4f6276ce1d8d">queue_swap</a></div><div class="ttdeci">void queue_swap(Queue *Q1, Queue *Q2)</div><div class="ttdoc">Permutación entre las colas. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00172">_queue.c:172</a></div></div>
+<div class="ttc" id="__queue_8h_html_aa3ba377a4b21e817c50a4e52607cb94a"><div class="ttname"><a href="__queue_8h.html#aa3ba377a4b21e817c50a4e52607cb94a">queue_destroy</a></div><div class="ttdeci">int queue_destroy(Queue Q, void **garbage)</div><div class="ttdoc">Destruye y libera la memoria de la cola Q preservando los elementos. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00131">_queue.c:131</a></div></div>
+<div class="ttc" id="structQueue_html"><div class="ttname"><a href="structQueue.html">Queue</a></div><div class="ttdoc">Puntero a una cola. </div></div>
+<div class="ttc" id="__queue_8h_html_a24a786275016ae7b4831f94fa44dd6a8"><div class="ttname"><a href="__queue_8h.html#a24a786275016ae7b4831f94fa44dd6a8">queue_create</a></div><div class="ttdeci">Queue queue_create(void)</div><div class="ttdoc">Crea una cola sin elementos. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00030">_queue.c:30</a></div></div>
+<div class="ttc" id="__queue_8h_html_ae9892369297db38bc1b7955a310f8c30"><div class="ttname"><a href="__queue_8h.html#ae9892369297db38bc1b7955a310f8c30">queue_isEmpty</a></div><div class="ttdeci">int queue_isEmpty(Queue Q)</div><div class="ttdoc">Verifica que la cola este vacía. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00114">_queue.c:114</a></div></div>
+<div class="ttc" id="structQueueSt_html"><div class="ttname"><a href="structQueueSt.html">QueueSt</a></div><div class="ttdoc">Estructura principal de una queue. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00020">_queue.c:20</a></div></div>
+<div class="ttc" id="__queue_8h_html_a211ac9b50a8c7917a328cf68efb1f7e9"><div class="ttname"><a href="__queue_8h.html#a211ac9b50a8c7917a328cf68efb1f7e9">queue_head</a></div><div class="ttdeci">void * queue_head(Queue Q)</div><div class="ttdoc">Muestra la cabeza de la cola. </div><div class="ttdef"><b>Definition:</b> <a href="__queue_8c_source.html#l00099">_queue.c:99</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="__queue_8h.html">_queue.h</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>

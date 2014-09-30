@@ -1,0 +1,5 @@
+<map id="Stack" name="Stack">
+<area shape="rect" href="$structSElem.html" title="Estructura que encapsula un elemento que se apila. " alt="" coords="5,5,64,32"/>
+<area shape="rect" title=" iter\ntop" alt="" coords="31,28,39,36"/>
+<area shape="rect" title=" iter\ntop" alt="" coords="31,108,39,116"/>
+</map>

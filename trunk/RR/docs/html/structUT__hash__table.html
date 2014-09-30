@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Referencia de la Estructura UT_hash_table</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('structUT__hash__table.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Campos de datos</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia de la Estructura UT_hash_table</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="____uthash_8h_source.html">__uthash.h</a>&gt;</code></p>
+<div class="dynheader">
+Diagrama de colaboración para UT_hash_table:</div>
+<div class="dyncontent">
+<div class="center"><img src="structUT__hash__table__coll__graph.png" border="0" usemap="#UT__hash__table_coll__map" alt="Collaboration graph"/></div>
+<map name="UT__hash__table_coll__map" id="UT__hash__table_coll__map">
+<area shape="rect" href="structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="5,99,128,125"/><area shape="rect" title=" tbl" alt="" coords="87,28,95,36"/><area shape="rect" title=" tbl" alt="" coords="60,95,68,103"/><area shape="rect" href="structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="124,192,247,219"/><area shape="rect" title=" buckets" alt="" coords="191,188,199,196"/><area shape="rect" title=" buckets" alt="" coords="139,28,147,36"/><area shape="rect" title=" tail" alt="" coords="69,95,77,103"/><area shape="rect" title=" tail" alt="" coords="104,28,112,36"/><area shape="rect" title=" hh_head" alt="" coords="80,121,88,129"/><area shape="rect" title=" hh_head" alt="" coords="164,188,172,196"/><area shape="rect" title=" hh_prev\nhh_next" alt="" coords="88,95,96,103"/><area shape="rect" title=" hh_prev\nhh_next" alt="" coords="88,121,96,129"/></map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">significado de colores y flechas</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Campos de datos</h2></td></tr>
+<tr class="memitem:ab8166e712e5eff3106991bec13d9ab20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structUT__hash__bucket.html">UT_hash_bucket</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#ab8166e712e5eff3106991bec13d9ab20">buckets</a></td></tr>
+<tr class="separator:ab8166e712e5eff3106991bec13d9ab20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0f25a07827aacb7af4ba2fc4afb5fe"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#a5f0f25a07827aacb7af4ba2fc4afb5fe">num_buckets</a></td></tr>
+<tr class="separator:a5f0f25a07827aacb7af4ba2fc4afb5fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e4983525460bc9180bbb5e7b404cdbb"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb">log2_num_buckets</a></td></tr>
+<tr class="separator:a1e4983525460bc9180bbb5e7b404cdbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f665ec9c648f93c0c529372051e79e7"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#a0f665ec9c648f93c0c529372051e79e7">num_items</a></td></tr>
+<tr class="separator:a0f665ec9c648f93c0c529372051e79e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2d4a4fd9335f9813df1ecd3d7124f24"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structUT__hash__handle.html">UT_hash_handle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#af2d4a4fd9335f9813df1ecd3d7124f24">tail</a></td></tr>
+<tr class="separator:af2d4a4fd9335f9813df1ecd3d7124f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a888099092eb93f240f1b2bfcc2708"><td class="memItemLeft" align="right" valign="top">ptrdiff_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#af7a888099092eb93f240f1b2bfcc2708">hho</a></td></tr>
+<tr class="separator:af7a888099092eb93f240f1b2bfcc2708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eed5348057e127cdc2fe87bc635a7ac"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#a0eed5348057e127cdc2fe87bc635a7ac">ideal_chain_maxlen</a></td></tr>
+<tr class="separator:a0eed5348057e127cdc2fe87bc635a7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d93a760aeccec5dad6fac71e9d92ad"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#a57d93a760aeccec5dad6fac71e9d92ad">nonideal_items</a></td></tr>
+<tr class="separator:a57d93a760aeccec5dad6fac71e9d92ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2dea912f78ea416489b0a386ad0daf9"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#ad2dea912f78ea416489b0a386ad0daf9">ineff_expands</a></td></tr>
+<tr class="separator:ad2dea912f78ea416489b0a386ad0daf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35073018f3ebb189c76eed44ff19899a"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#a35073018f3ebb189c76eed44ff19899a">noexpand</a></td></tr>
+<tr class="separator:a35073018f3ebb189c76eed44ff19899a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd2a6284879dded65f0b8daa7c68485a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structUT__hash__table.html#acd2a6284879dded65f0b8daa7c68485a">signature</a></td></tr>
+<tr class="separator:acd2a6284879dded65f0b8daa7c68485a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock">
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00911">911</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+</div><h2 class="groupheader">Documentación de los campos</h2>
+<a class="anchor" id="ab8166e712e5eff3106991bec13d9ab20"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structUT__hash__bucket.html">UT_hash_bucket</a>* buckets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00912">912</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f0f25a07827aacb7af4ba2fc4afb5fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned num_buckets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00913">913</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e4983525460bc9180bbb5e7b404cdbb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned log2_num_buckets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00913">913</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0f665ec9c648f93c0c529372051e79e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned num_items</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00914">914</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af2d4a4fd9335f9813df1ecd3d7124f24"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structUT__hash__handle.html">UT_hash_handle</a>* tail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00915">915</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af7a888099092eb93f240f1b2bfcc2708"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ptrdiff_t hho</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00916">916</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0eed5348057e127cdc2fe87bc635a7ac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned ideal_chain_maxlen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00920">920</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a57d93a760aeccec5dad6fac71e9d92ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned nonideal_items</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00925">925</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad2dea912f78ea416489b0a386ad0daf9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned ineff_expands</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00933">933</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a35073018f3ebb189c76eed44ff19899a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned noexpand</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00933">933</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acd2a6284879dded65f0b8daa7c68485a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t signature</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="____uthash_8h_source.html#l00935">935</a> del archivo <a class="el" href="____uthash_8h_source.html">__uthash.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación para esta estructura fue generada a partir del siguiente fichero:<ul>
+<li>apifiles/<a class="el" href="____uthash_8h_source.html">__uthash.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structUT__hash__table.html">UT_hash_table</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:01 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>

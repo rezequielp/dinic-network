@@ -1,0 +1,27 @@
+<map id="Nbrhd" name="Nbrhd">
+<area shape="rect" href="$structBedge.html" title="Estructura de una arista en sentido backward. " alt="" coords="11,197,69,224"/>
+<area shape="rect" title=" bNbrs" alt="" coords="40,220,48,228"/>
+<area shape="rect" title=" bNbrs" alt="" coords="69,284,77,292"/>
+<area shape="rect" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="133,13,256,40"/>
+<area shape="rect" title=" hhbNbrs" alt="" coords="129,35,137,43"/>
+<area shape="rect" title=" hhbNbrs" alt="" coords="28,193,36,201"/>
+<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="216,9,224,17"/>
+<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="216,36,224,44"/>
+<area shape="rect" href="$structUT__hash__table.html" title="UT_hash_table" alt="" coords="207,197,319,224"/>
+<area shape="rect" title=" tail" alt="" coords="189,36,197,44"/>
+<area shape="rect" title=" tail" alt="" coords="243,193,251,201"/>
+<area shape="rect" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="304,107,427,133"/>
+<area shape="rect" title=" hh_head" alt="" coords="223,36,231,44"/>
+<area shape="rect" title=" hh_head" alt="" coords="341,103,349,111"/>
+<area shape="rect" href="$structFedge.html" title="Estructura de una artista en sentido forward. " alt="" coords="88,107,147,133"/>
+<area shape="rect" title=" hhfNbrs" alt="" coords="156,36,164,44"/>
+<area shape="rect" title=" hhfNbrs" alt="" coords="112,103,120,111"/>
+<area shape="rect" title=" tbl" alt="" coords="255,193,263,201"/>
+<area shape="rect" title=" tbl" alt="" coords="197,36,205,44"/>
+<area shape="rect" title=" buckets" alt="" coords="347,129,355,137"/>
+<area shape="rect" title=" buckets" alt="" coords="273,193,281,201"/>
+<area shape="rect" title=" fNbrs" alt="" coords="113,129,121,137"/>
+<area shape="rect" title=" fNbrs" alt="" coords="85,284,93,292"/>
+<area shape="rect" title=" x" alt="" coords="101,129,109,137"/>
+<area shape="rect" title=" x" alt="" coords="48,193,56,201"/>
+</map>
