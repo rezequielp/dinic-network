@@ -1,7 +1,7 @@
 var ____bstrlib_8h =
 [
     [ "bstrList", "structbstrList.html", "structbstrList" ],
-    [ "bstring", "structtagbstring.html", "structtagbstring" ],
+    [ "const_bstring", "structtagbstring.html", "structtagbstring" ],
     [ "BSTR_ERR", "____bstrlib_8h.html#ab43a5702c6ca15d82b534df927b7ecc5", null ],
     [ "BSTR_OK", "____bstrlib_8h.html#ae4fdf5a39e1c0a01a357f4dc0ef53365", null ],
     [ "BSTR_BS_BUFF_LENGTH_GET", "____bstrlib_8h.html#a3c6fb51cdc569b881c4940be5bb6788c", null ],
@@ -31,7 +31,6 @@ var ____bstrlib_8h =
     [ "bwriteprotect", "____bstrlib_8h.html#a3b9759ad92b645976d14692362f2ed10", null ],
     [ "bwriteallow", "____bstrlib_8h.html#a20e39e69cf2035b12da65078eb1b9817", null ],
     [ "biswriteprotected", "____bstrlib_8h.html#ae6f90b293b8f88607ae83c2feae7ae99", null ],
-    [ "const_bstring", "____bstrlib_8h.html#a78aa77f0f4df85bded0635fbc4c3a657", null ],
     [ "bNgetc", "____bstrlib_8h.html#a8a78a95fbcbf5b1c509dc429f145f8d9", null ],
     [ "bNread", "____bstrlib_8h.html#a194a6f53b87dbc34acc57bd65e3b6c73", null ],
     [ "bfromcstr", "____bstrlib_8h.html#a323bad8fd30b7b8c3fd2ec17f26935d2", null ],

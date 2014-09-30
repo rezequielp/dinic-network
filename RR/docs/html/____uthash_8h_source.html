@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.8"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
 <title>Dinic: Fichero Fuente apifiles/__uthash.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -32,7 +32,7 @@
    <div id="projectname">Dinic
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la cátedra de Matemática Discreta II.</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -54,7 +54,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.8.8 -->
+<!-- Generado por Doxygen 1.8.5 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 </script>
@@ -94,8 +94,8 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="contents">
 <a href="____uthash_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifndef UTHASH_H</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define UTHASH_H </span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define UTHASH_H </span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span>   <span class="comment">/* memcmp,strlen */</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span>   <span class="comment">/* ptrdiff_t */</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span>   <span class="comment">/* exit() */</span></div>
@@ -105,64 +105,64 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">   when compiling c++ source) this code uses whatever method is needed</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">   or, for VS2008 where neither is available, uses casting workarounds. */</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#ifdef _MSC_VER         </span><span class="comment">/* MS compiler */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#if _MSC_VER &gt;= 1600 &amp;&amp; defined(__cplusplus)  </span><span class="comment">/* VS2010 or newer in C++ mode */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#define DECLTYPE(x) (decltype(x))</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#else                   </span><span class="comment">/* VS2008 or older (or VS2010 in C mode) */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define NO_DECLTYPE</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define DECLTYPE(x)</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#else                   </span><span class="comment">/* GNU, Sun and other compilers */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a716ba290563c2d955cb0c90d85874073">   50</a></span>&#160;<span class="preprocessor">#define DECLTYPE(x) (__typeof(x))</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if _MSC_VER &gt;= 1600 &amp;&amp; defined(__cplusplus)  </span><span class="comment">/* VS2010 or newer in C++ mode */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define DECLTYPE(x) (decltype(x))</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else                   </span><span class="comment">/* VS2008 or older (or VS2010 in C mode) */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define NO_DECLTYPE</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define DECLTYPE(x)</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else                   </span><span class="comment">/* GNU, Sun and other compilers */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a716ba290563c2d955cb0c90d85874073">   50</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define DECLTYPE(x) (__typeof(x))</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#ifdef NO_DECLTYPE</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define DECLTYPE_ASSIGN(dst,src)                                                 \</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define DECLTYPE_ASSIGN(dst,src)                                                 \</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">  char **_da_dst = (char**)(&amp;(dst));                                             \</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">  *_da_dst = (char*)(src);                                                       \</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#else </span></div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a3c736f2f2dd643f2987b2bc323e269ba">   60</a></span>&#160;<span class="preprocessor">#define DECLTYPE_ASSIGN(dst,src)                                                 \</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else </span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a3c736f2f2dd643f2987b2bc323e269ba">   60</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define DECLTYPE_ASSIGN(dst,src)                                                 \</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">  (dst) = DECLTYPE(dst)(src);                                                    \</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">/* a number of the hash function use uint32_t which isn&#39;t defined on win32 */</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uint32_t;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor"></span><span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uint32_t;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> uint8_t;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#include &lt;inttypes.h&gt;</span>   <span class="comment">/* uint32_t */</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &lt;inttypes.h&gt;</span>   <span class="comment">/* uint32_t */</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="____uthash_8h.html#aa56cef9cb86dc1f4b5d27ee3a691077e">   74</a></span>&#160;<span class="preprocessor">#define UTHASH_VERSION 1.9.9</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#ifndef uthash_fatal</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a03b52301b0ed976b6981ef33613320c1">   77</a></span>&#160;<span class="preprocessor">#define uthash_fatal(msg) exit(-1)        </span><span class="comment">/* fatal error (out of memory,etc) */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#ifndef uthash_malloc</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a861013aff36c0448f1888a2b0b5836d8">   80</a></span>&#160;<span class="preprocessor">#define uthash_malloc(sz) malloc(sz)      </span><span class="comment">/* malloc fcn                      */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#ifndef uthash_free</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a56cdf8c254fc700332c8e6a7263b4657">   83</a></span>&#160;<span class="preprocessor">#define uthash_free(ptr,sz) free(ptr)     </span><span class="comment">/* free fcn                        */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a03b52301b0ed976b6981ef33613320c1">   77</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define uthash_fatal(msg) exit(-1)        </span><span class="comment">/* fatal error (out of memory,etc) */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef uthash_malloc</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a861013aff36c0448f1888a2b0b5836d8">   80</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define uthash_malloc(sz) malloc(sz)      </span><span class="comment">/* malloc fcn                      */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef uthash_free</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a56cdf8c254fc700332c8e6a7263b4657">   83</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define uthash_free(ptr,sz) free(ptr)     </span><span class="comment">/* free fcn                        */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#ifndef uthash_noexpand_fyi</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a7cc237d8f87de3836b5390856cfc5c86">   87</a></span>&#160;<span class="preprocessor">#define uthash_noexpand_fyi(tbl)          </span><span class="comment">/* can be defined to log noexpand  */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#ifndef uthash_expand_fyi</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a86ea78714da520989a6f7a764b4d71b4">   90</a></span>&#160;<span class="preprocessor">#define uthash_expand_fyi(tbl)            </span><span class="comment">/* can be defined to log expands   */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a7cc237d8f87de3836b5390856cfc5c86">   87</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define uthash_noexpand_fyi(tbl)          </span><span class="comment">/* can be defined to log noexpand  */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifndef uthash_expand_fyi</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a86ea78714da520989a6f7a764b4d71b4">   90</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define uthash_expand_fyi(tbl)            </span><span class="comment">/* can be defined to log expands   */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">/* initial number of buckets */</span></div>
 <div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a361cdc5e8d6d8fe5fae6912588ae15d0">   94</a></span>&#160;<span class="preprocessor">#define HASH_INITIAL_NUM_BUCKETS 32      </span><span class="comment">/* initial number of buckets        */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a0b39a5cf1d6c05c43bd8530db2ec908c">   95</a></span>&#160;<span class="preprocessor">#define HASH_INITIAL_NUM_BUCKETS_LOG2 5  </span><span class="comment">/* lg2 of initial number of buckets */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a8ae3e6473261f6c4b78c030c94f5d68f">   96</a></span>&#160;<span class="preprocessor">#define HASH_BKT_CAPACITY_THRESH 10      </span><span class="comment">/* expand when bucket count reaches */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a0b39a5cf1d6c05c43bd8530db2ec908c">   95</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_INITIAL_NUM_BUCKETS_LOG2 5  </span><span class="comment">/* lg2 of initial number of buckets */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a8ae3e6473261f6c4b78c030c94f5d68f">   96</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BKT_CAPACITY_THRESH 10      </span><span class="comment">/* expand when bucket count reaches */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">/* calculate the element whose hash handle address is hhe */</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a568e95048979b8b3e4ea1567fd91c186">   99</a></span>&#160;<span class="preprocessor">#define ELMT_FROM_HH(tbl,hhp) ((void*)(((char*)(hhp)) - ((tbl)-&gt;hho)))</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ad4a1cd39c3044936c0e49d3f372c9dbf">  101</a></span>&#160;<span class="preprocessor">#define HASH_FIND(hh,head,keyptr,keylen,out)                                     \</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">  unsigned _hf_bkt,_hf_hashv;                                                    \</span></div>
@@ -175,11 +175,11 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">     }                                                                           \</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">  }                                                                              \</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#ifdef HASH_BLOOM</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#define HASH_BLOOM_BITLEN (1ULL &lt;&lt; HASH_BLOOM)</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#define HASH_BLOOM_BYTELEN (HASH_BLOOM_BITLEN/8) + ((HASH_BLOOM_BITLEN%8) ? 1:0)</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#define HASH_BLOOM_MAKE(tbl)                                                     \</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_BITLEN (1ULL &lt;&lt; HASH_BLOOM)</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_BYTELEN (HASH_BLOOM_BITLEN/8) + ((HASH_BLOOM_BITLEN%8) ? 1:0)</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_MAKE(tbl)                                                     \</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">  (tbl)-&gt;bloom_nbits = HASH_BLOOM;                                               \</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">  (tbl)-&gt;bloom_bv = (uint8_t*)uthash_malloc(HASH_BLOOM_BYTELEN);                 \</span></div>
@@ -187,29 +187,29 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">  memset((tbl)-&gt;bloom_bv, 0, HASH_BLOOM_BYTELEN);                                \</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">  (tbl)-&gt;bloom_sig = HASH_BLOOM_SIGNATURE;                                       \</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">} while (0) </span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#define HASH_BLOOM_FREE(tbl)                                                     \</span></div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">  uthash_free((tbl)-&gt;bloom_bv, HASH_BLOOM_BYTELEN);                              \</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">} while (0) </span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#define HASH_BLOOM_BITSET(bv,idx) (bv[(idx)/8] |= (1U &lt;&lt; ((idx)%8)))</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#define HASH_BLOOM_BITTEST(bv,idx) (bv[(idx)/8] &amp; (1U &lt;&lt; ((idx)%8)))</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_BITTEST(bv,idx) (bv[(idx)/8] &amp; (1U &lt;&lt; ((idx)%8)))</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#define HASH_BLOOM_ADD(tbl,hashv)                                                \</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">  HASH_BLOOM_BITSET((tbl)-&gt;bloom_bv, (hashv &amp; (uint32_t)((1ULL &lt;&lt; (tbl)-&gt;bloom_nbits) - 1)))</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#define HASH_BLOOM_TEST(tbl,hashv)                                               \</span></div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">  HASH_BLOOM_BITTEST((tbl)-&gt;bloom_bv, (hashv &amp; (uint32_t)((1ULL &lt;&lt; (tbl)-&gt;bloom_nbits) - 1)))</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a254f427772a1fe7a2480a8302af8f8b8">  141</a></span>&#160;<span class="preprocessor">#define HASH_BLOOM_MAKE(tbl) </span></div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ad6847ad938fc26bfd0726d7f159efd0a">  142</a></span>&#160;<span class="preprocessor">#define HASH_BLOOM_FREE(tbl) </span></div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="____uthash_8h.html#acaad947212056cd8bfe3d660265fb2db">  143</a></span>&#160;<span class="preprocessor">#define HASH_BLOOM_ADD(tbl,hashv) </span></div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a06bfbf880899d54da35487d0d39c1009">  144</a></span>&#160;<span class="preprocessor">#define HASH_BLOOM_TEST(tbl,hashv) (1)</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a81f88a18c0837c77f40926074e7811db">  145</a></span>&#160;<span class="preprocessor">#define HASH_BLOOM_BYTELEN 0</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a254f427772a1fe7a2480a8302af8f8b8">  141</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_MAKE(tbl) </span></div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ad6847ad938fc26bfd0726d7f159efd0a">  142</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_FREE(tbl) </span></div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="____uthash_8h.html#acaad947212056cd8bfe3d660265fb2db">  143</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_ADD(tbl,hashv) </span></div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a06bfbf880899d54da35487d0d39c1009">  144</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_TEST(tbl,hashv) (1)</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a81f88a18c0837c77f40926074e7811db">  145</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_BYTELEN 0</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="____uthash_8h.html#aeba971430f623b6334f565d9c7ec9de5">  148</a></span>&#160;<span class="preprocessor">#define HASH_MAKE_TABLE(hh,head)                                                 \</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">  (head)-&gt;hh.tbl = (UT_hash_table*)uthash_malloc(                                \</span></div>
@@ -228,10 +228,10 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">  HASH_BLOOM_MAKE((head)-&gt;hh.tbl);                                               \</span></div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">  (head)-&gt;hh.tbl-&gt;signature = HASH_SIGNATURE;                                    \</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="____uthash_8h.html#aaf01358e257c8d838eb5e4b189f0c399">  167</a></span>&#160;<span class="preprocessor">#define HASH_ADD(hh,head,fieldname,keylen_in,add)                                \</span></div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">        HASH_ADD_KEYPTR(hh,head,&amp;((add)-&gt;fieldname),keylen_in,add)</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a9897aa8b1ace582e7bbdef05f21cbc54">  170</a></span>&#160;<span class="preprocessor">#define HASH_REPLACE(hh,head,fieldname,keylen_in,add,replaced)                   \</span></div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">  replaced=NULL;                                                                 \</span></div>
@@ -241,7 +241,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">  };                                                                             \</span></div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">  HASH_ADD(hh,head,fieldname,keylen_in,add);                                     \</span></div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor"></span> </div>
 <div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a0b7468360b5c788762cdb2ccf9cd4d26">  180</a></span>&#160;<span class="preprocessor">#define HASH_ADD_KEYPTR(hh,head,keyptr,keylen_in,add)                            \</span></div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor"> unsigned _ha_bkt;                                                               \</span></div>
@@ -266,12 +266,12 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor"> HASH_EMIT_KEY(hh,head,keyptr,keylen_in);                                        \</span></div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor"> HASH_FSCK(hh,head);                                                             \</span></div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a4d7691544128a6ef265f3e4fa5ed3113">  205</a></span>&#160;<span class="preprocessor">#define HASH_TO_BKT( hashv, num_bkts, bkt )                                      \</span></div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">  bkt = ((hashv) &amp; ((num_bkts) - 1));                                            \</span></div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">/* delete &quot;delptr&quot; from the hash table.</span></div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment"> * &quot;the usual&quot; patch-up process for the app-order doubly-linked-list.</span></div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment"> * The use of _hd_hh_del below deserves special explanation.</span></div>
@@ -318,36 +318,36 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="preprocessor">    }                                                                            \</span></div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor">    HASH_FSCK(hh,head);                                                          \</span></div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="comment">/* convenience forms of HASH_FIND/HASH_ADD/HASH_DEL */</span></div>
 <div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a214529083adfab2fa8cd402d2eeb0a84">  259</a></span>&#160;<span class="preprocessor">#define HASH_FIND_STR(head,findstr,out)                                          \</span></div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="preprocessor">    HASH_FIND(hh,head,findstr,strlen(findstr),out)</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a9724951736f3985f74df17638c8a7885">  261</a></span>&#160;<span class="preprocessor">#define HASH_ADD_STR(head,strfield,add)                                          \</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a9724951736f3985f74df17638c8a7885">  261</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_ADD_STR(head,strfield,add)                                          \</span></div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="preprocessor">    HASH_ADD(hh,head,strfield[0],strlen(add-&gt;strfield),add)</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a069b31f4fbc11094d8d3d5e3b1a641db">  263</a></span>&#160;<span class="preprocessor">#define HASH_REPLACE_STR(head,strfield,add,replaced)                             \</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a069b31f4fbc11094d8d3d5e3b1a641db">  263</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_REPLACE_STR(head,strfield,add,replaced)                             \</span></div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor">  HASH_REPLACE(hh,head,strfield,strlen(add-&gt;strfield),add,replaced)</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="____uthash_8h.html#aadcb19b940348f3141bd51505ede0142">  265</a></span>&#160;<span class="preprocessor">#define HASH_FIND_INT(head,findint,out)                                          \</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="____uthash_8h.html#aadcb19b940348f3141bd51505ede0142">  265</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_FIND_INT(head,findint,out)                                          \</span></div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="preprocessor">    HASH_FIND(hh,head,findint,sizeof(int),out)</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="____uthash_8h.html#acf85835471af894e354efb7e346698f3">  267</a></span>&#160;<span class="preprocessor">#define HASH_ADD_INT(head,intfield,add)                                          \</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="____uthash_8h.html#acf85835471af894e354efb7e346698f3">  267</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_ADD_INT(head,intfield,add)                                          \</span></div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">    HASH_ADD(hh,head,intfield,sizeof(int),add)</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a43124846a2747f48f45bf9f16631a6da">  269</a></span>&#160;<span class="preprocessor">#define HASH_REPLACE_INT(head,intfield,add,replaced)                             \</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a43124846a2747f48f45bf9f16631a6da">  269</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_REPLACE_INT(head,intfield,add,replaced)                             \</span></div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="preprocessor">    HASH_REPLACE(hh,head,intfield,sizeof(int),add,replaced)</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a26a887f8e31952034becac0cf446f6c3">  271</a></span>&#160;<span class="preprocessor">#define HASH_FIND_PTR(head,findptr,out)                                          \</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a26a887f8e31952034becac0cf446f6c3">  271</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_FIND_PTR(head,findptr,out)                                          \</span></div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="preprocessor">    HASH_FIND(hh,head,findptr,sizeof(void *),out)</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a2ad1f84ef1ba9df99fa2ada38cb61823">  273</a></span>&#160;<span class="preprocessor">#define HASH_ADD_PTR(head,ptrfield,add)                                          \</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a2ad1f84ef1ba9df99fa2ada38cb61823">  273</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_ADD_PTR(head,ptrfield,add)                                          \</span></div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="preprocessor">    HASH_ADD(hh,head,ptrfield,sizeof(void *),add)</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a13bcd1176a34c0a924fbf187c897bf68">  275</a></span>&#160;<span class="preprocessor">#define HASH_REPLACE_PTR(head,ptrfield,add,replaced)                             \</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a13bcd1176a34c0a924fbf187c897bf68">  275</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_REPLACE_PTR(head,ptrfield,add,replaced)                             \</span></div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor">    HASH_REPLACE(hh,head,ptrfield,sizeof(void *),add,replaced)</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a48b7ed374602dcb236501aa23a971f05">  277</a></span>&#160;<span class="preprocessor">#define HASH_DEL(head,delptr)                                                    \</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a48b7ed374602dcb236501aa23a971f05">  277</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_DEL(head,delptr)                                                    \</span></div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="preprocessor">    HASH_DELETE(hh,head,delptr)</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment">/* HASH_FSCK checks hash integrity on every add/delete when HASH_DEBUG is defined.</span></div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment"> * This is for uthash developer only; it compiles away if HASH_DEBUG isn&#39;t defined.</span></div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor">#ifdef HASH_DEBUG</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#define HASH_OOPS(...) do { fprintf(stderr,__VA_ARGS__); exit(-1); } while (0)</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor">#define HASH_FSCK(hh,head)                                                       \</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_OOPS(...) do { fprintf(stderr,__VA_ARGS__); exit(-1); } while (0)</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_FSCK(hh,head)                                                       \</span></div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="preprocessor">    unsigned _bkt_i;                                                             \</span></div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">    unsigned _count, _bkt_count;                                                 \</span></div>
@@ -398,31 +398,31 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">        }                                                                        \</span></div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">    }                                                                            \</span></div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a7d882fadb26a4e6c13c134d8be4d0759">  337</a></span>&#160;<span class="preprocessor">#define HASH_FSCK(hh,head) </span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a7d882fadb26a4e6c13c134d8be4d0759">  337</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_FSCK(hh,head) </span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="comment">/* When compiled with -DHASH_EMIT_KEYS, length-prefixed keys are emitted to </span></div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment"> * the descriptor to which this macro is defined for tuning the hash function.</span></div>
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"> * The app can #include &lt;unistd.h&gt; to get the prototype for write(2). */</span></div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="preprocessor">#ifdef HASH_EMIT_KEYS</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="preprocessor">#define HASH_EMIT_KEY(hh,head,keyptr,fieldlen)                                   \</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_EMIT_KEY(hh,head,keyptr,fieldlen)                                   \</span></div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="preprocessor">    unsigned _klen = fieldlen;                                                   \</span></div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor">    write(HASH_EMIT_KEYS, &amp;_klen, sizeof(_klen));                                \</span></div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="preprocessor">    write(HASH_EMIT_KEYS, keyptr, fieldlen);                                     \</span></div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor">#else </span></div>
-<div class="line"><a name="l00351"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a44f9d46e2cc79652492e5dd3e6c40a15">  351</a></span>&#160;<span class="preprocessor">#define HASH_EMIT_KEY(hh,head,keyptr,fieldlen)                    </span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else </span></div>
+<div class="line"><a name="l00351"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a44f9d46e2cc79652492e5dd3e6c40a15">  351</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_EMIT_KEY(hh,head,keyptr,fieldlen)                    </span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment">/* default to Jenkin&#39;s hash unless overridden e.g. DHASH_FUNCTION=HASH_SAX */</span></div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="preprocessor">#ifdef HASH_FUNCTION </span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="preprocessor">#define HASH_FCN HASH_FUNCTION</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="____uthash_8h.html#abd3356419b386c379116393700a751d3">  358</a></span>&#160;<span class="preprocessor">#define HASH_FCN HASH_JEN</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_FCN HASH_FUNCTION</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="____uthash_8h.html#abd3356419b386c379116393700a751d3">  358</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_FCN HASH_JEN</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">/* The Bernstein hash function, used in Perl prior to v5.6 */</span></div>
 <div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a7271bf51d7fe2cf2c183578aee73601e">  362</a></span>&#160;<span class="preprocessor">#define HASH_BER(key,keylen,num_bkts,hashv,bkt)                                  \</span></div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
@@ -432,7 +432,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor">  while (_hb_keylen--)  { (hashv) = ((hashv) * 33) + *_hb_key++; }               \</span></div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="preprocessor">  bkt = (hashv) &amp; (num_bkts-1);                                                  \</span></div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment">/* SAX/FNV/OAT/JEN hash functions are macro variants of those listed at </span></div>
 <div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment"> * http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx */</span></div>
@@ -445,7 +445,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="preprocessor">      hashv ^= (hashv &lt;&lt; 5) + (hashv &gt;&gt; 2) + _hs_key[_sx_i];                     \</span></div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="preprocessor">  bkt = hashv &amp; (num_bkts-1);                                                    \</span></div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00384"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ac99f9a353421537527a80b392089dd9d">  384</a></span>&#160;<span class="preprocessor">#define HASH_FNV(key,keylen,num_bkts,hashv,bkt)                                  \</span></div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="preprocessor">  unsigned _fn_i;                                                                \</span></div>
@@ -455,7 +455,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor">      hashv = (hashv * 16777619) ^ _hf_key[_fn_i];                               \</span></div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor">  bkt = hashv &amp; (num_bkts-1);                                                    \</span></div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="preprocessor">} while(0) </span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor"></span> </div>
 <div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="____uthash_8h.html#abc7040b698211c1993441fb4165fa0b4">  394</a></span>&#160;<span class="preprocessor">#define HASH_OAT(key,keylen,num_bkts,hashv,bkt)                                  \</span></div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="preprocessor">  unsigned _ho_i;                                                                \</span></div>
@@ -471,7 +471,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="preprocessor">  hashv += (hashv &lt;&lt; 15);                                                        \</span></div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="preprocessor">  bkt = hashv &amp; (num_bkts-1);                                                    \</span></div>
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00410"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a6d37144e54d2bd49eb88fbfd04c59dc5">  410</a></span>&#160;<span class="preprocessor">#define HASH_JEN_MIX(a,b,c)                                                      \</span></div>
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="preprocessor">  a -= b; a -= c; a ^= ( c &gt;&gt; 13 );                                              \</span></div>
@@ -484,7 +484,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="preprocessor">  b -= c; b -= a; b ^= ( a &lt;&lt; 10 );                                              \</span></div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="preprocessor">  c -= a; c -= b; c ^= ( b &gt;&gt; 15 );                                              \</span></div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00423"></a><span class="lineno"><a class="line" href="____uthash_8h.html#aa16e3ae6125d7f10d3deb4695e0ee51e">  423</a></span>&#160;<span class="preprocessor">#define HASH_JEN(key,keylen,num_bkts,hashv,bkt)                                  \</span></div>
 <div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="preprocessor">  unsigned _hj_i,_hj_j,_hj_k;                                                    \</span></div>
@@ -525,19 +525,19 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="preprocessor">  HASH_JEN_MIX(_hj_i, _hj_j, hashv);                                             \</span></div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="preprocessor">  bkt = hashv &amp; (num_bkts-1);                                                    \</span></div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment">/* The Paul Hsieh hash function */</span></div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="preprocessor">#undef get16bits</span></div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="preprocessor">#if (defined(__GNUC__) &amp;&amp; defined(__i386__)) || defined(__WATCOMC__)             \</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if (defined(__GNUC__) &amp;&amp; defined(__i386__)) || defined(__WATCOMC__)             \</span></div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="preprocessor">  || defined(_MSC_VER) || defined (__BORLANDC__) || defined (__TURBOC__)</span></div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="preprocessor">#define get16bits(d) (*((const uint16_t *) (d)))</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define get16bits(d) (*((const uint16_t *) (d)))</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;<span class="preprocessor">#if !defined (get16bits)</span></div>
-<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="____uthash_8h.html#abc7d71657be8975a51684e41029b7964">  472</a></span>&#160;<span class="preprocessor">#define get16bits(d) ((((uint32_t)(((const uint8_t *)(d))[1])) &lt;&lt; 8)             \</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="____uthash_8h.html#abc7d71657be8975a51684e41029b7964">  472</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define get16bits(d) ((((uint32_t)(((const uint8_t *)(d))[1])) &lt;&lt; 8)             \</span></div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="preprocessor">                       +(uint32_t)(((const uint8_t *)(d))[0]) )</span></div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00475"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ab595698a74642684dace0dfa47dab445">  475</a></span>&#160;<span class="preprocessor">#define HASH_SFH(key,keylen,num_bkts,hashv,bkt)                                  \</span></div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00475"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ab595698a74642684dace0dfa47dab445">  475</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_SFH(key,keylen,num_bkts,hashv,bkt)                                  \</span></div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="preprocessor">  unsigned char *_sfh_key=(unsigned char*)(key);                                 \</span></div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="preprocessor">  uint32_t _sfh_tmp, _sfh_len = keylen;                                          \</span></div>
@@ -580,9 +580,9 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="preprocessor">    hashv += hashv &gt;&gt; 6;                                                         \</span></div>
 <div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="preprocessor">    bkt = hashv &amp; (num_bkts-1);                                                  \</span></div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="preprocessor">} while(0) </span></div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="preprocessor">#ifdef HASH_USING_NO_STRICT_ALIASING</span></div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment">/* The MurmurHash exploits some CPU&#39;s (x86,x86_64) tolerance for unaligned reads.</span></div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="preprocessor"></span><span class="comment">/* The MurmurHash exploits some CPU&#39;s (x86,x86_64) tolerance for unaligned reads.</span></div>
 <div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="comment"> * For other types of CPU&#39;s (e.g. Sparc) an unaligned read causes a bus error.</span></div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="comment"> * MurmurHash uses the faster approach only on CPU&#39;s where we know it&#39;s safe. </span></div>
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment"> *</span></div>
@@ -592,29 +592,29 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="comment"> *   cc -## a.c (where a.c is a simple test file)   (Sun Studio)</span></div>
 <div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;<span class="preprocessor">#if (defined(__i386__) || defined(__x86_64__)  || defined(_M_IX86))</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="preprocessor">#define MUR_GETBLOCK(p,i) p[i]</span></div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="preprocessor">#else </span><span class="comment">/* non intel */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="preprocessor">#define MUR_PLUS0_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 0)</span></div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="preprocessor">#define MUR_PLUS1_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 1)</span></div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="preprocessor">#define MUR_PLUS2_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 2)</span></div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="preprocessor">#define MUR_PLUS3_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 3)</span></div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="preprocessor">#define WP(p) ((uint32_t*)((unsigned long)(p) &amp; ~3UL))</span></div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="preprocessor">#if (defined(__BIG_ENDIAN__) || defined(SPARC) || defined(__ppc__) || defined(__ppc64__))</span></div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="preprocessor">#define MUR_THREE_ONE(p) ((((*WP(p))&amp;0x00ffffff) &lt;&lt; 8) | (((*(WP(p)+1))&amp;0xff000000) &gt;&gt; 24))</span></div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="preprocessor">#define MUR_TWO_TWO(p)   ((((*WP(p))&amp;0x0000ffff) &lt;&lt;16) | (((*(WP(p)+1))&amp;0xffff0000) &gt;&gt; 16))</span></div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="preprocessor">#define MUR_ONE_THREE(p) ((((*WP(p))&amp;0x000000ff) &lt;&lt;24) | (((*(WP(p)+1))&amp;0xffffff00) &gt;&gt;  8))</span></div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="preprocessor">#else </span><span class="comment">/* assume little endian non-intel */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;<span class="preprocessor">#define MUR_THREE_ONE(p) ((((*WP(p))&amp;0xffffff00) &gt;&gt; 8) | (((*(WP(p)+1))&amp;0x000000ff) &lt;&lt; 24))</span></div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="preprocessor">#define MUR_TWO_TWO(p)   ((((*WP(p))&amp;0xffff0000) &gt;&gt;16) | (((*(WP(p)+1))&amp;0x0000ffff) &lt;&lt; 16))</span></div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="preprocessor">#define MUR_ONE_THREE(p) ((((*WP(p))&amp;0xff000000) &gt;&gt;24) | (((*(WP(p)+1))&amp;0x00ffffff) &lt;&lt;  8))</span></div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor">#define MUR_GETBLOCK(p,i) (MUR_PLUS0_ALIGNED(p) ? ((p)[i]) :           \</span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_GETBLOCK(p,i) p[i]</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else </span><span class="comment">/* non intel */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_PLUS0_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 0)</span></div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_PLUS1_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 1)</span></div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_PLUS2_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 2)</span></div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_PLUS3_ALIGNED(p) (((unsigned long)p &amp; 0x3) == 3)</span></div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define WP(p) ((uint32_t*)((unsigned long)(p) &amp; ~3UL))</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if (defined(__BIG_ENDIAN__) || defined(SPARC) || defined(__ppc__) || defined(__ppc64__))</span></div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_THREE_ONE(p) ((((*WP(p))&amp;0x00ffffff) &lt;&lt; 8) | (((*(WP(p)+1))&amp;0xff000000) &gt;&gt; 24))</span></div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_TWO_TWO(p)   ((((*WP(p))&amp;0x0000ffff) &lt;&lt;16) | (((*(WP(p)+1))&amp;0xffff0000) &gt;&gt; 16))</span></div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_ONE_THREE(p) ((((*WP(p))&amp;0x000000ff) &lt;&lt;24) | (((*(WP(p)+1))&amp;0xffffff00) &gt;&gt;  8))</span></div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else </span><span class="comment">/* assume little endian non-intel */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_THREE_ONE(p) ((((*WP(p))&amp;0xffffff00) &gt;&gt; 8) | (((*(WP(p)+1))&amp;0x000000ff) &lt;&lt; 24))</span></div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_TWO_TWO(p)   ((((*WP(p))&amp;0xffff0000) &gt;&gt;16) | (((*(WP(p)+1))&amp;0x0000ffff) &lt;&lt; 16))</span></div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_ONE_THREE(p) ((((*WP(p))&amp;0xff000000) &gt;&gt;24) | (((*(WP(p)+1))&amp;0x00ffffff) &lt;&lt;  8))</span></div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_GETBLOCK(p,i) (MUR_PLUS0_ALIGNED(p) ? ((p)[i]) :           \</span></div>
 <div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;<span class="preprocessor">                            (MUR_PLUS1_ALIGNED(p) ? MUR_THREE_ONE(p) : \</span></div>
 <div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="preprocessor">                             (MUR_PLUS2_ALIGNED(p) ? MUR_TWO_TWO(p) :  \</span></div>
 <div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="preprocessor">                                                      MUR_ONE_THREE(p))))</span></div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="preprocessor">#define MUR_ROTL32(x,r) (((x) &lt;&lt; (r)) | ((x) &gt;&gt; (32 - (r))))</span></div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="preprocessor">#define MUR_FMIX(_h) \</span></div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_ROTL32(x,r) (((x) &lt;&lt; (r)) | ((x) &gt;&gt; (32 - (r))))</span></div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MUR_FMIX(_h) \</span></div>
 <div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="preprocessor">do {                 \</span></div>
 <div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="preprocessor">  _h ^= _h &gt;&gt; 16;    \</span></div>
 <div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="preprocessor">  _h *= 0x85ebca6b;  \</span></div>
@@ -622,7 +622,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="preprocessor">  _h *= 0xc2b2ae35l; \</span></div>
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor">  _h ^= _h &gt;&gt; 16;    \</span></div>
 <div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="preprocessor">#define HASH_MUR(key,keylen,num_bkts,hashv,bkt)                        \</span></div>
 <div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="preprocessor">do {                                                                   \</span></div>
 <div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="preprocessor">  const uint8_t *_mur_data = (const uint8_t*)(key);                    \</span></div>
@@ -660,11 +660,11 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="preprocessor">  hashv = _mur_h1;                                                     \</span></div>
 <div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="preprocessor">  bkt = hashv &amp; (num_bkts-1);                                          \</span></div>
 <div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* HASH_USING_NO_STRICT_ALIASING */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif  </span><span class="comment">/* HASH_USING_NO_STRICT_ALIASING */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="comment">/* key comparison function; return 0 if keys equal */</span></div>
 <div class="line"><a name="l00601"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a35c9b682ebb7a8cbf284b9f0a9594095">  601</a></span>&#160;<span class="preprocessor">#define HASH_KEYCMP(a,b,len) memcmp(a,b,len) </span></div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="comment">/* iterate over items in a known bucket to find desired item */</span></div>
 <div class="line"><a name="l00604"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a42ae87cc63106a82601808f19329502c">  604</a></span>&#160;<span class="preprocessor">#define HASH_FIND_IN_BKT(tbl,hh,head,keyptr,keylen_in,out)                       \</span></div>
 <div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
@@ -678,7 +678,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor">    else out = NULL;                                                             \</span></div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="preprocessor"> }                                                                               \</span></div>
 <div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;<span class="comment">/* add an item to a bucket  */</span></div>
 <div class="line"><a name="l00618"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a78e11adee321f45c5cb31ff2d6eb0348">  618</a></span>&#160;<span class="preprocessor">#define HASH_ADD_TO_BKT(head,addhh)                                              \</span></div>
 <div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
@@ -692,7 +692,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="preprocessor">       HASH_EXPAND_BUCKETS((addhh)-&gt;tbl);                                        \</span></div>
 <div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="preprocessor"> }                                                                               \</span></div>
 <div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="comment">/* remove an item from a given bucket */</span></div>
 <div class="line"><a name="l00632"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a1b2d6f694f98cf6350cdd18225cb3f78">  632</a></span>&#160;<span class="preprocessor">#define HASH_DEL_IN_BKT(hh,head,hh_del)                                          \</span></div>
 <div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;<span class="preprocessor">    (head).count--;                                                              \</span></div>
@@ -705,7 +705,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="preprocessor">    if (hh_del-&gt;hh_next) {                                                       \</span></div>
 <div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="preprocessor">        hh_del-&gt;hh_next-&gt;hh_prev = hh_del-&gt;hh_prev;                              \</span></div>
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="preprocessor">    }                                                                </span></div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="comment">/* Bucket expansion has the effect of doubling the number of buckets</span></div>
 <div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment"> * and redistributing the items into the new buckets. Ideally the</span></div>
 <div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="comment"> * items will distribute more or less evenly into the new buckets</span></div>
@@ -782,13 +782,13 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="preprocessor">    }                                                                            \</span></div>
 <div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;<span class="preprocessor">    uthash_expand_fyi(tbl);                                                      \</span></div>
 <div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;</div>
 <div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="comment">/* This is an adaptation of Simon Tatham&#39;s O(n log(n)) mergesort */</span></div>
 <div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="comment">/* Note that HASH_SORT assumes the hash handle name to be hh. </span></div>
 <div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment"> * HASH_SRT was added to allow the hash handle name to be passed in. */</span></div>
 <div class="line"><a name="l00725"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a88d2ab40956878caacd02c214f7e8f15">  725</a></span>&#160;<span class="preprocessor">#define HASH_SORT(head,cmpfcn) HASH_SRT(hh,head,cmpfcn)</span></div>
-<div class="line"><a name="l00726"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a388b4071dcff005154f431d3d3025fbd">  726</a></span>&#160;<span class="preprocessor">#define HASH_SRT(hh,head,cmpfcn)                                                 \</span></div>
+<div class="line"><a name="l00726"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a388b4071dcff005154f431d3d3025fbd">  726</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_SRT(hh,head,cmpfcn)                                                 \</span></div>
 <div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="preprocessor">  unsigned _hs_i;                                                                \</span></div>
 <div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="preprocessor">  unsigned _hs_looping,_hs_nmerges,_hs_insize,_hs_psize,_hs_qsize;               \</span></div>
@@ -874,7 +874,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;<span class="preprocessor">      HASH_FSCK(hh,head);                                                        \</span></div>
 <div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;<span class="preprocessor"> }                                                                               \</span></div>
 <div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;<span class="comment">/* This function selects items from one hash into another hash. </span></div>
 <div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;<span class="comment"> * The end result is that the selected items have dual presence </span></div>
 <div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="comment"> * in both hashes. There is no copy of the items made; rather </span></div>
@@ -917,7 +917,7 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;<span class="preprocessor">  }                                                                              \</span></div>
 <div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;<span class="preprocessor">  HASH_FSCK(hh_dst,dst);                                                         \</span></div>
 <div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;<span class="preprocessor">} while (0)</span></div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00856"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a0512b3f7a824275579ec82643ef2cc23">  856</a></span>&#160;<span class="preprocessor">#define HASH_CLEAR(hh,head)                                                      \</span></div>
 <div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;<span class="preprocessor">do {                                                                             \</span></div>
 <div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;<span class="preprocessor">  if (head) {                                                                    \</span></div>
@@ -928,27 +928,27 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;<span class="preprocessor">    (head)=NULL;                                                                 \</span></div>
 <div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;<span class="preprocessor">  }                                                                              \</span></div>
 <div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;<span class="preprocessor">} while(0)</span></div>
-<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00867"></a><span class="lineno"><a class="line" href="____uthash_8h.html#ab35e223d7385dfbe3c42758f502f4c04">  867</a></span>&#160;<span class="preprocessor">#define HASH_OVERHEAD(hh,head)                                                   \</span></div>
 <div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;<span class="preprocessor"> (size_t)((((head)-&gt;hh.tbl-&gt;num_items   * sizeof(UT_hash_handle))   +            \</span></div>
 <div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;<span class="preprocessor">           ((head)-&gt;hh.tbl-&gt;num_buckets * sizeof(UT_hash_bucket))   +            \</span></div>
 <div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;<span class="preprocessor">            (sizeof(UT_hash_table))                                 +            \</span></div>
 <div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;<span class="preprocessor">            (HASH_BLOOM_BYTELEN)))</span></div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;<span class="preprocessor">#ifdef NO_DECLTYPE</span></div>
-<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;<span class="preprocessor">#define HASH_ITER(hh,head,el,tmp)                                                \</span></div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_ITER(hh,head,el,tmp)                                                \</span></div>
 <div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;<span class="preprocessor">for((el)=(head), (*(char**)(&amp;(tmp)))=(char*)((head)?(head)-&gt;hh.next:NULL);       \</span></div>
 <div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;<span class="preprocessor">  el; (el)=(tmp),(*(char**)(&amp;(tmp)))=(char*)((tmp)?(tmp)-&gt;hh.next:NULL)) </span></div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00878"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a4d524042f1fcb976d8bccae9e4cc63d6">  878</a></span>&#160;<span class="preprocessor">#define HASH_ITER(hh,head,el,tmp)                                                \</span></div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00878"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a4d524042f1fcb976d8bccae9e4cc63d6">  878</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_ITER(hh,head,el,tmp)                                                \</span></div>
 <div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;<span class="preprocessor">for((el)=(head),(tmp)=DECLTYPE(el)((head)?(head)-&gt;hh.next:NULL);                 \</span></div>
 <div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;<span class="preprocessor">  el; (el)=(tmp),(tmp)=DECLTYPE(el)((tmp)?(tmp)-&gt;hh.next:NULL))</span></div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;</div>
+<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;<span class="comment">/* obtain a count of items in the hash */</span></div>
 <div class="line"><a name="l00884"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a7d3edf55a3ee4da1a0e1b477c314342f">  884</a></span>&#160;<span class="preprocessor">#define HASH_COUNT(head) HASH_CNT(hh,head) </span></div>
-<div class="line"><a name="l00885"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a6ea9e661cd8c35eff1fdcd5731127edd">  885</a></span>&#160;<span class="preprocessor">#define HASH_CNT(hh,head) ((head)?((head)-&gt;hh.tbl-&gt;num_items):0)</span></div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;</div>
+<div class="line"><a name="l00885"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a6ea9e661cd8c35eff1fdcd5731127edd">  885</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_CNT(hh,head) ((head)?((head)-&gt;hh.tbl-&gt;num_items):0)</span></div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00887"></a><span class="lineno"><a class="line" href="structUT__hash__bucket.html">  887</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structUT__hash__bucket.html">UT_hash_bucket</a> {</div>
 <div class="line"><a name="l00888"></a><span class="lineno"><a class="line" href="structUT__hash__bucket.html#a32d33f384f3c99c1fd80202e1cd64c0c">  888</a></span>&#160;   <span class="keyword">struct </span><a class="code" href="structUT__hash__handle.html">UT_hash_handle</a> *<a class="code" href="structUT__hash__bucket.html#a32d33f384f3c99c1fd80202e1cd64c0c">hh_head</a>;</div>
 <div class="line"><a name="l00889"></a><span class="lineno"><a class="line" href="structUT__hash__bucket.html#a6a9e89d63eb610dfe238b0a840979421">  889</a></span>&#160;   <span class="keywordtype">unsigned</span> <a class="code" href="structUT__hash__bucket.html#a6a9e89d63eb610dfe238b0a840979421">count</a>;</div>
@@ -971,8 +971,8 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;</div>
 <div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;<span class="comment">/* random signature used only to find hash tables in external analysis */</span></div>
 <div class="line"><a name="l00908"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a4a7a46b9b92a9c73e4f9321e8e6b6bb2">  908</a></span>&#160;<span class="preprocessor">#define HASH_SIGNATURE 0xa0111fe1</span></div>
-<div class="line"><a name="l00909"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a18a33f4269f05c1e81ce54edbc0ffca6">  909</a></span>&#160;<span class="preprocessor">#define HASH_BLOOM_SIGNATURE 0xb12220f2</span></div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;</div>
+<div class="line"><a name="l00909"></a><span class="lineno"><a class="line" href="____uthash_8h.html#a18a33f4269f05c1e81ce54edbc0ffca6">  909</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define HASH_BLOOM_SIGNATURE 0xb12220f2</span></div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00911"></a><span class="lineno"><a class="line" href="structUT__hash__table.html">  911</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structUT__hash__table.html">UT_hash_table</a> {</div>
 <div class="line"><a name="l00912"></a><span class="lineno"><a class="line" href="structUT__hash__table.html#ab8166e712e5eff3106991bec13d9ab20">  912</a></span>&#160;   <a class="code" href="structUT__hash__bucket.html">UT_hash_bucket</a> *<a class="code" href="structUT__hash__table.html#ab8166e712e5eff3106991bec13d9ab20">buckets</a>;</div>
 <div class="line"><a name="l00913"></a><span class="lineno"><a class="line" href="structUT__hash__table.html#a5f0f25a07827aacb7af4ba2fc4afb5fe">  913</a></span>&#160;   <span class="keywordtype">unsigned</span> <a class="code" href="structUT__hash__table.html#a5f0f25a07827aacb7af4ba2fc4afb5fe">num_buckets</a>, <a class="code" href="structUT__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb">log2_num_buckets</a>;</div>
@@ -999,11 +999,11 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div class="line"><a name="l00934"></a><span class="lineno">  934</span>&#160;</div>
 <div class="line"><a name="l00935"></a><span class="lineno"><a class="line" href="structUT__hash__table.html#acd2a6284879dded65f0b8daa7c68485a">  935</a></span>&#160;   uint32_t <a class="code" href="structUT__hash__table.html#acd2a6284879dded65f0b8daa7c68485a">signature</a>; <span class="comment">/* used only to find hash tables in external analysis */</span></div>
 <div class="line"><a name="l00936"></a><span class="lineno">  936</span>&#160;<span class="preprocessor">#ifdef HASH_BLOOM</span></div>
-<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;   uint32_t bloom_sig; <span class="comment">/* used only to test bloom exists in external analysis */</span></div>
+<div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;<span class="preprocessor"></span>   uint32_t bloom_sig; <span class="comment">/* used only to test bloom exists in external analysis */</span></div>
 <div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160;   uint8_t *bloom_bv;</div>
 <div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;   <span class="keywordtype">char</span> bloom_nbits;</div>
 <div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;</div>
+<div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;} <a class="code" href="structUT__hash__table.html">UT_hash_table</a>;</div>
 <div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;</div>
 <div class="line"><a name="l00944"></a><span class="lineno"><a class="line" href="structUT__hash__handle.html">  944</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structUT__hash__handle.html">UT_hash_handle</a> {</div>
@@ -1049,9 +1049,9 @@ $(document).ready(function(){initNavTree('____uthash_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="____uthash_8h.html">__uthash.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <li class="footer">Generado el Martes, 30 de Septiembre de 2014 12:40:17 para Dinic por
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
 </div>
 </body>

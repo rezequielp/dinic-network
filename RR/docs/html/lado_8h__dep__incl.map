@@ -1,10 +1,10 @@
 <map id="apifiles/lado.h" name="apifiles/lado.h">
-<area shape="rect" href="$nbrhd_8h.html" title="Encabezado de nbrhd.c. " alt="" coords="365,80,477,107"/>
-<area shape="rect" href="$API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="72,80,171,107"/>
-<area shape="rect" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="195,80,341,107"/>
-<area shape="rect" href="$lado_8c.html" title="apifiles/lado.c" alt="" coords="501,80,603,107"/>
-<area shape="rect" href="$API_8c.html" title="apifiles/API.c" alt="" coords="136,155,235,181"/>
-<area shape="rect" href="$nbrhd_8c.html" title="Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí. " alt="" coords="429,155,539,181"/>
-<area shape="rect" href="$main_8c.html" title="dirmain/main.c" alt="" coords="5,155,112,181"/>
-<area shape="rect" href="$parser__lado_8c.html" title="apifiles/parser_lado.c" alt="" coords="259,155,405,181"/>
+<area shape="rect" id="node3" href="$nbrhd_8h.html" title="Encabezado de nbrhd.c. " alt="" coords="373,80,483,107"/>
+<area shape="rect" id="node9" href="$API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="75,80,173,107"/>
+<area shape="rect" id="node14" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="198,80,348,107"/>
+<area shape="rect" id="node19" href="$lado_8c.html" title="apifiles/lado.c" alt="" coords="507,80,612,107"/>
+<area shape="rect" id="node5" href="$API_8c.html" title="apifiles/API.c" alt="" coords="139,155,237,181"/>
+<area shape="rect" id="node7" href="$nbrhd_8c.html" title="Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí. " alt="" coords="437,155,547,181"/>
+<area shape="rect" id="node12" href="$main_8c.html" title="dirmain/main.c" alt="" coords="5,155,115,181"/>
+<area shape="rect" id="node17" href="$parser__lado_8c.html" title="apifiles/parser_lado.c" alt="" coords="262,155,412,181"/>
 </map>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.8"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
 <title>Dinic: Fichero Fuente dirmain/main.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -32,7 +32,7 @@
    <div id="projectname">Dinic
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la cátedra de Matemática Discreta II.</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -54,7 +54,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.8.8 -->
+<!-- Generado por Doxygen 1.8.5 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 </script>
@@ -113,12 +113,12 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="main_8c.html#afa843fde18e1a9147df13cb76cbd2b77">   19</a></span>&#160;<span class="preprocessor">#define CUT             0b00000010  </span></div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="main_8c.html#a657cb102146c47173dff99438bc225cf">   20</a></span>&#160;<span class="preprocessor">#define FLOW_V          0b00000001  </span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="comment">/*Macros para manipular flags.*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">   22</a></span>&#160;<span class="preprocessor">#define SET_FLAG(f) STATUS |= f         </span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">   22</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SET_FLAG(f) STATUS |= f         </span></div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="main_8c.html#a9db4153fec89607db0b7bb7fe9cda7d1">   23</a></span>&#160;<span class="preprocessor">#define UNSET_FLAG(f) STATUS &amp;= ~f      </span></div>
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="main_8c.html#a061350ba02f3d7830497f165cf345512">   24</a></span>&#160;<span class="preprocessor">#define CLEAR_FLAG() 0b00000000         </span></div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">   25</a></span>&#160;<span class="preprocessor">#define IS_SET_FLAG(f) (STATUS &amp; f) &gt; 0 </span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="comment">/*FUNCIONES ESTATICAS.*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">load_from_stdin</a>(<a class="code" href="structDovahkiinP.html">DovahkiinP</a> dova);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor"></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">load_from_stdin</a>(<a class="code" href="structDovahkiinP.html">DovahkiinP</a> dova);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a6e5139b059c3d7c2e0a142f9cb68cc3f">print_help</a>(<span class="keywordtype">char</span> * programName);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">static</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <a class="code" href="main_8c.html#a73629894515f9c223bd9b2b3c294888a">parametersChecker</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[], <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> * source, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> * sink);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a5d7885d1387782fc418c6dd2e1d435f7">print_dinicTime</a>(<span class="keywordtype">float</span> time);</div>
@@ -362,8 +362,8 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="ttc" id="API_8c_html_a18f90f81fcff3eaa0d54c05f6c1c5315"><div class="ttname"><a href="API_8c.html#a18f90f81fcff3eaa0d54c05f6c1c5315">BusquedaCaminoAumentante</a></div><div class="ttdeci">int BusquedaCaminoAumentante(DovahkiinP dova)</div><div class="ttdoc">Hace una búsqueda DFS-FF de un camino aumentante de menor longitud. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00383">API.c:383</a></div></div>
 <div class="ttc" id="main_8c_html_a657cb102146c47173dff99438bc225cf"><div class="ttname"><a href="main_8c.html#a657cb102146c47173dff99438bc225cf">FLOW_V</a></div><div class="ttdeci">#define FLOW_V</div><div class="ttdoc">Activa el muestreo de valor del flujo. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00020">main.c:20</a></div></div>
 <div class="ttc" id="API_8c_html_a4e475a7fbb00903addb0ea50b31a323e"><div class="ttname"><a href="API_8c.html#a4e475a7fbb00903addb0ea50b31a323e">ImprimirValorFlujo</a></div><div class="ttdeci">void ImprimirValorFlujo(DovahkiinP dova)</div><div class="ttdoc">Imprime por Estandar Output el valor del Flujo calculado hasta el momento. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00545">API.c:545</a></div></div>
-<div class="ttc" id="main_8c_html_a14bc2dfa42241600d567369cd25ddc70"><div class="ttname"><a href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">S_OK</a></div><div class="ttdeci">#define S_OK</div><div class="ttdoc">&#39;s&#39; fue pasado como parámetro. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00014">main.c:14</a></div></div>
-<div class="ttc" id="main_8c_html_ad66884268b15b247511f33de5b432ad7"><div class="ttname"><a href="main_8c.html#ad66884268b15b247511f33de5b432ad7">T_OK</a></div><div class="ttdeci">#define T_OK</div><div class="ttdoc">&#39;t&#39; fue pasado como parámetro. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00015">main.c:15</a></div></div>
+<div class="ttc" id="main_8c_html_a14bc2dfa42241600d567369cd25ddc70"><div class="ttname"><a href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">S_OK</a></div><div class="ttdeci">#define S_OK</div><div class="ttdoc">&amp;#39;s&amp;#39; fue pasado como parámetro. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00014">main.c:14</a></div></div>
+<div class="ttc" id="main_8c_html_ad66884268b15b247511f33de5b432ad7"><div class="ttname"><a href="main_8c.html#ad66884268b15b247511f33de5b432ad7">T_OK</a></div><div class="ttdeci">#define T_OK</div><div class="ttdoc">&amp;#39;t&amp;#39; fue pasado como parámetro. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00015">main.c:15</a></div></div>
 <div class="ttc" id="API_8c_html_a9e15564793011091c7a8760cc8f1a6b5"><div class="ttname"><a href="API_8c.html#a9e15564793011091c7a8760cc8f1a6b5">LeerUnLado</a></div><div class="ttdeci">Lado LeerUnLado(void)</div><div class="ttdoc">Lee un lado desde la entrada estándar. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00211">API.c:211</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -371,9 +371,9 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_cb13ae713b9a8d90f19df44f72edc721.html">dirmain</a></li><li class="navelem"><a class="el" href="main_8c.html">main.c</a></li>
-    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <li class="footer">Generado el Martes, 30 de Septiembre de 2014 12:40:17 para Dinic por
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
 </div>
 </body>

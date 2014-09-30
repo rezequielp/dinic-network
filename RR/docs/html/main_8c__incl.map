@@ -1,5 +1,5 @@
 <map id="dirmain/main.c" name="dirmain/main.c">
-<area shape="rect" href="$API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="624,80,733,107"/>
-<area shape="rect" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="647,229,708,256"/>
-<area shape="rect" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="683,155,739,181"/>
+<area shape="rect" id="node17" href="$API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="629,80,739,107"/>
+<area shape="rect" id="node19" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="654,229,713,256"/>
+<area shape="rect" id="node23" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="688,155,745,181"/>
 </map>

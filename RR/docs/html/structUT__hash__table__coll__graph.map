@@ -1,14 +1,4 @@
 <map id="UT_hash_table" name="UT_hash_table">
-<area shape="rect" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="5,99,128,125"/>
-<area shape="rect" title=" tbl" alt="" coords="87,28,95,36"/>
-<area shape="rect" title=" tbl" alt="" coords="60,95,68,103"/>
-<area shape="rect" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="124,192,247,219"/>
-<area shape="rect" title=" buckets" alt="" coords="191,188,199,196"/>
-<area shape="rect" title=" buckets" alt="" coords="139,28,147,36"/>
-<area shape="rect" title=" tail" alt="" coords="69,95,77,103"/>
-<area shape="rect" title=" tail" alt="" coords="104,28,112,36"/>
-<area shape="rect" title=" hh_head" alt="" coords="80,121,88,129"/>
-<area shape="rect" title=" hh_head" alt="" coords="164,188,172,196"/>
-<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="88,95,96,103"/>
-<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="88,121,96,129"/>
+<area shape="rect" id="node4" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="5,97,131,124"/>
+<area shape="rect" id="node2" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="127,189,249,216"/>
 </map>

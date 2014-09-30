@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.8"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
 <title>Dinic: Fichero Fuente apifiles/parser_lado.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -32,7 +32,7 @@
    <div id="projectname">Dinic
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la cátedra de Matemática Discreta II.</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -54,7 +54,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.8.8 -->
+<!-- Generado por Doxygen 1.8.5 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 </script>
@@ -93,8 +93,8 @@ $(document).ready(function(){initNavTree('parser__lado_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="parser__lado_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _PARSER_LADO_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _PARSER_LADO_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define _PARSER_LADO_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="__lexer_8h.html">_lexer.h</a>&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lado_8h.html">lado.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('parser__lado_8h_source.html','');});
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> * return: Un lado bien formado si el parseo fue exitoso.</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *         LadoNulo caso contrario.</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<a class="code" href="structLado.html">Lado</a> <a class="code" href="parser__lado_8h.html#a333eb635ada6c988a7734f60094844b5">parser_lado</a>(Lexer *input);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor"></span><a class="code" href="structLado.html">Lado</a> <a class="code" href="parser__lado_8c.html#a333eb635ada6c988a7734f60094844b5">parser_lado</a>(Lexer *input);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/* Consume el fin de línea.</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> * Indica si encontró (o no) basura antes del fin de línea.</span></div>
@@ -120,23 +120,23 @@ $(document).ready(function(){initNavTree('parser__lado_8h_source.html','');});
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * return:  PARSER_OK si no hay basura.</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> *          PARSER_ERR caso contrario.</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">int</span> <a class="code" href="parser__lado_8h.html#ab7926b7db6f62e0136312eb5c39a726a">parser_nextLine</a> (Lexer *input);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">int</span> <a class="code" href="parser__lado_8c.html#ab7926b7db6f62e0136312eb5c39a726a">parser_nextLine</a> (Lexer *input);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="parser__lado_8h_html_a333eb635ada6c988a7734f60094844b5"><div class="ttname"><a href="parser__lado_8h.html#a333eb635ada6c988a7734f60094844b5">parser_lado</a></div><div class="ttdeci">Lado parser_lado(Lexer *input)</div><div class="ttdoc">Lee todo un Lado de input hasta llegar a un fin de línea o de archivo. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00026">parser_lado.c:26</a></div></div>
+<div class="ttc" id="parser__lado_8c_html_ab7926b7db6f62e0136312eb5c39a726a"><div class="ttname"><a href="parser__lado_8c.html#ab7926b7db6f62e0136312eb5c39a726a">parser_nextLine</a></div><div class="ttdeci">int parser_nextLine(Lexer *input)</div><div class="ttdoc">Consume el fin de línea. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00062">parser_lado.c:62</a></div></div>
+<div class="ttc" id="parser__lado_8c_html_a333eb635ada6c988a7734f60094844b5"><div class="ttname"><a href="parser__lado_8c.html#a333eb635ada6c988a7734f60094844b5">parser_lado</a></div><div class="ttdeci">Lado parser_lado(Lexer *input)</div><div class="ttdoc">Lee todo un Lado de input hasta llegar a un fin de línea o de archivo. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00026">parser_lado.c:26</a></div></div>
 <div class="ttc" id="__lexer_8h_html"><div class="ttname"><a href="__lexer_8h.html">_lexer.h</a></div><div class="ttdoc">Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo...</div></div>
 <div class="ttc" id="lado_8h_html"><div class="ttname"><a href="lado_8h.html">lado.h</a></div><div class="ttdoc">Lado es una estructura que representa un lado del network. </div></div>
 <div class="ttc" id="structLado_html"><div class="ttname"><a href="structLado.html">Lado</a></div><div class="ttdoc">Puntero a un lado. </div></div>
-<div class="ttc" id="parser__lado_8h_html_ab7926b7db6f62e0136312eb5c39a726a"><div class="ttname"><a href="parser__lado_8h.html#ab7926b7db6f62e0136312eb5c39a726a">parser_nextLine</a></div><div class="ttdeci">int parser_nextLine(Lexer *input)</div><div class="ttdoc">Consume el fin de línea. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00062">parser_lado.c:62</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="parser__lado_8h.html">parser_lado.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <li class="footer">Generado el Martes, 30 de Septiembre de 2014 12:40:17 para Dinic por
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
 </div>
 </body>
