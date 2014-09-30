@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.8"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
 <title>Dinic: Fichero Fuente apifiles/lado.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -32,7 +32,7 @@
    <div id="projectname">Dinic
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la cátedra de Matemática Discreta II.</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -54,7 +54,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.8.8 -->
+<!-- Generado por Doxygen 1.8.5 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 </script>
@@ -93,8 +93,8 @@ $(document).ready(function(){initNavTree('lado_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="lado_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef LADO_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define LADO_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define LADO_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="__u64_8h.html">_u64.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structLadoSt.html">LadoSt</a> *<a class="code" href="structLado.html">Lado</a>;</div>
@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('lado_8h_source.html','');});
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">/* Representación de un lado nulo*/</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="lado_8h.html#a90b033fe9661d1b5a94b418825575f94">   17</a></span>&#160;<span class="preprocessor">#define LadoNulo (Lado)NULL </span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span><span class="comment">/* Constructores */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/* Creador de un nuevo lado.</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * Es la representación de una arista &#39;xy&#39; con capacidad de flujo &#39;c&#39;.</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * x Nombre del nodo &#39;x&#39;.</span></div>
@@ -110,13 +110,13 @@ $(document).ready(function(){initNavTree('lado_8h_source.html','');});
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * c Capacidad del lado &#39;xy&#39;.</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * return: Un nuevo lado con los correspondientes valores asignados.</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;Lado <a class="code" href="lado_8h.html#af6c7b132591388f3cdb55006f9cd850d">lado_new</a>(<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="structLadoSt.html#a04498d52117f705673d513847d9e0e6b">x</a>, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="structLadoSt.html#a239d98618fd31de7d8d7a94d7beb3ed7">y</a>, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="structLadoSt.html#aafde18f8cc76a12c881282060f3645ae">c</a>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;Lado <a class="code" href="lado_8c.html#af6c7b132591388f3cdb55006f9cd850d">lado_new</a>(<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="structLadoSt.html#a04498d52117f705673d513847d9e0e6b">x</a>, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="structLadoSt.html#a239d98618fd31de7d8d7a94d7beb3ed7">y</a>, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="structLadoSt.html#aafde18f8cc76a12c881282060f3645ae">c</a>);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">/* Destructor de un lado.</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * Se destruye un lado, al menos que ya sea un lado nulo.</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> * edge Lado a destruir.</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lado_8h.html#a701f41b841de7dd1527696515ed67bde">lado_destroy</a>(Lado edge);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lado_8c.html#a701f41b841de7dd1527696515ed67bde">lado_destroy</a>(Lado edge);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">/*  Operaciones */</span></div>
@@ -126,44 +126,44 @@ $(document).ready(function(){initNavTree('lado_8h_source.html','');});
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * pre: edge no es un lado nulo.</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * return: El nombre del nodo &#39;x&#39;.</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="lado_8h.html#aa684fbc52c931f51bd3516e911658b72">lado_getX</a>(Lado edge);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="lado_8c.html#aa684fbc52c931f51bd3516e911658b72">lado_getX</a>(Lado edge);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/* Obtener el nombre del nodo &#39;y&#39;.</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * edge Lado en el que se desea consultar.</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> * pre: edge no es un lado nulo.</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> * return: El nombre del nodo &#39;y&#39;.</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="lado_8h.html#ac67229f7a5f55dd9d2c0dd8caea42c27">lado_getY</a>(Lado edge);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="lado_8c.html#ac67229f7a5f55dd9d2c0dd8caea42c27">lado_getY</a>(Lado edge);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/* Obtener la capacidad de un lado.</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * edge Lado en el que se desea consultar.</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> * pre: edge no es un lado nulo.</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> * return: La capacidad del lado</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="lado_8h.html#a773e78b0e0de56f5ee313e4026c782ca">lado_getCap</a>(Lado edge);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> <a class="code" href="lado_8c.html#a773e78b0e0de56f5ee313e4026c782ca">lado_getCap</a>(Lado edge);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="__u64_8h_html"><div class="ttname"><a href="__u64_8h.html">_u64.h</a></div><div class="ttdoc">Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. </div></div>
-<div class="ttc" id="lado_8h_html_ac67229f7a5f55dd9d2c0dd8caea42c27"><div class="ttname"><a href="lado_8h.html#ac67229f7a5f55dd9d2c0dd8caea42c27">lado_getY</a></div><div class="ttdeci">u64 lado_getY(Lado edge)</div><div class="ttdoc">Obtener el nombre del nodo &#39;y&#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00061">lado.c:61</a></div></div>
 <div class="ttc" id="structLadoSt_html"><div class="ttname"><a href="structLadoSt.html">LadoSt</a></div><div class="ttdoc">Estructura principal de un lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00006">lado.c:6</a></div></div>
-<div class="ttc" id="lado_8h_html_a773e78b0e0de56f5ee313e4026c782ca"><div class="ttname"><a href="lado_8h.html#a773e78b0e0de56f5ee313e4026c782ca">lado_getCap</a></div><div class="ttdeci">u64 lado_getCap(Lado edge)</div><div class="ttdoc">Obtener la capacidad de un lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00071">lado.c:71</a></div></div>
-<div class="ttc" id="lado_8h_html_a701f41b841de7dd1527696515ed67bde"><div class="ttname"><a href="lado_8h.html#a701f41b841de7dd1527696515ed67bde">lado_destroy</a></div><div class="ttdeci">void lado_destroy(Lado edge)</div><div class="ttdoc">Destructor de un lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00037">lado.c:37</a></div></div>
-<div class="ttc" id="lado_8h_html_af6c7b132591388f3cdb55006f9cd850d"><div class="ttname"><a href="lado_8h.html#af6c7b132591388f3cdb55006f9cd850d">lado_new</a></div><div class="ttdeci">Lado lado_new(u64 x, u64 y, u64 c)</div><div class="ttdoc">Creador de un nuevo lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00021">lado.c:21</a></div></div>
+<div class="ttc" id="lado_8c_html_ac67229f7a5f55dd9d2c0dd8caea42c27"><div class="ttname"><a href="lado_8c.html#ac67229f7a5f55dd9d2c0dd8caea42c27">lado_getY</a></div><div class="ttdeci">u64 lado_getY(Lado edge)</div><div class="ttdoc">Obtener el nombre del nodo &amp;#39;y&amp;#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00061">lado.c:61</a></div></div>
+<div class="ttc" id="lado_8c_html_a701f41b841de7dd1527696515ed67bde"><div class="ttname"><a href="lado_8c.html#a701f41b841de7dd1527696515ed67bde">lado_destroy</a></div><div class="ttdeci">void lado_destroy(Lado edge)</div><div class="ttdoc">Destructor de un lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00037">lado.c:37</a></div></div>
 <div class="ttc" id="__u64_8h_html_a3f7e2bcbb0b4c338f3c4f6c937cd4234"><div class="ttname"><a href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a></div><div class="ttdeci">uint64_t u64</div><div class="ttdoc">Entero de 64 bits sin signo. </div><div class="ttdef"><b>Definition:</b> <a href="__u64_8h_source.html#l00017">_u64.h:17</a></div></div>
-<div class="ttc" id="structLadoSt_html_a239d98618fd31de7d8d7a94d7beb3ed7"><div class="ttname"><a href="structLadoSt.html#a239d98618fd31de7d8d7a94d7beb3ed7">LadoSt::y</a></div><div class="ttdeci">u64 y</div><div class="ttdoc">El nombre del nodo &#39;y&#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00008">lado.c:8</a></div></div>
-<div class="ttc" id="lado_8h_html_aa684fbc52c931f51bd3516e911658b72"><div class="ttname"><a href="lado_8h.html#aa684fbc52c931f51bd3516e911658b72">lado_getX</a></div><div class="ttdeci">u64 lado_getX(Lado edge)</div><div class="ttdoc">Obtener el nombre del nodo &#39;x&#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00051">lado.c:51</a></div></div>
+<div class="ttc" id="structLadoSt_html_a239d98618fd31de7d8d7a94d7beb3ed7"><div class="ttname"><a href="structLadoSt.html#a239d98618fd31de7d8d7a94d7beb3ed7">LadoSt::y</a></div><div class="ttdeci">u64 y</div><div class="ttdoc">El nombre del nodo &amp;#39;y&amp;#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00008">lado.c:8</a></div></div>
 <div class="ttc" id="structLado_html"><div class="ttname"><a href="structLado.html">Lado</a></div><div class="ttdoc">Puntero a un lado. </div></div>
-<div class="ttc" id="structLadoSt_html_aafde18f8cc76a12c881282060f3645ae"><div class="ttname"><a href="structLadoSt.html#aafde18f8cc76a12c881282060f3645ae">LadoSt::c</a></div><div class="ttdeci">u64 c</div><div class="ttdoc">La capacidad del lado &#39;xy&#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00009">lado.c:9</a></div></div>
-<div class="ttc" id="structLadoSt_html_a04498d52117f705673d513847d9e0e6b"><div class="ttname"><a href="structLadoSt.html#a04498d52117f705673d513847d9e0e6b">LadoSt::x</a></div><div class="ttdeci">u64 x</div><div class="ttdoc">El nombre del nodo &#39;x&#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00007">lado.c:7</a></div></div>
+<div class="ttc" id="lado_8c_html_aa684fbc52c931f51bd3516e911658b72"><div class="ttname"><a href="lado_8c.html#aa684fbc52c931f51bd3516e911658b72">lado_getX</a></div><div class="ttdeci">u64 lado_getX(Lado edge)</div><div class="ttdoc">Obtener el nombre del nodo &amp;#39;x&amp;#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00051">lado.c:51</a></div></div>
+<div class="ttc" id="lado_8c_html_a773e78b0e0de56f5ee313e4026c782ca"><div class="ttname"><a href="lado_8c.html#a773e78b0e0de56f5ee313e4026c782ca">lado_getCap</a></div><div class="ttdeci">u64 lado_getCap(Lado edge)</div><div class="ttdoc">Obtener la capacidad de un lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00071">lado.c:71</a></div></div>
+<div class="ttc" id="lado_8c_html_af6c7b132591388f3cdb55006f9cd850d"><div class="ttname"><a href="lado_8c.html#af6c7b132591388f3cdb55006f9cd850d">lado_new</a></div><div class="ttdeci">Lado lado_new(u64 x, u64 y, u64 c)</div><div class="ttdoc">Creador de un nuevo lado. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00021">lado.c:21</a></div></div>
+<div class="ttc" id="structLadoSt_html_aafde18f8cc76a12c881282060f3645ae"><div class="ttname"><a href="structLadoSt.html#aafde18f8cc76a12c881282060f3645ae">LadoSt::c</a></div><div class="ttdeci">u64 c</div><div class="ttdoc">La capacidad del lado &amp;#39;xy&amp;#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00009">lado.c:9</a></div></div>
+<div class="ttc" id="structLadoSt_html_a04498d52117f705673d513847d9e0e6b"><div class="ttname"><a href="structLadoSt.html#a04498d52117f705673d513847d9e0e6b">LadoSt::x</a></div><div class="ttdeci">u64 x</div><div class="ttdoc">El nombre del nodo &amp;#39;x&amp;#39;. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8c_source.html#l00007">lado.c:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="lado_8h.html">lado.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <li class="footer">Generado el Martes, 30 de Septiembre de 2014 12:40:17 para Dinic por
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
 </div>
 </body>

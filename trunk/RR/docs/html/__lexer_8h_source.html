@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.8"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
 <title>Dinic: Fichero Fuente apifiles/_lexer.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -32,7 +32,7 @@
    <div id="projectname">Dinic
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la cátedra de Matemática Discreta II.</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -54,7 +54,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.8.8 -->
+<!-- Generado por Doxygen 1.8.5 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 </script>
@@ -93,24 +93,24 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="__lexer_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef LEXER_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define LEXER_H</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="____bstrlib_8h.html">__bstrlib.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define LEXER_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;<a class="code" href="____bstrlib_8h.html">__bstrlib.h</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span>   <span class="comment">/* Para tener FILE */</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span> <span class="comment">/* Para tener bool */</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">/*** Constantes ***/</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="__lexer_8h.html#ab7a309e1cb06fb6bcbd4314371443416">   23</a></span>&#160;<span class="preprocessor">#define UPPER &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="__lexer_8h.html#aaa9295df3f8f6033cae4b89cc7e5ff29">   24</a></span>&#160;<span class="preprocessor">#define LOWER &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="__lexer_8h.html#a75405d0fa11f1bf15346f61ed092f448">   25</a></span>&#160;<span class="preprocessor">#define DIGIT &quot;0123456789&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="__lexer_8h.html#a5aebfba92373e0dc8a76d272bcd8e85d">   26</a></span>&#160;<span class="preprocessor">#define BLANK &quot;\t\n\r &quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="__lexer_8h.html#af5abd28c44c29b7397c84f1fec4b1d84">   27</a></span>&#160;<span class="preprocessor">#define ALPHA UPPER LOWER</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="__lexer_8h.html#a083ea8c48c37869f0055b7b7b853992f">   28</a></span>&#160;<span class="preprocessor">#define ALPHANUMERIC UPPER LOWER DIGIT</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="__lexer_8h.html#aaa9295df3f8f6033cae4b89cc7e5ff29">   24</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define LOWER &quot;abcdefghijklmnopqrstuvwxyz&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="__lexer_8h.html#a75405d0fa11f1bf15346f61ed092f448">   25</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define DIGIT &quot;0123456789&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="__lexer_8h.html#a5aebfba92373e0dc8a76d272bcd8e85d">   26</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define BLANK &quot;\t\n\r &quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="__lexer_8h.html#af5abd28c44c29b7397c84f1fec4b1d84">   27</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ALPHA UPPER LOWER</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="__lexer_8h.html#a083ea8c48c37869f0055b7b7b853992f">   28</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ALPHANUMERIC UPPER LOWER DIGIT</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">/* Tipo opaco */</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__lexer__t.html">_lexer_t</a> Lexer;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/*** Inicialización y destrucción ***/</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;Lexer *<a class="code" href="__lexer_8h.html#aab02b4d1aa9740ac7a34420b4b9bbd6d">lexer_new</a> (FILE *f);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;Lexer *<a class="code" href="__lexer_8c.html#aab02b4d1aa9740ac7a34420b4b9bbd6d">lexer_new</a> (FILE *f);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">/* Nuevo lexer, leyendo de `f&#39;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">     *     f está abierto </span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">     * ENSURES:</span></div>
@@ -118,7 +118,7 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">     *     ! lexer_is_started (Result)</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8h.html#a12aff8e140d703e68362dc301a3ade01">lexer_destroy</a> (Lexer *<span class="keyword">self</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8c.html#a12aff8e140d703e68362dc301a3ade01">lexer_destroy</a> (Lexer *<span class="keyword">self</span>);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">/* Destruye `self&#39;, liberando recursos asociados. No cierra el archivo</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     * REQUIRES:</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">     *     self != NULL</span></div>
@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/*** Consultas ***/</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">/* Nota: todo side-effect free */</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;bstring <a class="code" href="__lexer_8h.html#a26f8b93963415d431d3e4e90aaf4a098">lexer_item</a> (Lexer *<span class="keyword">self</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;bstring <a class="code" href="__lexer_8c.html#a26f8b93963415d431d3e4e90aaf4a098">lexer_item</a> (Lexer *<span class="keyword">self</span>);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">/* Última cadena leída por `self&#39;. El puntero devuelto debe ser liberado</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     * por el llamador. </span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     * REQUIRES:</span></div>
@@ -138,19 +138,19 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     *     Result != NULL</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="__lexer_8h.html#ac4bb4b844cd11e0b36321040e45ddb27">lexer_is_started</a> (<span class="keyword">const</span> Lexer *<span class="keyword">self</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="__lexer_8c.html#ac4bb4b844cd11e0b36321040e45ddb27">lexer_is_started</a> (<span class="keyword">const</span> Lexer *<span class="keyword">self</span>);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">/* `self&#39; empezó a leer el archivo?</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     * REQUIRES: self != NULL</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="__lexer_8h.html#aef5130d55b06d8a9e22a76dab34df192">lexer_is_off</a> (<span class="keyword">const</span> Lexer *<span class="keyword">self</span>);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="__lexer_8c.html#aef5130d55b06d8a9e22a76dab34df192">lexer_is_off</a> (<span class="keyword">const</span> Lexer *<span class="keyword">self</span>);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">/* `self&#39; terminó de leer el archivo?</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     * REQUIRES: self != NULL</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">/*** Operaciones ***/</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8h.html#a58cdcf051edb318e0642fd10e1d4f07a">lexer_next</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8c.html#a58cdcf051edb318e0642fd10e1d4f07a">lexer_next</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">/* Lee con `self&#39; caracteres pertenecientes a `charset&#39;, tantos como sea</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     *  posible. Deja el resultado accesible en lexer_item (self)</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * REQUIRES:</span></div>
@@ -164,7 +164,7 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     *       el próximo avance va a tomar un caracter fuera de charset)</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8h.html#ad3c560130b4f7c71490ce797ed36e578">lexer_next_to</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8c.html#ad3c560130b4f7c71490ce797ed36e578">lexer_next_to</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">/* Lee con `self&#39; caracteres no pertenecientes a `charset&#39;, tantos como sea</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     *  posible. Deja el resultado accesible en lexer_item (self)</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     * REQUIRES:</span></div>
@@ -178,7 +178,7 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">     *       el próximo avance va a tomar un caracter en charset)</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8h.html#a11463cc517bb27d0b711d6a85f3e57ad">lexer_next_char</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8c.html#a11463cc517bb27d0b711d6a85f3e57ad">lexer_next_char</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">/* Lee con `self&#39; hasta 1 caracter pertenecientes a `charset&#39;. Deja el</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">     * resultado accesible en lexer_item (self). No consume la cinta original</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">     * más allá del caracter leído en caso de leer algo.</span></div>
@@ -194,7 +194,7 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">/* Operaciones extra */</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8h.html#aeab3e8693f54ef46c91a8589f35a60d0">lexer_skip</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8c.html#aeab3e8693f54ef46c91a8589f35a60d0">lexer_skip</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">/* Lee con `self&#39; caracteres pertenecientes a `charset&#39;, tantos como sea</span></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">     *  posible. Los caracteres leidos se pierden.</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">     * REQUIRES: </span></div>
@@ -205,7 +205,7 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">     *     lexer_is_off (self) || biseqcstr (lexer_item (self), &quot;&quot;)</span></div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8h.html#a206000c56ea092f4a7f21696633d05a9">lexer_skip_to</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keywordtype">void</span> <a class="code" href="__lexer_8c.html#a206000c56ea092f4a7f21696633d05a9">lexer_skip_to</a> (Lexer *<span class="keyword">self</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *charset);</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">/* Lee con `self&#39; caracteres no pertenecientes a `charset&#39;, tantos como sea</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">     *  posible. Los caracteres leidos se pierden.</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">     * REQUIRES: </span></div>
@@ -217,27 +217,27 @@ $(document).ready(function(){initNavTree('__lexer_8h_source.html','');});
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="__lexer_8h_html_a58cdcf051edb318e0642fd10e1d4f07a"><div class="ttname"><a href="__lexer_8h.html#a58cdcf051edb318e0642fd10e1d4f07a">lexer_next</a></div><div class="ttdeci">void lexer_next(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00129">_lexer.c:129</a></div></div>
-<div class="ttc" id="__lexer_8h_html_a11463cc517bb27d0b711d6a85f3e57ad"><div class="ttname"><a href="__lexer_8h.html#a11463cc517bb27d0b711d6a85f3e57ad">lexer_next_char</a></div><div class="ttdeci">void lexer_next_char(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00170">_lexer.c:170</a></div></div>
-<div class="ttc" id="__lexer_8h_html_a206000c56ea092f4a7f21696633d05a9"><div class="ttname"><a href="__lexer_8h.html#a206000c56ea092f4a7f21696633d05a9">lexer_skip_to</a></div><div class="ttdeci">void lexer_skip_to(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00194">_lexer.c:194</a></div></div>
-<div class="ttc" id="__lexer_8h_html_ad3c560130b4f7c71490ce797ed36e578"><div class="ttname"><a href="__lexer_8h.html#ad3c560130b4f7c71490ce797ed36e578">lexer_next_to</a></div><div class="ttdeci">void lexer_next_to(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00149">_lexer.c:149</a></div></div>
-<div class="ttc" id="__lexer_8h_html_aab02b4d1aa9740ac7a34420b4b9bbd6d"><div class="ttname"><a href="__lexer_8h.html#aab02b4d1aa9740ac7a34420b4b9bbd6d">lexer_new</a></div><div class="ttdeci">Lexer * lexer_new(FILE *f)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00061">_lexer.c:61</a></div></div>
+<div class="ttc" id="__lexer_8c_html_a26f8b93963415d431d3e4e90aaf4a098"><div class="ttname"><a href="__lexer_8c.html#a26f8b93963415d431d3e4e90aaf4a098">lexer_item</a></div><div class="ttdeci">bstring lexer_item(Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00092">_lexer.c:92</a></div></div>
+<div class="ttc" id="__lexer_8c_html_aab02b4d1aa9740ac7a34420b4b9bbd6d"><div class="ttname"><a href="__lexer_8c.html#aab02b4d1aa9740ac7a34420b4b9bbd6d">lexer_new</a></div><div class="ttdeci">Lexer * lexer_new(FILE *f)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00061">_lexer.c:61</a></div></div>
+<div class="ttc" id="__lexer_8c_html_aeab3e8693f54ef46c91a8589f35a60d0"><div class="ttname"><a href="__lexer_8c.html#aeab3e8693f54ef46c91a8589f35a60d0">lexer_skip</a></div><div class="ttdeci">void lexer_skip(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00189">_lexer.c:189</a></div></div>
+<div class="ttc" id="__lexer_8c_html_a11463cc517bb27d0b711d6a85f3e57ad"><div class="ttname"><a href="__lexer_8c.html#a11463cc517bb27d0b711d6a85f3e57ad">lexer_next_char</a></div><div class="ttdeci">void lexer_next_char(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00170">_lexer.c:170</a></div></div>
+<div class="ttc" id="__lexer_8c_html_a58cdcf051edb318e0642fd10e1d4f07a"><div class="ttname"><a href="__lexer_8c.html#a58cdcf051edb318e0642fd10e1d4f07a">lexer_next</a></div><div class="ttdeci">void lexer_next(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00129">_lexer.c:129</a></div></div>
+<div class="ttc" id="__lexer_8c_html_a12aff8e140d703e68362dc301a3ade01"><div class="ttname"><a href="__lexer_8c.html#a12aff8e140d703e68362dc301a3ade01">lexer_destroy</a></div><div class="ttdeci">void lexer_destroy(Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00081">_lexer.c:81</a></div></div>
 <div class="ttc" id="____bstrlib_8h_html"><div class="ttname"><a href="____bstrlib_8h.html">__bstrlib.h</a></div><div class="ttdoc">The Better String Library is an abstraction of a string data type which is superior to the C library ...</div></div>
 <div class="ttc" id="struct__lexer__t_html"><div class="ttname"><a href="struct__lexer__t.html">_lexer_t</a></div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00007">_lexer.c:7</a></div></div>
-<div class="ttc" id="__lexer_8h_html_a12aff8e140d703e68362dc301a3ade01"><div class="ttname"><a href="__lexer_8h.html#a12aff8e140d703e68362dc301a3ade01">lexer_destroy</a></div><div class="ttdeci">void lexer_destroy(Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00081">_lexer.c:81</a></div></div>
-<div class="ttc" id="__lexer_8h_html_aef5130d55b06d8a9e22a76dab34df192"><div class="ttname"><a href="__lexer_8h.html#aef5130d55b06d8a9e22a76dab34df192">lexer_is_off</a></div><div class="ttdeci">bool lexer_is_off(const Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00119">_lexer.c:119</a></div></div>
-<div class="ttc" id="__lexer_8h_html_ac4bb4b844cd11e0b36321040e45ddb27"><div class="ttname"><a href="__lexer_8h.html#ac4bb4b844cd11e0b36321040e45ddb27">lexer_is_started</a></div><div class="ttdeci">bool lexer_is_started(const Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00111">_lexer.c:111</a></div></div>
-<div class="ttc" id="__lexer_8h_html_a26f8b93963415d431d3e4e90aaf4a098"><div class="ttname"><a href="__lexer_8h.html#a26f8b93963415d431d3e4e90aaf4a098">lexer_item</a></div><div class="ttdeci">bstring lexer_item(Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00092">_lexer.c:92</a></div></div>
-<div class="ttc" id="__lexer_8h_html_aeab3e8693f54ef46c91a8589f35a60d0"><div class="ttname"><a href="__lexer_8h.html#aeab3e8693f54ef46c91a8589f35a60d0">lexer_skip</a></div><div class="ttdeci">void lexer_skip(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00189">_lexer.c:189</a></div></div>
+<div class="ttc" id="__lexer_8c_html_ad3c560130b4f7c71490ce797ed36e578"><div class="ttname"><a href="__lexer_8c.html#ad3c560130b4f7c71490ce797ed36e578">lexer_next_to</a></div><div class="ttdeci">void lexer_next_to(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00149">_lexer.c:149</a></div></div>
+<div class="ttc" id="__lexer_8c_html_aef5130d55b06d8a9e22a76dab34df192"><div class="ttname"><a href="__lexer_8c.html#aef5130d55b06d8a9e22a76dab34df192">lexer_is_off</a></div><div class="ttdeci">bool lexer_is_off(const Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00119">_lexer.c:119</a></div></div>
+<div class="ttc" id="__lexer_8c_html_a206000c56ea092f4a7f21696633d05a9"><div class="ttname"><a href="__lexer_8c.html#a206000c56ea092f4a7f21696633d05a9">lexer_skip_to</a></div><div class="ttdeci">void lexer_skip_to(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00194">_lexer.c:194</a></div></div>
+<div class="ttc" id="__lexer_8c_html_ac4bb4b844cd11e0b36321040e45ddb27"><div class="ttname"><a href="__lexer_8c.html#ac4bb4b844cd11e0b36321040e45ddb27">lexer_is_started</a></div><div class="ttdeci">bool lexer_is_started(const Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00111">_lexer.c:111</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="__lexer_8h.html">_lexer.h</a></li>
-    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <li class="footer">Generado el Martes, 30 de Septiembre de 2014 12:40:17 para Dinic por
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
 </div>
 </body>

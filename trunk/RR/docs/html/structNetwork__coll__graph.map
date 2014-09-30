@@ -1,20 +1,6 @@
 <map id="Network" name="Network">
-<area shape="rect" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="81,17,204,44"/>
-<area shape="rect" title=" hhNet\nhhCut" alt="" coords="179,40,187,48"/>
-<area shape="rect" title=" hhNet\nhhCut" alt="" coords="303,123,311,131"/>
-<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="159,13,167,21"/>
-<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="159,40,167,48"/>
-<area shape="rect" href="$structUT__hash__table.html" title="UT_hash_table" alt="" coords="61,217,173,244"/>
-<area shape="rect" title=" tail" alt="" coords="111,40,119,48"/>
-<area shape="rect" title=" tail" alt="" coords="84,213,92,221"/>
-<area shape="rect" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="56,127,179,153"/>
-<area shape="rect" title=" hh_head" alt="" coords="136,40,144,48"/>
-<area shape="rect" title=" hh_head" alt="" coords="116,123,124,131"/>
-<area shape="rect" title=" tbl" alt="" coords="139,213,147,221"/>
-<area shape="rect" title=" tbl" alt="" coords="165,40,173,48"/>
-<area shape="rect" title=" buckets" alt="" coords="113,149,121,157"/>
-<area shape="rect" title=" buckets" alt="" coords="113,213,121,221"/>
-<area shape="rect" href="$structNbrhd.html" title="Puntero a la vecindad de un nodo. " alt="" coords="312,17,368,44"/>
-<area shape="rect" title=" nbrs" alt="" coords="333,40,341,48"/>
-<area shape="rect" title=" nbrs" alt="" coords="320,123,328,131"/>
+<area shape="rect" id="node2" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="64,7,190,33"/>
+<area shape="rect" id="node5" href="$structUT__hash__table.html" title="UT_hash_table" alt="" coords="48,203,160,229"/>
+<area shape="rect" id="node7" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="43,112,166,139"/>
+<area shape="rect" id="node11" href="$structNbrhd.html" title="Puntero a la vecindad de un nodo. " alt="" coords="298,7,355,33"/>
 </map>

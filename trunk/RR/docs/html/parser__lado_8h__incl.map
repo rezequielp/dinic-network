@@ -1,6 +1,6 @@
 <map id="apifiles/parser_lado.h" name="apifiles/parser_lado.h">
-<area shape="rect" href="$__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="257,80,327,107"/>
-<area shape="rect" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="399,80,455,107"/>
-<area shape="rect" href="$____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="132,155,215,181"/>
-<area shape="rect" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="420,155,481,181"/>
+<area shape="rect" id="node3" href="$__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="260,80,329,107"/>
+<area shape="rect" id="node19" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="401,80,459,107"/>
+<area shape="rect" id="node5" href="$____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="136,155,215,181"/>
+<area shape="rect" id="node21" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="426,155,485,181"/>
 </map>

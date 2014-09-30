@@ -1,7 +1,7 @@
 <map id="apifiles/parser_lado.c" name="apifiles/parser_lado.c">
-<area shape="rect" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="312,80,413,107"/>
-<area shape="rect" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="420,229,481,256"/>
-<area shape="rect" href="$__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="243,155,312,181"/>
-<area shape="rect" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="347,155,403,181"/>
-<area shape="rect" href="$____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="132,229,215,256"/>
+<area shape="rect" id="node3" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="315,80,419,107"/>
+<area shape="rect" id="node23" href="$__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="426,229,485,256"/>
+<area shape="rect" id="node5" href="$__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="245,155,315,181"/>
+<area shape="rect" id="node21" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="349,155,407,181"/>
+<area shape="rect" id="node7" href="$____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="136,229,215,256"/>
 </map>

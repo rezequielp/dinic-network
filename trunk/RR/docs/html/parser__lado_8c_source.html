@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.8"/>
+<meta name="generator" content="Doxygen 1.8.5"/>
 <title>Dinic: Fichero Fuente apifiles/parser_lado.c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -32,7 +32,7 @@
    <div id="projectname">Dinic
    &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la cátedra de Matemática Discreta II.</div>
   </td>
    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -54,7 +54,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Generado por Doxygen 1.8.8 -->
+<!-- Generado por Doxygen 1.8.5 -->
 <script type="text/javascript">
 var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
 </script>
@@ -99,11 +99,11 @@ $(document).ready(function(){initNavTree('parser__lado_8c_source.html','');});
 <div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="parser__lado_8c.html#a4e67e9429d48a2ba8f833ee3b1dceb5d">    5</a></span>&#160;<span class="preprocessor">#define EOL &quot;\n&quot;            </span></div>
 <div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="parser__lado_8c.html#aca3321d60a25310d108cb125e8e639e0">    6</a></span>&#160;<span class="preprocessor">#define WHITE_SPACE &quot; &quot;     </span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor"></span><span class="comment">/*flags para next_bstring*/</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="parser__lado_8c.html#a68bba71affb47e257eda87eff8d3e028">    9</a></span>&#160;<span class="preprocessor">#define ACCEPT 1   </span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="parser__lado_8c.html#a68bba71affb47e257eda87eff8d3e028">    9</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ACCEPT 1   </span></div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="parser__lado_8c.html#a856399da589b98c7ff4d5b6c475edc23">   10</a></span>&#160;<span class="preprocessor">#define EXCEPT 0   </span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span><span class="comment">/*                      Funciones del modulo</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="parser__lado_8c.html#a1f7b38352a220869f9345262e00a76ba">parse_argument</a>(Lexer *input, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *arg);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span><span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="parser__lado_8c.html#a1f7b38352a220869f9345262e00a76ba">parse_argument</a>(Lexer *input, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> *arg);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">static</span> bstring <a class="code" href="parser__lado_8c.html#a9927beb4bcbbc38a6f8302a66e5f4e69">next_bstring</a>(Lexer *input, <span class="keywordtype">int</span> flag, <span class="keyword">const</span> <span class="keywordtype">char</span> *str);</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="parser__lado_8c.html#a9d2dfa654c9624f344138f5f06ba5d4b">is_theNextChar</a>(Lexer *input, <span class="keyword">const</span> <span class="keywordtype">char</span> *ch);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
@@ -253,7 +253,7 @@ $(document).ready(function(){initNavTree('parser__lado_8c_source.html','');});
 <div class="ttc" id="parser__lado_8c_html_a333eb635ada6c988a7734f60094844b5"><div class="ttname"><a href="parser__lado_8c.html#a333eb635ada6c988a7734f60094844b5">parser_lado</a></div><div class="ttdeci">Lado parser_lado(Lexer *input)</div><div class="ttdoc">Lee todo un Lado de input hasta llegar a un fin de línea o de archivo. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00026">parser_lado.c:26</a></div></div>
 <div class="ttc" id="__lexer_8c_html_ad3c560130b4f7c71490ce797ed36e578"><div class="ttname"><a href="__lexer_8c.html#ad3c560130b4f7c71490ce797ed36e578">lexer_next_to</a></div><div class="ttdeci">void lexer_next_to(Lexer *self, const char *charset)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00149">_lexer.c:149</a></div></div>
 <div class="ttc" id="lado_8h_html_a90b033fe9661d1b5a94b418825575f94"><div class="ttname"><a href="lado_8h.html#a90b033fe9661d1b5a94b418825575f94">LadoNulo</a></div><div class="ttdeci">#define LadoNulo</div><div class="ttdoc">Un lado que es nulo. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8h_source.html#l00017">lado.h:17</a></div></div>
-<div class="ttc" id="parser__lado_8c_html_a9d2dfa654c9624f344138f5f06ba5d4b"><div class="ttname"><a href="parser__lado_8c.html#a9d2dfa654c9624f344138f5f06ba5d4b">is_theNextChar</a></div><div class="ttdeci">static bool is_theNextChar(Lexer *input, const char *ch)</div><div class="ttdoc">Decide si el siguiente caracter leído es &#39;ch&#39;. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00168">parser_lado.c:168</a></div></div>
+<div class="ttc" id="parser__lado_8c_html_a9d2dfa654c9624f344138f5f06ba5d4b"><div class="ttname"><a href="parser__lado_8c.html#a9d2dfa654c9624f344138f5f06ba5d4b">is_theNextChar</a></div><div class="ttdeci">static bool is_theNextChar(Lexer *input, const char *ch)</div><div class="ttdoc">Decide si el siguiente caracter leído es &amp;#39;ch&amp;#39;. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00168">parser_lado.c:168</a></div></div>
 <div class="ttc" id="__lexer_8h_html_a75405d0fa11f1bf15346f61ed092f448"><div class="ttname"><a href="__lexer_8h.html#a75405d0fa11f1bf15346f61ed092f448">DIGIT</a></div><div class="ttdeci">#define DIGIT</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8h_source.html#l00025">_lexer.h:25</a></div></div>
 <div class="ttc" id="__lexer_8c_html_aef5130d55b06d8a9e22a76dab34df192"><div class="ttname"><a href="__lexer_8c.html#aef5130d55b06d8a9e22a76dab34df192">lexer_is_off</a></div><div class="ttdeci">bool lexer_is_off(const Lexer *self)</div><div class="ttdef"><b>Definition:</b> <a href="__lexer_8c_source.html#l00119">_lexer.c:119</a></div></div>
 <div class="ttc" id="parser__lado_8c_html_a68bba71affb47e257eda87eff8d3e028"><div class="ttname"><a href="parser__lado_8c.html#a68bba71affb47e257eda87eff8d3e028">ACCEPT</a></div><div class="ttdeci">#define ACCEPT</div><div class="ttdoc">Solo se aceptan char contenidos en str. </div><div class="ttdef"><b>Definition:</b> <a href="parser__lado_8c_source.html#l00009">parser_lado.c:9</a></div></div>
@@ -270,9 +270,9 @@ $(document).ready(function(){initNavTree('parser__lado_8c_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="parser__lado_8c.html">parser_lado.c</a></li>
-    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <li class="footer">Generado el Martes, 30 de Septiembre de 2014 12:40:17 para Dinic por
     <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>
 </div>
 </body>

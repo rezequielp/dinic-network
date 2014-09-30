@@ -1,26 +1,8 @@
 <map id="DovahkiinP" name="DovahkiinP">
-<area shape="rect" href="$structStack.html" title="Puntero a una pila. " alt="" coords="5,127,59,153"/>
-<area shape="rect" title=" path" alt="" coords="29,149,37,157"/>
-<area shape="rect" title=" path" alt="" coords="56,229,64,237"/>
-<area shape="rect" href="$structNetwork.html" title="Estructura de un netwrok con la información de los nodos. " alt="" coords="83,127,152,153"/>
-<area shape="rect" title=" net\ncut" alt="" coords="107,149,115,157"/>
-<area shape="rect" title=" net\ncut" alt="" coords="72,229,80,237"/>
-<area shape="rect" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="188,17,311,44"/>
-<area shape="rect" title=" hhNet\nhhCut" alt="" coords="203,40,211,48"/>
-<area shape="rect" title=" hhNet\nhhCut" alt="" coords="119,123,127,131"/>
-<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="265,13,273,21"/>
-<area shape="rect" title=" hh_prev\nhh_next" alt="" coords="265,40,273,48"/>
-<area shape="rect" href="$structUT__hash__table.html" title="UT_hash_table" alt="" coords="227,233,339,260"/>
-<area shape="rect" title=" tail" alt="" coords="248,40,256,48"/>
-<area shape="rect" title=" tail" alt="" coords="276,229,284,237"/>
-<area shape="rect" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="327,127,449,153"/>
-<area shape="rect" title=" hh_head" alt="" coords="263,40,271,48"/>
-<area shape="rect" title=" hh_head" alt="" coords="367,123,375,131"/>
-<area shape="rect" title=" tbl" alt="" coords="269,229,277,237"/>
-<area shape="rect" title=" tbl" alt="" coords="241,40,249,48"/>
-<area shape="rect" title=" buckets" alt="" coords="371,149,379,157"/>
-<area shape="rect" title=" buckets" alt="" coords="292,229,300,237"/>
-<area shape="rect" href="$structNbrhd.html" title="Puntero a la vecindad de un nodo. " alt="" coords="71,17,127,44"/>
-<area shape="rect" title=" nbrs" alt="" coords="93,40,101,48"/>
-<area shape="rect" title=" nbrs" alt="" coords="105,123,113,131"/>
+<area shape="rect" id="node2" href="$structStack.html" title="Puntero a una pila. " alt="" coords="4,112,59,139"/>
+<area shape="rect" id="node4" href="$structNetwork.html" title="Estructura de un netwrok con la información de los nodos. " alt="" coords="85,112,155,139"/>
+<area shape="rect" id="node6" href="$structUT__hash__handle.html" title="UT_hash_handle" alt="" coords="191,7,316,33"/>
+<area shape="rect" id="node9" href="$structUT__hash__table.html" title="UT_hash_table" alt="" coords="230,216,343,243"/>
+<area shape="rect" id="node11" href="$structUT__hash__bucket.html" title="UT_hash_bucket" alt="" coords="332,112,455,139"/>
+<area shape="rect" id="node15" href="$structNbrhd.html" title="Puntero a la vecindad de un nodo. " alt="" coords="74,7,131,33"/>
 </map>
