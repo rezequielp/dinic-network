@@ -200,6 +200,7 @@ int nbrhd_getBwd(Nbrhd nbrs, int rqst, u64 *y){
  * Si 'y' es un vecino BWD, el valor del flujo se disminuye por 'vf' cantidad.
  * \param nbrs  El vecindario del nodo ancestro 'x'. 
  * \param y     El nombre del vecino.
+ * \param dir   Dirección que se encuentra el vecino (lado FWD o BWD).
  * \param vf    El valor de flujo.
  * \pre 'y' es vecino de 'x'. 'vf' > 0.
  * \return Valor del nuevo flujo que se esta enviando entre 'x' e 'y'.*/
@@ -281,6 +282,7 @@ u64 nbrhd_getFlow(Nbrhd nbrs, u64 y, short int dir){
 /** Busca un vecino con nombre 'y', en la dirección especificada.
  * \param nbrs  El vecindario de 'x'.
  * \param y     El nombre del vecino.
+ * \param dir   Dirección que se encuentra el vecino (lado FWD o BWD).
  * \pre 'y' es vecino de 'x'.
  * \return  La representación del lado dependiendo de la dirección 
  *          en la que se encuentra 'y': \n

@@ -41,7 +41,7 @@ Queue queue_create(void){
 
 /** Agrega un elemento del tipo Alpha al final de la cola.
  * \param Q Cola a la cual hay que agregarle el elemento.
- * \param elem Elemento a ser agregado a la cola.
+ * \param q Elemento a ser agregado a la cola.
  * \pre Q no es una cola nula.
  * \return  1 si se agregó.\n 
  *          0 caso contrario.

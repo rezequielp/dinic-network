@@ -17,7 +17,7 @@
 #define PATH            0b00001000  /**<Activa el muestreo de caminos aumentantes.*/
 #define FLOW            0b00000100  /**<Activa el muestreo de flujo.*/
 #define CUT             0b00000010  /**<Activa el muestreo de corte.*/
-#define FLOW_V          0b00000001  /**<Activa el muestre de valor del flujo.*/
+#define FLOW_V          0b00000001  /**<Activa el muestreo de valor del flujo.*/
 /*Macros para manipular flags.*/
 #define SET_FLAG(f) STATUS |= f         /**<Setea un bit de flag en STATUS en 1.*/
 #define UNSET_FLAG(f) STATUS &= ~f      /**<Setea un bit de flag en STATUS en 0.*/
@@ -31,8 +31,8 @@ static short int parametersChecker(int argc, char *argv[], u64 * source, u64 * s
 static void print_dinicTime(float time);
 static bool isu64(char * sU64);
 
-/** Lee desde el standard input los lados del network y los carga en dovahkiin. 
- * Se lee hasta acabar los lados o bien hasta el primer lado que no se pueda 
+/** Lee desde el standard input los lados del network y los carga en dovahkiin.
+ * Se lee hasta acabar los lados o bien hasta el primer lado que no se pueda
  * cargar.
  * \param dova El dova donde se cargaran los lados.
  */

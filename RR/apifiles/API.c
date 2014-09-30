@@ -662,6 +662,7 @@ static void network_destroy(Network *net){
  * forward, si no encuentra ninguno entonces intenta por backward. \n
  * \param net El Network que los nodos pertenecen.
  * \param x El nodo ancestro.
+ * \param dir Puntero donde almacenar la dirección que se encuentra el vecino (FWD o BWD).
  * \pre El network y el nodo no son nulos.
  * \return  Puntero al nodo encontrado. \n
  *          NULL si no hay un siguiente que cualifique.
