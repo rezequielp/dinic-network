@@ -1,0 +1,1216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Referencia del Archivo apifiles/API.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('API_8c.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Estructuras de datos</a> &#124;
+<a href="#define-members">'defines'</a> &#124;
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia del Archivo API.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="____uthash_8h_source.html">__uthash.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="__stack_8h_source.html">_stack.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="__queue_8h_source.html">_queue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="____bstrlib_8h_source.html">__bstrlib.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="__lexer_8h_source.html">_lexer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="nbrhd_8h_source.html">nbrhd.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="API_8h_source.html">API.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="parser__lado_8h_source.html">parser_lado.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Dependencia gráfica adjunta para API.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="API_8c__incl.png" border="0" usemap="#apifiles_2API_8c" alt=""/></div>
+<map name="apifiles_2API_8c" id="apifiles_2API_8c">
+<area shape="rect" href="____uthash_8h.html" title="A Hash in C. " alt="" coords="432,80,517,107"/><area shape="rect" href="__stack_8h.html" title="La librería _stack proporciona una serie de herramientas para almacenar cualquier tipo de elemento en..." alt="" coords="803,80,872,107"/><area shape="rect" href="__queue_8h.html" title="La librería _queue proporciona una serie de herramientas para almacenar cualquier tipo de elemento en..." alt="" coords="896,80,973,107"/><area shape="rect" href="____bstrlib_8h.html" title="The Better String Library is an abstraction of a string data type which is superior to the C library ..." alt="" coords="191,229,273,256"/><area shape="rect" href="__lexer_8h.html" title="Analizador léxico que lee el flujo de caracteres de entrada y lo transforma en una secuencia de compo..." alt="" coords="129,155,199,181"/><area shape="rect" href="nbrhd_8h.html" title="Encabezado de nbrhd.c. " alt="" coords="619,80,685,107"/><area shape="rect" href="API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="541,80,595,107"/><area shape="rect" href="parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="256,80,357,107"/><area shape="rect" href="__u64_8h.html" title="Se utiliza el tipo de dato u64 para especificar un entero de 64 bits sin signo. " alt="" coords="588,229,649,256"/><area shape="rect" href="lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="615,155,671,181"/></map>
+</div>
+</div>
+<p><a href="API_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Estructuras de datos</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNetwork.html">Network</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura de un netwrok con la información de los nodos.  <a href="structNetwork.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDovahkiinSt.html">DovahkiinP</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estructura de un Dovahkiin con los datos que se necesitan almacenar para ejecutar Dinic.  <a href="structDovahkiinSt.html#details">Más...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+'defines'</h2></td></tr>
+<tr class="memitem:a944eff1e60dc7aa1a80a3d74581d59c8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a944eff1e60dc7aa1a80a3d74581d59c8">LVL_NIL</a>&#160;&#160;&#160;-1</td></tr>
+<tr class="memdesc:a944eff1e60dc7aa1a80a3d74581d59c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valor nulo de distancia para los nodos.  <a href="#a944eff1e60dc7aa1a80a3d74581d59c8">Más...</a><br /></td></tr>
+<tr class="separator:a944eff1e60dc7aa1a80a3d74581d59c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac103b05e521b20c12abb4320deccaa25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#ac103b05e521b20c12abb4320deccaa25">DIR_NIL</a>&#160;&#160;&#160;-1</td></tr>
+<tr class="memdesc:ac103b05e521b20c12abb4320deccaa25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valor nulo de dirección en el path para los nodos.  <a href="#ac103b05e521b20c12abb4320deccaa25">Más...</a><br /></td></tr>
+<tr class="separator:ac103b05e521b20c12abb4320deccaa25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac378f92787011df9178de5ddbfd431e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#ac378f92787011df9178de5ddbfd431e9">SINK_REACHED</a>&#160;&#160;&#160;0b00010000</td></tr>
+<tr class="memdesc:ac378f92787011df9178de5ddbfd431e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Se llego a t.  <a href="#ac378f92787011df9178de5ddbfd431e9">Más...</a><br /></td></tr>
+<tr class="separator:ac378f92787011df9178de5ddbfd431e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e808ec7691e6cce6b82b12fc4fd8ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a84e808ec7691e6cce6b82b12fc4fd8ce">MAXFLOW</a>&#160;&#160;&#160;0b00001000</td></tr>
+<tr class="memdesc:a84e808ec7691e6cce6b82b12fc4fd8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Es flujo maximal.  <a href="#a84e808ec7691e6cce6b82b12fc4fd8ce">Más...</a><br /></td></tr>
+<tr class="separator:a84e808ec7691e6cce6b82b12fc4fd8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88cabaa30cba6807a1c75eaa7e4c188e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a88cabaa30cba6807a1c75eaa7e4c188e">SOURCE</a>&#160;&#160;&#160;0b00000100</td></tr>
+<tr class="memdesc:a88cabaa30cba6807a1c75eaa7e4c188e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fuente fijada.  <a href="#a88cabaa30cba6807a1c75eaa7e4c188e">Más...</a><br /></td></tr>
+<tr class="separator:a88cabaa30cba6807a1c75eaa7e4c188e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1aacb84dbc34f3a142a9d7bc80f375"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#adb1aacb84dbc34f3a142a9d7bc80f375">SINK</a>&#160;&#160;&#160;0b00000010</td></tr>
+<tr class="memdesc:adb1aacb84dbc34f3a142a9d7bc80f375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumidero fijado.  <a href="#adb1aacb84dbc34f3a142a9d7bc80f375">Más...</a><br /></td></tr>
+<tr class="separator:adb1aacb84dbc34f3a142a9d7bc80f375"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9984ff33110d421bbb4eead3292bb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#abb9984ff33110d421bbb4eead3292bb0">PATHUSED</a>&#160;&#160;&#160;0b00000001</td></tr>
+<tr class="memdesc:abb9984ff33110d421bbb4eead3292bb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Camino usado para aumentar flujo.  <a href="#abb9984ff33110d421bbb4eead3292bb0">Más...</a><br /></td></tr>
+<tr class="separator:abb9984ff33110d421bbb4eead3292bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83b5b7cc41c6290c3c2ae4824ac66cb7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(f)&#160;&#160;&#160;dova-&gt;flags |= f</td></tr>
+<tr class="memdesc:a83b5b7cc41c6290c3c2ae4824ac66cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activa(1) el bit de la flag f.  <a href="#a83b5b7cc41c6290c3c2ae4824ac66cb7">Más...</a><br /></td></tr>
+<tr class="separator:a83b5b7cc41c6290c3c2ae4824ac66cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db4153fec89607db0b7bb7fe9cda7d1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a9db4153fec89607db0b7bb7fe9cda7d1">UNSET_FLAG</a>(f)&#160;&#160;&#160;dova-&gt;flags &amp;= ~f</td></tr>
+<tr class="memdesc:a9db4153fec89607db0b7bb7fe9cda7d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Desactiva(0) el bit de la flag f.  <a href="#a9db4153fec89607db0b7bb7fe9cda7d1">Más...</a><br /></td></tr>
+<tr class="separator:a9db4153fec89607db0b7bb7fe9cda7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a061350ba02f3d7830497f165cf345512"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a061350ba02f3d7830497f165cf345512">CLEAR_FLAG</a>()&#160;&#160;&#160;0b00000001</td></tr>
+<tr class="memdesc:a061350ba02f3d7830497f165cf345512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicializa todas las flags (reset).  <a href="#a061350ba02f3d7830497f165cf345512">Más...</a><br /></td></tr>
+<tr class="separator:a061350ba02f3d7830497f165cf345512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf490cad6df617d537e9c215ae50044"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(f)&#160;&#160;&#160;(dova-&gt;flags &amp; f) &gt; 0</td></tr>
+<tr class="memdesc:afaf490cad6df617d537e9c215ae50044"><td class="mdescLeft">&#160;</td><td class="mdescRight">¿El bit de la flag f es 1?.  <a href="#afaf490cad6df617d537e9c215ae50044">Más...</a><br /></td></tr>
+<tr class="separator:afaf490cad6df617d537e9c215ae50044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ce2e5e598ed903df3611b1da1a653d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a73ce2e5e598ed903df3611b1da1a653d">PATH_ITER</a>(path, x, y)</td></tr>
+<tr class="memdesc:a73ce2e5e598ed903df3611b1da1a653d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Itera sobre los elementos de un path.  <a href="#a73ce2e5e598ed903df3611b1da1a653d">Más...</a><br /></td></tr>
+<tr class="separator:a73ce2e5e598ed903df3611b1da1a653d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a493f4aff33fcec0bda5b03c499de4921"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a493f4aff33fcec0bda5b03c499de4921">get_pathFlow</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a493f4aff33fcec0bda5b03c499de4921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca el máximo valor de flujo que se puede enviar por un camino sin usar.  <a href="#a493f4aff33fcec0bda5b03c499de4921">Más...</a><br /></td></tr>
+<tr class="separator:a493f4aff33fcec0bda5b03c499de4921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70536e45ffcb80d6c558b8452c849990"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structNetwork.html">Network</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a70536e45ffcb80d6c558b8452c849990">network_create</a> (<a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> n)</td></tr>
+<tr class="memdesc:a70536e45ffcb80d6c558b8452c849990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creador de un nuevo <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a>.  <a href="#a70536e45ffcb80d6c558b8452c849990">Más...</a><br /></td></tr>
+<tr class="separator:a70536e45ffcb80d6c558b8452c849990"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a297e3676e6f1a95aa659bad307e143b0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a297e3676e6f1a95aa659bad307e143b0">network_destroy</a> (<a class="el" href="structNetwork.html">Network</a> *net)</td></tr>
+<tr class="memdesc:a297e3676e6f1a95aa659bad307e143b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor de un <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a>.  <a href="#a297e3676e6f1a95aa659bad307e143b0">Más...</a><br /></td></tr>
+<tr class="separator:a297e3676e6f1a95aa659bad307e143b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90aefbc8ffa273f827dc6122b7e85466"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structNetwork.html">Network</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a90aefbc8ffa273f827dc6122b7e85466">network_nextNode</a> (<a class="el" href="structNetwork.html">Network</a> *net, <a class="el" href="structNetwork.html">Network</a> *x, short int *dir)</td></tr>
+<tr class="memdesc:a90aefbc8ffa273f827dc6122b7e85466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Busca el siguiente nodo que cumple las condiciones de envío de flujo.  <a href="#a90aefbc8ffa273f827dc6122b7e85466">Más...</a><br /></td></tr>
+<tr class="separator:a90aefbc8ffa273f827dc6122b7e85466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9026c1ef7ab01411b3c7b03c56a06fee"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a9026c1ef7ab01411b3c7b03c56a06fee">set_lvlNbrs</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova, <a class="el" href="structNetwork.html">Network</a> *x, <a class="el" href="structQueue.html">Queue</a> upd)</td></tr>
+<tr class="memdesc:a9026c1ef7ab01411b3c7b03c56a06fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualiza los niveles de distancias de los vecinos forward y luego los backward de un nodo.  <a href="#a9026c1ef7ab01411b3c7b03c56a06fee">Más...</a><br /></td></tr>
+<tr class="separator:a9026c1ef7ab01411b3c7b03c56a06fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1a969d3ef7d23e93db04f15cc6f7588"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#ae1a969d3ef7d23e93db04f15cc6f7588">NuevoDovahkiin</a> (void)</td></tr>
+<tr class="memdesc:ae1a969d3ef7d23e93db04f15cc6f7588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creador de un nuevo <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a>.  <a href="#ae1a969d3ef7d23e93db04f15cc6f7588">Más...</a><br /></td></tr>
+<tr class="separator:ae1a969d3ef7d23e93db04f15cc6f7588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc3d0c71276442be2f1c53d5a72dd13e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#afc3d0c71276442be2f1c53d5a72dd13e">DestruirDovahkiin</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:afc3d0c71276442be2f1c53d5a72dd13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor de un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a>.  <a href="#afc3d0c71276442be2f1c53d5a72dd13e">Más...</a><br /></td></tr>
+<tr class="separator:afc3d0c71276442be2f1c53d5a72dd13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d15e043d28652a2193455bdc751604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a04d15e043d28652a2193455bdc751604">FijarFuente</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> s)</td></tr>
+<tr class="memdesc:a04d15e043d28652a2193455bdc751604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Establece un nodo como fuente del network.  <a href="#a04d15e043d28652a2193455bdc751604">Más...</a><br /></td></tr>
+<tr class="separator:a04d15e043d28652a2193455bdc751604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16260bb6534d66a4e14ddd6b68ea151d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a16260bb6534d66a4e14ddd6b68ea151d">FijarResumidero</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova, <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> t)</td></tr>
+<tr class="memdesc:a16260bb6534d66a4e14ddd6b68ea151d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Establece un nodo como resumidero del network.  <a href="#a16260bb6534d66a4e14ddd6b68ea151d">Más...</a><br /></td></tr>
+<tr class="separator:a16260bb6534d66a4e14ddd6b68ea151d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24a677d77df565a3976f7ea6373a9c9d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a24a677d77df565a3976f7ea6373a9c9d">ImprimirFuente</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a24a677d77df565a3976f7ea6373a9c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imprime por la salida estándar el nombre del nodo que es fuente.  <a href="#a24a677d77df565a3976f7ea6373a9c9d">Más...</a><br /></td></tr>
+<tr class="separator:a24a677d77df565a3976f7ea6373a9c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbe7e36132e377beee414598e0544124"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#adbe7e36132e377beee414598e0544124">ImprimirResumidero</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:adbe7e36132e377beee414598e0544124"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imprime por la salida estándar el nombre del nodo que es resumidero.  <a href="#adbe7e36132e377beee414598e0544124">Más...</a><br /></td></tr>
+<tr class="separator:adbe7e36132e377beee414598e0544124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e15564793011091c7a8760cc8f1a6b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structLado.html">Lado</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a9e15564793011091c7a8760cc8f1a6b5">LeerUnLado</a> (void)</td></tr>
+<tr class="memdesc:a9e15564793011091c7a8760cc8f1a6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lee un lado desde la entrada estándar.  <a href="#a9e15564793011091c7a8760cc8f1a6b5">Más...</a><br /></td></tr>
+<tr class="separator:a9e15564793011091c7a8760cc8f1a6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae65b8790af6d660290a77b9d84ec9897"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#ae65b8790af6d660290a77b9d84ec9897">CargarUnLado</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova, <a class="el" href="structLado.html">Lado</a> edge)</td></tr>
+<tr class="memdesc:ae65b8790af6d660290a77b9d84ec9897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carga un lado no nulo en un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a>.  <a href="#ae65b8790af6d660290a77b9d84ec9897">Más...</a><br /></td></tr>
+<tr class="separator:ae65b8790af6d660290a77b9d84ec9897"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65c95d25866c0cf86e927afdae88de04"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a65c95d25866c0cf86e927afdae88de04">Prepararse</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a65c95d25866c0cf86e927afdae88de04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preprocesa el <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> para empezar a buscar caminos aumentantes.  <a href="#a65c95d25866c0cf86e927afdae88de04">Más...</a><br /></td></tr>
+<tr class="separator:a65c95d25866c0cf86e927afdae88de04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09eaf8b3175729e94d54c88f96b230da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a09eaf8b3175729e94d54c88f96b230da">ActualizarDistancias</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a09eaf8b3175729e94d54c88f96b230da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actualiza las distancias haciendo una búsqueda BFS-FF.  <a href="#a09eaf8b3175729e94d54c88f96b230da">Más...</a><br /></td></tr>
+<tr class="separator:a09eaf8b3175729e94d54c88f96b230da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f90f81fcff3eaa0d54c05f6c1c5315"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a18f90f81fcff3eaa0d54c05f6c1c5315">BusquedaCaminoAumentante</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a18f90f81fcff3eaa0d54c05f6c1c5315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hace una búsqueda DFS-FF de un camino aumentante de menor longitud.  <a href="#a18f90f81fcff3eaa0d54c05f6c1c5315">Más...</a><br /></td></tr>
+<tr class="separator:a18f90f81fcff3eaa0d54c05f6c1c5315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fadfdae8bf188ab9889b75942729359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a7fadfdae8bf188ab9889b75942729359">AumentarFlujo</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a7fadfdae8bf188ab9889b75942729359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aumenta el flujo del network.  <a href="#a7fadfdae8bf188ab9889b75942729359">Más...</a><br /></td></tr>
+<tr class="separator:a7fadfdae8bf188ab9889b75942729359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af116b369240f80dd16135b9837d99321"><td class="memItemLeft" align="right" valign="top"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#af116b369240f80dd16135b9837d99321">AumentarFlujoYTambienImprimirCamino</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:af116b369240f80dd16135b9837d99321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Idem <a class="el" href="API_8c.html#a7fadfdae8bf188ab9889b75942729359" title="Aumenta el flujo del network. ">AumentarFlujo()</a> pero también imprime el camino por el Estandar Output.  <a href="#af116b369240f80dd16135b9837d99321">Más...</a><br /></td></tr>
+<tr class="separator:af116b369240f80dd16135b9837d99321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5169c5746c8931c31cdeb0c38bf9c1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#aa5169c5746c8931c31cdeb0c38bf9c1e">ImprimirFlujo</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:aa5169c5746c8931c31cdeb0c38bf9c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imprime por Estandar Output el Flujo hasta el momento.  <a href="#aa5169c5746c8931c31cdeb0c38bf9c1e">Más...</a><br /></td></tr>
+<tr class="separator:aa5169c5746c8931c31cdeb0c38bf9c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e475a7fbb00903addb0ea50b31a323e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#a4e475a7fbb00903addb0ea50b31a323e">ImprimirValorFlujo</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:a4e475a7fbb00903addb0ea50b31a323e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imprime por Estandar Output el valor del Flujo calculado hasta el momento.  <a href="#a4e475a7fbb00903addb0ea50b31a323e">Más...</a><br /></td></tr>
+<tr class="separator:a4e475a7fbb00903addb0ea50b31a323e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9391cd1d082becf7c6cd3add3020b94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="API_8c.html#aa9391cd1d082becf7c6cd3add3020b94">ImprimirCorte</a> (<a class="el" href="structDovahkiinP.html">DovahkiinP</a> dova)</td></tr>
+<tr class="memdesc:aa9391cd1d082becf7c6cd3add3020b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imprime por Estandar Output un corte minimal y su capacidad.  <a href="#aa9391cd1d082becf7c6cd3add3020b94">Más...</a><br /></td></tr>
+<tr class="separator:aa9391cd1d082becf7c6cd3add3020b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de los 'defines'</h2>
+<a class="anchor" id="a944eff1e60dc7aa1a80a3d74581d59c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LVL_NIL&#160;&#160;&#160;-1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valor nulo de distancia para los nodos. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00015">15</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac103b05e521b20c12abb4320deccaa25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DIR_NIL&#160;&#160;&#160;-1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valor nulo de dirección en el path para los nodos. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00016">16</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac378f92787011df9178de5ddbfd431e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SINK_REACHED&#160;&#160;&#160;0b00010000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Se llego a t. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00019">19</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a84e808ec7691e6cce6b82b12fc4fd8ce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAXFLOW&#160;&#160;&#160;0b00001000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Es flujo maximal. </p>
+<p>Implica corte minimal. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00020">20</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a88cabaa30cba6807a1c75eaa7e4c188e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SOURCE&#160;&#160;&#160;0b00000100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fuente fijada. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00023">23</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adb1aacb84dbc34f3a142a9d7bc80f375"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SINK&#160;&#160;&#160;0b00000010</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resumidero fijado. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00024">24</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abb9984ff33110d421bbb4eead3292bb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PATHUSED&#160;&#160;&#160;0b00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Camino usado para aumentar flujo. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00025">25</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a83b5b7cc41c6290c3c2ae4824ac66cb7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SET_FLAG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">f</td><td>)</td>
+          <td>&#160;&#160;&#160;dova-&gt;flags |= f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Activa(1) el bit de la flag f. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00028">28</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9db4153fec89607db0b7bb7fe9cda7d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNSET_FLAG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">f</td><td>)</td>
+          <td>&#160;&#160;&#160;dova-&gt;flags &amp;= ~f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Desactiva(0) el bit de la flag f. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00029">29</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a061350ba02f3d7830497f165cf345512"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLEAR_FLAG</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td>&#160;&#160;&#160;0b00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inicializa todas las flags (reset). </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00030">30</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afaf490cad6df617d537e9c215ae50044"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IS_SET_FLAG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">f</td><td>)</td>
+          <td>&#160;&#160;&#160;(dova-&gt;flags &amp; f) &gt; 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>¿El bit de la flag f es 1?. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00031">31</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a73ce2e5e598ed903df3611b1da1a653d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PATH_ITER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">path, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Valor:</b><div class="fragment"><div class="line"><a class="code" href="__stack_8c.html#ad64d6f1087fc7f761084a3248160f2a1">stack_resetViewer</a>(path);                                               \</div>
+<div class="line">    y = <a class="code" href="__stack_8c.html#a2acf52ad79797bb647e535f848d42a63">stack_nextItem</a>(path);                                               \</div>
+<div class="line">    x = <a class="code" href="__stack_8c.html#a2acf52ad79797bb647e535f848d42a63">stack_nextItem</a>(path);                                               \</div>
+<div class="line">    for(; (x)!=NULL; (y)=(x), (x)=<a class="code" href="__stack_8c.html#a2acf52ad79797bb647e535f848d42a63">stack_nextItem</a>(path))</div>
+<div class="ttc" id="__stack_8c_html_ad64d6f1087fc7f761084a3248160f2a1"><div class="ttname"><a href="__stack_8c.html#ad64d6f1087fc7f761084a3248160f2a1">stack_resetViewer</a></div><div class="ttdeci">void stack_resetViewer(Stack S)</div><div class="ttdoc">Sitúa el visor en la parte superior de la pila. </div><div class="ttdef"><b>Definition:</b> <a href="__stack_8c_source.html#l00206">_stack.c:206</a></div></div>
+<div class="ttc" id="__stack_8c_html_a2acf52ad79797bb647e535f848d42a63"><div class="ttname"><a href="__stack_8c.html#a2acf52ad79797bb647e535f848d42a63">stack_nextItem</a></div><div class="ttdeci">void * stack_nextItem(Stack S)</div><div class="ttdoc">Muestra un elemento y corre el visor al siguiente, NULL si no existe. </div><div class="ttdef"><b>Definition:</b> <a href="__stack_8c_source.html#l00191">_stack.c:191</a></div></div>
+</div><!-- fragment -->
+<p>Itera sobre los elementos de un path. </p>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00036">36</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones</h2>
+<a class="anchor" id="a493f4aff33fcec0bda5b03c499de4921"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> get_pathFlow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Busca el máximo valor de flujo que se puede enviar por un camino sin usar. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. <br />
+. El camino aumentante todavía no se uso para aumentar flujo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Valor por el cual se aumenta el flujo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00609">609</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a70536e45ffcb80d6c558b8452c849990"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structNetwork.html">Network</a> * network_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creador de un nuevo <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a>. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>El nombre del nodo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Un <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a> con nombre de nodo 'n'. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00636">636</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a297e3676e6f1a95aa659bad307e143b0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void network_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNetwork.html">Network</a> *&#160;</td>
+          <td class="paramname"><em>net</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor de un <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a>. </p>
+<dl class="section pre"><dt>Precondición</dt><dd>El <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a> no es nulo. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">net</td><td>El <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a> a destruir. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00654">654</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a90aefbc8ffa273f827dc6122b7e85466"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structNetwork.html">Network</a> * network_nextNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structNetwork.html">Network</a> *&#160;</td>
+          <td class="paramname"><em>net</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structNetwork.html">Network</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">short int *&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Busca el siguiente nodo que cumple las condiciones de envío de flujo. </p>
+<p>En relación con un nodo, se busca un siguiente que sea vecino de este y que entre ellos haya posibilidad de enviar flujo. La búsqueda es prioritaria por forward, si no encuentra ninguno entonces intenta por backward. <br />
+</p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">net</td><td>El <a class="el" href="structNetwork.html" title="Estructura de un netwrok con la información de los nodos. ">Network</a> que los nodos pertenecen. </td></tr>
+    <tr><td class="paramname">x</td><td>El nodo ancestro. </td></tr>
+    <tr><td class="paramname">dir</td><td>Puntero donde almacenar la dirección que se encuentra el vecino (FWD o BWD). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>El network y el nodo no son nulos. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Puntero al nodo encontrado. <br />
+ NULL si no hay un siguiente que cualifique. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00671">671</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9026c1ef7ab01411b3c7b03c56a06fee"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void set_lvlNbrs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structNetwork.html">Network</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structQueue.html">Queue</a>&#160;</td>
+          <td class="paramname"><em>upd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Actualiza los niveles de distancias de los vecinos forward y luego los backward de un nodo. </p>
+<p>Solo se actualizan vecinos que todavía no tienen su nivel fijado (ie, su nivel es nulo) y por el que se pueda enviar flujo. Tendrán un nivel de distancia +1 respecto a su ancestro, y se agregan a una cola que el llamador debe proporcionar y se encarga de liberar. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+    <tr><td class="paramname">x</td><td>Nodo ancestro. </td></tr>
+    <tr><td class="paramname">upd</td><td>Cola en la que se agregan vecinos que se actualicen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd>'dova', 'x' y 'upd' No deben ser nulos. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00725">725</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae1a969d3ef7d23e93db04f15cc6f7588"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structDovahkiinP.html">DovahkiinP</a> NuevoDovahkiin </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creador de un nuevo <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a>. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> vacío. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00088">88</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afc3d0c71276442be2f1c53d5a72dd13e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DestruirDovahkiin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destructor de un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a>. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova a destruir. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>devuelve 1 si no hubo errores, 0 en caso contrario. </dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Por la cátedra se indica un retorno distinto en caso de error, pero en la implementación no surgen casos en lo que esto pueda suceder. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00112">112</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a04d15e043d28652a2193455bdc751604"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FijarFuente </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece un nodo como fuente del network. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+    <tr><td class="paramname">s</td><td>El nombre del nodo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00141">141</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a16260bb6534d66a4e14ddd6b68ea151d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FijarResumidero </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a>&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Establece un nodo como resumidero del network. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+    <tr><td class="paramname">t</td><td>El nombre del nodo. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00152">152</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24a677d77df565a3976f7ea6373a9c9d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ImprimirFuente </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Imprime por la salida estándar el nombre del nodo que es fuente. </p>
+<p>Imprime por pantalla:<br />
+Fuente: s <br />
+Donde s es el nodo que estamos considerando como fuente. Este es el único caso donde la fuente se imprimirá con su nombre real y no con la letra s. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>-1 si la fuente no esta fijada.<br />
+ 0 caso contrario e imprime por pantalla. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00168">168</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adbe7e36132e377beee414598e0544124"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ImprimirResumidero </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Imprime por la salida estándar el nombre del nodo que es resumidero. </p>
+<p>Imprime por pantalla:<br />
+Resumidero: t <br />
+Donde t es el nodo que estamos considerando como resumidero. Este es el único caso donde el resumidero se imprimirá con su nombre real y no con la letra t. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>-1 si el resumidero no esta fijado.<br />
+ 0 caso contrario e imprime por pantalla. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00190">190</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9e15564793011091c7a8760cc8f1a6b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structLado.html">Lado</a> LeerUnLado </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lee un lado desde la entrada estándar. </p>
+<p>Lee una linea desde Standar Input que representa un lado y devuelve el elemento de tipo <a class="el" href="structLado.html" title="Puntero a un lado. ">Lado</a> que lo representa si la linea es valida, sino devuelve el elemento LadoNulo. <br />
+Cada linea es de la forma x y c, siendo todos u64 representando el lado xy de capacidad c. </p><dl class="section return"><dt>Devuelve</dt><dd>Un lado legal con los datos leídos.<br />
+ LadoNulo si la linea leída no es valida. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00211">211</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00039">load_from_stdin()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae65b8790af6d660290a77b9d84ec9897"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CargarUnLado </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structLado.html">Lado</a>&#160;</td>
+          <td class="paramname"><em>edge</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Carga un lado no nulo en un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a>. </p>
+<p>Se utilizan los datos que contiene el lado para crear las estructuras de los nodos y cargarlos en el netwrok, y se establecen como vecinos para crear la arista que los relaciona. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+    <tr><td class="paramname">edge</td><td>El lado a cargar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>1 si no hubo problemas.<br />
+ 0 caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00247">247</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00039">load_from_stdin()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a65c95d25866c0cf86e927afdae88de04"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Prepararse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Preprocesa el <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> para empezar a buscar caminos aumentantes. </p>
+<p>Aquí se debe chequear y preparar todo lo que sea necesario para comenzar a buscar caminos aumentantes. <br />
+Por el momento solo hace falta chequear que estén seteados s y t, y que estos nodos existen en el network. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>1 si los preparativos fueron exitosos.<br />
+ 0 caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00290">290</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a09eaf8b3175729e94d54c88f96b230da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ActualizarDistancias </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actualiza las distancias haciendo una búsqueda BFS-FF. </p>
+<p>Se reinician todas las distancias a nulo y se comienzan a actualizar a partir del nodo fuente 's' utilizando BFS-FF, hasta encontrarse con el nodo resumidero 't'. <br />
+Si se alcanza 't' entonces implica un camino aumentante. Caso contrario, el flujo actual es maximal y los nodos que fueron actualizados conforman el corte minimal. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>1 si existe un camino aumentante entre 's' y 't'. <br />
+ 0 caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00320">320</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a18f90f81fcff3eaa0d54c05f6c1c5315"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int BusquedaCaminoAumentante </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hace una búsqueda DFS-FF de un camino aumentante de menor longitud. </p>
+<p>Solo se utilizan los nodos que tengan su distancia actualizada. El ultimo nodo agregado al camino solo agrega a otro nodo si este ultimo tiene una distancia +1 que el, y si se puede aumentar (o disminuir) flujo entre ellos. El nodo es anulado si no tiene un siguiente a quien enviar flujo. </p><dl class="section note"><dt>Nota</dt><dd>El camino al ser el resultado de un DFS es una pila y se usa el nodo top para avanzar hacia 't'. Si este nodo no tiene vecinos por los que se pueda avanzar entonces se quita de la pila y se bloquea para que no se vuelva a usar. Se continua intentando avanzar de esta manera hasta llegar a 't' o hasta que no queden mas nodos en la pila. </dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>1 si llega a 't'. <br />
+ 0 caso contrario. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00383">383</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7fadfdae8bf188ab9889b75942729359"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> AumentarFlujo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Aumenta el flujo del network. </p>
+<p>Actualiza el flujo en el network de <code>dova</code> sobre el camino aumentante encontrado. La actualización es por el máximo aumento de flujo que se pueda enviar por ese camino, teniendo en cuenta flujos anteriores. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo.<br />
+ Se busco y encontró un camino aumentante que todavía no se ha usado para actualizar el flujo. </dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Valor por el cual se aumenta el flujo, si no hubo errores. 0 si hubo error o no se cumple la precondición de camino aumentante. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00442">442</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af116b369240f80dd16135b9837d99321"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> AumentarFlujoYTambienImprimirCamino </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Idem <a class="el" href="API_8c.html#a7fadfdae8bf188ab9889b75942729359" title="Aumenta el flujo del network. ">AumentarFlujo()</a> pero también imprime el camino por el Estandar Output. </p>
+<p>Imprime el camino con el formato: <br />
+</p><pre class="fragment">camino aumentante #:
+t;x_r;...;x_1;s: &lt;cantDelIncremento&gt;
+</pre><p> Donde '#' es el numero del camino aumentante, ';' se usa en caminos forward y '&gt;' en backward. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo.<br />
+</dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Valor por el cual se aumenta el flujo, si no hubo errores. 0 si hubo error o no se cumple la precondición de camino aumentante. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00475">475</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa5169c5746c8931c31cdeb0c38bf9c1e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ImprimirFlujo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Imprime por Estandar Output el Flujo hasta el momento. </p>
+<p>Imprime con el formato: <br />
+</p><pre class="fragment">Flujo �:
+Lado x_1,y_2: &lt;FlujoDelLado&gt;
+</pre><p> Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00511">511</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4e475a7fbb00903addb0ea50b31a323e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ImprimirValorFlujo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Imprime por Estandar Output el valor del Flujo calculado hasta el momento. </p>
+<p>Imprime con el formato: <br />
+</p><pre class="fragment">Valor del flujo �: &lt;ValorDelFlujo&gt; </pre><p> Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00545">545</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa9391cd1d082becf7c6cd3add3020b94"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ImprimirCorte </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structDovahkiinP.html">DovahkiinP</a>&#160;</td>
+          <td class="paramname"><em>dova</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Imprime por Estandar Output un corte minimal y su capacidad. </p>
+<p>La capacidad del corte minimal es igual a la suma de todas las capicades de las aristas que van desde el corte a su complemento. Este valor debe ser igual al valor del flujo maximal. Aquí no se compara dicha igualdad, pero si se calcula la capacidad del corte como se enuncia. Imprime con el formato: </p><pre class="fragment">Corte Minimial: S = {s,x_1,...}
+Capacidad: &lt;Capacidad&gt;
+</pre><p> Donde � es "maximal" si el flujo es maximal o "no maximal" caso contrario. </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dova</td><td>El dova en el que se trabaja. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondición</dt><dd><code>dova</code> Debe ser un <a class="el" href="structDovahkiinP.html" title="Puntero al Dovahkiin. ">DovahkiinP</a> no nulo. <br />
+ Debe existir corte minimal. ie, debe haberse llegado a flujo maximal. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="API_8c_source.html#l00567">567</a> del archivo <a class="el" href="API_8c_source.html">API.c</a>.</p>
+
+<p>Referenciado por <a class="el" href="main_8c_source.html#l00225">main()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_5116870a98769fcb7fa621a6c1aaaf2c.html">apifiles</a></li><li class="navelem"><a class="el" href="API_8c.html">API.c</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>

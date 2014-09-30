@@ -1,0 +1,11 @@
+<map id="apifiles/_u64.h" name="apifiles/_u64.h">
+<area shape="rect" href="$nbrhd_8h.html" title="Encabezado de nbrhd.c. " alt="" coords="5,155,117,181"/>
+<area shape="rect" href="$lado_8h.html" title="Lado es una estructura que representa un lado del network. " alt="" coords="228,80,329,107"/>
+<area shape="rect" href="$API_8h.html" title="Permite cargar un network y calcular su flujo maximal utilizando Dinic. " alt="" coords="141,155,240,181"/>
+<area shape="rect" href="$parser__lado_8c.html" title="apifiles/parser_lado.c" alt="" coords="447,229,593,256"/>
+<area shape="rect" href="$API_8c.html" title="apifiles/API.c" alt="" coords="140,229,239,256"/>
+<area shape="rect" href="$nbrhd_8c.html" title="Las estructuras Nbrhd, Fedge, Bedge y todas sus funciones se definen aquí. " alt="" coords="7,229,116,256"/>
+<area shape="rect" href="$parser__lado_8h.html" title="Parseador de lados desde la entrada Estandar Input. " alt="" coords="389,155,536,181"/>
+<area shape="rect" href="$lado_8c.html" title="apifiles/lado.c" alt="" coords="264,155,365,181"/>
+<area shape="rect" href="$main_8c.html" title="dirmain/main.c" alt="" coords="263,229,369,256"/>
+</map>

@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.8"/>
+<title>Dinic: Fichero Fuente dirmain/main.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Dinic
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentacion de la API de DINIC para la catedra de Matemática Discreta II.</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.8 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('main_8c_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Estructuras de Datos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>&apos;typedefs&apos;</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>&apos;defines&apos;</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">main.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="main_8c.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;ctype.h&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;assert.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../apifiles/API.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">/*MACROS PARA MANEJAR LOS parámetros DE ENTRADA.*/</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">/*Flags.*/</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">   13</a></span>&#160;<span class="preprocessor">#define DONT_DINIC      0b10000000  </span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">   14</a></span>&#160;<span class="preprocessor">#define S_OK            0b01000000  </span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="main_8c.html#ad66884268b15b247511f33de5b432ad7">   15</a></span>&#160;<span class="preprocessor">#define T_OK            0b00100000  </span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="main_8c.html#a992b37f9220c18652955c2ab5bb49e3d">   16</a></span>&#160;<span class="preprocessor">#define DINIC_TIME      0b00010000  </span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="main_8c.html#ab0139008fdda107456f13f837872b410">   17</a></span>&#160;<span class="preprocessor">#define PATH            0b00001000  </span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="main_8c.html#a249f9f89b3a190ddd62999b1afa847c3">   18</a></span>&#160;<span class="preprocessor">#define FLOW            0b00000100  </span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="main_8c.html#afa843fde18e1a9147df13cb76cbd2b77">   19</a></span>&#160;<span class="preprocessor">#define CUT             0b00000010  </span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="main_8c.html#a657cb102146c47173dff99438bc225cf">   20</a></span>&#160;<span class="preprocessor">#define FLOW_V          0b00000001  </span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="comment">/*Macros para manipular flags.*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">   22</a></span>&#160;<span class="preprocessor">#define SET_FLAG(f) STATUS |= f         </span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="main_8c.html#a9db4153fec89607db0b7bb7fe9cda7d1">   23</a></span>&#160;<span class="preprocessor">#define UNSET_FLAG(f) STATUS &amp;= ~f      </span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="main_8c.html#a061350ba02f3d7830497f165cf345512">   24</a></span>&#160;<span class="preprocessor">#define CLEAR_FLAG() 0b00000000         </span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">   25</a></span>&#160;<span class="preprocessor">#define IS_SET_FLAG(f) (STATUS &amp; f) &gt; 0 </span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span><span class="comment">/*FUNCIONES ESTATICAS.*/</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">load_from_stdin</a>(<a class="code" href="structDovahkiinP.html">DovahkiinP</a> dova);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a6e5139b059c3d7c2e0a142f9cb68cc3f">print_help</a>(<span class="keywordtype">char</span> * programName);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">static</span> <span class="keywordtype">short</span> <span class="keywordtype">int</span> <a class="code" href="main_8c.html#a73629894515f9c223bd9b2b3c294888a">parametersChecker</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[], <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> * source, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> * sink);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="main_8c.html#a5d7885d1387782fc418c6dd2e1d435f7">print_dinicTime</a>(<span class="keywordtype">float</span> time);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="main_8c.html#afc79a0ce6660bb7902ffc9cc9fb50f75">isu64</a>(<span class="keywordtype">char</span> * sU64);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">   39</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">load_from_stdin</a>(<a class="code" href="structDovahkiinP.html">DovahkiinP</a> dova){</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="structLado.html">Lado</a> lado = <a class="code" href="lado_8h.html#a90b033fe9661d1b5a94b418825575f94">LadoNulo</a>;<span class="comment">/*Lado leído. Caso vacío se retorna LadoNulo.*/</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">int</span> load_ok = 0;<span class="comment">/*Indica si el lado se pudo cargar.*/</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    assert(dova != NULL);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">do</span>{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        lado = <a class="code" href="API_8c.html#a9e15564793011091c7a8760cc8f1a6b5">LeerUnLado</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        load_ok = <a class="code" href="API_8c.html#ae65b8790af6d660290a77b9d84ec9897">CargarUnLado</a>(dova, lado);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }<span class="keywordflow">while</span>(load_ok);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="main_8c.html#a6e5139b059c3d7c2e0a142f9cb68cc3f">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a6e5139b059c3d7c2e0a142f9cb68cc3f">print_help</a>(<span class="keywordtype">char</span> * programName){</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    printf(<span class="stringliteral">&quot;\n\nUSO: %s -s source -t sink [OPCIONES] &lt; NETWORK\n\n&quot;</span>, programName);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    printf(<span class="stringliteral">&quot;OPCIONES:\n&quot;</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    printf(<span class="stringliteral">&quot;\t-s SOURCE \t\tConfigura al nodo SOURCE como fuente.\n&quot;</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    printf(<span class="stringliteral">&quot;\t-t SINK \t\tConfigura al nodo SINK como resumidero.\n&quot;</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    printf(<span class="stringliteral">&quot;\t-vf --valorflujo \tImprime el valor del flujo.\n&quot;</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    printf(<span class="stringliteral">&quot;\t-f --flujo \t\tImprime el flujo.\n&quot;</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    printf(<span class="stringliteral">&quot;\t-c --corte \t\tImprime el corte.\n&quot;</span>);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    printf(<span class="stringliteral">&quot;\t-p --path \t\tImprime los caminos aumentantes.\n&quot;</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    printf(<span class="stringliteral">&quot;\t-r --reloj \t\tImprime el tiempo en hh:mm:ss.ms de la ejecución &quot;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="stringliteral">&quot;ignorando el tiempo\n\t\t\t\tde carga de datos. Usarlo sin otros &quot;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="stringliteral">&quot;parámetros de impresion para\n\t\t\t\tobtener el tiempo de calculo&quot;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="stringliteral">&quot; del algoritmo de Dinic. \n&quot;</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    printf(<span class="stringliteral">&quot;\t-a --all \t\tEquivalente a -vf -f -p y -c.\n\n&quot;</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    printf(<span class="stringliteral">&quot;\tNETWORK\t\t\tUna serie de elementos de la forma: x y c \\n, que &quot;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="stringliteral">&quot;representan el lado\n\t\t\t\tx-&gt;y de capacidad c.\n\n&quot;</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    printf(<span class="stringliteral">&quot;Ejemplo: $%s -f -vf -s 1 -t 0 &lt; network.txt\n\n&quot;</span>, programName);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="main_8c.html#a73629894515f9c223bd9b2b3c294888a">   90</a></span>&#160;<span class="keywordtype">short</span> <span class="keywordtype">int</span> <a class="code" href="main_8c.html#a73629894515f9c223bd9b2b3c294888a">parametersChecker</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[], <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> * source, <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> * sink){</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">int</span> i = 1;                          <span class="comment">/*Iterador para parámetros de entrada. </span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">                                        Saltea el nombre del programa.*/</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">short</span> <span class="keywordtype">int</span> STATUS = <a class="code" href="main_8c.html#a061350ba02f3d7830497f165cf345512">CLEAR_FLAG</a>();    <span class="comment">/*Retorno de la función.*/</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">short</span> <span class="keywordtype">int</span> HELP = 0;                 <span class="comment">/*Se pide ayuda. Flag de alcance local*/</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">/*Valida cada uno de los parámetros de entrada en un loop que termina cuando</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">     * se pide imprimir la ayuda o cuando se leyeron todos los parámetros*/</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">while</span> (i &lt; argc &amp;&amp; !HELP){</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">/*Se fija si el parámetro indica que se debe imprimir el flujo.*/</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-f&quot;</span>) == 0 || strcmp(argv[i], <span class="stringliteral">&quot;--flujo&quot;</span>)== 0 )</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a249f9f89b3a190ddd62999b1afa847c3">FLOW</a>);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="comment">/*Se fija si el parámetro indica que se debe imprimir el valor del flujo*/</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-vf&quot;</span>) == 0 || strcmp(argv[i], <span class="stringliteral">&quot;--valorflujo&quot;</span>)== 0 )</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a657cb102146c47173dff99438bc225cf">FLOW_V</a>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="comment">/*Se fija si el parámetro indica que se debe imprimir el corte.*/</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-c&quot;</span>) == 0 || strcmp(argv[i],<span class="stringliteral">&quot;--corte&quot;</span> )== 0 )</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#afa843fde18e1a9147df13cb76cbd2b77">CUT</a>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="comment">/*Se fija si el parámetro indica que se debe imprimir los caminos.*/</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-p&quot;</span>) == 0 || strcmp(argv[i], <span class="stringliteral">&quot;--path&quot;</span>)== 0 )</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ab0139008fdda107456f13f837872b410">PATH</a>);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="comment">/*Se fija si el parámetro indica cual nodo va a ser la fuente.*/</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-s&quot;</span>) == 0 &amp;&amp; !<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">S_OK</a>)){</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span> (i+1 &lt; argc){<span class="comment">/*Valida que exista un siguiente argumento(Fuente)*/</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keywordflow">if</span>(<a class="code" href="main_8c.html#afc79a0ce6660bb7902ffc9cc9fb50f75">isu64</a>(argv[i+1]))<span class="comment">/*Valida que sea u64*/</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                    sscanf(argv[i+1], <span class="stringliteral">&quot;%&quot;</span> SCNu64, source);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    <span class="comment">/*No es u64, se imprime el error y no corre el algoritmo.*/</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    printf(<span class="stringliteral">&quot;%s: -s: Invalid argument \&quot;%s\&quot;.\n&quot;</span>, argv[0], argv[i+1]);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">S_OK</a>);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                i++;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            }<span class="keywordflow">else</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="comment">/*Se fija si el parámetro indica cual nodo va a ser el resumidero.*/</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-t&quot;</span>) == 0 &amp;&amp; !<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#ad66884268b15b247511f33de5b432ad7">T_OK</a>)){</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">if</span> (i+1 &lt; argc){</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                <span class="keywordflow">if</span>(<a class="code" href="main_8c.html#afc79a0ce6660bb7902ffc9cc9fb50f75">isu64</a>(argv[i+1]))</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    sscanf(argv[i+1], <span class="stringliteral">&quot;%&quot;</span> SCNu64, sink);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                <span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                    printf(<span class="stringliteral">&quot;%s: -t: Invalid argument \&quot;%s\&quot;.\n&quot;</span>, argv[0], argv[i+1]);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                    <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ad66884268b15b247511f33de5b432ad7">T_OK</a>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                i++;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            }<span class="keywordflow">else</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="comment">/*Este parámetro setea todos los demás parámetros, menos el de ayuda.*/</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-a&quot;</span>) == 0 || strcmp(argv[i], <span class="stringliteral">&quot;--all&quot;</span>)== 0 ){</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ab0139008fdda107456f13f837872b410">PATH</a>);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a249f9f89b3a190ddd62999b1afa847c3">FLOW</a>);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#afa843fde18e1a9147df13cb76cbd2b77">CUT</a>);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a657cb102146c47173dff99438bc225cf">FLOW_V</a>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a992b37f9220c18652955c2ab5bb49e3d">DINIC_TIME</a>);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="comment">/*Se fija si el parámetro indica que se debe imprimir el tiempo que </span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">         * tarda el algoritmo DINIC.*/</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        }<span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-r&quot;</span>) == 0 || strcmp(argv[i],<span class="stringliteral">&quot;--reloj&quot;</span> )== 0 )</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#a992b37f9220c18652955c2ab5bb49e3d">DINIC_TIME</a>);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="comment">/*Se fija si el parámetro indica que se debe imprimir el menú de ayuda*/</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(strcmp(argv[i], <span class="stringliteral">&quot;-h&quot;</span>) == 0 || strcmp(argv[i], <span class="stringliteral">&quot;--help&quot;</span>)== 0 ){</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <a class="code" href="main_8c.html#a6e5139b059c3d7c2e0a142f9cb68cc3f">print_help</a>(argv[0]);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            HELP = 1;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        }<span class="keywordflow">else</span>{<span class="comment">/*default case*/</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            printf(<span class="stringliteral">&quot;%s: %s: Invalid Option.\n&quot;</span>, argv[0], argv[i]);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        i++;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }<span class="comment">/*Finaliza el ciclo while.*/</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;   <span class="comment">/*Imprime un mensaje de error porque no se seteó la fuente</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">   y configura que no se corra el algoritmo DINIC*/</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">S_OK</a>) &amp;&amp; !HELP){</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        printf(<span class="stringliteral">&quot;%s: -s is not set.\n&quot;</span>, argv[0]);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;   <span class="comment">/*Imprime un mensaje de error porque no se seteó el resumidero</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">   y configura que no se corra el algoritmo DINIC*/</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#ad66884268b15b247511f33de5b432ad7">T_OK</a>) &amp;&amp; !HELP){</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        printf(<span class="stringliteral">&quot;%s: -t is not set.\n&quot;</span>, argv[0]);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="comment">/*Si se pidio imprimir ayuda entonces se configura que no corra </span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">     *el algoritmo de DINIC*/</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">if</span>(HELP)</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <a class="code" href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="comment">/*Si se cometió un error con algún parámetro, se le aconseja imprimir ayuda*/</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>))</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        printf(<span class="stringliteral">&quot;use -h for help.\n&quot;</span>);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">return</span> STATUS;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;}</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="main_8c.html#afc79a0ce6660bb7902ffc9cc9fb50f75">  190</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="main_8c.html#afc79a0ce6660bb7902ffc9cc9fb50f75">isu64</a>(<span class="keywordtype">char</span> * sU64){</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">bool</span> result = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    assert(sU64 != NULL);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordflow">while</span>(sU64[i] != <span class="charliteral">&#39;\0&#39;</span> &amp;&amp; result){</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        result =result &amp;&amp; isdigit(sU64[i]);</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        i++;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> result;    </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
+<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="main_8c.html#a5d7885d1387782fc418c6dd2e1d435f7">  209</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a5d7885d1387782fc418c6dd2e1d435f7">print_dinicTime</a>(<span class="keywordtype">float</span> time){    </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordtype">int</span> hs,min,sec,ms;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    ms = (int) (time * 1000) % 1000;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    sec = (int) time % 60;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    min = (int) (time / 60) % 60;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    hs = (int) time / 3600;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    printf(<span class="stringliteral">&quot;\nDinic demoró(hh:mm:ss.ms): %02i:%02i:%02i.%03i\n\n&quot;</span>, hs, min, sec, ms);</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">  225</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]){</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <a class="code" href="structDovahkiinP.html">DovahkiinP</a> dova = NULL; <span class="comment">/*El dovahkiin que voy a usar*/</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> s = NULL;           <span class="comment">/*El nombre del nodo que sera fuente*/</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <a class="code" href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a> t = NULL;           <span class="comment">/*El nombre del nodo que sera resumidero*/</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">short</span> <span class="keywordtype">int</span> STATUS;       <span class="comment">/*Estado de ejecución según el ingreso de parámetros*/</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    clock_t clock_startTime = 0; <span class="comment">/*Registra el tiempo de inicio*/</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    clock_t clock_finishTime = 0; <span class="comment">/*Registra el tiempo de finalización*/</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">float</span> dinicTime = 0;    <span class="comment">/*Resultado del tiempo*/</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="comment">/*Se controlan los parámetros de ingreso*/</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    STATUS = <a class="code" href="main_8c.html#a73629894515f9c223bd9b2b3c294888a">parametersChecker</a>(argc, argv, &amp;s, &amp;t);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="comment">/* Se crea un nuevo dova y se cargan los valores del network*/</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    dova = <a class="code" href="API_8c.html#ae1a969d3ef7d23e93db04f15cc6f7588">NuevoDovahkiin</a>();</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    assert(dova != NULL);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a>))</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <a class="code" href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">load_from_stdin</a>(dova);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="comment">/*se calcula e imprime lo requerido*/</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="API_8c.html#a04d15e043d28652a2193455bdc751604">FijarFuente</a>(dova, s);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <a class="code" href="API_8c.html#a16260bb6534d66a4e14ddd6b68ea151d">FijarResumidero</a>(dova, t);</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment">//  Funciones no utilizadas en nuestro main. Quedan para testeo de la API.</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">//  ImprimirFuente(dova);</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="comment">//  ImprimirResumidero(dova);</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="API_8c.html#a65c95d25866c0cf86e927afdae88de04">Prepararse</a>(dova) == 1){</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#a992b37f9220c18652955c2ab5bb49e3d">DINIC_TIME</a>))</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            clock_startTime = clock();</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">while</span> (<a class="code" href="API_8c.html#a09eaf8b3175729e94d54c88f96b230da">ActualizarDistancias</a>(dova)){</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="keywordflow">while</span> (<a class="code" href="API_8c.html#a18f90f81fcff3eaa0d54c05f6c1c5315">BusquedaCaminoAumentante</a>(dova)){</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#ab0139008fdda107456f13f837872b410">PATH</a>)){</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;                    <a class="code" href="API_8c.html#af116b369240f80dd16135b9837d99321">AumentarFlujoYTambienImprimirCamino</a>(dova); </div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    <a class="code" href="API_8c.html#a7fadfdae8bf188ab9889b75942729359">AumentarFlujo</a>(dova); </div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                }  </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            }</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="comment">/*Imprimo resultados de lo que se haya pedido*/</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#a249f9f89b3a190ddd62999b1afa847c3">FLOW</a>))</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <a class="code" href="API_8c.html#aa5169c5746c8931c31cdeb0c38bf9c1e">ImprimirFlujo</a>(dova);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#a657cb102146c47173dff99438bc225cf">FLOW_V</a>))</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            <a class="code" href="API_8c.html#a4e475a7fbb00903addb0ea50b31a323e">ImprimirValorFlujo</a>(dova);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#afa843fde18e1a9147df13cb76cbd2b77">CUT</a>))</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            <a class="code" href="API_8c.html#aa9391cd1d082becf7c6cd3add3020b94">ImprimirCorte</a>(dova);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a>(<a class="code" href="main_8c.html#a992b37f9220c18652955c2ab5bb49e3d">DINIC_TIME</a>)){</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            clock_finishTime = clock();</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            dinicTime = (double)(clock_finishTime - clock_startTime) / CLOCKS_PER_SEC;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            <a class="code" href="main_8c.html#a5d7885d1387782fc418c6dd2e1d435f7">print_dinicTime</a>(dinicTime);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        }</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="comment">/* destruyo el dova*/</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="API_8c.html#afc3d0c71276442be2f1c53d5a72dd13e">DestruirDovahkiin</a>(dova))</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        printf(<span class="stringliteral">&quot;Error al intentar liberar el dova\n&quot;</span>);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;}</div>
+<div class="ttc" id="API_8c_html_afc3d0c71276442be2f1c53d5a72dd13e"><div class="ttname"><a href="API_8c.html#afc3d0c71276442be2f1c53d5a72dd13e">DestruirDovahkiin</a></div><div class="ttdeci">int DestruirDovahkiin(DovahkiinP dova)</div><div class="ttdoc">Destructor de un DovahkiinP. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00112">API.c:112</a></div></div>
+<div class="ttc" id="main_8c_html_a5d7885d1387782fc418c6dd2e1d435f7"><div class="ttname"><a href="main_8c.html#a5d7885d1387782fc418c6dd2e1d435f7">print_dinicTime</a></div><div class="ttdeci">static void print_dinicTime(float time)</div><div class="ttdoc">Imprime el tiempo que tarda el algoritmo DINIC en ejecutarse en formato [hh:mm:ss.ms]. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00209">main.c:209</a></div></div>
+<div class="ttc" id="main_8c_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="main_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdoc">Algoritmo principal. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00225">main.c:225</a></div></div>
+<div class="ttc" id="API_8c_html_af116b369240f80dd16135b9837d99321"><div class="ttname"><a href="API_8c.html#af116b369240f80dd16135b9837d99321">AumentarFlujoYTambienImprimirCamino</a></div><div class="ttdeci">u64 AumentarFlujoYTambienImprimirCamino(DovahkiinP dova)</div><div class="ttdoc">Idem AumentarFlujo() pero también imprime el camino por el Estandar Output. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00475">API.c:475</a></div></div>
+<div class="ttc" id="main_8c_html_a992b37f9220c18652955c2ab5bb49e3d"><div class="ttname"><a href="main_8c.html#a992b37f9220c18652955c2ab5bb49e3d">DINIC_TIME</a></div><div class="ttdeci">#define DINIC_TIME</div><div class="ttdoc">Activa el muestreo de tiempos de calculo. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00016">main.c:16</a></div></div>
+<div class="ttc" id="main_8c_html_a6e5139b059c3d7c2e0a142f9cb68cc3f"><div class="ttname"><a href="main_8c.html#a6e5139b059c3d7c2e0a142f9cb68cc3f">print_help</a></div><div class="ttdeci">static void print_help(char *programName)</div><div class="ttdoc">Imprime la ayuda del programa. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00055">main.c:55</a></div></div>
+<div class="ttc" id="API_8c_html_a16260bb6534d66a4e14ddd6b68ea151d"><div class="ttname"><a href="API_8c.html#a16260bb6534d66a4e14ddd6b68ea151d">FijarResumidero</a></div><div class="ttdeci">void FijarResumidero(DovahkiinP dova, u64 t)</div><div class="ttdoc">Establece un nodo como resumidero del network. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00152">API.c:152</a></div></div>
+<div class="ttc" id="main_8c_html_afc79a0ce6660bb7902ffc9cc9fb50f75"><div class="ttname"><a href="main_8c.html#afc79a0ce6660bb7902ffc9cc9fb50f75">isu64</a></div><div class="ttdeci">static bool isu64(char *sU64)</div><div class="ttdoc">Verifica que se le haya pasado como parámetro algo de tipo u64. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00190">main.c:190</a></div></div>
+<div class="ttc" id="main_8c_html_a249f9f89b3a190ddd62999b1afa847c3"><div class="ttname"><a href="main_8c.html#a249f9f89b3a190ddd62999b1afa847c3">FLOW</a></div><div class="ttdeci">#define FLOW</div><div class="ttdoc">Activa el muestreo de flujo. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00018">main.c:18</a></div></div>
+<div class="ttc" id="API_8c_html_ae1a969d3ef7d23e93db04f15cc6f7588"><div class="ttname"><a href="API_8c.html#ae1a969d3ef7d23e93db04f15cc6f7588">NuevoDovahkiin</a></div><div class="ttdeci">DovahkiinP NuevoDovahkiin(void)</div><div class="ttdoc">Creador de un nuevo DovahkiinP. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00088">API.c:88</a></div></div>
+<div class="ttc" id="main_8c_html_a4ceb32271024edfda1982e81f542ac6a"><div class="ttname"><a href="main_8c.html#a4ceb32271024edfda1982e81f542ac6a">load_from_stdin</a></div><div class="ttdeci">static void load_from_stdin(DovahkiinP dova)</div><div class="ttdoc">Lee desde el standard input los lados del network y los carga en dovahkiin. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00039">main.c:39</a></div></div>
+<div class="ttc" id="main_8c_html_ab0139008fdda107456f13f837872b410"><div class="ttname"><a href="main_8c.html#ab0139008fdda107456f13f837872b410">PATH</a></div><div class="ttdeci">#define PATH</div><div class="ttdoc">Activa el muestreo de caminos aumentantes. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00017">main.c:17</a></div></div>
+<div class="ttc" id="API_8c_html_ae65b8790af6d660290a77b9d84ec9897"><div class="ttname"><a href="API_8c.html#ae65b8790af6d660290a77b9d84ec9897">CargarUnLado</a></div><div class="ttdeci">int CargarUnLado(DovahkiinP dova, Lado edge)</div><div class="ttdoc">Carga un lado no nulo en un DovahkiinP. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00247">API.c:247</a></div></div>
+<div class="ttc" id="main_8c_html_afaf490cad6df617d537e9c215ae50044"><div class="ttname"><a href="main_8c.html#afaf490cad6df617d537e9c215ae50044">IS_SET_FLAG</a></div><div class="ttdeci">#define IS_SET_FLAG(f)</div><div class="ttdoc">Consulta si una flag esta activa. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00025">main.c:25</a></div></div>
+<div class="ttc" id="__u64_8h_html_a3f7e2bcbb0b4c338f3c4f6c937cd4234"><div class="ttname"><a href="__u64_8h.html#a3f7e2bcbb0b4c338f3c4f6c937cd4234">u64</a></div><div class="ttdeci">uint64_t u64</div><div class="ttdoc">Entero de 64 bits sin signo. </div><div class="ttdef"><b>Definition:</b> <a href="__u64_8h_source.html#l00017">_u64.h:17</a></div></div>
+<div class="ttc" id="lado_8h_html_a90b033fe9661d1b5a94b418825575f94"><div class="ttname"><a href="lado_8h.html#a90b033fe9661d1b5a94b418825575f94">LadoNulo</a></div><div class="ttdeci">#define LadoNulo</div><div class="ttdoc">Un lado que es nulo. </div><div class="ttdef"><b>Definition:</b> <a href="lado_8h_source.html#l00017">lado.h:17</a></div></div>
+<div class="ttc" id="API_8c_html_a7fadfdae8bf188ab9889b75942729359"><div class="ttname"><a href="API_8c.html#a7fadfdae8bf188ab9889b75942729359">AumentarFlujo</a></div><div class="ttdeci">u64 AumentarFlujo(DovahkiinP dova)</div><div class="ttdoc">Aumenta el flujo del network. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00442">API.c:442</a></div></div>
+<div class="ttc" id="API_8c_html_a65c95d25866c0cf86e927afdae88de04"><div class="ttname"><a href="API_8c.html#a65c95d25866c0cf86e927afdae88de04">Prepararse</a></div><div class="ttdeci">int Prepararse(DovahkiinP dova)</div><div class="ttdoc">Preprocesa el DovahkiinP para empezar a buscar caminos aumentantes. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00290">API.c:290</a></div></div>
+<div class="ttc" id="main_8c_html_a061350ba02f3d7830497f165cf345512"><div class="ttname"><a href="main_8c.html#a061350ba02f3d7830497f165cf345512">CLEAR_FLAG</a></div><div class="ttdeci">#define CLEAR_FLAG()</div><div class="ttdoc">Pone todas las flags en 0. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00024">main.c:24</a></div></div>
+<div class="ttc" id="structLado_html"><div class="ttname"><a href="structLado.html">Lado</a></div><div class="ttdoc">Puntero a un lado. </div></div>
+<div class="ttc" id="structDovahkiinP_html"><div class="ttname"><a href="structDovahkiinP.html">DovahkiinP</a></div><div class="ttdoc">Puntero al Dovahkiin. </div></div>
+<div class="ttc" id="main_8c_html_a73629894515f9c223bd9b2b3c294888a"><div class="ttname"><a href="main_8c.html#a73629894515f9c223bd9b2b3c294888a">parametersChecker</a></div><div class="ttdeci">static short int parametersChecker(int argc, char *argv[], u64 *source, u64 *sink)</div><div class="ttdoc">Verifica si los parámetros con los que se invoco al programa son correctos. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00090">main.c:90</a></div></div>
+<div class="ttc" id="main_8c_html_afa843fde18e1a9147df13cb76cbd2b77"><div class="ttname"><a href="main_8c.html#afa843fde18e1a9147df13cb76cbd2b77">CUT</a></div><div class="ttdeci">#define CUT</div><div class="ttdoc">Activa el muestreo de corte. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00019">main.c:19</a></div></div>
+<div class="ttc" id="API_8c_html_a04d15e043d28652a2193455bdc751604"><div class="ttname"><a href="API_8c.html#a04d15e043d28652a2193455bdc751604">FijarFuente</a></div><div class="ttdeci">void FijarFuente(DovahkiinP dova, u64 s)</div><div class="ttdoc">Establece un nodo como fuente del network. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00141">API.c:141</a></div></div>
+<div class="ttc" id="main_8c_html_ac2703d00e705d8333814a8cfa4446b4f"><div class="ttname"><a href="main_8c.html#ac2703d00e705d8333814a8cfa4446b4f">DONT_DINIC</a></div><div class="ttdeci">#define DONT_DINIC</div><div class="ttdoc">Main para probar la API que corre el algoritmo DINIC en networks. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00013">main.c:13</a></div></div>
+<div class="ttc" id="API_8c_html_aa5169c5746c8931c31cdeb0c38bf9c1e"><div class="ttname"><a href="API_8c.html#aa5169c5746c8931c31cdeb0c38bf9c1e">ImprimirFlujo</a></div><div class="ttdeci">void ImprimirFlujo(DovahkiinP dova)</div><div class="ttdoc">Imprime por Estandar Output el Flujo hasta el momento. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00511">API.c:511</a></div></div>
+<div class="ttc" id="API_8c_html_aa9391cd1d082becf7c6cd3add3020b94"><div class="ttname"><a href="API_8c.html#aa9391cd1d082becf7c6cd3add3020b94">ImprimirCorte</a></div><div class="ttdeci">void ImprimirCorte(DovahkiinP dova)</div><div class="ttdoc">Imprime por Estandar Output un corte minimal y su capacidad. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00567">API.c:567</a></div></div>
+<div class="ttc" id="API_8c_html_a09eaf8b3175729e94d54c88f96b230da"><div class="ttname"><a href="API_8c.html#a09eaf8b3175729e94d54c88f96b230da">ActualizarDistancias</a></div><div class="ttdeci">int ActualizarDistancias(DovahkiinP dova)</div><div class="ttdoc">Actualiza las distancias haciendo una búsqueda BFS-FF. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00320">API.c:320</a></div></div>
+<div class="ttc" id="main_8c_html_a83b5b7cc41c6290c3c2ae4824ac66cb7"><div class="ttname"><a href="main_8c.html#a83b5b7cc41c6290c3c2ae4824ac66cb7">SET_FLAG</a></div><div class="ttdeci">#define SET_FLAG(f)</div><div class="ttdoc">Setea un bit de flag en STATUS en 1. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00022">main.c:22</a></div></div>
+<div class="ttc" id="API_8c_html_a18f90f81fcff3eaa0d54c05f6c1c5315"><div class="ttname"><a href="API_8c.html#a18f90f81fcff3eaa0d54c05f6c1c5315">BusquedaCaminoAumentante</a></div><div class="ttdeci">int BusquedaCaminoAumentante(DovahkiinP dova)</div><div class="ttdoc">Hace una búsqueda DFS-FF de un camino aumentante de menor longitud. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00383">API.c:383</a></div></div>
+<div class="ttc" id="main_8c_html_a657cb102146c47173dff99438bc225cf"><div class="ttname"><a href="main_8c.html#a657cb102146c47173dff99438bc225cf">FLOW_V</a></div><div class="ttdeci">#define FLOW_V</div><div class="ttdoc">Activa el muestreo de valor del flujo. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00020">main.c:20</a></div></div>
+<div class="ttc" id="API_8c_html_a4e475a7fbb00903addb0ea50b31a323e"><div class="ttname"><a href="API_8c.html#a4e475a7fbb00903addb0ea50b31a323e">ImprimirValorFlujo</a></div><div class="ttdeci">void ImprimirValorFlujo(DovahkiinP dova)</div><div class="ttdoc">Imprime por Estandar Output el valor del Flujo calculado hasta el momento. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00545">API.c:545</a></div></div>
+<div class="ttc" id="main_8c_html_a14bc2dfa42241600d567369cd25ddc70"><div class="ttname"><a href="main_8c.html#a14bc2dfa42241600d567369cd25ddc70">S_OK</a></div><div class="ttdeci">#define S_OK</div><div class="ttdoc">&#39;s&#39; fue pasado como parámetro. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00014">main.c:14</a></div></div>
+<div class="ttc" id="main_8c_html_ad66884268b15b247511f33de5b432ad7"><div class="ttname"><a href="main_8c.html#ad66884268b15b247511f33de5b432ad7">T_OK</a></div><div class="ttdeci">#define T_OK</div><div class="ttdoc">&#39;t&#39; fue pasado como parámetro. </div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00015">main.c:15</a></div></div>
+<div class="ttc" id="API_8c_html_a9e15564793011091c7a8760cc8f1a6b5"><div class="ttname"><a href="API_8c.html#a9e15564793011091c7a8760cc8f1a6b5">LeerUnLado</a></div><div class="ttdeci">Lado LeerUnLado(void)</div><div class="ttdoc">Lee un lado desde la entrada estándar. </div><div class="ttdef"><b>Definition:</b> <a href="API_8c_source.html#l00211">API.c:211</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_cb13ae713b9a8d90f19df44f72edc721.html">dirmain</a></li><li class="navelem"><a class="el" href="main_8c.html">main.c</a></li>
+    <li class="footer">Generado el Lunes, 29 de Septiembre de 2014 22:00:00 para Dinic por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
+  </ul>
+</div>
+</body>
+</html>

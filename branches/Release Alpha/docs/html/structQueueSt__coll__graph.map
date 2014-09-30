@@ -1,0 +1,5 @@
+<map id="Queue" name="Queue">
+<area shape="rect" href="$structQElem.html" title="Estructura que encapsula un elemento que se encola. " alt="" coords="5,5,67,32"/>
+<area shape="rect" title=" head\ntail" alt="" coords="32,28,40,36"/>
+<area shape="rect" title=" head\ntail" alt="" coords="32,108,40,116"/>
+</map>
